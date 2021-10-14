@@ -18,6 +18,7 @@ package com.example.android.navigation.screens.speed_area
 
 import androidx.databinding.DataBindingUtil
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import android.view.LayoutInflater
@@ -29,8 +30,6 @@ import com.example.android.navigation.databinding.FragmentSpeedAreaBinding
 
 class SpeedAreaFragment : Fragment() {
 
-
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
@@ -39,13 +38,9 @@ class SpeedAreaFragment : Fragment() {
                 inflater, R.layout.fragment_speed_area, container, false)
 
 
-
-        // Bind this fragment class to the layout
-        //binding. = this
-
         // Set the onClickListener for the cityButton
         binding.cityButton.setOnClickListener { view: View ->
-
+            Log.v("Buttons","city pressed")
             view.findNavController().navigate(R.id.action_speedAreaFragment_to_signTypeFragment)
 
         }
