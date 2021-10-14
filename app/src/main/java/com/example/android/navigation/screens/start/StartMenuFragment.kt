@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.navigation
+package com.example.android.navigation.screens.start
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -25,19 +25,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
-import com.example.android.navigation.databinding.FragmentTitleBinding
+import com.example.android.navigation.R
+import com.example.android.navigation.databinding.FragmentStartMenuBinding
 
-class TitleFragment : Fragment() {
+class StartMenuFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val binding: FragmentTitleBinding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_title, container, false)
-        binding.playButton.setOnClickListener { v: View ->
-            v.findNavController().navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment())
+        val binding: FragmentStartMenuBinding = DataBindingUtil.inflate(
+                inflater, R.layout.fragment_start_menu, container, false)
+
+
+        binding.startButton.setOnClickListener { view: View ->
+            view.findNavController().navigate(R.id.action_startMenuFragment_to_speedAreaFragment)
         }
+
         setHasOptionsMenu(true)
         return binding.root
     }

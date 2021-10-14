@@ -1,15 +1,14 @@
-package com.example.android.navigation.screens.game
+package com.example.android.navigation.screens.sign_options
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.android.navigation.screens.game.GameViewModel
 
-class GameViewModelFactory (
+class SignOptionsViewModelFactory (
 
         private val gameType: Int) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(GameViewModel::class.java)) {
-            return GameViewModel(gameType) as T
+        if (modelClass.isAssignableFrom(SignOptionsViewModel::class.java)) {
+            return SignOptionsViewModel(gameType) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

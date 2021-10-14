@@ -19,77 +19,59 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_root"
-    app:startDestination="@+id/titleFragment">
+    app:startDestination="@id/startMenuFragment">
     <fragment
-        android:id="@+id/titleFragment"
-        android:name="com.example.android.navigation.screens.start.TitleFragment"
-        android:label="@string/android_trivia"
-        tools:layout="@layout/fragment_title">
+        android:id="@+id/importFragment"
+        android:name="com.example.android.navigation.screens.imports.ImportFragment"
+        android:label="ImportFragment" />
+    <fragment
+        android:id="@+id/speedAreaFragment"
+        android:name="com.example.android.navigation.screens.speed_area.SpeedAreaFragment"
+        android:label="SpeedAreaFragment" >
         <action
-            android:id="@+id/action_titleFragment_to_gameFragment"
-            app:destination="@id/gameFragment"
+            android:id="@+id/action_speedAreaFragment_to_signTypeFragment"
+            app:destination="@id/signTypeFragment"
             app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:exitAnim="@anim/slide_out_left" />
     </fragment>
     <fragment
-        android:id="@+id/gameFragment"
-        android:name="com.example.android.navigation.screens.game.GameFragment"
-        android:label="@string/android_trivia"
-        tools:layout="@layout/fragment_game">
-
+        android:id="@+id/signTypeFragment"
+        android:name="com.example.android.navigation.screens.sign_type.SignTypeFragment"
+        android:label="SignTypeFragment" >
         <action
-            android:id="@+id/action_gameFragment_to_gameWonFragment"
-            app:destination="@id/gameWonFragment"
+            android:id="@+id/action_signTypeFragment_to_signOptionsFragment"
+            app:destination="@id/signOptionsFragment"
             app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
-            app:popUpTo="@+id/gameFragment"
-            app:popUpToInclusive="true" />
-        <argument
-            android:name="GameType"
-            app:argType="integer" />
-
+            app:exitAnim="@anim/slide_in_right" />
     </fragment>
     <fragment
-        android:id="@+id/gameWonFragment"
-        android:name="com.example.android.navigation.screens.score.GameWonFragment"
-        android:label="@string/android_trivia"
-        tools:layout="@layout/fragment_game_won">
-        <argument
-            android:name="numQuestions"
-            app:argType="integer" />
-        <argument
-            android:name="numCorrect"
-            app:argType="integer" />
+        android:id="@+id/signOptionsFragment"
+        android:name="com.example.android.navigation.screens.sign_options.SignOptionsFragment"
+        android:label="SignOptionsFragment" >
         <action
-            android:id="@+id/action_gameWonFragment_to_gameFragment"
-            app:destination="@id/gameFragment"
+            android:id="@+id/action_signOptionsFragment_to_startMenuFragment"
+            app:destination="@id/startMenuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/startMenuFragment"
+        android:name="com.example.android.navigation.screens.start.StartMenuFragment"
+        android:label="StartMenuFragment" >
+        <action
+            android:id="@+id/action_startMenuFragment_to_speedAreaFragment"
+            app:destination="@id/speedAreaFragment"
             app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            app:popUpTo="@+id/titleFragment"/>
+            app:exitAnim="@anim/slide_out_left" />
         <action
-            android:id="@+id/action_gameWonFragment_to_titleFragment"
-            app:destination="@id/titleFragment" />
-        <argument
-            android:name="GameType"
-            app:argType="integer" />
-        <argument
-            android:name="gameTime"
-            app:argType="integer" />
+            android:id="@+id/action_startMenuFragment_to_importFragment"
+            app:destination="@id/importFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/rulesFragment"
-        android:name="com.example.android.navigation.screens.rules.RulesFragment"
-        android:label="@string/title_trivia_rules"
-        tools:layout="@layout/fragment_rules" />
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.example.android.navigation.screens.about.AboutFragment"
-        android:label="@string/title_about_trivia"
+        android:label="fragment_about"
         tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/guideFragment"
+        android:name="com.example.android.navigation.screens.guide.GuideFragment"
+        android:label="GuideFragment" />
 </navigation>

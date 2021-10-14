@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-package com.example.android.navigation
+package com.example.android.navigation.screens.sign_type
 
-import android.content.ActivityNotFoundException
 import android.content.Intent
 import androidx.databinding.DataBindingUtil
 import android.os.Bundle
@@ -28,32 +27,31 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.findNavController
-import com.example.android.navigation.databinding.FragmentGameWonBinding
-import android.content.pm.ResolveInfo
-import android.content.pm.PackageManager
+
+import com.example.android.navigation.R
+import com.example.android.navigation.databinding.FragmentSignTypeBinding
 
 
-
-class GameWonFragment : Fragment() {
+class SignTypeFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val binding: FragmentGameWonBinding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_game_won, container, false)
-        binding.nextMatchButton.setOnClickListener { view: View ->
-            view.findNavController().navigate(
-                    GameWonFragmentDirections.actionGameWonFragmentToGameFragment())
+        val binding: FragmentSignTypeBinding = DataBindingUtil.inflate(
+                inflater, R.layout.fragment_sign_type, container, false)
+
+
+        binding.arrowsButton.setOnClickListener { view: View ->
+            view.findNavController().navigate(R.id.action_signTypeFragment_to_signOptionsFragment)
         }
         setHasOptionsMenu(true)
         return binding.root
     }
 
     private fun getShareIntent() : Intent {
-        val args = GameWonFragmentArgs.fromBundle(requireArguments())
+        //val args = Si.fromBundle(requireArguments())
         return ShareCompat.IntentBuilder.from(activity!!)
-                .setText(getString(R.string.share_success_text, args.numCorrect, args.numQuestions))
+                .setText("")
                 .setType("text/plain")
                 .intent
     }

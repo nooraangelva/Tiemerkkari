@@ -17,7 +17,7 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/rulesFragment"
+        android:id="@+id/guideFragment"
         android:icon="@drawable/rules"
         android:title="@string/rules" />
     <item

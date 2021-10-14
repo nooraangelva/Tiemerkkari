@@ -36,7 +36,7 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-guide.pro'
         }
     }
     //added to fix: https://stackoverflow.com/questions/59448845/no-static-method-metafactory/59448917
