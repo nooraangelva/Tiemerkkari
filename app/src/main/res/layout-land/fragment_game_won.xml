@@ -47,12 +47,12 @@
             app:layout_constraintHorizontal_bias="0.228"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/scoreTextView"
-            app:layout_constraintVertical_bias="0.523" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <ImageView
             android:id="@+id/youWinImage"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/game_over_height"
+            android:layout_width="483dp"
+            android:layout_height="124dp"
             android:layout_marginStart="@dimen/horizontal_margin"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="@dimen/horizontal_margin"
@@ -60,13 +60,14 @@
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toTopOf="@+id/scoreTextView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/you_win" />
 
         <TextView
             android:id="@+id/scoreTextView"
+            android:text="@{VM.scoreTextView}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -76,7 +77,7 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintHorizontal_bias="0.499"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/youWinImage" />
 
@@ -94,10 +95,10 @@
             app:layout_constraintBaseline_toBaselineOf="@+id/nextMatchButton"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.807"
+            app:layout_constraintHorizontal_bias="0.808"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/scoreTextView"
-            app:layout_constraintVertical_bias="0.317" />
+            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
