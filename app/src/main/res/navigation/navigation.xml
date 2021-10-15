@@ -32,7 +32,12 @@
             android:id="@+id/action_speedAreaFragment_to_signTypeFragment"
             app:destination="@id/signTypeFragment"
             app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left" />
+            app:exitAnim="@anim/slide_out_left">
+        </action>
+        <argument
+            android:name="area"
+            app:argType="string"
+            android:defaultValue="" />
     </fragment>
     <fragment
         android:id="@+id/signTypeFragment"
@@ -42,7 +47,16 @@
             android:id="@+id/action_signTypeFragment_to_signOptionsFragment"
             app:destination="@id/signOptionsFragment"
             app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_in_right" />
+            app:exitAnim="@anim/slide_in_right" >
+        </action>
+        <argument
+            android:name="type"
+            app:argType="string"
+            android:defaultValue="" />
+        <argument
+            android:name="area"
+            app:argType="string"
+            android:defaultValue="" />
     </fragment>
     <fragment
         android:id="@+id/signOptionsFragment"

@@ -8,6 +8,7 @@ import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.android.navigation.R
 import com.example.android.navigation.databinding.FragmentSignOptionsBinding
 
@@ -17,6 +18,13 @@ class SignOptionsFragment : Fragment() {
         // Inflate the layout for this fragment
         val binding: FragmentSignOptionsBinding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_sign_options, container, false)
+
+
+        // Get data
+
+        val args = SignOptionsFragmentArgs.fromBundle(requireArguments())
+        val area = args.area
+        val type = args.type
 
         // SetS the onClickListener for buttons
 

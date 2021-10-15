@@ -16,14 +16,13 @@
 
 package com.example.android.navigation.screens.speed_area
 
-import androidx.databinding.DataBindingUtil
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import androidx.appcompat.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.android.navigation.R
 import com.example.android.navigation.databinding.FragmentSpeedAreaBinding
@@ -42,16 +41,19 @@ class SpeedAreaFragment : Fragment() {
 
         binding.cityButton.setOnClickListener { view: View ->
 
-            Log.v("Buttons","Speed area - city pressed")
-            view.findNavController().navigate(R.id.action_speedAreaFragment_to_signTypeFragment)
+            Log.v("Buttons", "Speed area - city pressed")
+            var area: String = "city"
+            val action = R.id.action_speedAreaFragment_to_signTypeFragment.confirmationAction(area)
+            view.findNavController().navigate(action)
 
         }
 
         binding.outsideCityButton.setOnClickListener { view: View ->
 
-            Log.v("Buttons","Speed area - outsideCity pressed")
-            view.findNavController().navigate(R.id.action_speedAreaFragment_to_signTypeFragment)
-
+            Log.v("Buttons", "Speed area - outsideCity pressed")
+            var area: String = "contry"
+            val action = R.id.action_speedAreaFragment_to_signTypeFragment.confirmationAction(area)
+            view.findNavController().navigate(action)
         }
 
         return binding.root

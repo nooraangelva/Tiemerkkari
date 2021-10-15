@@ -29,6 +29,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.navArgs
 
 import com.example.android.navigation.R
 import com.example.android.navigation.databinding.FragmentSignTypeBinding
@@ -41,26 +42,39 @@ class SignTypeFragment : Fragment() {
         val binding: FragmentSignTypeBinding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_sign_type, container, false)
 
+        // Get arguments
+        val args = SignTypeFragmentArgs.fromBundle(requireArguments())
+        val area = args.area
+
         // SetS the onClickListener for buttons
 
         binding.arrowsButton.setOnClickListener { view: View ->
 
             Log.v("Buttons","Sign type - arrow pressed")
-            view.findNavController().navigate(R.id.action_signTypeFragment_to_signOptionsFragment)
+
+            var type: String = "arrow"
+            val action = R.id.action_signTypeFragment_to_signOptionsFragment.confirmationAction(type,area)
+            view.findNavController().navigate(action)
+            view.findNavController().navigate(SignTypeFragment.actionSignTypeFragmentToSignOptionsFragment(type,area))
 
         }
 
         binding.speedLimitButton.setOnClickListener { view: View ->
 
             Log.v("Buttons","Sign type - speed limit pressed")
-            view.findNavController().navigate(R.id.action_signTypeFragment_to_signOptionsFragment)
+
+            var type: String = "speedLimit"
+            val action = R.id.action_signTypeFragment_to_signOptionsFragment.confirmationAction(type,area)
+            view.findNavController().navigate(action)
 
         }
 
         binding.othersButton.setOnClickListener { view: View ->
 
             Log.v("Buttons","Sign type - others pressed")
-            view.findNavController().navigate(R.id.action_signTypeFragment_to_signOptionsFragment)
+            var type: String = "speedLimit"
+            val action = R.id.action_signTypeFragment_to_signOptionsFragment.confirmationAction(type,area)
+            view.findNavController().navigate(action)
 
         }
 
