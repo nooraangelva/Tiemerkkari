@@ -11,6 +11,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.android.navigation.R
 import com.example.android.navigation.databinding.FragmentSignOptionsBinding
+import com.example.android.navigation.screens.speed_area.SpeedAreaFragmentDirections
 
 class SignOptionsFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +33,14 @@ class SignOptionsFragment : Fragment() {
 
             Log.v("Buttons","Sign options - option 1 pressed")
 
+
+
         }
+        /*
+        binding.startMenuButton.setOnClickListener { view: View ->
+
+            view.findNavController().navigate(SpeedAreaFragmentDirections.actionSpeedAreaFragmentToSignTypeFragment("city"))
+        }*/
 
         // ADDS SIDE MENU
 

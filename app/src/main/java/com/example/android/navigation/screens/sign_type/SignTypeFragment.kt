@@ -29,7 +29,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.navArgs
 
 import com.example.android.navigation.R
 import com.example.android.navigation.databinding.FragmentSignTypeBinding
@@ -52,10 +51,7 @@ class SignTypeFragment : Fragment() {
 
             Log.v("Buttons","Sign type - arrow pressed")
 
-            var type: String = "arrow"
-            val action = R.id.action_signTypeFragment_to_signOptionsFragment.confirmationAction(type,area)
-            view.findNavController().navigate(action)
-            view.findNavController().navigate(SignTypeFragment.actionSignTypeFragmentToSignOptionsFragment(type,area))
+            view.findNavController().navigate(SignTypeFragmentDirections.actionSignTypeFragmentToSignOptionsFragment("arrow",area))
 
         }
 
@@ -63,18 +59,15 @@ class SignTypeFragment : Fragment() {
 
             Log.v("Buttons","Sign type - speed limit pressed")
 
-            var type: String = "speedLimit"
-            val action = R.id.action_signTypeFragment_to_signOptionsFragment.confirmationAction(type,area)
-            view.findNavController().navigate(action)
+            view.findNavController().navigate(SignTypeFragmentDirections.actionSignTypeFragmentToSignOptionsFragment("sppedLimit",area))
 
         }
 
         binding.othersButton.setOnClickListener { view: View ->
 
             Log.v("Buttons","Sign type - others pressed")
-            var type: String = "speedLimit"
-            val action = R.id.action_signTypeFragment_to_signOptionsFragment.confirmationAction(type,area)
-            view.findNavController().navigate(action)
+
+            view.findNavController().navigate(SignTypeFragmentDirections.actionSignTypeFragmentToSignOptionsFragment("other",area))
 
         }
 

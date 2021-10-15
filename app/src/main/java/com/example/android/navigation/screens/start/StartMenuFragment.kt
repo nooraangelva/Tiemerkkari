@@ -30,6 +30,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.android.navigation.R
 import com.example.android.navigation.databinding.FragmentStartMenuBinding
+import com.example.android.navigation.screens.sign_type.SignTypeFragmentDirections
 
 class StartMenuFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -42,21 +43,21 @@ class StartMenuFragment : Fragment() {
         binding.startButton.setOnClickListener { view: View ->
 
             Log.v("Buttons","Star menu - start pressed")
-            view.findNavController().navigate(R.id.action_startMenuFragment_to_speedAreaFragment)
+            view.findNavController().navigate(StartMenuFragmentDirections.actionStartMenuFragmentToSpeedAreaFragment())
 
         }
 
         binding.guideButton.setOnClickListener { view: View ->
 
             Log.v("Buttons","Star menu - guide pressed")
-            view.findNavController().navigate(R.id.action_startMenuFragment_to_guideFragment)
+            view.findNavController().navigate(StartMenuFragmentDirections.actionStartMenuFragmentToGuideFragment())
 
         }
 
         binding.importLayoutButton.setOnClickListener { view: View ->
 
             Log.v("Buttons","Star menu - import pressed")
-            view.findNavController().navigate(R.id.action_startMenuFragment_to_importFragment)
+            view.findNavController().navigate(StartMenuFragmentDirections.actionStartMenuFragmentToImportFragment())
 
         }
 

@@ -42,18 +42,16 @@ class SpeedAreaFragment : Fragment() {
         binding.cityButton.setOnClickListener { view: View ->
 
             Log.v("Buttons", "Speed area - city pressed")
-            var area: String = "city"
-            val action = R.id.action_speedAreaFragment_to_signTypeFragment.confirmationAction(area)
-            view.findNavController().navigate(action)
+
+            view.findNavController().navigate(SpeedAreaFragmentDirections.actionSpeedAreaFragmentToSignTypeFragment("city"))
 
         }
 
         binding.outsideCityButton.setOnClickListener { view: View ->
 
             Log.v("Buttons", "Speed area - outsideCity pressed")
-            var area: String = "contry"
-            val action = R.id.action_speedAreaFragment_to_signTypeFragment.confirmationAction(area)
-            view.findNavController().navigate(action)
+
+            view.findNavController().navigate(SpeedAreaFragmentDirections.actionSpeedAreaFragmentToSignTypeFragment("country"))
         }
 
         return binding.root
