@@ -2,6 +2,7 @@ package com.example.android.navigation.screens.sign_options
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
@@ -17,13 +18,22 @@ class SignOptionsFragment : Fragment() {
         val binding: FragmentSignOptionsBinding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_sign_options, container, false)
 
+        // SetS the onClickListener for buttons
 
         binding.optionOneButton.setOnClickListener { view: View ->
 
+            Log.v("Buttons","Sign options - option 1 pressed")
+
         }
+
+        // ADDS SIDE MENU
+
         setHasOptionsMenu(true)
+
         return binding.root
     }
+
+    // MENU FUNCTIONS
 
     private fun getShareIntent() : Intent {
         //val args = Si.fromBundle(requireArguments())

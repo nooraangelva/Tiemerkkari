@@ -19,6 +19,7 @@ package com.example.android.navigation.screens.sign_type
 import android.content.Intent
 import androidx.databinding.DataBindingUtil
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.core.app.ShareCompat
 import android.view.LayoutInflater
@@ -40,13 +41,37 @@ class SignTypeFragment : Fragment() {
         val binding: FragmentSignTypeBinding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_sign_type, container, false)
 
+        // SetS the onClickListener for buttons
 
         binding.arrowsButton.setOnClickListener { view: View ->
+
+            Log.v("Buttons","Sign type - arrow pressed")
             view.findNavController().navigate(R.id.action_signTypeFragment_to_signOptionsFragment)
+
         }
+
+        binding.speedLimitButton.setOnClickListener { view: View ->
+
+            Log.v("Buttons","Sign type - speed limit pressed")
+            view.findNavController().navigate(R.id.action_signTypeFragment_to_signOptionsFragment)
+
+        }
+
+        binding.othersButton.setOnClickListener { view: View ->
+
+            Log.v("Buttons","Sign type - others pressed")
+            view.findNavController().navigate(R.id.action_signTypeFragment_to_signOptionsFragment)
+
+        }
+
+        // ADDS SIDE MENU
+
         setHasOptionsMenu(true)
+
         return binding.root
     }
+
+    // MENU FUNCTIONS
 
     private fun getShareIntent() : Intent {
         //val args = Si.fromBundle(requireArguments())

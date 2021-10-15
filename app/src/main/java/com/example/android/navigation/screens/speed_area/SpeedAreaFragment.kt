@@ -38,12 +38,22 @@ class SpeedAreaFragment : Fragment() {
                 inflater, R.layout.fragment_speed_area, container, false)
 
 
-        // Set the onClickListener for the cityButton
+        // Sets the onClickListener for buttons
+
         binding.cityButton.setOnClickListener { view: View ->
-            Log.v("Buttons","city pressed")
+
+            Log.v("Buttons","Speed area - city pressed")
             view.findNavController().navigate(R.id.action_speedAreaFragment_to_signTypeFragment)
 
         }
+
+        binding.outsideCityButton.setOnClickListener { view: View ->
+
+            Log.v("Buttons","Speed area - outsideCity pressed")
+            view.findNavController().navigate(R.id.action_speedAreaFragment_to_signTypeFragment)
+
+        }
+
         return binding.root
     }
 

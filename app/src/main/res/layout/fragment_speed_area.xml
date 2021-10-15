@@ -28,6 +28,7 @@
                 android:scaleType="fitCenter"
                 app:layout_constraintBottom_toTopOf="@+id/questionText"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="packed"
@@ -57,12 +58,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/question_horizontal_margin"
+                android:layout_marginTop="112dp"
                 android:layout_marginEnd="@dimen/question_horizontal_margin"
                 android:text="@string/submit_button"
                 android:textSize="@dimen/button_text_size"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.501"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/questionText" />
+
+            <Button
+                android:id="@+id/outsideCityButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="184dp"
+                android:text="Button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cityButton" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

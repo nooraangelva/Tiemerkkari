@@ -17,6 +17,7 @@
 package com.example.android.navigation.screens.start
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -36,14 +37,36 @@ class StartMenuFragment : Fragment() {
         val binding: FragmentStartMenuBinding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_start_menu, container, false)
 
+        // Sets the onClickListener for buttons
 
         binding.startButton.setOnClickListener { view: View ->
+
+            Log.v("Buttons","Star menu - start pressed")
             view.findNavController().navigate(R.id.action_startMenuFragment_to_speedAreaFragment)
+
         }
+
+        binding.guideButton.setOnClickListener { view: View ->
+
+            Log.v("Buttons","Star menu - guide pressed")
+            view.findNavController().navigate(R.id.action_startMenuFragment_to_guideFragment)
+
+        }
+
+        binding.importLayoutButton.setOnClickListener { view: View ->
+
+            Log.v("Buttons","Star menu - import pressed")
+            view.findNavController().navigate(R.id.action_startMenuFragment_to_importFragment)
+
+        }
+
+        // ADDS SIDE MENU
 
         setHasOptionsMenu(true)
         return binding.root
     }
+
+    // MENU FUNCTIONS
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
