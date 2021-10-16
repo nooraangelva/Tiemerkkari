@@ -39,4 +39,8 @@
     <string name="newGameButton">NEW GAME</string>
     <string name="speed_area">Speed area</string>
     <string name="ImportButtonText">Import</string>
+
+
+    <string name="startButton">START</string>
+
 </resources>
