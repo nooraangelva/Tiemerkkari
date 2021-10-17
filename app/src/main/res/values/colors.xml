@@ -17,7 +17,7 @@
 
 <resources>
     <color name="colorPrimary">#486581</color>
-    <color name="colorPrimaryDark">#486581</color>
+    <color name="colorPrimaryDark">#34485C</color>
     <color name="colorAccent">#7e53c5</color>
     <color name="youWinDark">#35A571</color>
     <color name="youWinBackground">#B7F8C9</color>
