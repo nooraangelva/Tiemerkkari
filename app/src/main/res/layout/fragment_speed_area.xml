@@ -19,7 +19,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/speedAreaLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradient_backround">
 
             <ImageView
                 android:id="@+id/questionImage"
@@ -59,13 +60,17 @@
 
             <Button
                 android:id="@+id/cityButton"
-                android:onClick="@{() -> VM.cityChosen()}"
+                style="@style/Buttons"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/question_horizontal_margin"
                 android:layout_marginTop="112dp"
                 android:layout_marginEnd="@dimen/question_horizontal_margin"
-                android:text="@string/submit_button"
+                android:background="@drawable/round_button"
+                android:onClick="@{() -> VM.cityChosen()}"
+                android:paddingStart="@dimen/button_padding"
+                android:paddingEnd="@dimen/button_padding"
+                android:text="@string/CityButtonText"
                 android:textSize="@dimen/button_text_size"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.501"
@@ -74,14 +79,19 @@
 
             <Button
                 android:id="@+id/outsideCityButton"
-                android:onClick="@{() -> VM.countyChosen()}"
+                style="@style/Buttons"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="184dp"
-                android:text="Button"
+                android:background="@drawable/round_button"
+                android:onClick="@{() -> VM.countyChosen()}"
+                android:paddingStart="@dimen/button_padding"
+                android:paddingEnd="@dimen/button_padding"
+                android:text="@string/CountyButtonText"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cityButton" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </ScrollView>
 </layout>

@@ -21,37 +21,23 @@ class ImportFragment : Fragment() {
 
 
         binding.importButton.setOnClickListener { view: View ->
-            Log.v("Buttons", "ImportFragment - importButton pressed" )
+            Log.v("Buttons", "ImportFragment - importButton pressed $view" )
         }
         setHasOptionsMenu(true)
         return binding.root
     }
 
-    private fun getShareIntent() : Intent {
-        //val args = Si.fromBundle(requireArguments())
-        return ShareCompat.IntentBuilder.from(activity!!)
-                .setText("")
-                .setType("text/plain")
-                .intent
-    }
 
-    private fun shareSuccess() {
-        startActivity(getShareIntent())
-    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.winner_menu, menu)
-        // check if the activity resolves
-        if (null == getShareIntent().resolveActivity(requireActivity().packageManager)) {
-            // hide the menu item if it doesn't resolve
-            menu.findItem(R.id.share)?.isVisible = false
-        }
+        inflater.inflate(R.menu.toolbar_menu, menu)
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.share -> shareSuccess()
+
         }
         return super.onOptionsItemSelected(item)
     }

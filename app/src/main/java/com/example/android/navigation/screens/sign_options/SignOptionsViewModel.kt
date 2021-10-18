@@ -15,11 +15,20 @@ class SignOptionsViewModel(type: String, area: String) : ViewModel() {
     val eventSubmit: LiveData<Boolean>
         get() = _eventSubmit
 
+    private val _type = MutableLiveData<String>()
+    val type: LiveData<String>
+        get() = _type
+    private val _area = MutableLiveData<String>()
+    val area: LiveData<String>
+        get() = _area
+
 
 
     init{
         Log.i("SignOptionsViewModel", "SignOptionsViewModel created.")
-
+        _area.value = area
+        _type.value = type
+        _eventSubmit.value = false
 
 
 
@@ -27,13 +36,9 @@ class SignOptionsViewModel(type: String, area: String) : ViewModel() {
 
     //FUNCTIONS
 
-    override fun onCleared() {
-        super.onCleared()
-    }
-
     fun eventSubmit(){
 
-
+        _eventSubmit.value = true
 
     }
 

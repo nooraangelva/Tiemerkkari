@@ -38,9 +38,17 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="newGameButton">NEW GAME</string>
     <string name="speed_area">Speed area</string>
-    <string name="ImportButtonText">Import</string>
 
 
     <string name="startButton">START</string>
+    <string name="ArrowsButtonText">Arrows</string>
+    <string name="SpeedLimitButtonText">Speed limits</string>
+    <string name="othersButtonText">Others</string>
+    <string name="CityButtonText">City</string>
+    <string name="CountyButtonText">County</string>
+    <string name="FirmLogo">Insinooritoimisto Angelva Oy</string>
+    <string name="StartButtonText">Start</string>
+    <string name="ImportButtonText">Import</string>
+    <string name="GuideButtonText">Guide</string>
 
 </resources>

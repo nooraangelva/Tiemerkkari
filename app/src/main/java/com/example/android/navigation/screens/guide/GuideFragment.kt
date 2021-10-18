@@ -29,7 +29,7 @@ class GuideFragment : Fragment() {
 
         // ADDS SIDE MENU
 
-        setHasOptionsMenu(true)
+        //setHasOptionsMenu(true)
     }
 
     // MENU FUNCTIONS

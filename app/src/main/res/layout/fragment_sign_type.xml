@@ -6,6 +6,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.android.navigation.SignTypeFragment">
 
+    <data>
+        <variable
+            name="VM"
+            type="com.example.android.navigation.screens.sign_type.SignTypeViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/signTypeConstraintLayout"
         android:layout_width="match_parent"
@@ -17,15 +23,17 @@
             android:id="@+id/arrowsButton"
             style="@style/Buttons"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="120dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/round_button"
             android:paddingStart="@dimen/button_padding"
             android:paddingEnd="@dimen/button_padding"
-            android:text="@string/try_again"
+            android:text="@string/ArrowsButtonText"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.506"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:onClick="@{() -> VM.optionArrowsChosen()}"/>
 
         <Button
             android:id="@+id/speedLimitButton"
@@ -33,15 +41,15 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="32dp"
             android:background="@drawable/round_button"
             android:paddingStart="@dimen/button_padding"
             android:paddingEnd="@dimen/button_padding"
-            android:text="Button"
+            android:text="@string/SpeedLimitButtonText"
             app:layout_constraintBottom_toTopOf="@+id/othersButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/arrowsButton" />
+            app:layout_constraintTop_toBottomOf="@+id/arrowsButton"
+            android:onClick="@{() -> VM.optionSpeedLimitsChosen()}"/>
 
         <Button
             android:id="@+id/othersButton"
@@ -52,25 +60,13 @@
             android:background="@drawable/round_button"
             android:paddingStart="@dimen/button_padding"
             android:paddingEnd="@dimen/button_padding"
-            android:text="Button"
+            android:text="@string/othersButtonText"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.505"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            android:onClick="@{() -> VM.optionOthersChosen()}"/>
 
-        <!--<androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="344955"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:logo="@drawable/icon_day_night"
-            app:subtitle="Page"
-            app:title="Home"
-            app:titleMarginStart="40dp"
-            tools:ignore="MissingConstraints">
-
-        </androidx.appcompat.widget.Toolbar>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,64 +1,50 @@
-/*
- * Copyright 2018, The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 
 package com.example.android.navigation
 
 import androidx.databinding.DataBindingUtil
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.android.navigation.databinding.ActivityMainBinding
 import timber.log.Timber
 
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var drawerLayout: DrawerLayout
-    private lateinit var appBarConfiguration : AppBarConfiguration
-
-
+    private lateinit var toolbar: Toolbar
+    private lateinit var navController: NavController
+    private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Timber.i("onCreate Called")
-
-
-
         val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
-        drawerLayout = binding.drawerLayout
-        val navController = this.findNavController(R.id.myNavHostFragment)
-        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
-        appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
-        // prevent nav gesture if not on start destination
-        navController.addOnDestinationChangedListener { nc: NavController, nd: NavDestination, bundle: Bundle? ->
-            if (nd.id == nc.graph.startDestination) {
-                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-            } else {
-                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-            }
-        }
-        NavigationUI.setupWithNavController(binding.navView, navController)
+
+        toolbar = findViewById(R.id.mainToolBar)
+        setSupportActionBar(toolbar)
+
+        //TODO fixaa nav juttu
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
+        navController = navHostFragment.navController
+
+        appBarConfiguration = AppBarConfiguration(navController.graph, null)
+        setupActionBarWithNavController(navController, appBarConfiguration)
+
+        //tarviiko? https://stackoverflow.com/questions/63762233/android-navigation-component-how-to-connect-toolbar-menu-to-the-fragments
+
+        NavigationUI.setupWithNavController(binding.mainToolBar, navController)
 
         // showing the back button in action bar
         var actionBar = getSupportActionBar()
@@ -71,41 +57,27 @@ class MainActivity : AppCompatActivity() {
         val navController = this.findNavController(R.id.myNavHostFragment)
         return NavigationUI.navigateUp(navController, appBarConfiguration)
     }
+    /*
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
 
+        R.id.action_settings -> {
+            // User chose the "Settings" item, show the app settings UI...
+            true
+        }
 
-    override fun onStart() {
-        super.onStart()
-        //Log.i("MainActivity", "onStart called")
-        Timber.i("OnStart Called")
-        //dessertTimer.startTimer()
-    }
-    // Here, override the rest of the lifecycle methods and use Timber to print
-    // log statements. Don't forget to update the log statement in onCreate!
-    override fun onResume() {
-        super.onResume()
-        Timber.i("onResume Called")
-    }
+        R.id.action_favorite -> {
+            // User chose the "Favorite" action, mark the current item
+            // as a favorite...
+            true
+        }
 
-    override fun onPause() {
-        super.onPause()
-        Timber.i("onPause Called")
-    }
+        else -> {
+            // If we got here, the user's action was not recognized.
+            // Invoke the superclass to handle it.
+            super.onOptionsItemSelected(item)
+        }
+    }*/
 
-    override fun onStop() {
-        super.onStop()
-        Timber.i("onStop Called")
-        //dessertTimer.stopTimer()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Timber.i("onDestroy Called")
-    }
-
-    override fun onRestart() {
-        super.onRestart()
-        Timber.i("onRestart Called")
-    }
 }
 
 

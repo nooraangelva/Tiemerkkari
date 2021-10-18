@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- kielinappi -->
+    <!-- language mode -->
     <item
         android:id="@+id/agenda"
         android:icon="@android:drawable/ic_menu_agenda"
@@ -10,17 +10,25 @@
         android:title="Agenda"
         app:showAsAction="always" />
 
-    <!--yö päivä mode -->
+    <!--night/day mode -->
     <item
         android:id="@+id/guideFragment"
         android:icon="@drawable/icon_day_night"
         android:title="@string/rules"
         app:showAsAction="always" />
 
-    <!-- takaisin nappi-->
+    <!-- back button-->
+    <item
+        android:id="@+id/back"
+        android:icon="@drawable/ic_baseline_arrow_back"
+        android:title="@string/about"
+        app:showAsAction="always"/>
+
+    <!-- To About Fragment button-->
     <item
         android:id="@+id/aboutFragment"
         android:icon="@drawable/ic_baseline_arrow_back"
         android:title="@string/about"
-        app:showAsAction="always"/>
+        app:showAsAction="never"/>
+
 </menu>

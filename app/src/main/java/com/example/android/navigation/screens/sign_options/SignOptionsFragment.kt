@@ -47,7 +47,7 @@ class SignOptionsFragment : Fragment() {
 
         binding.optionOneButton.setOnClickListener { view: View ->
 
-            Log.v("Buttons","Sign options - option 1 pressed")
+            Log.v("Buttons","Sign options - option 1 pressed $navController $view")
 
         }
 
