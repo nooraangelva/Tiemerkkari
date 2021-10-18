@@ -28,13 +28,23 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 
 import com.example.android.navigation.R
 import com.example.android.navigation.databinding.FragmentSignTypeBinding
+import com.example.android.navigation.screens.speed_area.SpeedAreaFragmentDirections
 
 
 class SignTypeFragment : Fragment() {
+
+    private lateinit var viewModel: SignTypeViewModel
+    private lateinit var viewModelFactory: SignTypeViewModelFactory
+
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -42,34 +52,47 @@ class SignTypeFragment : Fragment() {
                 inflater, R.layout.fragment_sign_type, container, false)
 
         // Get arguments
-        val args = SignTypeFragmentArgs.fromBundle(requireArguments())
-        val area = args.area
+        val signTypeFragmentArgs by navArgs<SignTypeFragmentArgs>()
+        viewModelFactory = SignTypeViewModelFactory(signTypeFragmentArgs.area)
 
-        // SetS the onClickListener for buttons
+        viewModel = ViewModelProvider(this, viewModelFactory)
+                .get(SignTypeViewModel::class.java)
 
-        binding.arrowsButton.setOnClickListener { view: View ->
+        //TODO mika moka?
+        //binding.viewModel = viewModel
+        binding.setLifecycleOwner(this)
 
-            Log.v("Buttons","Sign type - arrow pressed")
+        val navController = findNavController();
 
-            view.findNavController().navigate(SignTypeFragmentDirections.actionSignTypeFragmentToSignOptionsFragment("arrow",area))
+        // Sets the listener for buttons
 
-        }
+        viewModel.arrowsChosen.observe(viewLifecycleOwner, Observer { arrowsChosen ->
+            if (arrowsChosen) {
 
-        binding.speedLimitButton.setOnClickListener { view: View ->
+                Log.v("Buttons","Sign type - arrow pressed")
 
-            Log.v("Buttons","Sign type - speed limit pressed")
+                navController.navigate(SpeedAreaFragmentDirections.actionSpeedAreaFragmentToSignTypeFragment(viewModel.type.value!!,viewModel.area.value!!))
+                viewModel.optionArrowsChosenComplete()
+            }
+        })
 
-            view.findNavController().navigate(SignTypeFragmentDirections.actionSignTypeFragmentToSignOptionsFragment("sppedLimit",area))
+        viewModel.speedLimitsChosen.observe(viewLifecycleOwner, Observer { speedLimitsChosen ->
+            if (speedLimitsChosen) {
+                Log.v("Buttons","Sign type - speed limit pressed")
 
-        }
+                navController.navigate(SpeedAreaFragmentDirections.actionSpeedAreaFragmentToSignTypeFragment(viewModel.type.value!!,viewModel.area.value!!))
+                viewModel.optionSpeedLimitsChosenComplete()
+            }
+        })
 
-        binding.othersButton.setOnClickListener { view: View ->
+        viewModel.othersChosen.observe(viewLifecycleOwner, Observer { othersChosen ->
+            if (othersChosen) {
+                Log.v("Buttons","Sign type - others pressed")
 
-            Log.v("Buttons","Sign type - others pressed")
-
-            view.findNavController().navigate(SignTypeFragmentDirections.actionSignTypeFragmentToSignOptionsFragment("other",area))
-
-        }
+                navController.navigate(SpeedAreaFragmentDirections.actionSpeedAreaFragmentToSignTypeFragment(viewModel.type.value!!,viewModel.area.value!!))
+                viewModel.optionOthersChosenComplete()
+            }
+        })
 
         // ADDS SIDE MENU
 
@@ -80,31 +103,14 @@ class SignTypeFragment : Fragment() {
 
     // MENU FUNCTIONS
 
-    private fun getShareIntent() : Intent {
-        //val args = Si.fromBundle(requireArguments())
-        return ShareCompat.IntentBuilder.from(activity!!)
-                .setText("")
-                .setType("text/plain")
-                .intent
-    }
-
-    private fun shareSuccess() {
-        startActivity(getShareIntent())
-    }
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.winner_menu, menu)
-        // check if the activity resolves
-        if (null == getShareIntent().resolveActivity(requireActivity().packageManager)) {
-            // hide the menu item if it doesn't resolve
-            menu.findItem(R.id.share)?.isVisible = false
-        }
+        inflater.inflate(R.menu.toolbar_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.share -> shareSuccess()
+            //R.id.share -> shareSuccess()
         }
         return super.onOptionsItemSelected(item)
     }

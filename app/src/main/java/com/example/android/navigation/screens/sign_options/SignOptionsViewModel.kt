@@ -7,7 +7,7 @@ import androidx.lifecycle.*
 /**
  * ViewModel containing all the logic needed to run the sign_options
  */
-class SignOptionsViewModel(givenGameType: Int) : ViewModel() {
+class SignOptionsViewModel(type: String, area: String) : ViewModel() {
 
 
 

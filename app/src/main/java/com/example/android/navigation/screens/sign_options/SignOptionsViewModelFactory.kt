@@ -5,10 +5,10 @@ import androidx.lifecycle.ViewModelProvider
 
 class SignOptionsViewModelFactory (
 
-        private val gameType: Int) : ViewModelProvider.Factory {
+        private val area: String, private val type: String) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SignOptionsViewModel::class.java)) {
-            return SignOptionsViewModel(gameType) as T
+            return SignOptionsViewModel(area, type) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

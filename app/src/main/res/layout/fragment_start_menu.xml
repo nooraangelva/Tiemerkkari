@@ -77,21 +77,24 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            app:srcCompat="@drawable/android_trivia" />
+            app:srcCompat="@mipmap/ic_launcher_foreground" />
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="344955"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:logo="@drawable/icon_day_night"
-            app:subtitle="Page"
-            app:title="Home"
-            app:titleMarginStart="40dp"
-            tools:ignore="MissingConstraints">
+        <!--<androidx.appcompat.widget.Toolbar
+          android:id="@+id/toolbar"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="344955"
+          android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:logo="@drawable/icon_day_night"
+          app:subtitle="Page"
+          app:title="Home"
+          app:titleMarginStart="40dp"
+          tools:ignore="MissingConstraints"
+          tools:layout_editor_absoluteY="-2dp">
 
-        </androidx.appcompat.widget.Toolbar>
+                </androidx.appcompat.widget.Toolbar>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -7,13 +7,22 @@ import android.view.*
 import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.android.navigation.R
 import com.example.android.navigation.databinding.FragmentSignOptionsBinding
+import com.example.android.navigation.screens.sign_type.SignTypeFragmentArgs
+import com.example.android.navigation.screens.sign_type.SignTypeViewModel
+import com.example.android.navigation.screens.sign_type.SignTypeViewModelFactory
 import com.example.android.navigation.screens.speed_area.SpeedAreaFragmentDirections
 
 class SignOptionsFragment : Fragment() {
+
+    private lateinit var viewModel: SignOptionsViewModel
+    private lateinit var viewModelFactory: SignOptionsViewModelFactory
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -21,11 +30,18 @@ class SignOptionsFragment : Fragment() {
                 inflater, R.layout.fragment_sign_options, container, false)
 
 
-        // Get data
+        // Get arguments
+        val signOptionsFragmentArgs by navArgs<SignOptionsFragmentArgs>()
+        viewModelFactory = SignOptionsViewModelFactory(signOptionsFragmentArgs.area, signOptionsFragmentArgs.type)
 
-        val args = SignOptionsFragmentArgs.fromBundle(requireArguments())
-        val area = args.area
-        val type = args.type
+        viewModel = ViewModelProvider(this, viewModelFactory)
+                .get(SignOptionsViewModel::class.java)
+
+        //TODO mika moka?
+        //binding.viewModel = viewModel
+        binding.setLifecycleOwner(this)
+
+        val navController = findNavController();
 
         // SetS the onClickListener for buttons
 
@@ -33,9 +49,8 @@ class SignOptionsFragment : Fragment() {
 
             Log.v("Buttons","Sign options - option 1 pressed")
 
-
-
         }
+
         /*
         binding.startMenuButton.setOnClickListener { view: View ->
 
@@ -51,31 +66,17 @@ class SignOptionsFragment : Fragment() {
 
     // MENU FUNCTIONS
 
-    private fun getShareIntent() : Intent {
-        //val args = Si.fromBundle(requireArguments())
-        return ShareCompat.IntentBuilder.from(activity!!)
-                .setText("")
-                .setType("text/plain")
-                .intent
-    }
-
-    private fun shareSuccess() {
-        startActivity(getShareIntent())
-    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.winner_menu, menu)
+        inflater.inflate(R.menu.toolbar_menu, menu)
         // check if the activity resolves
-        if (null == getShareIntent().resolveActivity(requireActivity().packageManager)) {
-            // hide the menu item if it doesn't resolve
-            menu.findItem(R.id.share)?.isVisible = false
-        }
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.share -> shareSuccess()
+            //R.id.share -> shareSuccess()
         }
         return super.onOptionsItemSelected(item)
     }

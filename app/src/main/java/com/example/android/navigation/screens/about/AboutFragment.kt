@@ -17,16 +17,29 @@
 package com.example.android.navigation.screens.about
 
 import android.os.Bundle
+import android.view.*
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import com.example.android.navigation.MainActivity
 import com.example.android.navigation.R
+
 
 class AboutFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_about, container, false)
+        // ADDS SIDE MENU
+
+        setHasOptionsMenu(true)
+
+    }
+
+    // MENU FUNCTIONS
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.toolbar_menu, menu)
     }
 }
+

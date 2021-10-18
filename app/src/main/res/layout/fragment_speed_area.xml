@@ -5,7 +5,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.android.navigation.screens.speed_area.SpeedAreaFragment">
 
-
+    <data>
+        <variable
+            name="VM"
+            type="com.example.android.navigation.screens.speed_area.SpeedAreaViewModel" />
+    </data>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -55,6 +59,7 @@
 
             <Button
                 android:id="@+id/cityButton"
+                android:onClick="@{() -> VM.cityChosen()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/question_horizontal_margin"
@@ -69,6 +74,7 @@
 
             <Button
                 android:id="@+id/outsideCityButton"
+                android:onClick="@{() -> VM.countyChosen()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="184dp"

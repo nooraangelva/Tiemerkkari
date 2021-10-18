@@ -36,12 +36,10 @@
         </action>
         <argument
             android:name="type"
-            app:argType="string"
-            android:defaultValue="" />
+            app:argType="string" />
         <argument
             android:name="area"
-            app:argType="string"
-            android:defaultValue="" />
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/signOptionsFragment"

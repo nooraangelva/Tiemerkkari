@@ -38,6 +38,8 @@ class StartMenuFragment : Fragment() {
         val binding: FragmentStartMenuBinding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_start_menu, container, false)
 
+
+
         // Sets the onClickListener for buttons
 
         binding.startButton.setOnClickListener { view: View ->
@@ -71,7 +73,7 @@ class StartMenuFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.overflow_menu, menu)
+        inflater.inflate(R.menu.toolbar_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

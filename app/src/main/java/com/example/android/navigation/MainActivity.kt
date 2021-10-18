@@ -18,7 +18,9 @@ package com.example.android.navigation
 
 import androidx.databinding.DataBindingUtil
 import android.os.Bundle
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
@@ -27,8 +29,6 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.example.android.navigation.databinding.ActivityMainBinding
 import timber.log.Timber
-
-
 
 
 class MainActivity : AppCompatActivity() {
@@ -60,7 +60,11 @@ class MainActivity : AppCompatActivity() {
         }
         NavigationUI.setupWithNavController(binding.navView, navController)
 
-
+        // showing the back button in action bar
+        var actionBar = getSupportActionBar()
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true)
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
