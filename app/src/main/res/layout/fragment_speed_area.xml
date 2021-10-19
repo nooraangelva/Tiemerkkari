@@ -41,12 +41,12 @@
 
             <TextView
                 android:id="@+id/questionText"
+                style="@style/textstyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/question_horizontal_margin"
-                android:layout_marginTop="@dimen/vertical_margin"
+                android:layout_marginTop="32dp"
                 android:layout_marginEnd="@dimen/question_horizontal_margin"
-                android:layout_marginBottom="@dimen/vertical_margin"
                 android:fontFamily="sans-serif"
                 android:text="@string/speed_area"
                 android:textSize="@dimen/question_text_size"
@@ -55,23 +55,20 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/questionImage"
-                tools:text="What color is the Android mascot?" />
+                tools:text="@string/chooseSpeedRangeText" />
 
 
             <Button
                 android:id="@+id/cityButton"
                 style="@style/Buttons"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/question_horizontal_margin"
-                android:layout_marginTop="112dp"
+                android:layout_marginTop="100dp"
                 android:layout_marginEnd="@dimen/question_horizontal_margin"
                 android:background="@drawable/round_button"
                 android:onClick="@{() -> VM.cityChosen()}"
                 android:paddingStart="@dimen/button_padding"
                 android:paddingEnd="@dimen/button_padding"
                 android:text="@string/CityButtonText"
-                android:textSize="@dimen/button_text_size"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.501"
                 app:layout_constraintStart_toStartOf="parent"
@@ -80,9 +77,7 @@
             <Button
                 android:id="@+id/outsideCityButton"
                 style="@style/Buttons"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="184dp"
+                android:layout_marginTop="32dp"
                 android:background="@drawable/round_button"
                 android:onClick="@{() -> VM.countyChosen()}"
                 android:paddingStart="@dimen/button_padding"
@@ -91,6 +86,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cityButton" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

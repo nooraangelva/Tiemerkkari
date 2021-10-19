@@ -34,6 +34,13 @@
         <item name="android:fontFamily">@font/roboto</item>
         <item name="android:layout_width">@dimen/button_layout_width</item>
         <item name="android:layout_height">@dimen/button_layout_height</item>
+    </style>
+
+    <style name="textstyle">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#96B9CA</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:fontFamily">@font/roboto</item>
 
     </style>
 </resources>

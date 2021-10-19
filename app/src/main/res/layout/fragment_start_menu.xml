@@ -22,8 +22,6 @@
             android:paddingStart="@dimen/button_padding"
             android:paddingEnd="@dimen/button_padding"
             android:text="@string/StartButtonText"
-            android:textSize="@dimen/button_text_size"
-            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titleImage" />
@@ -32,14 +30,14 @@
             android:id="@+id/importLayoutButton"
             style="@style/Buttons"
             android:layout_marginStart="@dimen/horizontal_margin"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="@dimen/horizontal_margin"
+            android:layout_marginBottom="32dp"
             android:background="@drawable/round_button"
             android:paddingStart="@dimen/button_padding"
             android:paddingEnd="@dimen/button_padding"
             android:text="@string/ImportButtonText"
-            android:textSize="@dimen/button_text_size"
-            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/guideButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/startButton" />
@@ -49,18 +47,14 @@
             style="@style/Buttons"
             android:layout_marginStart="@dimen/horizontal_margin"
             android:layout_marginEnd="@dimen/horizontal_margin"
-            android:layout_marginBottom="72dp"
+            android:layout_marginBottom="200dp"
             android:background="@drawable/round_button"
             android:paddingStart="@dimen/button_padding"
             android:paddingEnd="@dimen/button_padding"
             android:text="@string/GuideButtonText"
-            android:textSize="@dimen/button_text_size"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/importLayoutButton"
-            app:layout_constraintVertical_bias="0.188" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
             android:id="@+id/titleImage"

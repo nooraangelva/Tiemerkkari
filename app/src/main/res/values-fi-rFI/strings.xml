@@ -16,4 +16,5 @@
     <string name="about_text">Info</string>
     <string name="GuideText">Gooogle</string>
     <string name="OptionOneButton">One</string>
+    <string name="chooseSpeedRangeText">Valitse nopeusalue</string>
 </resources>
