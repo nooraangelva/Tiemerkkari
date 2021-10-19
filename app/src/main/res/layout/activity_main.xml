@@ -6,19 +6,19 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/mainToolBar"
+                android:id="@+id/toolBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/colorPrimary"
                 android:minHeight="?attr/actionBarSize"
                 app:menu="@menu/toolbar_menu"
-                app:layout_constraintBottom_toTopOf="@+id/myNavHostFragment"
+                app:layout_constraintBottom_toTopOf="@+id/navHostFragment"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -26,7 +26,7 @@
 
 
         <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/myNavHostFragment"
+            android:id="@+id/navHostFragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -34,8 +34,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mainToolBar"
+            app:layout_constraintTop_toBottomOf="@+id/toolBar"
             app:navGraph="@navigation/navigation" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

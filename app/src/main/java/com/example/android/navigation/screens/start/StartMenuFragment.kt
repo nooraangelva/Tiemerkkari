@@ -62,15 +62,11 @@ class StartMenuFragment : Fragment() {
             view.findNavController().navigate(StartMenuFragmentDirections.actionStartMenuFragmentToImportFragment())
 
         }
-
-        // ADDS SIDE MENU
-
-        setHasOptionsMenu(true)
         return binding.root
     }
 
     // MENU FUNCTIONS
-
+/*
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.toolbar_menu, menu)
@@ -79,5 +75,5 @@ class StartMenuFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
                 || super.onOptionsItemSelected(item)
-    }
+    }*/
 }

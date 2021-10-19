@@ -33,7 +33,7 @@
             android:layout_marginTop="32dp"
             android:paddingStart="@dimen/button_padding"
             android:paddingEnd="@dimen/button_padding"
-            android:text="@string/try_again"
+            android:text="@string/OptionOneButton"
             android:textColor="?colorAccent"
             android:textSize="@dimen/button_text_size"
             android:textStyle="bold"

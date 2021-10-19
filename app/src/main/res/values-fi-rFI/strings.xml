@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Tiemerkkari</string>
+    <string name="position">Asema</string>
+    <string name="submit_button">Lähetä</string>
+    <string name="speed_area">Nopeusalue</string>
+    <string name="startButton">ALOITA</string>
+    <string name="ArrowsButtonText">Nuolet</string>
+    <string name="SpeedLimitButtonText">Nopeusrajoitukset</string>
+    <string name="othersButtonText">Muut</string>
+    <string name="CityButtonText">Taajama</string>
+    <string name="CountyButtonText">Taajaman ulkopuolella</string>
+    <string name="StartButtonText">Aloita</string>
+    <string name="ImportButtonText">Uusi merkki</string>
+    <string name="GuideButtonText">Ohjeet</string>
+    <string name="about_text">Info</string>
+    <string name="GuideText">Gooogle</string>
+    <string name="OptionOneButton">One</string>
+</resources>

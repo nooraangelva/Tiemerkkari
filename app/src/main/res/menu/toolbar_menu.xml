@@ -4,29 +4,23 @@
 
     <!-- language mode -->
     <item
-        android:id="@+id/agenda"
-        android:icon="@android:drawable/ic_menu_agenda"
+        android:id="@+id/languageModeMenu"
+        android:icon="@drawable/settings"
         android:orderInCategory="100"
-        android:title="Agenda"
+        android:title="Language"
         app:showAsAction="always" />
 
     <!--night/day mode -->
     <item
-        android:id="@+id/guideFragment"
+        android:id="@+id/colorTheme"
         android:icon="@drawable/icon_day_night"
         android:title="@string/rules"
         app:showAsAction="always" />
 
-    <!-- back button-->
-    <item
-        android:id="@+id/back"
-        android:icon="@drawable/ic_baseline_arrow_back"
-        android:title="@string/about"
-        app:showAsAction="always"/>
 
     <!-- To About Fragment button-->
     <item
-        android:id="@+id/aboutFragment"
+        android:id="@+id/aboutMenu"
         android:icon="@drawable/ic_baseline_arrow_back"
         android:title="@string/about"
         app:showAsAction="never"/>
