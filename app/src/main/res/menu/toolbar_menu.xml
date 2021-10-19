@@ -14,7 +14,7 @@
     <item
         android:id="@+id/colorTheme"
         android:icon="@drawable/icon_day_night"
-        android:title="@string/rules"
+        android:title="kopo"
         app:showAsAction="always" />
 
 

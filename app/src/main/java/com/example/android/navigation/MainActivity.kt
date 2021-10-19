@@ -38,12 +38,12 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+    //val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        setAppLocale(sharedPreferences.getString("language", "en"), this)
+        //setAppLocale(sharedPreferences.getString("language", "en"), this)
         setContentView(R.layout.activity_main)
 
         val navHostFragment =
@@ -53,10 +53,10 @@ class MainActivity : AppCompatActivity() {
         findViewById<Toolbar>(R.id.toolBar)
                 .setupWithNavController(navController, appBarConfiguration)
 
-        checkTheme()
+       // checkTheme()
     }
 
-
+/*
     fun setAppLocale(languageFromPreference: String?, context: Context)
     {
 
@@ -160,7 +160,7 @@ class MainActivity : AppCompatActivity() {
             // Invoke the superclass to handle it.
             super.onOptionsItemSelected(item)
         }
-    }
+    }*/
 
 }
 
