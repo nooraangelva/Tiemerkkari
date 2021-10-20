@@ -7,8 +7,8 @@
 
     <data>
         <variable
-            name="VM"
-            type="com.example.android.navigation.screens.sign_options.SignOptionsViewModel" />
+            name="viewModel"
+            type="com.example.android.navigation.screens.imports.ImportViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

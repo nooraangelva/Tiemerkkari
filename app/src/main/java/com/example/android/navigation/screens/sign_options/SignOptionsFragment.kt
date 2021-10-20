@@ -12,6 +12,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.android.navigation.R
+import com.example.android.navigation.database.SignDatabase
 import com.example.android.navigation.databinding.FragmentSignOptionsBinding
 
 
@@ -27,18 +28,19 @@ class SignOptionsFragment : Fragment() {
                 inflater, R.layout.fragment_sign_options, container, false)
 
 
-
+        val application = requireNotNull(this.activity).application
+        val dataSource = SignDatabase.getInstance(application).signDatabaseDao
 
 
         // Get arguments
         val signOptionsFragmentArgs by navArgs<SignOptionsFragmentArgs>()
-        viewModelFactory = SignOptionsViewModelFactory(signOptionsFragmentArgs.area, signOptionsFragmentArgs.type)
+        viewModelFactory = SignOptionsViewModelFactory(signOptionsFragmentArgs.area, signOptionsFragmentArgs.type, dataSource, application)
 
         viewModel = ViewModelProvider(this, viewModelFactory)
                 .get(SignOptionsViewModel::class.java)
 
-        //TODO mika moka?
-        //binding.viewModel = viewModel
+
+        binding.viewModel = viewModel
         binding.setLifecycleOwner(this)
 
         val navController = findNavController();

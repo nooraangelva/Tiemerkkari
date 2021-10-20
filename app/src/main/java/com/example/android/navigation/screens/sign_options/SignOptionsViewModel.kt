@@ -1,15 +1,17 @@
 package com.example.android.navigation.screens.sign_options
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
+import com.example.android.navigation.database.SignDatabaseDao
 
 
 /**
  * ViewModel containing all the logic needed to run the sign_options
  */
-class SignOptionsViewModel(type: String, area: String) : ViewModel() {
+class SignOptionsViewModel(area : String, type : String, dataSource: SignDatabaseDao, application: Application) : ViewModel() {
 
-
+//TODO Area and type to Boolean
 
     private val _eventSubmit = MutableLiveData<Boolean>()
     val eventSubmit: LiveData<Boolean>
