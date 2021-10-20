@@ -23,7 +23,7 @@ class SpeedAreaViewModel (area: String) : ViewModel() {
 
     init{
         Log.i("SignOptionsViewModel", "SignOptionsViewModel created.")
-        _area.value = ""
+        _area.value = area
         _cityChosen.value = false
         _countyChosen.value = false
 

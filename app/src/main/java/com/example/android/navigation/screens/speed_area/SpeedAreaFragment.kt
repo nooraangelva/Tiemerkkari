@@ -44,9 +44,11 @@ class SpeedAreaFragment : Fragment() {
         val binding = DataBindingUtil.inflate<FragmentSpeedAreaBinding>(
                 inflater, R.layout.fragment_speed_area, container, false)
 
+        viewModelFactory = SpeedAreaViewModelFactory("")
+
         // Get the viewmodel
-        viewModel =
-                ViewModelProvider(this).get(SpeedAreaViewModel::class.java)
+        viewModel =ViewModelProvider(this, viewModelFactory)
+                .get(SpeedAreaViewModel::class.java)
 
 
 

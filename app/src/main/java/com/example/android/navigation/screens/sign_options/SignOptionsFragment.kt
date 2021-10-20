@@ -13,10 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.android.navigation.R
 import com.example.android.navigation.databinding.FragmentSignOptionsBinding
-import com.example.android.navigation.screens.sign_type.SignTypeFragmentArgs
-import com.example.android.navigation.screens.sign_type.SignTypeViewModel
-import com.example.android.navigation.screens.sign_type.SignTypeViewModelFactory
-import com.example.android.navigation.screens.speed_area.SpeedAreaFragmentDirections
+
 
 class SignOptionsFragment : Fragment() {
 
@@ -28,6 +25,9 @@ class SignOptionsFragment : Fragment() {
         // Inflate the layout for this fragment
         val binding: FragmentSignOptionsBinding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_sign_options, container, false)
+
+
+
 
 
         // Get arguments
@@ -45,12 +45,6 @@ class SignOptionsFragment : Fragment() {
 
         // SetS the onClickListener for buttons
 
-        binding.optionOneButton.setOnClickListener { view: View ->
-
-            Log.v("Buttons","Sign options - option 1 pressed $navController $view")
-
-        }
-
         /*
         binding.startMenuButton.setOnClickListener { view: View ->
 
@@ -63,6 +57,8 @@ class SignOptionsFragment : Fragment() {
 
         return binding.root
     }
+
+
 
     // MENU FUNCTIONS
 

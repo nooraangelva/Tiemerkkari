@@ -2,33 +2,35 @@
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.android.navigation.SignOptionsFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/signOptionsConstraintLayout"
+    <!-- two_pane.xml -->
+    <androidx.slidingpanelayout.widget.SlidingPaneLayout
+        android:id="@+id/sliding_pane_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/gradient_backround">
+        tools:context="com.example.android.navigation.SignOptionsFragment">
 
-        <Button
-            android:id="@+id/optionOneButton"
-            style="@style/Buttons"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="403dp"
-            android:layout_marginBottom="276dp"
-            android:paddingStart="@dimen/button_padding"
-            android:paddingEnd="@dimen/button_padding"
-            android:text="@string/OptionOneButton"
-            android:textColor="?colorAccent"
-            android:textSize="@dimen/button_text_size"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <!-- The first child view becomes the left pane. When the combined
+             desired width (expressed using android:layout_width) would
+             not fit on-screen at once, the right pane is permitted to
+             overlap the left. -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_panel"
+            android:layout_width="280dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"/>
 
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.47"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- The second child becomes the right (content) pane. In this
+             example, android:layout_weight is used to expand this detail pane
+             to consume leftover available space when the
+             the entire window is wide enough to fit both the left and right pane.-->
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/detail_container"
+            android:layout_width="300dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:background="#ff333333"
+            android:name="com.example.SelectAnItemFragment" />
+    </androidx.slidingpanelayout.widget.SlidingPaneLayout>
 </layout>

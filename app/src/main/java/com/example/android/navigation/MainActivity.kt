@@ -3,146 +3,164 @@
 package com.example.android.navigation
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
-import android.content.res.Resources
-import android.os.Build
-import androidx.databinding.DataBindingUtil
 import android.os.Bundle
-import android.util.DisplayMetrics
-import android.view.Menu
+import android.util.Log
 import android.view.MenuItem
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.navigation.NavController
-import androidx.navigation.NavDestination
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.preference.PreferenceManager
-import com.example.android.navigation.databinding.ActivityMainBinding
-import com.example.android.navigation.screens.speed_area.SpeedAreaFragmentDirections
-import com.example.android.navigation.screens.start.StartMenuFragmentDirections
-import com.google.android.material.navigation.NavigationView
-import timber.log.Timber
 import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
 
-    //val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.i("MainActivity", "OnCreate")
 
         super.onCreate(savedInstanceState)
-        //setAppLocale(sharedPreferences.getString("language", "en"), this)
+
+        setAppLocale( this)
+        Log.i("MainActivity", "Langugae pref: " + sharedPreferences.getString("language", "en")!!)
+
         setContentView(R.layout.activity_main)
 
         val navHostFragment =
                 supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         val navController = navHostFragment.navController
         val appBarConfiguration = AppBarConfiguration(navController.graph)
+        Log.i("MainActivity", "nav graph" + navController.graph.toString())
         findViewById<Toolbar>(R.id.toolBar)
                 .setupWithNavController(navController, appBarConfiguration)
 
-       // checkTheme()
+
+        //setSupportActionBar(findViewById<Toolbar>(R.id.toolBar))
+
+       checkTheme()
     }
 
-/*
-    fun setAppLocale(languageFromPreference: String?, context: Context)
+
+    fun setAppLocale(context: Context)
     {
+        val currentLanguage = sharedPreferences.getString("SELECTED_LANGUAGE", "fi")
 
-        if (languageFromPreference != null) {
+        Log.i("MainActivity", "setApplocale()" + currentLanguage + "," + context)
 
-            val resources: Resources = context.resources
-            val dm: DisplayMetrics = resources.displayMetrics
-            val config: Configuration = resources.configuration
-            config.setLocale(Locale(languageFromPreference.toLowerCase(Locale.ROOT)))
-            resources.updateConfiguration(config, dm)
+        val locale = Locale(currentLanguage)
 
-            // set preference
-            with (sharedPreferences.edit()) {
-                putString("language", languageFromPreference)
-                apply()
-            }
+        Locale.setDefault(locale)
+
+        val config = Configuration()
+
+
+
+        config.setLocale(locale)
+
+        try {
+            config.locale = locale
+        } catch (e: Exception) {
         }
+
+
+
+        val currentLocale = locale
+
+        val resources = resources
+
+        resources.updateConfiguration(config, resources.displayMetrics)
     }
 
     private fun checkTheme() {
 
-        when (sharedPreferences.getInt("colorMode", 1)) {
+        Log.i("MainActivity", "checkTheme()" + sharedPreferences.getInt("colorMode", 1))
+
+        when (sharedPreferences.getInt("colorMode", 0)) {
             0 -> {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                delegate.applyDayNight()
             }
             1 -> {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                delegate.applyDayNight()
             }
             else -> {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                delegate.applyDayNight()
             }
         }
     }
 
-
-
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
 
+        /*
         R.id.languageModeMenu -> {
+
 
             when (sharedPreferences.getString("language", "en")) {
                 "fi" -> {
+
+                    Log.i("MainActivity", "languageModeMenu pressed to en")
                     setAppLocale( "en",this)
 
                 }
                 "en" -> {
+
+                    Log.i("MainActivity", "languageModeMenu pressed to fi")
                     setAppLocale("fi", this)
 
                 }
                 else -> {
+
+                    Log.i("MainActivity", "languageModeMenu pressed to en")
                     setAppLocale("en", this)
                 }
             }
 
             true
-        }
+        }*/
 
         R.id.colorTheme -> {
 
-            when (sharedPreferences.getInt("colorMode", 1)) {
-                0 -> {
+            when (sharedPreferences.getInt("colorMode", 0)) {
+                1 -> {
+
+                    Log.i("MainActivity", "colorTheme pressed to day")
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                     delegate.applyDayNight()
+
                     // set preference
-                    with (sharedPreferences.edit()) {
-                        putInt("colorMode", 1)
-                        apply()
-                    }
-                }
-                1 -> {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                    delegate.applyDayNight()
-                    with (sharedPreferences.edit()) {
+                    with(sharedPreferences.edit()) {
                         putInt("colorMode", 0)
                         apply()
                     }
+
+                }
+                0 -> {
+
+                    Log.i("MainActivity", "colorTheme pressed to night")
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                    delegate.applyDayNight()
+
+                    // set preference
+                    with(sharedPreferences.edit()) {
+                        putInt("colorMode", 1)
+                        apply()
+                    }
+
                 }
                 else -> {
+
+                    Log.i("MainActivity", "languageModeMenu pressed to day")
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                     delegate.applyDayNight()
-                    with (sharedPreferences.edit()) {
-                        putInt("colorMode", 1)
+
+                    // set preference
+                    with(sharedPreferences.edit()) {
+                        putInt("colorMode", 0)
                         apply()
                     }
                 }
@@ -151,7 +169,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         R.id.aboutMenu -> {
-
+            //TODO Fragment to about
             true
         }
 
@@ -160,7 +178,7 @@ class MainActivity : AppCompatActivity() {
             // Invoke the superclass to handle it.
             super.onOptionsItemSelected(item)
         }
-    }*/
+    }
 
 }
 
