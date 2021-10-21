@@ -40,7 +40,7 @@ class ImportFragment : Fragment() {
         binding.importButton.setOnClickListener { view: View ->
             Log.v("Buttons", "ImportFragment - importButton pressed $view" )
         }
-        setHasOptionsMenu(true)
+
         return binding.root
     }
 

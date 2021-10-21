@@ -14,7 +14,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
-import androidx.preference.PreferenceManager
 import java.util.*
 
 
@@ -27,7 +26,12 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
 
-        setAppLocale( this)
+        languageChange()
+        checkTheme()
+
+
+        setContentView(R.layout.activity_main)
+
         Log.i("MainActivity", "Langugae pref: " + sharedPreferences.getString("language", "en")!!)
 
         setContentView(R.layout.activity_main)
@@ -47,11 +51,11 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun setAppLocale(context: Context)
+    fun languageChange()
     {
         val currentLanguage = sharedPreferences.getString("SELECTED_LANGUAGE", "fi")
 
-        Log.i("MainActivity", "setApplocale()" + currentLanguage + "," + context)
+        Log.i("MainActivity", "setApplocale()" + currentLanguage)
 
         val locale = Locale(currentLanguage)
 
@@ -75,28 +79,34 @@ class MainActivity : AppCompatActivity() {
         val resources = resources
 
         resources.updateConfiguration(config, resources.displayMetrics)
+
+
     }
 
     private fun checkTheme() {
 
-        Log.i("MainActivity", "checkTheme()" + sharedPreferences.getInt("colorMode", 1))
+        Log.i("MainActivity", "checkTheme()" + sharedPreferences.getBoolean("SELECTED_THEME", false))
 
-        when (sharedPreferences.getInt("colorMode", 0)) {
-            0 -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
-            1 -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            }
-            else -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
+        val darkMode = sharedPreferences.getBoolean("SELECTED_THEME", false)
+        //TODO Fix Themes
+        if(!darkMode)
+        {
+            setTheme(R.style.ThemeOverlay_AppCompat_Dark_ActionBar)
         }
+        else
+        {
+            setTheme(R.style.ThemeOverlay_AppCompat_Light)
+        }
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        languageChange()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
 
-        /*
+
         R.id.languageModeMenu -> {
 
 
@@ -104,65 +114,71 @@ class MainActivity : AppCompatActivity() {
                 "fi" -> {
 
                     Log.i("MainActivity", "languageModeMenu pressed to en")
-                    setAppLocale( "en",this)
+                    // set preference
+                    with(sharedPreferences.edit()) {
+                        putString("SELECTED_LANGUAGE", "en")
+                        apply()
+                    }
+
+                    this.recreate()
 
                 }
                 "en" -> {
 
                     Log.i("MainActivity", "languageModeMenu pressed to fi")
-                    setAppLocale("fi", this)
+                    // set preference
+                    with(sharedPreferences.edit()) {
+                        putString("SELECTED_LANGUAGE", "fi")
+                        apply()
+                    }
+
+                    this.recreate()
 
                 }
                 else -> {
 
                     Log.i("MainActivity", "languageModeMenu pressed to en")
-                    setAppLocale("en", this)
+                    // set preference
+                    with(sharedPreferences.edit()) {
+                        putString("SELECTED_LANGUAGE", "en")
+                        apply()
+                    }
+
+                    this.recreate()
                 }
             }
 
             true
-        }*/
+        }
 
         R.id.colorTheme -> {
 
-            when (sharedPreferences.getInt("colorMode", 0)) {
-                1 -> {
+            when (sharedPreferences.getBoolean("colorMode", false)) {
+                true -> {
 
                     Log.i("MainActivity", "colorTheme pressed to day")
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                    delegate.applyDayNight()
 
                     // set preference
                     with(sharedPreferences.edit()) {
-                        putInt("colorMode", 0)
+                        putBoolean("SELECTED_THEME", false)
                         apply()
                     }
 
+                    this.recreate()
+
                 }
-                0 -> {
+                false -> {
 
                     Log.i("MainActivity", "colorTheme pressed to night")
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                    delegate.applyDayNight()
 
                     // set preference
                     with(sharedPreferences.edit()) {
-                        putInt("colorMode", 1)
+                        putBoolean("SELECTED_THEME", true)
                         apply()
                     }
 
-                }
-                else -> {
+                    this.recreate()
 
-                    Log.i("MainActivity", "languageModeMenu pressed to day")
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                    delegate.applyDayNight()
-
-                    // set preference
-                    with(sharedPreferences.edit()) {
-                        putInt("colorMode", 0)
-                        apply()
-                    }
                 }
             }
             true

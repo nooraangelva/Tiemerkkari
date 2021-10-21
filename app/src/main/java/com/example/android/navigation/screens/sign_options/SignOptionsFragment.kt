@@ -7,6 +7,7 @@ import android.view.*
 import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -14,6 +15,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.android.navigation.R
 import com.example.android.navigation.database.SignDatabase
 import com.example.android.navigation.databinding.FragmentSignOptionsBinding
+import com.example.android.navigation.screens.sign_options.SignOptionsAdapter
 
 
 class SignOptionsFragment : Fragment() {
@@ -41,6 +43,16 @@ class SignOptionsFragment : Fragment() {
 
 
         binding.viewModel = viewModel
+
+        val adapter = SignOptionsAdapter()
+        binding.signListRecycleView.adapter = adapter
+
+        viewModel.sign.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.data = it
+            }
+        })
+
         binding.setLifecycleOwner(this)
 
         val navController = findNavController();
@@ -53,9 +65,6 @@ class SignOptionsFragment : Fragment() {
             view.findNavController().navigate(SpeedAreaFragmentDirections.actionSpeedAreaFragmentToSignTypeFragment("city"))
         }*/
 
-        // ADDS SIDE MENU
-
-        setHasOptionsMenu(true)
 
         return binding.root
     }
