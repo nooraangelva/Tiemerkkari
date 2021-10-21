@@ -19,54 +19,55 @@
         android:background="@drawable/gradient_backround">
 
 
+        <ImageView
+            android:id="@+id/titleImage"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/image_header_height"
+            android:layout_marginStart="@dimen/horizontal_margin"
+            android:layout_marginEnd="@dimen/horizontal_margin"
+            android:contentDescription="@string/FirmLogo"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toTopOf="@+id/arrowsButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/ic_launcher_foreground" />
+
         <Button
             android:id="@+id/arrowsButton"
             style="@style/Buttons"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="120dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="100dp"
             android:background="@drawable/round_button"
-            android:paddingStart="@dimen/button_padding"
-            android:paddingEnd="@dimen/button_padding"
+            android:onClick="@{() -> VM.optionArrowsChosen()}"
             android:text="@string/ArrowsButtonText"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.506"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:onClick="@{() -> VM.optionArrowsChosen()}"/>
+            app:layout_constraintTop_toBottomOf="@+id/titleImage" />
 
         <Button
             android:id="@+id/speedLimitButton"
             style="@style/Buttons"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="32dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="32dp"
             android:background="@drawable/round_button"
-            android:paddingStart="@dimen/button_padding"
-            android:paddingEnd="@dimen/button_padding"
+            android:onClick="@{() -> VM.optionSpeedLimitsChosen()}"
             android:text="@string/SpeedLimitButtonText"
             app:layout_constraintBottom_toTopOf="@+id/othersButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/arrowsButton"
-            android:onClick="@{() -> VM.optionSpeedLimitsChosen()}"/>
+            app:layout_constraintTop_toBottomOf="@+id/arrowsButton" />
 
         <Button
             android:id="@+id/othersButton"
             style="@style/Buttons"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginBottom="200dp"
             android:background="@drawable/round_button"
-            android:paddingStart="@dimen/button_padding"
-            android:paddingEnd="@dimen/button_padding"
             android:text="@string/othersButtonText"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.505"
             app:layout_constraintStart_toStartOf="parent"
             android:onClick="@{() -> VM.optionOthersChosen()}"/>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

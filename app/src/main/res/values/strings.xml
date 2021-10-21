@@ -13,11 +13,12 @@
     <string name="CityButtonText">Under 50km/h</string>
     <string name="CountyButtonText">Over 50km/h</string>
     <string name="FirmLogo" translatable="false">Insinooritoimisto Angelva Oy</string>
-    <string name="StartButtonText">Start</string>
-    <string name="ImportButtonText">Import</string>
-    <string name="GuideButtonText">Guide</string>
+    <string name="StartButtonText">START</string>
+    <string name="ImportButtonText">IMPORT</string>
+    <string name="GuideButtonText">GUIDE</string>
     <string name="GuideText">Gooogle</string>
     <string name="OptionOneButton">One</string>
     <string name="chooseSpeedRangeText">Choose speed range</string>
+    <string name="title">Title</string>
 
 </resources>

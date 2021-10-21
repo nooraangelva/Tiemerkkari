@@ -10,31 +10,41 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/gradient_backround">
 
         <ImageView
-            android:id="@+id/rulesImage"
+            android:id="@+id/titleImage"
             android:layout_width="0dp"
             android:layout_height="@dimen/image_header_height"
             android:layout_marginStart="@dimen/horizontal_margin"
-            android:layout_marginTop="@dimen/vertical_margin"
             android:layout_marginEnd="@dimen/horizontal_margin"
+            android:contentDescription="@string/FirmLogo"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toTopOf="@+id/rulesText"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/trivia_rules" />
+            app:srcCompat="@mipmap/ic_launcher_foreground" />
 
         <TextView
             android:id="@+id/rulesText"
+            style="@style/textstyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/horizontal_margin"
-            android:layout_marginTop="@dimen/vertical_margin"
-            android:layout_marginEnd="@dimen/horizontal_margin"
+            android:layout_marginStart="@dimen/question_horizontal_margin"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="@dimen/question_horizontal_margin"
             android:text="@string/GuideText"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:fontFamily="sans-serif"
+            android:textSize="@dimen/question_text_size"
+            android:textStyle="bold"
+            android:typeface="normal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rulesImage" />
+            app:layout_constraintTop_toBottomOf="@+id/titleImage" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

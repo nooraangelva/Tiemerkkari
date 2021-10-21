@@ -15,34 +15,21 @@
         android:id="@+id/importConstraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/gameOverBackground">
-
-        <ImageView
-            android:id="@+id/gameOverFragment"
-            android:layout_width="0dp"
-            android:layout_height="362dp"
-            android:layout_marginStart="@dimen/horizontal_margin"
-            android:layout_marginTop="72dp"
-            android:layout_marginEnd="@dimen/horizontal_margin"
-            android:layout_marginBottom="8dp"
-            android:scaleType="fitCenter"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            app:srcCompat="@drawable/try_again" />
+        android:background="@drawable/gradient_backround">
 
         <Button
             android:id="@+id/importButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{() -> viewModel.createSign()}"
+            style="@style/Buttons"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
             android:text="@string/ImportButtonText"
+            android:background="@drawable/round_button"
+            android:paddingStart="@dimen/button_padding"
+            android:paddingEnd="@dimen/button_padding"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/gameOverFragment" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

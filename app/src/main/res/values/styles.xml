@@ -19,6 +19,11 @@
         <item name="android:fontFamily">@font/roboto</item>
         <item name="android:layout_width">@dimen/button_layout_width</item>
         <item name="android:layout_height">@dimen/button_layout_height</item>
+        <item name="android:paddingStart">@dimen/button_padding</item>
+        <item name="android:paddingEnd">@dimen/button_padding</item>
+        <item name="android:layout_marginStart">@dimen/horizontal_margin</item>
+        <item name="android:layout_marginEnd">@dimen/horizontal_margin</item>
+
     </style>
 
     <style name="textstyle" parent="Theme.AppCompat.Light.NoActionBar">

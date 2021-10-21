@@ -6,23 +6,24 @@
     <item
         android:id="@+id/languageModeMenu"
         android:icon="@drawable/settings"
-        android:orderInCategory="100"
+        android:orderInCategory="200"
         android:title="Language"
-        app:showAsAction="always" />-->
+        app:showAsAction="always" />
 
     <!--night/day mode -->
     <item
         android:id="@+id/colorTheme"
         android:icon="@drawable/icon_day_night"
+        android:orderInCategory="100"
         android:title="kopo"
         app:showAsAction="always" />
 
 
     <!-- To About Fragment button-->
-    <item
+   <!-- <item
         android:id="@+id/aboutMenu"
         android:icon="@drawable/ic_baseline_arrow_back"
         android:title="@string/about"
-        app:showAsAction="never"/>
+        app:showAsAction="never"/>-->
 
 </menu>
