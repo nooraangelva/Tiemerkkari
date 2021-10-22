@@ -1,55 +1,60 @@
 package com.example.android.navigation.screens.sign_options
 
-import android.content.res.Resources
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.core.content.ContextCompat
+import android.widget.ListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.android.navigation.R
 import com.example.android.navigation.database.Signs
+import com.example.android.navigation.databinding.ListItemSignsBinding
+import com.example.android.navigation.generated.callback.OnClickListener
 
 
-
-class SignOptionsAdapter: RecyclerView.Adapter<SignOptionsAdapter.ViewHolder>(){
-
-    var data =  listOf<Signs>()
-        set(value){
-            field = value
-            notifyDataSetChanged()
-        }
-    override fun getItemCount() = data.size
+class SignOptionsAdapter ( val clickListener: SignListener): ListAdapter<Signs, SignOptionsAdapter.ViewHolder>(SignDiffCallback()){
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = data[position]
-        val res = holder.itemView.context.resources
-        holder.signName.text = item.signName
-
-        holder.image.setImageResource(item.sourcePicture)
-
-
-        /*to reset or set properties to existing views
-        if(item.signName == "red"){
-            holder.textView.setColor(Color.RED)
-        }
-        else{
-            holder.textView.setColor(Color.BLUE)
-        }
-         */
+        holder.bind(getItem(position)!!, clickListener)
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        val view = layoutInflater
-                .inflate(R.layout.list_item_signs, parent, false)
-        return ViewHolder(view)
+        return ViewHolder.from(parent)
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val signName: TextView = itemView.findViewById(R.id.signNameListText)
-        val image: ImageView = itemView.findViewById(R.id.imageViewList)
+    class ViewHolder private constructor(val binding: ListItemSignsBinding) : RecyclerView.ViewHolder(binding.root){
+
+        fun bind(item: Signs, clickListener: SignListener) {
+
+            binding.sign = item
+            binding.clickListener = clickListener
+            binding.executePendingBindings()
+
+        }
+        companion object {
+            fun from(parent: ViewGroup): ViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = ListItemSignsBinding
+                        .inflate(layoutInflater, parent, false)
+                return ViewHolder(binding)
+            }
+        }
     }
+
+
+}
+
+class SignDiffCallback : DiffUtil.ItemCallback<Signs>(){
+    override fun areItemsTheSame(oldItem: Signs, newItem: Signs): Boolean {
+        return oldItem.signId == newItem.signId
+    }
+
+    override fun areContentsTheSame(oldItem: Signs, newItem: Signs): Boolean {
+        return oldItem == newItem
+    }
+
+}
+
+class SignListener(val clickListener: (signId: Long) -> Unit){
+    fun onClick(sign: Signs) = clickListener(sign.signId)
+
 }

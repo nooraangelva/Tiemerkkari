@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.Toast
 import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -12,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.android.navigation.R
 import com.example.android.navigation.database.SignDatabase
 import com.example.android.navigation.databinding.FragmentSignOptionsBinding
@@ -44,12 +46,17 @@ class SignOptionsFragment : Fragment() {
 
         binding.viewModel = viewModel
 
-        val adapter = SignOptionsAdapter()
+        val manager = GridLayoutManager(activity, 3)
+        binding.signListRecycleView.layoutManager = manager
+
+        val adapter = SignOptionsAdapter(SignListener {
+            signId -> Toast.makeText(context, "${signId}", Toast.LENGTH_LONG).show()
+        })
         binding.signListRecycleView.adapter = adapter
 
         viewModel.sign.observe(viewLifecycleOwner, Observer {
             it?.let {
-                adapter.data = it
+                adapter.submitList(it)
             }
         })
 
