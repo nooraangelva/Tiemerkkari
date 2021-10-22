@@ -15,7 +15,7 @@ data class Signs  (
         val signName: String =  "",
 
         @ColumnInfo(name = "source_picture")
-        val sourcePicture: String =  "",
+        val sourcePicture: Int,
 
         @ColumnInfo(name = "speed_area")
         val speedArea: Boolean,
