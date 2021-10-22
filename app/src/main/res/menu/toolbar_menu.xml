@@ -20,10 +20,10 @@
 
 
     <!-- To About Fragment button-->
-   <!-- <item
+   <item
         android:id="@+id/aboutMenu"
         android:icon="@drawable/ic_baseline_arrow_back"
         android:title="@string/about"
-        app:showAsAction="never"/>-->
+        app:showAsAction="never"/>
 
 </menu>
