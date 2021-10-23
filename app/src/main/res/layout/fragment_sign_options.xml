@@ -44,7 +44,7 @@
             android:layout_height="match_parent"
             android:background="#ff333333"
             android:name="com.example.SelectAnItemFragment" />
-    </androidx.slidingpanelayout.widget.SlidingPaneLayout> -->
+    </androidx.slidingpanelayout.widget.SlidingPaneLayout>
     <Button
         android:id="@+id/option1Button"
         android:layout_width="wrap_content"
@@ -55,5 +55,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gameOverFragment" />
-    <!--text view text = "@{viewModel.signsString}" -->
+    text view text = "@{viewModel.signsString}" -->
 </layout>

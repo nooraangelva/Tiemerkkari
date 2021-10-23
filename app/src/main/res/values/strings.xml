@@ -20,5 +20,6 @@
     <string name="OptionOneButton">One</string>
     <string name="chooseSpeedRangeText">Choose speed range</string>
     <string name="title">Title</string>
+    <string name="header_text">Options</string>
 
 </resources>

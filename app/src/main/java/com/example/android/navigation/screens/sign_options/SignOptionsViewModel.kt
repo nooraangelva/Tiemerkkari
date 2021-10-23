@@ -6,26 +6,40 @@ import androidx.lifecycle.*
 import com.example.android.navigation.database.Instructions
 import com.example.android.navigation.database.SignDatabaseDao
 import com.example.android.navigation.database.Signs
-import com.example.android.navigation.formatSigns
 import kotlinx.coroutines.*
 
 
 /**
  * ViewModel containing all the logic needed to run the sign_options
  */
-class SignOptionsViewModel(area : String, type : String, database: SignDatabaseDao, application: Application) : ViewModel() {
+class SignOptionsViewModel(area : String, type : String, database: SignDatabaseDao, application: Application) : AndroidViewModel(application) {
 
+    /**
+     * viewModelJob allows us to cancel all coroutines started by this ViewModel.
+    private var viewModelJob = Job()
+    /**
+     * A [CoroutineScope] keeps track of all coroutines started by this ViewModel.
+     *
+     * Because we pass it [viewModelJob], any coroutine started in this uiScope can be cancelled
+     * by calling `viewModelJob.cancel()`
+     *
+     * By default, all coroutines started in uiScope will launch in [Dispatchers.Main] which is
+     * the main thread on Android. This is a sensible default because most coroutines started by
+     * a [ViewModel] update the UI after performing some processing.
+    */
+    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+     */
 
     private var viewModelJob = Job()
 
     private val uiScope = CoroutineScope(Dispatchers.Main +  viewModelJob)
 
-    private val _sign = MutableLiveData<Signs?>()
-    val sign: LiveData<Signs?>
+    private val _sign =MutableLiveData<List<Signs>>()
+    val sign: LiveData<List<Signs>>
         get() = _sign
 
-    private val _step = MutableLiveData<Instructions?>()
-    val step: LiveData<Instructions?>
+    private val _step = MutableLiveData<List<Instructions>>()
+    val step: LiveData<List<Instructions>>
         get() = _step
 
 
@@ -75,27 +89,35 @@ class SignOptionsViewModel(area : String, type : String, database: SignDatabaseD
     //FUNCTIONS
 
     private fun initializeSign(){
-        uiScope.launch {
-            _sign.value = getSignsFromDatabase()
-            //private val signs = database.filterGetSigns(area, type)
+            viewModelScope.launch {
+                _sign.value = getSignsFromDatabase()
+                //private val signs = database.filterGetSigns(area, type)
 
-            // In Kotlin, the return@label syntax is used for specifying which function among
-            // several nested ones this statement returns from.
-            // In this case, we are specifying to return from launch(),
-            // not the lambda.
-            //val oldNight = tonight.value ?: return@launch
+                // In Kotlin, the return@label syntax is used for specifying which function among
+                // several nested ones this statement returns from.
+                // In this case, we are specifying to return from launch(),
+                // not the lambda.
+                //val oldNight = tonight.value ?: return@launch
 
-            val signsString = Transformations.map(signs) { signs ->
-                formatSigns(signs, _application.value!!.resources)
             }
-        }
+
     }
 
-    private suspend fun getSignsFromDatabase(): LiveData<List<Signs>> {
-        return withContext(Dispatchers.IO) {
-            var sign = _database.value!!.getSign()
-            sign
-        }
+    /**
+     *  Handling the case of the stopped app or forgotten recording,
+     *  the start and end times will be the same.j
+     *
+     *  If the start time and end time are not the same, then we do not have an unfinished
+     *  recording.
+     */
+
+    private suspend fun getSignsFromDatabase(): List<Signs>? {
+
+        //return withContext(Dispatchers.IO) {
+
+        return _database.value!!.getSign().value!!
+        //}
+
     }
 
     fun getChosenSteps(){
@@ -104,11 +126,9 @@ class SignOptionsViewModel(area : String, type : String, database: SignDatabaseD
         }
     }
 
-    private suspend fun getInsFromDatabase(): LiveData<List<Instructions>> {
-        return withContext(Dispatchers.IO) {
-            var step= _database.value!!.filterGetIns(_signId.value!!)
-            step
-        }
+    private suspend fun getInsFromDatabase(): List<Instructions> {
+
+        return _database.value!!.getIns(_signId.value!!).value!!
     }
 
     override fun onCleared() {

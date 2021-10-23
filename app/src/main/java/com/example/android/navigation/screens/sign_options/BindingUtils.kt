@@ -13,5 +13,5 @@ fun ImageView.setSignImage(item: Signs) {
 
 @BindingAdapter("signName")
 fun TextView.setSignName(item: Signs) {
-    setText( item.signName)
+    text = item.signName
 }

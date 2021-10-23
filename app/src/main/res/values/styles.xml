@@ -10,7 +10,7 @@
 
     </style>
 
-
+    //TODO Ic_launcher takas missä olikin  resource mipmap/ic_launcher!
     <!-- Light application theme. -->
     <style name="LightTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimaryDark">@color/colorPrimaryLight</item>

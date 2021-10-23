@@ -1,23 +1,18 @@
 package com.example.android.navigation.screens.sign_options
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.Toast
-import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.android.navigation.R
 import com.example.android.navigation.database.SignDatabase
 import com.example.android.navigation.databinding.FragmentSignOptionsBinding
-import com.example.android.navigation.screens.sign_options.SignOptionsAdapter
 
 
 class SignOptionsFragment : Fragment() {
@@ -47,16 +42,22 @@ class SignOptionsFragment : Fragment() {
         binding.viewModel = viewModel
 
         val manager = GridLayoutManager(activity, 3)
+        manager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int)=  when (position) {
+                0 -> 3
+                else -> 1
+            }
+        }
         binding.signListRecycleView.layoutManager = manager
 
         val adapter = SignOptionsAdapter(SignListener {
-            signId -> Toast.makeText(context, "${signId}", Toast.LENGTH_LONG).show()
+            signId -> Toast.makeText(context, "$signId", Toast.LENGTH_LONG).show()
         })
         binding.signListRecycleView.adapter = adapter
 
         viewModel.sign.observe(viewLifecycleOwner, Observer {
             it?.let {
-                adapter.submitList(it)
+                adapter.addHeaderAndSubmitList(it)
             }
         })
 
