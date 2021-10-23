@@ -9,14 +9,15 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/startMenuConstraint"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="?attr/background_color">
         <!--android:background="@drawable/gradient_backround">-->
 
         <Button
             android:id="@+id/startButton"
             style="@style/Buttons"
             android:layout_marginTop="100dp"
-            android:background="@drawable/round_button"
+            android:background="?attr/round_button"
             android:text="@string/StartButtonText"
             app:elevation="8dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -28,7 +29,7 @@
             style="@style/Buttons"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="32dp"
-            android:background="@drawable/round_button"
+            android:background="?attr/round_button"
             android:text="@string/ImportButtonText"
             app:layout_constraintBottom_toTopOf="@+id/guideButton"
             app:layout_constraintEnd_toEndOf="parent"
@@ -39,7 +40,7 @@
             android:id="@+id/guideButton"
             style="@style/Buttons"
             android:layout_marginBottom="100dp"
-            android:background="@drawable/round_button"
+            android:background="?attr/round_button"
             android:text="@string/GuideButtonText"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
