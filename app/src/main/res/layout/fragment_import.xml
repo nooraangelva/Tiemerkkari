@@ -15,7 +15,7 @@
         android:id="@+id/importConstraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/gradient_backround">
+        android:background="?attr/background_color">
 
         <Button
             android:id="@+id/importButton"

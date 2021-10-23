@@ -14,7 +14,7 @@
     <!-- Light application theme. -->
     <style name="LightTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimaryDark">@color/colorPrimaryLight</item>
-        <item name="background_color">#4A6572</item>
+        <item name="background_color">@drawable/gradient_background_light</item>
         <item name="android:textColor">@color/buttonTextColorLight</item>
         <item name="round_button">@drawable/round_button_light</item>
         <item name="toolbar">@color/toolbarLight</item>
@@ -36,6 +36,7 @@
         <item name="android:paddingEnd">@dimen/button_padding</item>
         <item name="android:layout_marginStart">@dimen/horizontal_margin</item>
         <item name="android:layout_marginEnd">@dimen/horizontal_margin</item>
+        <item name="android:elevation">5dp</item>
 
     </style>
 

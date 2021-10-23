@@ -12,18 +12,19 @@
     <color name="colorPrimaryDark">#232F34</color>
     <color name="buttonTextColorDark">#F9AA33</color>
     <color name="toolbarDark">#344955</color>
+    <color name="textColor">#96B9CA</color>
 
 
     <!-- Light mode-->
-    <color name="colorPrimaryLight">#9CA9BA</color>
-    <color name="buttonTextColorLight">#9C27B0</color>
+    <color name="colorPrimaryLight">#585F68</color>
+    <color name="buttonTextColorLight">#232F34</color>
     <color name="toolbarLight">#C3D4DD</color>
 
 
     <color name="youWinBackground">#B7F8C9</color>
     <color name="colorPrimary">#232F34</color>
     <color name="colorSecondary">#F9AA33</color>
-    <color name="textColor">#96B9CA</color>
+    <!--<color name="textColor">#96B9CA</color>-->
 
 </resources>
 
