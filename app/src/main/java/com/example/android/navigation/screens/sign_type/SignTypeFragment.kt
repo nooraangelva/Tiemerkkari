@@ -71,8 +71,8 @@ class SignTypeFragment : Fragment() {
             if (arrowsChosen) {
 
                 Log.v("Buttons","Sign type - arrow pressed")
-
-                navController.navigate(SpeedAreaFragmentDirections.actionSpeedAreaFragmentToSignTypeFragment(viewModel.type.value!!,viewModel.area.value!!))
+                var b : Int = viewModel.type.value?.toInt() ?: 0
+                navController.navigate(SpeedAreaFragmentDirections.actionSpeedAreaFragmentToSignTypeFragment(b!!,viewModel.area.value!!))
                 viewModel.optionArrowsChosenComplete()
             }
         })
@@ -80,8 +80,8 @@ class SignTypeFragment : Fragment() {
         viewModel.speedLimitsChosen.observe(viewLifecycleOwner, Observer { speedLimitsChosen ->
             if (speedLimitsChosen) {
                 Log.v("Buttons","Sign type - speed limit pressed")
-
-                navController.navigate(SpeedAreaFragmentDirections.actionSpeedAreaFragmentToSignTypeFragment(viewModel.type.value!!,viewModel.area.value!!))
+                var b : Int = viewModel.type.value?.toInt() ?: 0
+                navController.navigate(SpeedAreaFragmentDirections.actionSpeedAreaFragmentToSignTypeFragment(b!!,viewModel.area.value!!))
                 viewModel.optionSpeedLimitsChosenComplete()
             }
         })

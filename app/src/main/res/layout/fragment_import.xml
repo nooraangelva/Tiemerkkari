@@ -37,7 +37,6 @@
             android:background="?attr/round_button"
             android:paddingStart="@dimen/button_padding"
             android:paddingEnd="@dimen/button_padding"
-            android:text="@string/ImportButtonText"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/import_list_recycle_view"
             app:layout_constraintEnd_toEndOf="parent"

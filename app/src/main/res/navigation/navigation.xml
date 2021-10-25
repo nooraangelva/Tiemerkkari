@@ -9,6 +9,7 @@
         android:id="@+id/importFragment"
         android:name="com.example.android.navigation.screens.imports.ImportFragment"
         android:label="ImportFragment" />
+
     <fragment
         android:id="@+id/speedAreaFragment"
         android:name="com.example.android.navigation.screens.speed_area.SpeedAreaFragment"
@@ -18,10 +19,13 @@
             app:destination="@id/signTypeFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left">
+            <argument
+                android:name="typeInt"
+                app:argType="integer" />
         </action>
         <argument
             android:name="area"
-            app:argType="Boolean" />
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/signTypeFragment"
@@ -32,13 +36,17 @@
             app:destination="@id/signOptionsFragment"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_in_right" >
+            <argument
+                android:name="typeInt"
+                app:argType="integer"/>
         </action>
         <argument
-            android:name="type"
-            app:argType="Int" />
+            android:name="typeInt"
+            app:argType="integer" />
         <argument
             android:name="area"
-            app:argType="Boolean" />
+            app:argType="boolean" />
+
     </fragment>
     <fragment
         android:id="@+id/signOptionsFragment"
@@ -48,11 +56,11 @@
             android:id="@+id/action_signOptionsFragment_to_startMenuFragment"
             app:destination="@id/startMenuFragment" />
         <argument
-            android:name="type"
-            app:argType="Int" />
+            android:name="typeInt"
+            app:argType="integer" />
         <argument
             android:name="area"
-            app:argType="Boolean" />
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/startMenuFragment"

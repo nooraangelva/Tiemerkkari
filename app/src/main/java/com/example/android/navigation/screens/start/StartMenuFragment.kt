@@ -39,7 +39,7 @@ class StartMenuFragment : Fragment() {
         binding.startButton.setOnClickListener { view: View ->
 
             Log.v("Buttons", "Star menu - start pressed")
-            view.findNavController().navigate(StartMenuFragmentDirections.actionStartMenuFragmentToSpeedAreaFragment())
+            view.findNavController().navigate(StartMenuFragmentDirections.actionStartMenuFragmentToSpeedAreaFragment(false))
 
         }
 

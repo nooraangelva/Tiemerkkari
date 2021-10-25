@@ -33,6 +33,7 @@ class SignOptionsFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
+
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_sign_options, container, false)
@@ -44,7 +45,7 @@ class SignOptionsFragment : Fragment() {
 
         // Get arguments
         val signOptionsFragmentArgs by navArgs<SignOptionsFragmentArgs>()
-        viewModelFactory = SignOptionsViewModelFactory(signOptionsFragmentArgs.area, signOptionsFragmentArgs.type, dataSource, application)
+        viewModelFactory = SignOptionsViewModelFactory(signOptionsFragmentArgs.area, signOptionsFragmentArgs.typeInt, dataSource, application)
 
         viewModel = ViewModelProvider(this, viewModelFactory)
                 .get(SignOptionsViewModel::class.java)
@@ -52,10 +53,10 @@ class SignOptionsFragment : Fragment() {
 
         binding.viewModel = viewModel
 
-        val manager = GridLayoutManager(activity, 2)
+        val manager = GridLayoutManager(activity, 3)
         manager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int) = when (position) {
-                0 -> 2
+                0 -> 3
                 else -> 1
             }
         }

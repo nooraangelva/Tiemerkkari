@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(entities = [Signs::class, Instructions::class], version = 1,  exportSchema = false)
-abstract class SignDatabase : RoomDatabase {
+abstract class SignDatabase : RoomDatabase() {
 
     abstract val signDatabaseDao: SignDatabaseDao
     companion object {

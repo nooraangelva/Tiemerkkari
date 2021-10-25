@@ -2,7 +2,6 @@
 
 package com.example.android.navigation
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
@@ -10,7 +9,6 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -21,19 +19,18 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
 
     private lateinit var sharedPreferences: SharedPreferences
+    val MyPREFERENCES = "MyPrefs"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.i("MainActivity", "OnCreate")
 
         super.onCreate(savedInstanceState)
+        sharedPreferences = getSharedPreferences(MyPREFERENCES, MODE_PRIVATE)
 
         languageChange()
-        checkTheme()
-
-
-        setContentView(R.layout.activity_main)
-
         Log.i("MainActivity", "Langugae pref: " + sharedPreferences.getString("language", "en")!!)
+        checkTheme()
+        Log.i("MainActivity", "Langugae pref: " + sharedPreferences.getBoolean("SELECTED_THEME", false))
 
         setContentView(R.layout.activity_main)
 
@@ -45,10 +42,6 @@ class MainActivity : AppCompatActivity() {
         findViewById<Toolbar>(R.id.toolBar)
                 .setupWithNavController(navController, appBarConfiguration)
 
-
-
-
-       checkTheme()
     }
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
         invalidateOptionsMenu()
@@ -62,7 +55,7 @@ class MainActivity : AppCompatActivity() {
 
         Log.i("MainActivity", "setApplocale()" + currentLanguage)
 
-        val locale = Locale(currentLanguage)
+        val locale = Locale(currentLanguage!!)
 
         Locale.setDefault(locale)
 

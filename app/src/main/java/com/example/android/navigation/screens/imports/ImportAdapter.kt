@@ -28,7 +28,7 @@ class ImportAdapter(private val dataSet: Array<String>) :
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         // Create a new view, which defines the UI of the list item
         val view = LayoutInflater.from(viewGroup.context)
-                .inflate(R.layout.text_row_item, viewGroup, false)
+                .inflate(R.layout.list_item_steps, viewGroup, false)
 
         return ViewHolder(view)
     }
