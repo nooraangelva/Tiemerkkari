@@ -6,9 +6,9 @@
     <string name="submit_button">Submit</string>
     <string name="speed_area">Speed area</string>
     <string name="startButton">START</string>
-    <string name="ArrowsButtonText">Arrows</string>
-    <string name="SpeedLimitButtonText">Speed limits</string>
-    <string name="othersButtonText">Others</string>
+    <string name="ArrowsButtonText">ARROWS</string>
+    <string name="SpeedLimitButtonText">SPEED LIMITS</string>
+    <string name="othersButtonText">OTHERS</string>
     <string name="CityButtonText">Under 50km/h</string>
     <string name="CountyButtonText">Over 50km/h</string>
     <string name="FirmLogo" translatable="false">Insinooritoimisto Angelva Oy</string>
