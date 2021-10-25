@@ -25,9 +25,10 @@ abstract class SignDatabase : RoomDatabase {
                             SignDatabase::class.java,
                             "signs_database"
                             )
-                }
                         .fallbackToDestructiveMigration()
                         .build()
+                }
+
                 INSTANCE = instance
 
                 return instance
