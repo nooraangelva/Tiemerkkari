@@ -21,8 +21,7 @@
         </action>
         <argument
             android:name="area"
-            app:argType="string"
-            android:defaultValue="" />
+            app:argType="Boolean" />
     </fragment>
     <fragment
         android:id="@+id/signTypeFragment"
@@ -36,10 +35,10 @@
         </action>
         <argument
             android:name="type"
-            app:argType="string" />
+            app:argType="Int" />
         <argument
             android:name="area"
-            app:argType="string" />
+            app:argType="Boolean" />
     </fragment>
     <fragment
         android:id="@+id/signOptionsFragment"
@@ -50,12 +49,10 @@
             app:destination="@id/startMenuFragment" />
         <argument
             android:name="type"
-            app:argType="string"
-            android:defaultValue="" />
+            app:argType="Int" />
         <argument
             android:name="area"
-            app:argType="string"
-            android:defaultValue="" />
+            app:argType="Boolean" />
     </fragment>
     <fragment
         android:id="@+id/startMenuFragment"

@@ -16,64 +16,49 @@
 
 package com.example.android.navigation.screens.start
 
+import android.app.ActionBar
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.android.navigation.R
 import com.example.android.navigation.databinding.FragmentStartMenuBinding
-import com.example.android.navigation.screens.sign_type.SignTypeFragmentDirections
 
 class StartMenuFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val binding: FragmentStartMenuBinding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_start_menu, container, false)
-
+                inflater, R.layout.fragment_start_menu, container, true)
 
 
         // Sets the onClickListener for buttons
 
         binding.startButton.setOnClickListener { view: View ->
 
-            Log.v("Buttons","Star menu - start pressed")
+            Log.v("Buttons", "Star menu - start pressed")
             view.findNavController().navigate(StartMenuFragmentDirections.actionStartMenuFragmentToSpeedAreaFragment())
 
         }
 
         binding.guideButton.setOnClickListener { view: View ->
 
-            Log.v("Buttons","Star menu - guide pressed")
+            Log.v("Buttons", "Star menu - guide pressed")
             view.findNavController().navigate(StartMenuFragmentDirections.actionStartMenuFragmentToGuideFragment())
 
         }
 
         binding.importLayoutButton.setOnClickListener { view: View ->
 
-            Log.v("Buttons","Star menu - import pressed")
+            Log.v("Buttons", "Star menu - import pressed")
             view.findNavController().navigate(StartMenuFragmentDirections.actionStartMenuFragmentToImportFragment())
 
         }
+
         return binding.root
     }
 
-    // MENU FUNCTIONS
-/*
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.toolbar_menu, menu)
-    }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
-                || super.onOptionsItemSelected(item)
-    }*/
 }

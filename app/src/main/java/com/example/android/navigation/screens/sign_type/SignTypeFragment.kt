@@ -33,6 +33,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.ui.NavigationUI
 
 import com.example.android.navigation.R
 import com.example.android.navigation.databinding.FragmentSignTypeBinding
@@ -58,8 +59,8 @@ class SignTypeFragment : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory)
                 .get(SignTypeViewModel::class.java)
 
-        //TODO mika moka?
-        //binding.viewModel = viewModel
+
+        binding.vm = viewModel
         binding.setLifecycleOwner(this)
 
         val navController = findNavController();
@@ -94,7 +95,7 @@ class SignTypeFragment : Fragment() {
             }
         })
 
-        // ADDS SIDE MENU
+        // ADDS MENU
 
         setHasOptionsMenu(true)
 
@@ -105,13 +106,12 @@ class SignTypeFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.toolbar_menu, menu)
+        inflater.inflate(R.menu.iconless_menu, menu)
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            //R.id.share -> shareSuccess()
-        }
-        return super.onOptionsItemSelected(item)
+        return NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
+                || super.onOptionsItemSelected(item)
     }
 }

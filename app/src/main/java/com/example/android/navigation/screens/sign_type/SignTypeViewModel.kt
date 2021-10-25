@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class SignTypeViewModel (area: String) : ViewModel() {
+class SignTypeViewModel (area: Boolean) : ViewModel() {
 
 
 
@@ -18,11 +18,11 @@ class SignTypeViewModel (area: String) : ViewModel() {
     private val _othersChosen = MutableLiveData<Boolean>()
     val othersChosen: LiveData<Boolean>
         get() = _othersChosen
-    private val _area = MutableLiveData<String>()
-    val area: LiveData<String>
+    private val _area = MutableLiveData<Boolean>()
+    val area: LiveData<Boolean>
         get() = _area
-    private val _type = MutableLiveData<String>()
-    val type: LiveData<String>
+    private val _type = MutableLiveData<Int>()
+    val type: LiveData<Int>
         get() = _type
 
 
@@ -34,7 +34,7 @@ class SignTypeViewModel (area: String) : ViewModel() {
 
 
         _area.value = area
-        _type.value = ""
+        _type.value = 0
         _arrowsChosen.value = false
         _speedLimitsChosen.value = false
         _othersChosen.value = false
@@ -48,7 +48,7 @@ class SignTypeViewModel (area: String) : ViewModel() {
     fun optionArrowsChosen(){
 
         _arrowsChosen.value = true
-        _type.value = "arrows"
+        _type.value = -1
 
     }
 
@@ -60,7 +60,7 @@ class SignTypeViewModel (area: String) : ViewModel() {
     fun optionSpeedLimitsChosen(){
 
         _speedLimitsChosen.value = true
-        _type.value = "speed limit"
+        _type.value = 0
 
     }
 
@@ -72,7 +72,7 @@ class SignTypeViewModel (area: String) : ViewModel() {
     fun optionOthersChosen(){
 
         _arrowsChosen.value = true
-        _type.value = "arrows"
+        _type.value = 1
 
     }
 

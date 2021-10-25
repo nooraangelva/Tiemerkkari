@@ -1,4 +1,3 @@
-
 <resources>
     <string name="app_name">Road Printer</string>
     <string name="position">Position</string>
@@ -21,5 +20,13 @@
     <string name="chooseSpeedRangeText">Choose speed range</string>
     <string name="title">Title</string>
     <string name="header_text">Options</string>
+    <string-array name="movement_options_array">
+        <item>Vertical</item>
+        <item>Horizontal</item>
+        <item>Diagonal</item>
+        <item>Arc</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

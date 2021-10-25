@@ -7,7 +7,7 @@ import com.example.android.navigation.database.SignDatabaseDao
 
 class SignOptionsViewModelFactory (
 
-        private val area: String, private val type: String, private val dataSource: SignDatabaseDao, private val application: Application) : ViewModelProvider.Factory {
+        private val area: Boolean, private val type: Int, private val dataSource: SignDatabaseDao, private val application: Application) : ViewModelProvider.Factory {
 
 
     @Suppress("unchecked cast")

@@ -21,7 +21,7 @@ interface SignDatabaseDao {
     suspend fun getSign(): LiveData<List<Signs>>
 
     @Query("SELECT * from signs_info_table WHERE type = :key AND speed_area = :key2")
-    suspend fun filterGetSigns(key: Boolean, key2: Boolean): LiveData<List<Signs>>
+    suspend fun filterGetSigns(key: Int, key2: Boolean): LiveData<List<Signs>>
 
     @Query("DELETE FROM signs_info_table")
     suspend fun clearAllSign()

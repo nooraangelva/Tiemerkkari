@@ -5,27 +5,23 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class SpeedAreaViewModel (area: String) : ViewModel() {
+class SpeedAreaViewModel () : ViewModel() {
 
 
 
     private val _cityChosen = MutableLiveData<Boolean>()
     val cityChosen: LiveData<Boolean>
         get() = _cityChosen
-    private val _countyChosen = MutableLiveData<Boolean>()
-    val countyChosen: LiveData<Boolean>
-        get() = _countyChosen
-    private val _area = MutableLiveData<String>()
-    val area: LiveData<String>
-        get() = _area
+    private val _completeChosen = MutableLiveData<Boolean>()
+    val completeChosen: LiveData<Boolean>
+        get() = _completeChosen
 
 
 
     init{
         Log.i("SignOptionsViewModel", "SignOptionsViewModel created.")
-        _area.value = area
         _cityChosen.value = false
-        _countyChosen.value = false
+        _completeChosen.value = true
 
     }
 
@@ -34,25 +30,26 @@ class SpeedAreaViewModel (area: String) : ViewModel() {
     fun cityChosen(){
 
         _cityChosen.value = true
-        _area.value = "city"
+        _completeChosen.value = false
 
     }
 
     fun cityChosenComplete(){
 
-        _cityChosen.value = false
+        _completeChosen.value = true
+
     }
 
     fun countyChosen(){
 
-        _countyChosen.value = true
-        _area.value = "county"
+        _cityChosen.value = false
+        _completeChosen.value = false
 
     }
 
     fun countyChosenComplete(){
 
-        _countyChosen.value = false
+        _completeChosen.value = true
     }
 
 }

@@ -7,6 +7,7 @@ import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -45,11 +46,15 @@ class MainActivity : AppCompatActivity() {
                 .setupWithNavController(navController, appBarConfiguration)
 
 
-        //setSupportActionBar(findViewById<Toolbar>(R.id.toolBar))
+
 
        checkTheme()
     }
-
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+        invalidateOptionsMenu()
+        menu.findItem(R.id.languageModeMenu).isVisible = false
+        return super.onPrepareOptionsMenu(menu)
+    }
 
     fun languageChange()
     {
@@ -88,7 +93,6 @@ class MainActivity : AppCompatActivity() {
         Log.i("MainActivity", "checkTheme()" + sharedPreferences.getBoolean("SELECTED_THEME", false))
 
         val darkMode = sharedPreferences.getBoolean("SELECTED_THEME", false)
-        //TODO Fix Themes
         if(!darkMode)
         {
             setTheme(R.style.ThemeOverlay_AppCompat_Dark_ActionBar)

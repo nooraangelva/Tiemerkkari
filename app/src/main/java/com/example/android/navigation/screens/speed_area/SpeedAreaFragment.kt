@@ -28,6 +28,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.ui.NavigationUI
 import com.example.android.navigation.R
 import com.example.android.navigation.databinding.FragmentSpeedAreaBinding
 import com.example.android.navigation.screens.sign_type.SignTypeViewModelFactory
@@ -44,7 +45,7 @@ class SpeedAreaFragment : Fragment() {
         val binding = DataBindingUtil.inflate<FragmentSpeedAreaBinding>(
                 inflater, R.layout.fragment_speed_area, container, false)
 
-        viewModelFactory = SpeedAreaViewModelFactory("")
+        viewModelFactory = SpeedAreaViewModelFactory()
 
         // Get the viewmodel
         viewModel =ViewModelProvider(this, viewModelFactory)
@@ -64,24 +65,19 @@ class SpeedAreaFragment : Fragment() {
 
         // Sets the listener for buttons
 
-        viewModel.cityChosen.observe(viewLifecycleOwner, Observer { cityChosen ->
-            if (cityChosen) {
+        viewModel.completeChosen.observe(viewLifecycleOwner, Observer { chosen ->
+            if (viewModel.cityChosen.value!!) {
                 Log.v("Buttons", "Speed area - city pressed")
 
-                navController.navigate(SpeedAreaFragmentDirections.actionSpeedAreaFragmentToSignTypeFragment("",viewModel.area.value!!))
+                navController.navigate(SpeedAreaFragmentDirections.actionSpeedAreaFragmentToSignTypeFragment("",viewModel.cityChosen.value!!))
                 viewModel.cityChosenComplete()
             }
-        })
-
-        viewModel.countyChosen.observe(viewLifecycleOwner, Observer { countyChosen ->
-            if (countyChosen) {
+            else{
                 Log.v("Buttons", "Speed area - outsideCity pressed")
-                navController.navigate(SpeedAreaFragmentDirections.actionSpeedAreaFragmentToSignTypeFragment("",viewModel.area.value!!))
+                navController.navigate(SpeedAreaFragmentDirections.actionSpeedAreaFragmentToSignTypeFragment("",viewModel.cityChosen.value!!))
                 viewModel.countyChosenComplete()
             }
         })
-
-        // ADDS SIDE MENU
 
         setHasOptionsMenu(true)
         return binding.root
@@ -91,7 +87,13 @@ class SpeedAreaFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.toolbar_menu, menu)
+        inflater.inflate(R.menu.iconless_menu, menu)
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
+                || super.onOptionsItemSelected(item)
     }
 }
 

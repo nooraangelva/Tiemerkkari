@@ -12,7 +12,7 @@ import kotlinx.coroutines.*
 /**
  * ViewModel containing all the logic needed to run the sign_options
  */
-class SignOptionsViewModel(area : String, type : String, database: SignDatabaseDao, application: Application) : AndroidViewModel(application) {
+class SignOptionsViewModel(area : Boolean, type : Int, database: SignDatabaseDao, application: Application) : AndroidViewModel(application) {
 
     /**
      * viewModelJob allows us to cancel all coroutines started by this ViewModel.
@@ -65,11 +65,11 @@ class SignOptionsViewModel(area : String, type : String, database: SignDatabaseD
     val eventSubmit: LiveData<Boolean>
         get() = _eventSubmit
 
-    private val _type = MutableLiveData<String>()
-    val type: LiveData<String>
+    private val _type = MutableLiveData<Int>()
+    val type: LiveData<Int>
         get() = _type
-    private val _area = MutableLiveData<String>()
-    val area: LiveData<String>
+    private val _area = MutableLiveData<Boolean>()
+    val area: LiveData<Boolean>
         get() = _area
 
 
@@ -115,7 +115,7 @@ class SignOptionsViewModel(area : String, type : String, database: SignDatabaseD
 
         //return withContext(Dispatchers.IO) {
 
-        return _database.value!!.getSign().value!!
+        return _database.value!!.filterGetSigns(_type.value!!,_area.value!!).value!!
         //}
 
     }

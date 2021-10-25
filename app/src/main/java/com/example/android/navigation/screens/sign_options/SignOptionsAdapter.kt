@@ -104,7 +104,7 @@ class SignDiffCallback : DiffUtil.ItemCallback<DataItem>(){
     }
 
 }
-
+//TODO onclicklistener tanne
 class SignListener(val clickListener: (signId: Long) -> Unit){
     fun onClick(sign: Signs) = clickListener(sign.signId)
 
