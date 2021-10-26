@@ -10,13 +10,13 @@
         android:id="@+id/startMenuConstraint"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/background_color">
+        >
 
         <Button
             android:id="@+id/startButton"
             style="@style/Buttons"
             android:layout_marginTop="100dp"
-            android:background="?attr/round_button"
+
             android:text="@string/StartButtonText"
             app:elevation="8dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -28,7 +28,7 @@
             style="@style/Buttons"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="32dp"
-            android:background="?attr/round_button"
+
             android:text="@string/ImportButtonText"
             app:layout_constraintBottom_toTopOf="@+id/guideButton"
             app:layout_constraintEnd_toEndOf="parent"
@@ -39,7 +39,7 @@
             android:id="@+id/guideButton"
             style="@style/Buttons"
             android:layout_marginBottom="100dp"
-            android:background="?attr/round_button"
+
             android:text="@string/GuideButtonText"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -64,3 +64,12 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
+
+    <!-- Hajottaa sovelluksen toinen tapa laittaa nuo?
+    android:background="?attr/background_color"
+    android:background="?attr/round_button"
+    android:background="?attr/round_button"
+    android:background="?attr/round_button"
+
+    esim. app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+    -->

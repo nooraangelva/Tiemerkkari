@@ -1,5 +1,3 @@
-
-
 package com.example.android.navigation
 
 import android.content.SharedPreferences
@@ -25,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         Log.i("MainActivity", "OnCreate")
 
         super.onCreate(savedInstanceState)
-        sharedPreferences = getSharedPreferences(MyPREFERENCES, MODE_PRIVATE)
+        sharedPreferences = getPreferences(MODE_PRIVATE)
 
         languageChange()
         Log.i("MainActivity", "Langugae pref: " + sharedPreferences.getString("language", "en")!!)
@@ -39,21 +37,22 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         val appBarConfiguration = AppBarConfiguration(navController.graph)
         Log.i("MainActivity", "nav graph" + navController.graph.toString())
-        findViewById<Toolbar>(R.id.toolBar)
-                .setupWithNavController(navController, appBarConfiguration)
+        //findViewById<Toolbar>(R.id.toolBar).setupWithNavController(navController, appBarConfiguration)
+
+
 
     }
-    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
-        invalidateOptionsMenu()
-        menu.findItem(R.id.languageModeMenu).isVisible = false
-        return super.onPrepareOptionsMenu(menu)
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+        return true
     }
 
     fun languageChange()
     {
         val currentLanguage = sharedPreferences.getString("SELECTED_LANGUAGE", "fi")
 
-        Log.i("MainActivity", "setApplocale()" + currentLanguage)
+        Log.i("MainActivity", "setApplocale()" + sharedPreferences.getString("SELECTED_LANGUAGE", "fi"))
 
         val locale = Locale(currentLanguage!!)
 
@@ -107,7 +106,7 @@ class MainActivity : AppCompatActivity() {
         R.id.languageModeMenu -> {
 
 
-            when (sharedPreferences.getString("language", "en")) {
+            when (sharedPreferences.getString("SELECTED_LANGUAGE", "en")) {
                 "fi" -> {
 
                     Log.i("MainActivity", "languageModeMenu pressed to en")
@@ -116,7 +115,7 @@ class MainActivity : AppCompatActivity() {
                         putString("SELECTED_LANGUAGE", "en")
                         apply()
                     }
-
+                    Log.i("MainActivity", "setApplocale() now" + sharedPreferences.getString("SELECTED_LANGUAGE", "fi"))
                     this.recreate()
 
                 }
@@ -128,7 +127,7 @@ class MainActivity : AppCompatActivity() {
                         putString("SELECTED_LANGUAGE", "fi")
                         apply()
                     }
-
+                    Log.i("MainActivity", "setApplocale() now" + sharedPreferences.getString("SELECTED_LANGUAGE", "fi"))
                     this.recreate()
 
                 }
@@ -140,7 +139,7 @@ class MainActivity : AppCompatActivity() {
                         putString("SELECTED_LANGUAGE", "en")
                         apply()
                     }
-
+                    Log.i("MainActivity", "setApplocale() now" + sharedPreferences.getString("SELECTED_LANGUAGE", "fi"))
                     this.recreate()
                 }
             }
@@ -150,30 +149,32 @@ class MainActivity : AppCompatActivity() {
 
         R.id.colorTheme -> {
 
-            when (sharedPreferences.getBoolean("colorMode", false)) {
+            when (sharedPreferences.getBoolean("SELECTED_THEME", false)) {
                 true -> {
 
                     Log.i("MainActivity", "colorTheme pressed to day")
+                    Log.i("MainActivity", "checkTheme() now " + sharedPreferences.getBoolean("SELECTED_THEME", false))
 
                     // set preference
                     with(sharedPreferences.edit()) {
                         putBoolean("SELECTED_THEME", false)
                         apply()
                     }
-
+                    Log.i("MainActivity", "checkTheme() now " + sharedPreferences.getBoolean("SELECTED_THEME", false))
                     this.recreate()
 
                 }
                 false -> {
 
                     Log.i("MainActivity", "colorTheme pressed to night")
+                    Log.i("MainActivity", "checkTheme() now " + sharedPreferences.getBoolean("SELECTED_THEME", false))
 
                     // set preference
                     with(sharedPreferences.edit()) {
                         putBoolean("SELECTED_THEME", true)
                         apply()
                     }
-
+                    Log.i("MainActivity", "checkTheme() now" + sharedPreferences.getBoolean("SELECTED_THEME", false))
                     this.recreate()
 
                 }
