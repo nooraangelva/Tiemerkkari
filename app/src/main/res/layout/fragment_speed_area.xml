@@ -7,7 +7,7 @@
 
     <data>
         <variable
-            name="VM"
+            name="viewModel"
             type="com.example.android.navigation.screens.speed_area.SpeedAreaViewModel" />
     </data>
 
@@ -19,8 +19,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/speedAreaLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/titleImage"
@@ -58,7 +57,7 @@
                 style="@style/Buttons"
                 android:layout_marginTop="100dp"
 
-                android:onClick="@{() -> VM.cityChosen()}"
+                android:onClick="@{() -> viewModel.cityChosen()}"
                 android:text="@string/CityButtonText"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.501"
@@ -70,7 +69,7 @@
                 style="@style/Buttons"
                 android:layout_marginTop="32dp"
 
-                android:onClick="@{() -> VM.countyChosen()}"
+                android:onClick="@{() -> viewModel.countyChosen()}"
                 android:text="@string/CountyButtonText"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -79,10 +78,5 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
-</layout>
 
-<!--
-android:background="?attr/background_color"
-android:background="?attr/round_button"
-android:background="?attr/round_button"
--->
+</layout>

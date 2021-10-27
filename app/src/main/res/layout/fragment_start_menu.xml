@@ -10,8 +10,7 @@
         android:id="@+id/startMenuConstraint"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        style="@style/DarkTheme"
->
+        style="@style/DarkTheme" >
 
         <Button
             android:id="@+id/startButton"
@@ -29,8 +28,6 @@
             style="@style/Buttons"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="32dp"
-
-
             android:text="@string/ImportButtonText"
             app:layout_constraintBottom_toTopOf="@+id/guideButton"
             app:layout_constraintEnd_toEndOf="parent"
@@ -62,8 +59,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/logo_dark" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
 
     <!-- Hajottaa sovelluksen toinen tapa laittaa nuo?

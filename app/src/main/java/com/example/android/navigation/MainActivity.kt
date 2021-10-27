@@ -7,20 +7,17 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupWithNavController
 import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var sharedPreferences: SharedPreferences
-    val MyPREFERENCES = "MyPrefs"
     private lateinit var appBarConfiguration : AppBarConfiguration
     private lateinit var navController: NavController
 
@@ -30,9 +27,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         sharedPreferences = getPreferences(MODE_PRIVATE)
 
-        languageChange()
+        changeLanguage()
         Log.i("MainActivity", "Langugae pref: " + sharedPreferences.getString("language", "en")!!)
-        checkTheme()
+        changeTheme()
         Log.i("MainActivity", "Langugae pref: " + sharedPreferences.getBoolean("SELECTED_THEME", false))
 
         setContentView(R.layout.activity_main)
@@ -40,11 +37,11 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment =
                 supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         navController = navHostFragment.navController
-        //val navController = this.findNavController(R.id.navHostFragment)
+
         NavigationUI.setupActionBarWithNavController(this, navController)
 
         appBarConfiguration = AppBarConfiguration(navController.graph)
-        //appBarConfiguration = AppBarConfiguration(setOf(R.id.startMenuFragment))
+
 
         Log.i("MainActivity", "nav graph" + navController.graph.toString())
 
@@ -54,14 +51,15 @@ class MainActivity : AppCompatActivity() {
         val navController = this.findNavController(R.id.navHostFragment)
         return NavigationUI.navigateUp(navController, appBarConfiguration)
     }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         //Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.toolbar_menu, menu)
+        menuInflater.inflate(R.menu.menu, menu)
 
         return true
     }
 
-    fun languageChange()
+    fun changeLanguage()
     {
         val currentLanguage = sharedPreferences.getString("SELECTED_LANGUAGE", "fi")
 
@@ -93,7 +91,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun checkTheme() {
+    private fun changeTheme() {
 
         Log.i("MainActivity", "checkTheme()" + sharedPreferences.getBoolean("SELECTED_THEME", false))
 
@@ -108,21 +106,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        languageChange()
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
 
 
-        R.id.languageModeMenu -> {
+        R.id.languageOptionMenu -> {
 
 
             when (sharedPreferences.getString("SELECTED_LANGUAGE", "en")) {
                 "fi" -> {
 
-                    Log.i("MainActivity", "languageModeMenu pressed to en")
+                    Log.i("MainActivity", "languageOptionMenu pressed to en")
                     // set preference
                     with(sharedPreferences.edit()) {
                         putString("SELECTED_LANGUAGE", "en")
@@ -134,7 +127,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 "en" -> {
 
-                    Log.i("MainActivity", "languageModeMenu pressed to fi")
+                    Log.i("MainActivity", "languageOptionMenu pressed to fi")
                     // set preference
                     with(sharedPreferences.edit()) {
                         putString("SELECTED_LANGUAGE", "fi")
@@ -146,7 +139,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 else -> {
 
-                    Log.i("MainActivity", "languageModeMenu pressed to en")
+                    Log.i("MainActivity", "languageOptionMenu pressed to en")
                     // set preference
                     with(sharedPreferences.edit()) {
                         putString("SELECTED_LANGUAGE", "en")
@@ -160,12 +153,12 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-        R.id.colorTheme -> {
+        R.id.dayNightOptionMenu -> {
 
             when (sharedPreferences.getBoolean("SELECTED_THEME", false)) {
                 true -> {
 
-                    Log.i("MainActivity", "colorTheme pressed to day")
+                    Log.i("MainActivity", "dayNightOptionMenu pressed to day")
                     Log.i("MainActivity", "checkTheme() now " + sharedPreferences.getBoolean("SELECTED_THEME", false))
 
                     // set preference
@@ -179,7 +172,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 false -> {
 
-                    Log.i("MainActivity", "colorTheme pressed to night")
+                    Log.i("MainActivity", "dayNightOptionMenu pressed to night")
                     Log.i("MainActivity", "checkTheme() now " + sharedPreferences.getBoolean("SELECTED_THEME", false))
 
                     // set preference

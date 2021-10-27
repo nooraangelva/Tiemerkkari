@@ -5,9 +5,12 @@ buildscript {
         version_kotlin = "1.5.0"
         version_core = "1.6.0"
         version_constraint_layout = "2.1.1"
-        version_lifecycle_extensions = "2.2.0"
+        version_lifecycle_extensions = "2.0.0-alpha1"
         version_material = "1.4.0"
         version_navigation = "2.3.5"
+        version_coroutine = "1.5.0"
+        version_lifecycle = "2.3.1"
+        version_room = "2.3.0"
     }
     repositories {
         google()

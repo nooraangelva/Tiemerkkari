@@ -26,7 +26,8 @@
         <item>Diagonal</item>
         <item>Arc</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="languageOptionText">Language</string>
+    <string name="nightDayOptionText">night/day option</string>
 
 </resources>

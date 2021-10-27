@@ -10,60 +10,19 @@
             type="com.example.android.navigation.screens.sign_options.SignOptionsViewModel" />
     </data>
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/signTypeConstraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent" >
 
-    <!--      The first child view becomes the left pane. When the combined
-          desired width (expressed using android:layout_width) would
-          not fit on-screen at once, the right pane is permitted to
-          overlap the left. -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/sign_list_recycle_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="start"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-/>
-
-    <!--
-
-         The second child becomes the right (content) pane. In this
-             example, android:layout_weight is used to expand this detail pane
-             to consume leftover available space when the
-             the entire window is wide enough to fit both the left and right pane.
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/detail_container"
-            android:name="com.example.details_of_signs"
-            android:layout_width="300dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#ff333333"
-            tools:visibility="visible">
-
-        </androidx.fragment.app.FragmentContainerView>
-    </androidx.slidingpanelayout.widget.SlidingPaneLayout>-->
-    <!--
-    <Button
-        android:id="@+id/option1Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="@{() -> viewModel.getChosenSteps()}"
-        android:text="@string/ImportButtonText"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gameOverFragment" />
-    text view text = "@{viewModel.signsString}"-->
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
-
-<!--
-            android:background="?attr/background_color"
-
--->

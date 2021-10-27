@@ -4,28 +4,19 @@
 
     <!-- language mode -->
     <item
-        android:id="@+id/languageModeMenu"
+        android:id="@+id/languageOptionMenu"
         android:icon="@drawable/settings"
         android:orderInCategory="200"
-        android:title="Language"
-        app:showAsAction="always" />
+        android:title="@string/languageOptionText"
+        app:showAsAction="ifRoom" />
 
     <!--night/day mode -->
     <item
-        android:id="@+id/colorTheme"
+        android:id="@+id/dayNightOptionMenu"
         android:icon="@drawable/icon_day_night"
         android:orderInCategory="100"
-        android:title="kopo"
+        android:title="@string/nightDayOptionText"
         app:showAsAction="always" />
-
-
-    <!-- To About Fragment button
-   <item
-        android:id="@+id/aboutMenu"
-        android:icon="@drawable/ic_baseline_arrow_back"
-        android:title="@string/about"
-        app:showAsAction="never"/>
-        -->
 
 
 </menu>

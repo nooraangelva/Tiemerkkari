@@ -1,24 +1,16 @@
 package com.example.android.navigation.screens.imports
 
-import android.app.Activity
-import android.content.Intent
-import android.icu.lang.UCharacter.GraphemeClusterBreak.V
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.ArrayAdapter
 import android.widget.Spinner
-import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
 import com.example.android.navigation.R
 import com.example.android.navigation.database.SignDatabase
 import com.example.android.navigation.databinding.FragmentImportBinding
-import com.example.android.navigation.screens.sign_options.SignOptionsViewModel
-import com.example.android.navigation.screens.sign_options.SignOptionsViewModelFactory
 
 class ImportFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -72,9 +64,9 @@ class ImportFragment : Fragment() {
 
     override fun onPrepareOptionsMenu(menu: Menu){
         super.onPrepareOptionsMenu(menu)
-        val item = menu.findItem(R.id.languageModeMenu)
+        val item = menu.findItem(R.id.languageOptionMenu)
         item.isVisible = false
-        val item2 = menu.findItem(R.id.colorTheme)
+        val item2 = menu.findItem(R.id.dayNightOptionMenu)
         item2.isVisible = false
     }
 

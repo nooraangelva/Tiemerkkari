@@ -115,7 +115,7 @@ class SignOptionsViewModel(area : Boolean, type : Int, database: SignDatabaseDao
 
         //return withContext(Dispatchers.IO) {
 
-        return _database.value!!.filterGetSigns(_type.value!!,_area.value!!).value!!
+        return _database.value!!.filterGetSigns(_type.value!!,_area.value!!)!!.value!!
         //}
 
     }
@@ -128,7 +128,7 @@ class SignOptionsViewModel(area : Boolean, type : Int, database: SignDatabaseDao
 
     private suspend fun getInsFromDatabase(): List<Instructions> {
 
-        return _database.value!!.getIns(_signId.value!!).value!!
+        return _database.value!!.getIns(_signId.value!!)!!.value!!
     }
 
     override fun onCleared() {

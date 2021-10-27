@@ -4,18 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-<variable
-    name="sign"
-    type="com.example.android.navigation.database.Signs" />
+
+        <variable
+            name="sign"
+            type="com.example.android.navigation.database.Signs" />
+
         <variable
             name="clickListener"
             type="com.example.android.navigation.screens.sign_options.SignListener" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:onClick="@{() -> clickListener.onClick(sign)}">
+        android:onClick="@{() -> clickListener.onClick(sign)}" >
 
         <ImageView
             android:id="@+id/imageViewList"
@@ -44,6 +47,6 @@
             app:layout_constraintTop_toBottomOf="@+id/imageViewList"
             app:signName="@{sign}"/>
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

@@ -17,4 +17,8 @@
     <string name="GuideText">Gooogle</string>
     <string name="OptionOneButton">One</string>
     <string name="chooseSpeedRangeText">Valitse nopeusalue</string>
+    <string name="title">Otsikko</string>
+    <string name="header_text">Asetukset</string>
+    <string name="languageOptionText">Kieli</string>
+    <string name="nightDayOptionText">Yö/Päivä väritys</string>
 </resources>

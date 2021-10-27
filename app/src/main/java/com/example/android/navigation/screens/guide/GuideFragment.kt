@@ -19,8 +19,6 @@ package com.example.android.navigation.screens.guide
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
 import com.example.android.navigation.R
 
 class GuideFragment : Fragment() {
@@ -41,9 +39,9 @@ class GuideFragment : Fragment() {
 
     override fun onPrepareOptionsMenu(menu: Menu){
         super.onPrepareOptionsMenu(menu)
-        val item = menu.findItem(R.id.languageModeMenu)
+        val item = menu.findItem(R.id.languageOptionMenu)
         item.isVisible = false
-        val item2 = menu.findItem(R.id.colorTheme)
+        val item2 = menu.findItem(R.id.dayNightOptionMenu)
         item2.isVisible = false
     }
 

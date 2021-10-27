@@ -8,15 +8,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
-import androidx.navigation.ui.NavigationUI
 import com.example.android.navigation.R
 import com.example.android.navigation.databinding.FragmentSpeedAreaBinding
-import com.example.android.navigation.screens.sign_type.SignTypeViewModelFactory
 
 class SpeedAreaFragment : Fragment() {
 
@@ -72,9 +66,9 @@ class SpeedAreaFragment : Fragment() {
 
     override fun onPrepareOptionsMenu(menu: Menu){
         super.onPrepareOptionsMenu(menu)
-        val item = menu.findItem(R.id.languageModeMenu)
+        val item = menu.findItem(R.id.languageOptionMenu)
         item.isVisible = false
-        val item2 = menu.findItem(R.id.colorTheme)
+        val item2 = menu.findItem(R.id.dayNightOptionMenu)
         item2.isVisible = false
     }
 }

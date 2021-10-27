@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,16 +7,14 @@
 
     <data>
         <variable
-            name="VM"
+            name="viewModel"
             type="com.example.android.navigation.screens.sign_type.SignTypeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/signTypeConstraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-
+        android:layout_height="match_parent" >
 
         <ImageView
             android:id="@+id/titleImage"
@@ -40,7 +37,7 @@
             style="@style/Buttons"
             android:layout_marginTop="100dp"
 
-            android:onClick="@{() -> VM.optionArrowsChosen()}"
+            android:onClick="@{() -> viewModel.optionArrowsChosen()}"
             android:text="@string/ArrowsButtonText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +49,7 @@
             android:layout_marginTop="32dp"
             android:layout_marginBottom="32dp"
 
-            android:onClick="@{() -> VM.optionSpeedLimitsChosen()}"
+            android:onClick="@{() -> viewModel.optionSpeedLimitsChosen()}"
             android:text="@string/SpeedLimitButtonText"
             app:layout_constraintBottom_toTopOf="@+id/othersButton"
             app:layout_constraintEnd_toEndOf="parent"
@@ -68,14 +65,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:onClick="@{() -> VM.optionOthersChosen()}"/>
+            android:onClick="@{() -> viewModel.optionOthersChosen()}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
 
-<!--
-android:background="?attr/background_color"
-            android:background="?attr/round_button"
-            android:background="?attr/round_button"
-            android:background="?attr/round_button"
--->
+</layout>

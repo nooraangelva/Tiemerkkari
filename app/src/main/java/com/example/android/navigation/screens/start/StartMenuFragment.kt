@@ -1,14 +1,11 @@
 package com.example.android.navigation.screens.start
 
-import android.app.ActionBar
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import androidx.databinding.DataBindingUtil
 import androidx.databinding.DataBindingUtil.inflate
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
 import com.example.android.navigation.R
 import com.example.android.navigation.databinding.FragmentStartMenuBinding
 
@@ -50,8 +47,8 @@ class StartMenuFragment : Fragment() {
 
     override fun onPrepareOptionsMenu(menu: Menu){
         super.onPrepareOptionsMenu(menu)
-        val item2 = menu.findItem(R.id.colorTheme)
-        val item = menu.findItem(R.id.languageModeMenu)
+        val item2 = menu.findItem(R.id.dayNightOptionMenu)
+        val item = menu.findItem(R.id.languageOptionMenu)
 
         if(!item.isVisible) {
 
