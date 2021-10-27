@@ -10,7 +10,7 @@
         android:id="@+id/startMenuConstraint"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        android:background="?attr/background_color">
 
         <Button
             android:id="@+id/startButton"
@@ -28,6 +28,7 @@
             style="@style/Buttons"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="32dp"
+            android:background="?attr/round_button"
 
             android:text="@string/ImportButtonText"
             app:layout_constraintBottom_toTopOf="@+id/guideButton"

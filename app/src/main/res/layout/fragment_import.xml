@@ -23,10 +23,10 @@
             android:layout_height="0dp"
             android:layout_gravity="start"
 
-            android:background="@drawable/gradient_background_light"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+        <!--android:background="@drawable/gradient_background_light"-->
 
         <Button
             android:id="@+id/importButton"
