@@ -19,12 +19,13 @@
         app:showAsAction="always" />
 
 
-    <!-- To About Fragment button-->
+    <!-- To About Fragment button
    <item
         android:id="@+id/aboutMenu"
         android:icon="@drawable/ic_baseline_arrow_back"
         android:title="@string/about"
         app:showAsAction="never"/>
+        -->
 
 
 </menu>

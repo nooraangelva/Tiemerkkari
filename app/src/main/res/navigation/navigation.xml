@@ -13,15 +13,15 @@
     <fragment
         android:id="@+id/speedAreaFragment"
         android:name="com.example.android.navigation.screens.speed_area.SpeedAreaFragment"
-        android:label="SpeedAreaFragment" >
+        android:label="SpeedAreaFragment">
         <action
             android:id="@+id/action_speedAreaFragment_to_signTypeFragment"
             app:destination="@id/signTypeFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left">
             <argument
-                android:name="typeInt"
-                app:argType="integer" />
+                android:name="area"
+                app:argType="boolean" />
         </action>
         <argument
             android:name="area"
@@ -30,19 +30,20 @@
     <fragment
         android:id="@+id/signTypeFragment"
         android:name="com.example.android.navigation.screens.sign_type.SignTypeFragment"
-        android:label="SignTypeFragment" >
+        android:label="SignTypeFragment">
         <action
             android:id="@+id/action_signTypeFragment_to_signOptionsFragment"
             app:destination="@id/signOptionsFragment"
             app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_in_right" >
+            app:exitAnim="@anim/slide_in_right">
             <argument
                 android:name="typeInt"
-                app:argType="integer"/>
+                app:argType="integer" />
+            <argument
+                android:name="area"
+                app:argType="boolean" />
         </action>
-        <argument
-            android:name="typeInt"
-            app:argType="integer" />
+
         <argument
             android:name="area"
             app:argType="boolean" />
@@ -51,7 +52,7 @@
     <fragment
         android:id="@+id/signOptionsFragment"
         android:name="com.example.android.navigation.screens.sign_options.SignOptionsFragment"
-        android:label="SignOptionsFragment" >
+        android:label="SignOptionsFragment">
         <action
             android:id="@+id/action_signOptionsFragment_to_startMenuFragment"
             app:destination="@id/startMenuFragment" />
@@ -65,7 +66,7 @@
     <fragment
         android:id="@+id/startMenuFragment"
         android:name="com.example.android.navigation.screens.start.StartMenuFragment"
-        android:label="StartMenuFragment" >
+        android:label="StartMenuFragment">
         <action
             android:id="@+id/action_startMenuFragment_to_speedAreaFragment"
             app:destination="@id/speedAreaFragment"

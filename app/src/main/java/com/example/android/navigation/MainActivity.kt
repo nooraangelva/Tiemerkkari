@@ -8,8 +8,11 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import java.util.*
 
@@ -18,6 +21,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var sharedPreferences: SharedPreferences
     val MyPREFERENCES = "MyPrefs"
+    private lateinit var appBarConfiguration : AppBarConfiguration
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.i("MainActivity", "OnCreate")
@@ -34,17 +39,25 @@ class MainActivity : AppCompatActivity() {
 
         val navHostFragment =
                 supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
-        val navController = navHostFragment.navController
-        val appBarConfiguration = AppBarConfiguration(navController.graph)
+        navController = navHostFragment.navController
+        //val navController = this.findNavController(R.id.navHostFragment)
+        NavigationUI.setupActionBarWithNavController(this, navController)
+
+        appBarConfiguration = AppBarConfiguration(navController.graph)
+        //appBarConfiguration = AppBarConfiguration(setOf(R.id.startMenuFragment))
+
         Log.i("MainActivity", "nav graph" + navController.graph.toString())
-        //findViewById<Toolbar>(R.id.toolBar).setupWithNavController(navController, appBarConfiguration)
-
-
 
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = this.findNavController(R.id.navHostFragment)
+        return NavigationUI.navigateUp(navController, appBarConfiguration)
+    }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        //Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.toolbar_menu, menu)
+
         return true
     }
 
@@ -179,11 +192,6 @@ class MainActivity : AppCompatActivity() {
 
                 }
             }
-            true
-        }
-
-        R.id.aboutMenu -> {
-            //TODO Fragment to about
             true
         }
 

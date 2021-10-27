@@ -29,26 +29,25 @@ import com.example.android.navigation.R
 class AboutFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+
+        setHasOptionsMenu(true)
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_about, container, false)
 
         // ADDS SIDE MENU
 
-        setHasOptionsMenu(true)
+
 
     }
 
     // MENU FUNCTIONS
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.iconless_menu, menu)
-
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
-                || super.onOptionsItemSelected(item)
+    override fun onPrepareOptionsMenu(menu: Menu){
+        super.onPrepareOptionsMenu(menu)
+        val item = menu.findItem(R.id.languageModeMenu)
+        item.isVisible = false
+        val item2 = menu.findItem(R.id.colorTheme)
+        item2.isVisible = false
     }
 }
 

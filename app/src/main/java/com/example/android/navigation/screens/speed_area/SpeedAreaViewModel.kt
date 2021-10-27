@@ -19,9 +19,7 @@ class SpeedAreaViewModel () : ViewModel() {
 
 
     init{
-        Log.i("SignOptionsViewModel", "SignOptionsViewModel created.")
-        _cityChosen.value = false
-        _completeChosen.value = true
+        Log.i("SpeedAreaViewModel", "SpeedAreaViewModel created.")
 
     }
 

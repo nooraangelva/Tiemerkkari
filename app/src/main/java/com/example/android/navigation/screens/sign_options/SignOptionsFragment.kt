@@ -92,8 +92,11 @@ class SignOptionsFragment : Fragment() {
 
     // MENU FUNCTIONS
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.iconless_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
+    override fun onPrepareOptionsMenu(menu: Menu){
+        super.onPrepareOptionsMenu(menu)
+        val item = menu.findItem(R.id.languageModeMenu)
+        item.isVisible = false
+        val item2 = menu.findItem(R.id.colorTheme)
+        item2.isVisible = false
     }
 }

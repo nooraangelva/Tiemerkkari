@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
-        android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"
+        android:theme="@style/DarkTheme"
 
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

@@ -20,7 +20,7 @@
             android:id="@+id/speedAreaLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/background_color">
+            >
 
             <ImageView
                 android:id="@+id/titleImage"
@@ -57,7 +57,7 @@
                 android:id="@+id/cityButton"
                 style="@style/Buttons"
                 android:layout_marginTop="100dp"
-                android:background="?attr/round_button"
+
                 android:onClick="@{() -> VM.cityChosen()}"
                 android:text="@string/CityButtonText"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -69,7 +69,7 @@
                 android:id="@+id/outsideCityButton"
                 style="@style/Buttons"
                 android:layout_marginTop="32dp"
-                android:background="?attr/round_button"
+
                 android:onClick="@{() -> VM.countyChosen()}"
                 android:text="@string/CountyButtonText"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -80,3 +80,9 @@
 
     </ScrollView>
 </layout>
+
+<!--
+android:background="?attr/background_color"
+android:background="?attr/round_button"
+android:background="?attr/round_button"
+-->

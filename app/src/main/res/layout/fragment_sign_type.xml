@@ -16,7 +16,7 @@
         android:id="@+id/signTypeConstraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/background_color">
+        >
 
 
         <ImageView
@@ -39,7 +39,7 @@
             android:id="@+id/arrowsButton"
             style="@style/Buttons"
             android:layout_marginTop="100dp"
-            android:background="?attr/round_button"
+
             android:onClick="@{() -> VM.optionArrowsChosen()}"
             android:text="@string/ArrowsButtonText"
             app:layout_constraintEnd_toEndOf="parent"
@@ -51,7 +51,7 @@
             style="@style/Buttons"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="32dp"
-            android:background="?attr/round_button"
+
             android:onClick="@{() -> VM.optionSpeedLimitsChosen()}"
             android:text="@string/SpeedLimitButtonText"
             app:layout_constraintBottom_toTopOf="@+id/othersButton"
@@ -63,7 +63,7 @@
             android:id="@+id/othersButton"
             style="@style/Buttons"
             android:layout_marginBottom="100dp"
-            android:background="?attr/round_button"
+
             android:text="@string/othersButtonText"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -72,3 +72,10 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
+
+<!--
+android:background="?attr/background_color"
+            android:background="?attr/round_button"
+            android:background="?attr/round_button"
+            android:background="?attr/round_button"
+-->

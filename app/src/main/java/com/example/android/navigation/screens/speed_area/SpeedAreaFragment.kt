@@ -50,16 +50,16 @@ class SpeedAreaFragment : Fragment() {
 
         // Sets the listener for buttons
 
-        viewModel.completeChosen.observe(viewLifecycleOwner, Observer { chosen ->
-            if (viewModel.cityChosen.value!!) {
-                Log.v("Buttons", "Speed area - city pressed")
+        viewModel.cityChosen.observe(viewLifecycleOwner, Observer { city ->
+            if (city) {
+                Log.v("SpeedAreaFragment", "Speed area - city pressed")
 
-                navController.navigate(SpeedAreaFragmentDirections.actionSpeedAreaFragmentToSignTypeFragment(0,viewModel.cityChosen.value!!))
+                navController.navigate(SpeedAreaFragmentDirections.actionSpeedAreaFragmentToSignTypeFragment(city))
                 viewModel.cityChosenComplete()
             }
             else{
-                Log.v("Buttons", "Speed area - outsideCity pressed")
-                navController.navigate(SpeedAreaFragmentDirections.actionSpeedAreaFragmentToSignTypeFragment(0,viewModel.cityChosen.value!!))
+                Log.v("SpeedAreaFragment", "Speed area - outsideCity pressed")
+                navController.navigate(SpeedAreaFragmentDirections.actionSpeedAreaFragmentToSignTypeFragment(city))
                 viewModel.countyChosenComplete()
             }
         })
@@ -70,9 +70,12 @@ class SpeedAreaFragment : Fragment() {
 
     // MENU FUNCTIONS
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.iconless_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
+    override fun onPrepareOptionsMenu(menu: Menu){
+        super.onPrepareOptionsMenu(menu)
+        val item = menu.findItem(R.id.languageModeMenu)
+        item.isVisible = false
+        val item2 = menu.findItem(R.id.colorTheme)
+        item2.isVisible = false
     }
 }
 

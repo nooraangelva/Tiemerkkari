@@ -26,6 +26,9 @@ import com.example.android.navigation.R
 class GuideFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+
+        setHasOptionsMenu(true)
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_guide, container, false)
 
@@ -36,6 +39,13 @@ class GuideFragment : Fragment() {
 
     // MENU FUNCTIONS
 
+    override fun onPrepareOptionsMenu(menu: Menu){
+        super.onPrepareOptionsMenu(menu)
+        val item = menu.findItem(R.id.languageModeMenu)
+        item.isVisible = false
+        val item2 = menu.findItem(R.id.colorTheme)
+        item2.isVisible = false
+    }
 
 }
 

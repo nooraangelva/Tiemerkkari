@@ -10,7 +10,8 @@
         android:id="@+id/startMenuConstraint"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/background_color">
+        style="@style/DarkTheme"
+>
 
         <Button
             android:id="@+id/startButton"
@@ -28,7 +29,7 @@
             style="@style/Buttons"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="32dp"
-            android:background="?attr/round_button"
+
 
             android:text="@string/ImportButtonText"
             app:layout_constraintBottom_toTopOf="@+id/guideButton"
@@ -40,7 +41,6 @@
             android:id="@+id/guideButton"
             style="@style/Buttons"
             android:layout_marginBottom="100dp"
-
             android:text="@string/GuideButtonText"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

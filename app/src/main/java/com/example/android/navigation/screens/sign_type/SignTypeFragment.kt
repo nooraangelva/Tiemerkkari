@@ -71,8 +71,7 @@ class SignTypeFragment : Fragment() {
             if (arrowsChosen) {
 
                 Log.v("Buttons","Sign type - arrow pressed")
-                var b : Int = viewModel.type.value?.toInt() ?: 0
-                navController.navigate(SpeedAreaFragmentDirections.actionSpeedAreaFragmentToSignTypeFragment(b!!,viewModel.area.value!!))
+                navController.navigate(SignTypeFragmentDirections.actionSignTypeFragmentToSignOptionsFragment(viewModel.type.value!!,viewModel.area.value!!))
                 viewModel.optionArrowsChosenComplete()
             }
         })
@@ -80,8 +79,7 @@ class SignTypeFragment : Fragment() {
         viewModel.speedLimitsChosen.observe(viewLifecycleOwner, Observer { speedLimitsChosen ->
             if (speedLimitsChosen) {
                 Log.v("Buttons","Sign type - speed limit pressed")
-                var b : Int = viewModel.type.value?.toInt() ?: 0
-                navController.navigate(SpeedAreaFragmentDirections.actionSpeedAreaFragmentToSignTypeFragment(b!!,viewModel.area.value!!))
+                navController.navigate(SignTypeFragmentDirections.actionSignTypeFragmentToSignOptionsFragment(viewModel.type.value!!,viewModel.area.value!!))
                 viewModel.optionSpeedLimitsChosenComplete()
             }
         })
@@ -90,7 +88,7 @@ class SignTypeFragment : Fragment() {
             if (othersChosen) {
                 Log.v("Buttons","Sign type - others pressed")
 
-                navController.navigate(SpeedAreaFragmentDirections.actionSpeedAreaFragmentToSignTypeFragment(viewModel.type.value!!,viewModel.area.value!!))
+                navController.navigate(SignTypeFragmentDirections.actionSignTypeFragmentToSignOptionsFragment(viewModel.type.value!!,viewModel.area.value!!))
                 viewModel.optionOthersChosenComplete()
             }
         })
@@ -104,8 +102,11 @@ class SignTypeFragment : Fragment() {
 
     // MENU FUNCTIONS
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.iconless_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
+    override fun onPrepareOptionsMenu(menu: Menu){
+        super.onPrepareOptionsMenu(menu)
+        val item = menu.findItem(R.id.languageModeMenu)
+        item.isVisible = false
+        val item2 = menu.findItem(R.id.colorTheme)
+        item2.isVisible = false
     }
 }

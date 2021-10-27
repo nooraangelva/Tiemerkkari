@@ -46,11 +46,18 @@ class StartMenuFragment : Fragment() {
         return binding.root
     }
 
-// MENU FUNCTIONS
+    // MENU FUNCTIONS
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.toolbar_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
+    override fun onPrepareOptionsMenu(menu: Menu){
+        super.onPrepareOptionsMenu(menu)
+        val item2 = menu.findItem(R.id.colorTheme)
+        val item = menu.findItem(R.id.languageModeMenu)
+
+        if(!item.isVisible) {
+
+            item.isVisible = true
+            item2.isVisible = true
+        }
     }
 
 }
