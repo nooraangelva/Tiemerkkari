@@ -7,8 +7,6 @@ import androidx.lifecycle.ViewModel
 
 class SignTypeViewModel (area: Boolean) : ViewModel() {
 
-
-
     private val _arrowsChosen = MutableLiveData<Boolean>()
     val arrowsChosen: LiveData<Boolean>
         get() = _arrowsChosen

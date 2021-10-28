@@ -1,8 +1,11 @@
-package com.example.android.navigation.screens.sign_options
+package com.example.android.navigation.screens.printing
 
 import android.os.Bundle
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -11,72 +14,59 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.GridLayoutManager
 import com.example.android.navigation.R
 import com.example.android.navigation.database.SignDatabase
-import com.example.android.navigation.databinding.FragmentSignOptionsBinding
-import com.example.android.navigation.screens.sign_type.SignTypeFragmentDirections
-import kotlin.math.sign
+import com.example.android.navigation.databinding.FragmentPrintingBinding
+import com.example.android.navigation.screens.printing.*
 
+class PrintingFragment : Fragment() {
 
-class SignOptionsFragment : Fragment() {
-
-    private lateinit var viewModel: SignOptionsViewModel
-    private lateinit var viewModelFactory: SignOptionsViewModelFactory
+    private lateinit var viewModel: PrintingViewModel
+    private lateinit var viewModelFactory: PrintingViewModelFactory
     private lateinit var navController: NavController
-    private lateinit var binding: FragmentSignOptionsBinding
+    private lateinit var binding: FragmentPrintingBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_sign_options, container, false)
+                inflater, R.layout.fragment_printing, container, false)
 
 
         val application = requireNotNull(this.activity).application
         val dataSource = SignDatabase.getInstance(application).signDatabaseDao
 
-
         // Get arguments
-        val signOptionsFragmentArgs by navArgs<SignOptionsFragmentArgs>()
-        viewModelFactory = SignOptionsViewModelFactory(signOptionsFragmentArgs.area, signOptionsFragmentArgs.typeInt, dataSource, application)
+        val printingFragmentArgs by navArgs<PrintingFragmentArgs>()
+        viewModelFactory = PrintingViewModelFactory(printingFragmentArgs.signId, dataSource, application)
 
         viewModel = ViewModelProvider(this, viewModelFactory)
-                .get(SignOptionsViewModel::class.java)
-
+                .get(PrintingViewModel::class.java)
 
         binding.viewModel = viewModel
 
-        val manager = GridLayoutManager(activity, 3)
-        manager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-            override fun getSpanSize(position: Int) = when (position) {
-                0 -> 3
-                else -> 1
-            }
-        }
-        binding.signListRecycleView.layoutManager = manager
-
+        /*
         val adapter = SignOptionsAdapter(SignListener { signId ->
             Toast.makeText(context, "$signId", Toast.LENGTH_LONG).show()
-            Log.v("Buttons","SignId - $signId chosen")
-            navController.navigate(SignOptionsFragmentDirections.actionSignOptionsFragmentToPrintingFragment(signId))
+
+            Log.v("Buttons", "SignId - $signId chosen")
+            navController.navigate(SignOptionsFragmentDirections.actionSignOptionsFragmentToPrintingFragmnet(signId))
 
         })
 
-        binding.signListRecycleView.adapter = adapter
 
         viewModel.sign.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.addHeaderAndSubmitList(it)
             }
-        })
+        })*/
 
         binding.setLifecycleOwner(this)
 
-        navController = findNavController();
+        navController = findNavController()
 
-        // Sets the onClickListener for buttons
+        //TODO Sets the onClickListener for finished
 
         /*
         binding.startMenuButton.setOnClickListener { view: View ->
@@ -87,7 +77,6 @@ class SignOptionsFragment : Fragment() {
         setHasOptionsMenu(true)
         return binding.root
     }
-
 
     // MENU FUNCTIONS
 

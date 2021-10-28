@@ -55,7 +55,7 @@ class SignOptionsAdapter ( val clickListener: SignListener): ListAdapter<DataIte
         companion object {
             fun from(parent: ViewGroup): TextViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val view = layoutInflater.inflate(R.layout.header, parent, false)
+                val view = layoutInflater.inflate(R.layout.sign_options_header, parent, false)
                 return TextViewHolder(view)
             }
         }

@@ -34,7 +34,7 @@ class SpeedAreaFragment : Fragment() {
 
         // Set the viewmodel for databinding - this allows the bound layout access to all of the
         // data in the VieWModel
-        binding.vm = viewModel
+        binding.viewModel = viewModel
         // Specify the current activity as the lifecycle owner of the binding. This is used so that
         // the binding can observe LiveData updates
         binding.setLifecycleOwner(this)

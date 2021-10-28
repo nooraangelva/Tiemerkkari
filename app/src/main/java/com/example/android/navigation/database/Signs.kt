@@ -15,17 +15,17 @@ data class Signs  (
         val signName: String =  "",
 
         @ColumnInfo(name = "source_picture")
-        val sourcePicture: Int,
+        val sourcePicture: Int = 0,
 
         @ColumnInfo(name = "speed_area")
-        val speedArea: Boolean,
+        val speedArea: Boolean = false,
 
         @ColumnInfo(name = "type")
-        val type: Int,
+        val type: Int = 0,
 
-        @ColumnInfo(name = "measurements")
-        val measurements: String =  "",
+        @ColumnInfo(name = "info")
+        val info: String =  "",
 
-        @ColumnInfo(name = "other_info")
-        val otherInfo: String =  "",
+        //@ColumnInfo(name = "other_info")
+        //val otherInfo: String =  "",
 )

@@ -53,7 +53,7 @@ class SignTypeFragment : Fragment() {
                 .get(SignTypeViewModel::class.java)
 
 
-        binding.vm = viewModel
+        binding.viewModel = viewModel
         binding.setLifecycleOwner(this)
 
         val navController = findNavController();

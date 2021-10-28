@@ -25,7 +25,7 @@ class ImportViewModel (val dataSource: SignDatabaseDao, application: Application
     val step: LiveData<Instructions?>
         get() = _step
 
-    //val tripleMediatorLiveData = TripleMediatorLiveData(_score, _gameTime, _numQuestions)
+
 
     init {
 

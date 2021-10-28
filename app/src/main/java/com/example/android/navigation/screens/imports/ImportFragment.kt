@@ -31,31 +31,6 @@ class ImportFragment : Fragment() {
 
         binding.viewModel = viewModel
 
-        //dropdown list code
-
-        val spinnerImport: Spinner = this.requireActivity().findViewById(R.id.spinner)
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter.createFromResource(this.requireContext(),
-                R.array.movement_options_array,
-                android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            // Specify the layout to use when the list of choices appears
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            // Apply the adapter to the spinner
-            spinnerImport.adapter = adapter
-        }
-
-        //which option is chosen
-        //val spinner: Spinner = activity.findViewById(R.id.spinner)
-        //spinner.onItemSelectedListener = this
-
-
-
-
-        binding.importButton.setOnClickListener { view: View ->
-            Log.v("Buttons", "ImportFragment - importButton pressed $view" )
-        }
-
         setHasOptionsMenu(true)
         return binding.root
     }
@@ -80,7 +55,7 @@ class ImportFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE) {
-            imageView.setImageURI(data?.data) // handle chosen image
+            printingImageView.setImageURI(data?.data) // handle chosen image
         }
 
     }*/

@@ -29,5 +29,7 @@
 
     <string name="languageOptionText">Language</string>
     <string name="nightDayOptionText">night/day option</string>
+    <string name="stop_printing_text">Stop Printing</string>
+    <string name="start_printing">Start Printing</string>
 
 </resources>

@@ -53,15 +53,19 @@
         android:id="@+id/signOptionsFragment"
         android:name="com.example.android.navigation.screens.sign_options.SignOptionsFragment"
         android:label="SignOptionsFragment">
-        <action
-            android:id="@+id/action_signOptionsFragment_to_startMenuFragment"
-            app:destination="@id/startMenuFragment" />
         <argument
             android:name="typeInt"
             app:argType="integer" />
         <argument
             android:name="area"
             app:argType="boolean" />
+        <action
+            android:id="@+id/action_signOptionsFragment_to_printingFragment"
+            app:destination="@id/printingFragment"      >
+            <argument
+                android:name="signId"
+                app:argType="Long" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/startMenuFragment"
@@ -88,4 +92,16 @@
         android:id="@+id/guideFragment"
         android:name="com.example.android.navigation.screens.guide.GuideFragment"
         android:label="GuideFragment" />
+    <fragment
+        android:id="@+id/printingFragment"
+        android:name="com.example.android.navigation.screens.printing.PrintingFragment"
+        android:label="PrintingFragment" >
+        <action
+            android:id="@+id/action_printingFragment_to_startMenuFragment"
+            app:destination="@id/startMenuFragment" />
+        <argument
+            android:name="signId"
+            app:argType="Long" />
+
+    </fragment>
 </navigation>
