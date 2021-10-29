@@ -16,7 +16,6 @@
             android:id="@+id/startButton"
             style="@style/Buttons"
             android:layout_marginTop="100dp"
-
             android:text="@string/StartButtonText"
             app:elevation="8dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +35,9 @@
 
         <Button
             android:id="@+id/guideButton"
-            style="@style/Buttons"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginBottom="100dp"
             android:text="@string/GuideButtonText"
             app:layout_constraintBottom_toBottomOf="parent"
