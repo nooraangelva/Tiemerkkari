@@ -8,26 +8,39 @@ import android.widget.Spinner
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import com.example.android.navigation.R
 import com.example.android.navigation.database.SignDatabase
 import com.example.android.navigation.databinding.FragmentImportBinding
+import com.example.android.navigation.databinding.FragmentPrintingBinding
+import com.example.android.navigation.screens.printing.PrintingViewModel
+import com.example.android.navigation.screens.printing.PrintingViewModelFactory
 
 class ImportFragment : Fragment() {
+
+    private lateinit var viewModel: ImportViewModel
+    private lateinit var viewModelFactory: ImportViewModelFactory
+    private lateinit var navController: NavController
+    private lateinit var binding: FragmentImportBinding
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+
         // Inflate the layout for this fragment
-        val binding: FragmentImportBinding = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_import, container, false)
 
         val application = requireNotNull(this.activity).application
         val dataSource = SignDatabase.getInstance(application).signDatabaseDao
 
-        val viewModelFactory = ImportViewModelFactory(dataSource, application)
+        viewModelFactory = ImportViewModelFactory(dataSource, application)
 
-        val viewModel = ViewModelProvider(this, viewModelFactory)
+        viewModel = ViewModelProvider(this, viewModelFactory)
                 .get(ImportViewModel::class.java)
 
         binding.setLifecycleOwner(this)
+        navController = findNavController()
 
         binding.viewModel = viewModel
 
@@ -45,18 +58,5 @@ class ImportFragment : Fragment() {
         item2.isVisible = false
     }
 
-    // DOWNLOADING IMAGE
-    /*
-    private fun openGalleryForImage() {
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "image/*"*/
-        startActivityForResult(intent, REQUEST_CODE)
-    }
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE) {
-            printingImageView.setImageURI(data?.data) // handle chosen image
-        }
 
-    }*/
 }

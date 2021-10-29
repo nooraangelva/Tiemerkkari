@@ -17,7 +17,6 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
     val signId: LiveData<Long>
         get() = _signId
 
-
     private var viewModelJob = Job()
 
     override fun onCleared() {
@@ -27,7 +26,6 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
 
     private val uiScope = CoroutineScope(Dispatchers.Main +  viewModelJob)
 
-    //TODO fix muoto
     private val _steps = MutableLiveData<List<Instructions>>()
     val steps: LiveData<List<Instructions>>
         get() = _steps
@@ -62,15 +60,14 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
     init{
         Log.i("PrintingViewModel", "PrintingViewModel created.")
 
-
         _signId.value = signId
         initializeStep()
         initializeSign()
 
-
     }
 
     //FUNCTIONS
+
     fun initializeStep(){
         uiScope.launch {
             _steps.value = getStepsFromDatabase()
@@ -87,13 +84,13 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
         }
     }
 
-    private suspend fun getStepsFromDatabase(): LiveData<List<Instructions>>? {
+    private suspend fun getStepsFromDatabase(): List<Instructions>? {
 
         return database.filterGetIns(_signId.value!!)
 
     }
 
-    private suspend fun getSignFromDatabase(): LiveData<Signs>? {
+    private suspend fun getSignFromDatabase(): Signs? {
 
         return database.filterGetSign(_signId.value!!)
 
@@ -103,6 +100,7 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
     //TODO send info and steps from the list
 
     }
+
     fun energencyStop(){
 
         //TODO send stop command

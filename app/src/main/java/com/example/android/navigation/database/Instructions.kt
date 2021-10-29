@@ -12,12 +12,12 @@ data class Instructions  (
         var stepId: Long = 0L,
 
         @ColumnInfo(name = "sign_id")
-        val signId: Long,
+        val signId: Long = 0L,
 
         @ColumnInfo(name = "Step")
-        val step: Int,
+        val step: Int = 0,
 
         @ColumnInfo(name = "order")
-        val order: String,
+        val order: String = "",
 
 )

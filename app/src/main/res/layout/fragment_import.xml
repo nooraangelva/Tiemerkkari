@@ -17,6 +17,36 @@
         android:layout_height="match_parent"
         android:background="?attr/background_color">
 
+        <EditText
+            android:id="@+id/editTextTextPersonName2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="@={viewModel.userName}" />
+
+        <EditText
+            android:id="@+id/editTextTextPersonName3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="@={viewModel.userName}" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() ->  viewModel.imageDownload()}"
+            android:text="Button" />
+
+        <Button
+            android:id="@+id/createSignButtonImport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() ->  viewModel.initializeSign()}"
+            android:text="Button" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/import_list_recycle_view"
             android:layout_width="match_parent"
@@ -26,7 +56,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-        <!--android:background="@drawable/gradient_background_light"-->
 
         <Button
             android:id="@+id/importButton"
@@ -40,7 +69,15 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/import_list_recycle_view"
             app:layout_constraintEnd_toEndOf="parent"
+            android:onClick="@{() ->  viewModel.saveSteps()}"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/cancelButtonImport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() ->  viewModel.delete()}"
+            android:text="Button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
