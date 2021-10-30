@@ -13,6 +13,8 @@
     <color name="buttonTextColorDark">#F9AA33</color>
     <color name="toolbarDark">#344955</color>
     <color name="textColorDark">#96B9CA</color>
+    <color name="colorAccent">#344955</color>
+    <color name="colorPrimary">#F9AA33</color>
 
 
     <!-- Light mode-->
