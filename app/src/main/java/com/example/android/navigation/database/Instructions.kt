@@ -20,4 +20,13 @@ data class Instructions  (
         @ColumnInfo(name = "order")
         val order: String = "",
 
+        @ColumnInfo(name = "parameterX")
+        val parX: Int = 0,
+
+        @ColumnInfo(name = "parameterY")
+        val parY: Int = 0,
+
+        @ColumnInfo(name = "paint")
+        val paint: Boolean = false,
+
 )

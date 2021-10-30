@@ -54,11 +54,6 @@ class SignOptionsViewModel(area : Boolean, type : Int, database: SignDatabaseDao
     val signId: LiveData<Long>
         get() = _signId
 
-
-
-
-//TODO Area and type to Boolean and initialize signId
-
     private val _eventSubmit = MutableLiveData<Boolean>()
     val eventSubmit: LiveData<Boolean>
         get() = _eventSubmit
@@ -113,7 +108,7 @@ class SignOptionsViewModel(area : Boolean, type : Int, database: SignDatabaseDao
 
         //return withContext(Dispatchers.IO) {
 
-        return _database.value!!.filterGetSigns(_type.value!!,_area.value!!)?.value
+        return _database.value!!.filterGetSigns(_type.value!!,_area.value!!)
         //}
 
     }
@@ -126,7 +121,7 @@ class SignOptionsViewModel(area : Boolean, type : Int, database: SignDatabaseDao
 
     private suspend fun getInsFromDatabase(): List<Instructions> {
 
-        return _database.value!!.getIns(_signId.value!!)?.value!!
+        return _database.value!!.getIns(_signId.value!!)!!
     }
 
     override fun onCleared() {

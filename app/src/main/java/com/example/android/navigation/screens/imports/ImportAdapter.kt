@@ -6,10 +6,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.navigation.R
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 
 
 class ImportAdapter(private val dataSet: Array<String>) :
         RecyclerView.Adapter<ImportAdapter.ViewHolder>() {
+
+
 
     /**
      * Provide a reference to the type of views that you are using

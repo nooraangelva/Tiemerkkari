@@ -5,12 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="205dp"
-        android:layout_height="75dp" />
-
+    
     <EditText
         android:id="@+id/editTextNumber"
         android:layout_width="180dp"
@@ -19,6 +14,7 @@
         android:ems="10"
         android:inputType="number"
         app:layout_constraintTop_toTopOf="parent"
+        app:signName="@{step}"
         tools:layout_editor_absoluteX="205dp" />
 
     <CheckedTextView
@@ -26,6 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="CheckedTextView"
+        app:signName="@{step}"
         tools:layout_editor_absoluteX="409dp"
         tools:layout_editor_absoluteY="35dp" />
 
@@ -34,6 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="CheckedTextView"
+        app:signName="@{step}"
         tools:layout_editor_absoluteX="559dp"
         tools:layout_editor_absoluteY="35dp" />
 
@@ -42,6 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        app:signName="@{step}"
         android:inputType="number"
         tools:layout_editor_absoluteX="500dp"
         tools:layout_editor_absoluteY="77dp" />
@@ -61,6 +60,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name"
+        app:signName="@{step}"
         tools:layout_editor_absoluteX="100dp"
         tools:layout_editor_absoluteY="187dp" />
 
