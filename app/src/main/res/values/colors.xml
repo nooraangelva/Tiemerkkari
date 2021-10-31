@@ -9,23 +9,27 @@
     <color name="gameOverBackground">#f8bbd0</color>-->
 
     <!-- Dark mode-->
-    <color name="colorPrimaryDark">#232F34</color>
-    <color name="buttonTextColorDark">#F9AA33</color>
+    <color name="colorPrimaryDark">#2E2E2E</color>
+    <color name="colorPrimary">#2E2E2E</color>
+    <color name="buttonTextColorDark">#F8E326</color>
     <color name="toolbarDark">#344955</color>
     <color name="textColorDark">#96B9CA</color>
     <color name="colorAccent">#344955</color>
-    <color name="colorPrimary">#F9AA33</color>
+
 
 
     <!-- Light mode-->
-    <color name="colorPrimaryLight">#585F68</color>
-    <color name="buttonTextColorLight">#232F34</color>
+    <color name="colorPrimaryLight">#D7D8DA</color>
+    <color name="buttonTextColorLight">#393A3A</color>
     <color name="toolbarLight">#C3D4DD</color>
     <color name="textColorLight">#141719</color>
+    <color name="colorPrimaryL">#D7D8DA</color>
+
+
 
 
     <color name="youWinBackground">#B7F8C9</color>
-    <color name="colorPrimary">#232F34</color>
+
     <color name="colorSecondary">#F9AA33</color>
     <!--<color name="textColor">#96B9CA</color>-->
 
