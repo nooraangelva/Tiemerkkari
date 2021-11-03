@@ -9,6 +9,7 @@ import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.example.android.navigation.database.Instructions
 import com.example.android.navigation.database.SignDatabaseDao
@@ -32,6 +33,8 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
     }
 
     private val uiScope = CoroutineScope(Dispatchers.Main +  viewModelJob)
+
+
 
     private val _steps = MutableLiveData<List<Instructions>>()
     val steps: LiveData<List<Instructions>>
@@ -65,7 +68,11 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
 
        private val steps = database.filterGetIns(_singId.value!!)
 
-        */
+
+
+    val nightsString = Transformations.map(steps) { nights ->
+        formatNights(nights, application.resources)
+    }*/
 
     init{
         Log.i("PrintingViewModel", "PrintingViewModel created.")
@@ -78,7 +85,8 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
     fun initializeStep(){
 
         uiScope.launch {
-            createStepsToDatabase()
+            createStepToDatabase()
+            UpdateStepsToDatabase()
             getStepsFromDatabase()
         }
 
@@ -103,14 +111,14 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
     fun delete(){
 
         uiScope.launch {
-            deleteSignfromDatabase()
-            deleteStepsfromDatabase()
+            deleteSignFromDatabase()
+            deleteStepsFromDatabase()
         }
 
     }
 
 
-    private suspend fun createStepsToDatabase():Boolean {
+    private suspend fun createStepToDatabase():Boolean {
 
         database.insertIns(_step.value!!)
         return true
@@ -124,14 +132,14 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
 
     }
 
-    private suspend fun deleteStepsfromDatabase():Boolean {
+    private suspend fun deleteStepsFromDatabase():Boolean {
 
         database.clearIns(signId.value!!)
         return true
 
     }
 
-    private suspend fun deleteSignfromDatabase():Boolean {
+    private suspend fun deleteSignFromDatabase():Boolean {
 
         database.clearSign(signId.value!!)
         return true

@@ -17,6 +17,12 @@ data class Instructions  (
         @ColumnInfo(name = "Step")
         val step: Int = 0,
 
+        @ColumnInfo(name = "directionX")
+        val directionX: Boolean = false,
+
+        @ColumnInfo(name = "directionY")
+        val directionY: Boolean = false,
+
         @ColumnInfo(name = "order")
         val order: String = "",
 

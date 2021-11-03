@@ -4,12 +4,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.navigation.R
+import com.example.android.navigation.database.Instructions
+import com.example.android.navigation.databinding.ListItemStepsBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 
-
+/*
 class ImportAdapter(private val dataSet: Array<String>) :
         RecyclerView.Adapter<ImportAdapter.ViewHolder>() {
 
@@ -48,4 +51,61 @@ class ImportAdapter(private val dataSet: Array<String>) :
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = dataSet.size
 
+}
+
+*/
+
+class ImportAdapter ( private val dataSet: Array<String> ) :
+        RecyclerView.Adapter<ImportAdapter.ViewHolder>(StepsDiffCallback()) {
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item = getItem(position)
+
+        holder.bind(item)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder.from(parent)
+    }
+
+    class ViewHolder private constructor(val binding: ListItemStepsBinding)
+        : RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(item: Instructions) {
+            val res = itemView.context.resources
+
+            binding.movementInput.text = item.order
+            binding.paintChecked.isChecked = item.paint
+            binding.xDirectionChecked.isChecked = item.directionX
+            binding.yDirectionChecked.isChecked = item.directionY
+            binding.xMovementInput.text = item.parX
+            binding.yMovementInput.text = item.parY
+            binding.stepNumberTextView.text = item.step.toString()
+        }
+
+        companion object {
+            fun from(parent: ViewGroup): ViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = ListItemStepsBinding.inflate(layoutInflater, parent, false)
+
+                return ViewHolder(binding)
+            }
+        }
+    }
+}
+
+/**
+ * Callback for calculating the diff between two non-null items in a list.
+ *
+ * Used by ListAdapter to calculate the minumum number of changes between and old list and a new
+ * list that's been passed to `submitList`.
+ */
+class StepsDiffCallback : DiffUtil.ItemCallback<Instructions>() {
+    override fun areItemsTheSame(oldItem: Instructions, newItem: Instructions): Boolean {
+        return oldItem.stepId == newItem.stepId
+    }
+
+    override fun areContentsTheSame(oldItem: Instructions, newItem: Instructions): Boolean {
+        return oldItem == newItem
+    }
 }
