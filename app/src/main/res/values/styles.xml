@@ -17,8 +17,7 @@
         <item name="android:buttonStyle">@style/ButtonsDark</item>
         <item name="textAppearanceHeadline1">@style/textStyle</item>
         <item name="colorAccent">@color/colorAccent</item>
-
-
+        <item name="colorButtonNormal">#5A05F1</item>
 
         <!--<item name="materialButtonStyle">@style/Buttons</item>-->
 
@@ -34,6 +33,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryLight</item>
         <item name="colorPrimary">@color/colorPrimaryL</item>
         <item name="android:colorBackground">@drawable/gradient_background_light</item>
+        <item name="colorButtonNormal">#CD0E0E</item>
 
 
         <item name="android:textColor">@color/buttonTextColorLight</item>
@@ -51,7 +51,7 @@
     <!--Buttoneittein tyylit-->
     <style name="ButtonsDark" parent="Widget.MaterialComponents.Button.OutlinedButton"><!--"" Theme.AppCompat.DayNight.NoActionBar-->
 
-        <item name="android:background">#486581</item>
+
         <item name="android:textAlignment">center</item>
         <item name="android:textSize">@dimen/button_text_size</item>
         <item name="android:textStyle">bold</item>
