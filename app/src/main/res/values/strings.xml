@@ -15,7 +15,7 @@
     <string name="StartButtonText">START</string>
     <string name="ImportButtonText">IMPORT</string>
     <string name="GuideButtonText">GUIDE</string>
-    <string name="GuideText">Gooogle</string>
+    <string name="GuideText">Instructions</string>
     <string name="OptionOneButton">One</string>
     <string name="chooseSpeedRangeText">Choose speed range</string>
     <string name="title">Title</string>

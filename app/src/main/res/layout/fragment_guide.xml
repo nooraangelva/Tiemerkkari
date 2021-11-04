@@ -42,5 +42,35 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titleImage" />
 
+        <Button
+            android:id="@+id/startButton"
+            style="@style/ButtonsDark"
+            android:layout_marginTop="100dp"
+            android:text="Start"
+            app:elevation="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleImage" />
+
+        <Button
+            android:id="@+id/importLayoutButton"
+            style="@style/ButtonsDark"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
+            android:text="Import"
+            app:layout_constraintBottom_toTopOf="@+id/guideButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/startButton" />
+
+        <Button
+            android:id="@+id/guideButton"
+            style="@style/ButtonsDark"
+            android:layout_marginBottom="100dp"
+            android:text="Day/night and En/fi"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
