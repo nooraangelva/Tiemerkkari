@@ -26,6 +26,11 @@
         <item>Diagonal</item>
         <item>Arc</item>
     </string-array>
+    <string-array name="type_options_array">
+        <item>Arrows</item>
+        <item>Others</item>
+        <item>Speed limits</item>
+    </string-array>
 
     <string name="languageOptionText">Language</string>
     <string name="nightDayOptionText">night/day option</string>

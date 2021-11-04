@@ -20,6 +20,9 @@ interface SignDatabaseDao {
     @Query("SELECT * from signs_info_table")
     fun getSign(): LiveData<List<Signs>>?
 
+    @Query("SELECT sign_id from signs_info_table WHERE sign_name == :key")
+    fun getSignId(key: String): Long
+
     @Query("SELECT * from signs_info_table WHERE type = :key AND speed_area = :key2")
     fun filterGetSigns(key: Int, key2: Boolean): LiveData<List<Signs>>?
 

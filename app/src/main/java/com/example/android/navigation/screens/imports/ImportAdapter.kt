@@ -72,15 +72,8 @@ class ImportAdapter ( private val dataSet: Array<String> ) :
         : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Instructions) {
-            val res = itemView.context.resources
-
-            binding.movementInput.text = item.order
-            binding.paintChecked.isChecked = item.paint
-            binding.xDirectionChecked.isChecked = item.directionX
-            binding.yDirectionChecked.isChecked = item.directionY
-            binding.xMovementInput.text = item.parX
-            binding.yMovementInput.text = item.parY
-            binding.stepNumberTextView.text = item.step.toString()
+            binding.steps = item
+            binding.executePendingBindings()
         }
 
         companion object {

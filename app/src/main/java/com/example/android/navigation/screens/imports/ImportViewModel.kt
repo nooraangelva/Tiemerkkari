@@ -11,6 +11,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import com.example.android.navigation.R
 import com.example.android.navigation.database.Instructions
 import com.example.android.navigation.database.SignDatabaseDao
 import com.example.android.navigation.database.Signs
@@ -18,6 +19,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlin.math.absoluteValue
 
 class ImportViewModel (val database: SignDatabaseDao, application: Application) : ViewModel()  {
 
@@ -34,11 +36,9 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
 
     private val uiScope = CoroutineScope(Dispatchers.Main +  viewModelJob)
 
-
-
-    private val _steps = MutableLiveData<List<Instructions>>()
-    val steps: LiveData<List<Instructions>>
-        get() = _steps
+    private val _stepList = MutableLiveData<ArrayList<Instructions>>()
+    val stepList: LiveData<ArrayList<Instructions>>
+        get() = _stepList
 
     private val _step = MutableLiveData<Instructions>()
     val step: LiveData<Instructions>
@@ -64,6 +64,14 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
     val signSource: LiveData<Int>
         get() = _signSource
 
+    private val _type = MutableLiveData<String>()
+    val type: LiveData<String>
+        get() = _type
+
+    private val _speedArea = MutableLiveData<Boolean>()
+    val speedArea: LiveData<Boolean>
+        get() = _speedArea
+
     /*
 
        private val steps = database.filterGetIns(_singId.value!!)
@@ -82,17 +90,7 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
 
     //FUNCTIONS
 
-    fun initializeStep(){
-
-        uiScope.launch {
-            createStepToDatabase()
-            UpdateStepsToDatabase()
-            getStepsFromDatabase()
-        }
-
-    }
-
-    fun initializeSign(){
+    fun createSign(){
 
         uiScope.launch {
             createSignToDatabase()
@@ -100,11 +98,69 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
 
     }
 
+    fun getType():Int{
+
+        when (_type.value!!) {
+            "Arrows" -> return 0
+            "Others" -> return 2
+            "SpeedLimits" -> return 1
+            "Nuolet" -> return 0
+            "Nopeusrajoitukset" -> return 1
+            "Muut" -> return 2
+            else -> {
+                return 0
+            }
+        }
+
+    }
+
+    private suspend fun createSignToDatabase(): Boolean {
+
+        _sign.value?.sourcePicture = _signSource.value!!
+        _sign.value?.signName = _signName.value!!
+        _sign.value?.info = _signInfo.value!!
+        _sign.value?.speedArea = _speedArea.value!!
+        _sign.value?.type = getType()
+
+        database.insertSign(_sign.value!!)
+        _signId.value = database.getSignId(_signName.value!!)
+        return true
+
+    }
+/*
+    private suspend fun getSignIdFromDatabase(): Boolean {
+
+        _signId.value = database.getSignId(_signName.value!!)
+        return true
+
+    }
+*/
+
+    fun newStep(){
+        _stepList.value!!.add(Instructions())
+    }
+
     fun saveSteps(){
 
-        uiScope.launch {
-            UpdateStepsToDatabase()
+        _stepList.value?.forEachIndexed { index, step ->
+
+            Log.d("<RESULT>", " ${step.step} - ${step.order}")
+            _step.value = step
+            _step.value?.step = index
+            _step.value?.signId = _signId.value!!
+
+            uiScope.launch {
+
+                createStepToDatabase()
+            }
         }
+
+    }
+
+    private suspend fun createStepToDatabase():Boolean {
+
+        database.insertIns(_step.value!!)
+        return true
 
     }
 
@@ -114,21 +170,6 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
             deleteSignFromDatabase()
             deleteStepsFromDatabase()
         }
-
-    }
-
-
-    private suspend fun createStepToDatabase():Boolean {
-
-        database.insertIns(_step.value!!)
-        return true
-
-    }
-
-    private suspend fun UpdateStepsToDatabase():Boolean {
-
-        database.insertIns(_step.value!!)
-        return true
 
     }
 
@@ -142,20 +183,6 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
     private suspend fun deleteSignFromDatabase():Boolean {
 
         database.clearSign(signId.value!!)
-        return true
-
-    }
-
-    private suspend fun getStepsFromDatabase(): Boolean {
-
-        _steps.value = database.filterGetIns(_signId.value!!)
-        return true
-
-    }
-
-    private suspend fun createSignToDatabase(): Boolean {
-
-        database.insertSign(_sign.value!!)
         return true
 
     }

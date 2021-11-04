@@ -10,31 +10,47 @@ import com.example.android.navigation.database.Instructions
 
 @BindingAdapter("stepNumberTextView")
 fun TextView.setStepNumberTextView(item: Instructions?) {
-    text = item?.step.toString()
+    item?.let {
+        text = item?.step.toString()
+    }
+
+}
+
+@BindingAdapter("stepOrderTextView")
+fun TextInputEditText.setStepOrderTextView(item: Instructions?) {
+    item?.let {
+        text = item.order
+    }
+
 }
 
 @BindingAdapter("xMovementInput")
 fun TextInputEditText.setXMovementInput(item: Instructions) {
-    text = item.parX.toString()
+    item?.let {
+        text = item.parX.toString()
+    }
 }
 
 @BindingAdapter("yMovementInput")
-fun TextInputEditText.setSignName(item: Instructions) {
-    text = item.parY.toString()
+fun TextInputEditText.setYMovementInput(item: Instructions) {
+    item?.let {
+        text = item.parY.toString()
+    }
 }
 
 @BindingAdapter("xDirectionChecked")
-fun CheckedTextView.setSignName(item: Instructions) {
-    isChecked = item.directionX
+fun CheckedTextView.setXDirectionChecked(item: Instructions) {
+        isChecked = item.directionX
+
 }
 
 @BindingAdapter("yDirectionChecked")
-fun CheckedTextView.setSignName(item: Instructions) {
+fun CheckedTextView.setYDirectionChecked(item: Instructions) {
     isChecked = item.directionY
 }
 
 @BindingAdapter("paintChecked")
-fun CheckedTextView.setSignName(item: Instructions) {
+fun CheckedTextView.setPaintChecked(item: Instructions) {
     isChecked = item.paint
 }
 

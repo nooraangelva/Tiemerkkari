@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.android.navigation.R
+import com.example.android.navigation.database.Instructions
 import com.example.android.navigation.database.SignDatabase
 import com.example.android.navigation.databinding.FragmentImportBinding
 import com.example.android.navigation.databinding.FragmentPrintingBinding
@@ -23,6 +24,7 @@ import com.example.android.navigation.screens.printing.PrintingViewModelFactory
 import com.example.android.navigation.screens.sign_options.SignListener
 import com.example.android.navigation.screens.sign_options.SignOptionsAdapter
 import com.example.android.navigation.screens.sign_options.SignOptionsFragmentDirections
+import com.example.android.navigation.screens.speed_area.SpeedAreaFragmentDirections
 
 class ImportFragment : Fragment() {
 
@@ -30,6 +32,10 @@ class ImportFragment : Fragment() {
     private lateinit var viewModelFactory: ImportViewModelFactory
     private lateinit var navController: NavController
     private lateinit var binding: FragmentImportBinding
+
+    private val stepList : ArrayList<Instructions> = ArrayList()
+    private lateinit var stepAdapter : StepAdapter
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -55,7 +61,7 @@ class ImportFragment : Fragment() {
 
         val manager = LinearLayoutManager(activity)
 
-        binding.importListRecycleView.layoutManager = manager
+        binding.importRecycleView.layoutManager = manager
 
         /*
         val adapter = ImportAdapter(SignListener { signId ->
@@ -72,7 +78,19 @@ class ImportFragment : Fragment() {
         binding.setLifecycleOwner(this)
         navController = findNavController()
         setHasOptionsMenu(true)
+
+        setAdapter()
+
         return binding.root
+    }
+
+
+    private fun setAdapter(){
+        stepAdapter = StepAdapter(viewModel.stepList.value!!)
+        binding.importRecycleView.apply {
+            layoutManager = LinearLayoutManager(activity)
+            adapter = stepAdapter
+        }
     }
 
     // MENU FUNCTIONS

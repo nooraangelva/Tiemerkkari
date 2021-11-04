@@ -12,27 +12,27 @@ data class Instructions  (
         var stepId: Long = 0L,
 
         @ColumnInfo(name = "sign_id")
-        val signId: Long = 0L,
+        var signId: Long = 0L,
 
         @ColumnInfo(name = "Step")
-        val step: Int = 0,
+        var step: Int = 0,
 
         @ColumnInfo(name = "directionX")
-        val directionX: Boolean = false,
+        var directionX: Boolean = false,
 
         @ColumnInfo(name = "directionY")
-        val directionY: Boolean = false,
+        var directionY: Boolean = false,
 
         @ColumnInfo(name = "order")
-        val order: String = "",
+        var order: String = "",
 
         @ColumnInfo(name = "parameterX")
-        val parX: Int = 0,
+        var parX: Int = 0,
 
         @ColumnInfo(name = "parameterY")
-        val parY: Int = 0,
+        var parY: Int = 0,
 
         @ColumnInfo(name = "paint")
-        val paint: Boolean = false,
+        var paint: Boolean = false,
 
 )

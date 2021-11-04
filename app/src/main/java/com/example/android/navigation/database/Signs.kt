@@ -12,19 +12,19 @@ data class Signs  (
         var signId: Long = 0L,
 
         @ColumnInfo(name = "sign_name")
-        val signName: String =  "",
+        var signName: String =  "",
 
         @ColumnInfo(name = "source_picture")
-        val sourcePicture: Int = 0,
+        var sourcePicture: Int = 0,
 
         @ColumnInfo(name = "speed_area")
-        val speedArea: Boolean = false,
+        var speedArea: Boolean = false,
 
         @ColumnInfo(name = "type")
-        val type: Int = 0,
+        var type: Int = 0,
 
         @ColumnInfo(name = "info")
-        val info: String =  "",
+        var info: String =  "",
 
         //@ColumnInfo(name = "other_info")
         //val otherInfo: String =  "",

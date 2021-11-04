@@ -19,8 +19,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Name"
-            app:signName="@{step}"
+            android:text="@={steps.order}"
             tools:layout_editor_absoluteX="34dp"
             tools:layout_editor_absoluteY="43dp" />
 
@@ -33,15 +32,15 @@
             android:ems="10"
             android:inputType="number"
             app:layout_constraintTop_toTopOf="parent"
-            app:signName="@{step}"
+            android:text="@={steps.parX}"
             tools:layout_editor_absoluteX="56dp" />
 
         <CheckedTextView
             android:id="@+id/xDirectionChecked"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CheckedTextView"
-            app:signName="@{step}"
+            android:text=""
+            android:checked="@={steps.directionX}"
             tools:layout_editor_absoluteX="297dp"
             tools:layout_editor_absoluteY="70dp" />
 
@@ -52,7 +51,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="number"
-            app:signName="@{step}"
+            android:text="@={steps.parY}"
             tools:layout_editor_absoluteX="279dp"
             tools:layout_editor_absoluteY="132dp" />
 
@@ -60,8 +59,8 @@
             android:id="@+id/yDirectionChecked"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CheckedTextView"
-            app:signName="@{step}"
+            android:text=""
+            android:checked="@={steps.directionY}"
             tools:layout_editor_absoluteX="439dp"
             tools:layout_editor_absoluteY="70dp" />
 
@@ -70,24 +69,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="CheckedTextView"
-            app:signName="@{step}"
+            android:checked="@={steps.directionX}"
             tools:layout_editor_absoluteX="439dp"
             tools:layout_editor_absoluteY="70dp" />
 
 
-        <Button
-            android:id="@+id/newStepbutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button"
-            tools:layout_editor_absoluteX="627dp"
-            tools:layout_editor_absoluteY="84dp" />
+
 
         <TextView
             android:id="@+id/stepNumberTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="@={steps.step}"
             tools:layout_editor_absoluteX="112dp"
             tools:layout_editor_absoluteY="217dp" />
 
