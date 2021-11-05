@@ -1,12 +1,21 @@
 package com.example.android.navigation
 
+import android.Manifest
+import android.app.Activity
+import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -20,6 +29,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var appBarConfiguration : AppBarConfiguration
     private lateinit var navController: NavController
+
+    val REQUEST_CODE_PERMISSION = 100
+    val IMAGE = 100
+    private val REQUIRED_PERMISSIONS = arrayOf("android.permission.READ_EXTERNAL_STORAGE")
+    private val pickImage = 100
+    private var imageUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.i("MainActivity", "OnCreate")
@@ -44,6 +59,15 @@ class MainActivity : AppCompatActivity() {
 
 
         Log.i("MainActivity", "nav graph" + navController.graph.toString())
+
+        if(allPermissionsGranted()){
+            //permission ok
+            Log.v("CameraApp","Permission ok")
+        }
+        else{
+            ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSION)
+            Log.v("CameraApp","Ask permissions")
+        }
 
     }
 
@@ -90,6 +114,18 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
+    fun allPermissionsGranted() : Boolean{
+        //Tsekkaa onko kaikki permissionit annettu
+        for (permission in REQUIRED_PERMISSIONS){
+            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED){
+                return false
+            }
+        }
+        return true
+    }
+
+
 
     private fun changeTheme() {
 

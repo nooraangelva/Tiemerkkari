@@ -34,21 +34,24 @@
 
         <Button
             android:id="@+id/arrowsButton"
-            style="@style/Buttons"
-            android:layout_marginTop="100dp"
 
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:onClick="@{() -> viewModel.optionArrowsChosen()}"
             android:text="@string/ArrowsButtonText"
+            app:layout_constraintBottom_toTopOf="@+id/speedLimitButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titleImage" />
 
         <Button
             android:id="@+id/speedLimitButton"
-            style="@style/Buttons"
-            android:layout_marginTop="32dp"
-            android:layout_marginBottom="32dp"
 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="8dp"
             android:onClick="@{() -> viewModel.optionSpeedLimitsChosen()}"
             android:text="@string/SpeedLimitButtonText"
             app:layout_constraintBottom_toTopOf="@+id/othersButton"
@@ -58,14 +61,17 @@
 
         <Button
             android:id="@+id/othersButton"
-            style="@style/Buttons"
-            android:layout_marginBottom="100dp"
 
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="100dp"
+            android:onClick="@{() -> viewModel.optionOthersChosen()}"
             android:text="@string/othersButtonText"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:onClick="@{() -> viewModel.optionOthersChosen()}" />
+            app:layout_constraintTop_toBottomOf="@+id/speedLimitButton" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

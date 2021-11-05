@@ -1,10 +1,16 @@
 package com.example.android.navigation.screens.imports
 
+import android.Manifest
 import android.app.Activity
+import android.app.Activity.RESULT_OK
 import android.app.Application
 import android.content.Intent
+import android.content.Intent.ACTION_PICK
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.util.Log
-import androidx.core.app.ActivityCompat.startActivityForResult
+import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityCompat.*
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.lifecycle.LiveData
@@ -20,12 +26,31 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
+import com.google.android.material.internal.ContextUtils.getActivity
+import androidx.core.app.ActivityCompat.startActivityForResult
+
+import android.os.Build
+import android.provider.MediaStore
+import androidx.fragment.app.Fragment
+import android.graphics.Bitmap
+import java.io.ByteArrayOutputStream
+import android.database.Cursor
+
+
+
+
+
+
+
+
+
+
 
 class ImportViewModel (val database: SignDatabaseDao, application: Application) : ViewModel()  {
 
-    val REQUEST_CODE = 100
-
     private var viewModelJob = Job()
+    private val GET_IMAGE = 100
+
 
     override fun onCleared() {
 
@@ -191,25 +216,13 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
 
     fun imageDownload(){
 
-        openGalleryForImage()
+
+
 
     }
 
-    private fun openGalleryForImage() {
-        /*
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "image/*"*/
 
-        startActivityForResult(intent, REQUEST_CODE)*/
-    }
-    /*
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE) {
-            //printingImageView.setImageURI(data?.data) // handle chosen image
-        }
 
-    }*/
 
 
 }
