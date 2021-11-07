@@ -14,19 +14,20 @@
 
         <Button
             android:id="@+id/startButton"
-            style="@style/ButtonsDark"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="80dp"
             android:text="@string/StartButtonText"
-            app:elevation="8dp"
+            android:layout_width="@dimen/button_layout_width"
+            android:layout_height="@dimen/button_layout_height"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titleImage" />
 
         <Button
             android:id="@+id/importLayoutButton"
-            style="@style/ButtonsDark"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="32dp"
+            android:layout_width="@dimen/button_layout_width"
+            android:layout_height="@dimen/button_layout_height"
             android:text="@string/ImportButtonText"
             app:layout_constraintBottom_toTopOf="@+id/guideButton"
             app:layout_constraintEnd_toEndOf="parent"
@@ -35,8 +36,9 @@
 
         <Button
             android:id="@+id/guideButton"
-            style="@style/ButtonsDark"
-            android:layout_marginBottom="100dp"
+            android:layout_marginBottom="80dp"
+            android:layout_width="@dimen/button_layout_width"
+            android:layout_height="@dimen/button_layout_height"
             android:text="@string/GuideButtonText"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -57,14 +59,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/logo_dark" />
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button"
-            tools:layout_editor_absoluteX="165dp"
-            tools:layout_editor_absoluteY="413dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

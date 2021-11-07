@@ -34,10 +34,9 @@
 
         <Button
             android:id="@+id/arrowsButton"
-
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/button_layout_width"
+            android:layout_height="@dimen/button_layout_height"
+            android:layout_marginTop="80dp"
             android:onClick="@{() -> viewModel.optionArrowsChosen()}"
             android:text="@string/ArrowsButtonText"
             app:layout_constraintBottom_toTopOf="@+id/speedLimitButton"
@@ -47,11 +46,10 @@
 
         <Button
             android:id="@+id/speedLimitButton"
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_marginTop="8dp"
+            android:layout_width="@dimen/button_layout_width"
+            android:layout_height="@dimen/button_layout_height"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
             android:onClick="@{() -> viewModel.optionSpeedLimitsChosen()}"
             android:text="@string/SpeedLimitButtonText"
             app:layout_constraintBottom_toTopOf="@+id/othersButton"
@@ -61,11 +59,9 @@
 
         <Button
             android:id="@+id/othersButton"
-
-            android:layout_width="wrap_content"
-
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="100dp"
+            android:layout_width="@dimen/button_layout_width"
+            android:layout_height="@dimen/button_layout_height"
+            android:layout_marginBottom="80dp"
             android:onClick="@{() -> viewModel.optionOthersChosen()}"
             android:text="@string/othersButtonText"
             app:layout_constraintBottom_toBottomOf="parent"

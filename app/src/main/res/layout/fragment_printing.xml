@@ -48,25 +48,25 @@
 
         <Button
             android:id="@+id/printingButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="41dp"
+            android:layout_width="@dimen/button_layout_width"
+            android:layout_height="@dimen/button_layout_height"
+            android:layout_marginTop="60dp"
+            android:onClick="@{() ->  viewModel.startPrinting()}"
             android:text="@string/start_printing"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/printingSignNameView"
-            android:onClick="@{() ->  viewModel.startPrinting()}" />
+            app:layout_constraintTop_toBottomOf="@+id/printingSignNameView" />
 
         <Button
             android:id="@+id/printingStopButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_width="@dimen/button_layout_width"
+            android:layout_height="@dimen/button_layout_height"
+            android:layout_marginTop="32dp"
+            android:onClick="@{() ->  viewModel.energencyStop()}"
             android:text="@string/stop_printing_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/printingButton"
-            android:onClick="@{() ->  viewModel.energencyStop()}" />
+            app:layout_constraintTop_toBottomOf="@+id/printingButton" />
 
         <ProgressBar
             android:id="@+id/progressBarPrinting"

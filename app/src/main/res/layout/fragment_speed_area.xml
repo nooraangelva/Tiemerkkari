@@ -54,9 +54,9 @@
 
             <Button
                 android:id="@+id/cityButton"
-                style="@style/Buttons"
-                android:layout_marginTop="100dp"
-
+                android:layout_width="@dimen/button_layout_width"
+                android:layout_height="@dimen/button_layout_height"
+                android:layout_marginTop="80dp"
                 android:onClick="@{() -> viewModel.cityChosen()}"
                 android:text="@string/CityButtonText"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -66,9 +66,9 @@
 
             <Button
                 android:id="@+id/outsideCityButton"
-                style="@style/Buttons"
+                android:layout_width="@dimen/button_layout_width"
+                android:layout_height="@dimen/button_layout_height"
                 android:layout_marginTop="32dp"
-
                 android:onClick="@{() -> viewModel.countyChosen()}"
                 android:text="@string/CountyButtonText"
                 app:layout_constraintEnd_toEndOf="parent"

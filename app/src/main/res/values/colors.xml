@@ -12,18 +12,21 @@
     <color name="colorPrimaryDark">#2E2E2E</color>
     <color name="colorPrimary">#2E2E2E</color>
     <color name="buttonTextColorDark">#F8E326</color>
-    <color name="toolbarDark">#344955</color>
     <color name="textColorDark">#96B9CA</color>
+
+    <color name="toolbarDark">#344955</color>
     <color name="colorAccent">#344955</color>
 
 
 
     <!-- Light mode-->
-    <color name="colorPrimaryLight">#D7D8DA</color>
+    <color name="colorPrimaryLight">#929394</color>
+    <color name="colorPrimaryL">#929394</color>
     <color name="buttonTextColorLight">#393A3A</color>
-    <color name="toolbarLight">#C3D4DD</color>
     <color name="textColorLight">#141719</color>
-    <color name="colorPrimaryL">#D7D8DA</color>
+
+    <color name="toolbarLight">#4F798F</color>
+
 
 
 
