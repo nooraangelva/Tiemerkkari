@@ -95,7 +95,7 @@
             tools:layout_editor_absoluteX="273dp"
             tools:layout_editor_absoluteY="157dp" />
 
-        <EditText
+        <Spinner
             android:id="@+id/typeInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

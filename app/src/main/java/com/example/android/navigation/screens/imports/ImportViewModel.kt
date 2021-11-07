@@ -37,15 +37,6 @@ import java.io.ByteArrayOutputStream
 import android.database.Cursor
 
 
-
-
-
-
-
-
-
-
-
 class ImportViewModel (val database: SignDatabaseDao, application: Application) : ViewModel()  {
 
     private var viewModelJob = Job()
