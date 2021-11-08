@@ -13,15 +13,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Spinner
-            android:id="@+id/movementInput"
-            android:layout_width="wrap_content"
+
+        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="@={steps.order}"
-            tools:layout_editor_absoluteX="34dp"
-            tools:layout_editor_absoluteY="43dp" />
+            android:orientation="vertical">
+            <RadioButton android:id="@+id/radio_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vertical" />
+            <RadioButton android:id="@+id/radio_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Horizontal" />
+            <RadioButton android:id="@+id/radio_arc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Arc"/>
+            <RadioButton android:id="@+id/radio_diagonal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Diagonal" />
+        </RadioGroup>
 
 
         <EditText
@@ -83,6 +96,8 @@
             android:text="@={steps.step}"
             tools:layout_editor_absoluteX="112dp"
             tools:layout_editor_absoluteY="217dp" />
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

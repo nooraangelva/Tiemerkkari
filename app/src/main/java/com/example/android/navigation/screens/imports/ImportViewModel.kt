@@ -158,9 +158,11 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
 
     fun saveSteps(){
 
+        //TODO final resting spot and maybe strat too?
+
         _stepList.value?.forEachIndexed { index, step ->
 
-            Log.d("<RESULT>", " ${step.step} - ${step.order}")
+            Log.v("<RESULT>", " ${step.step} - ${step.order}")
             _step.value = step
             _step.value?.step = index
             _step.value?.signId = _signId.value!!
