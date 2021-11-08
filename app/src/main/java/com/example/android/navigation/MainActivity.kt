@@ -1,11 +1,14 @@
 package com.example.android.navigation
 
 import android.Manifest
+import android.R.attr
 import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -22,6 +25,25 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import java.util.*
+import android.R.attr.data
+import android.content.Context
+import java.io.File
+import java.io.IOException
+
+import java.io.FileOutputStream
+
+import java.io.OutputStream
+
+import java.io.InputStream
+
+
+
+
+
+
+
+
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,10 +53,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
 
     val REQUEST_CODE_PERMISSION = 100
-    val IMAGE = 100
-    private val REQUIRED_PERMISSIONS = arrayOf("android.permission.READ_EXTERNAL_STORAGE")
-    private val pickImage = 100
-    private var imageUri: Uri? = null
+    val REQUEST_CODE = 100
+    private val REQUIRED_PERMISSIONS = arrayOf("android.permission.READ_EXTERNAL_STORAGE","android.permission.ACCESS_WIFI_STATE","android.permission.CHANGE_WIFI_STATE", "android.permission.INTERNET")
+    lateinit var imageUri : Uri
+    lateinit var bitmap : Bitmap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.i("MainActivity", "OnCreate")
@@ -123,6 +145,42 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return true
+    }
+
+    fun openGalleryForImage() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, REQUEST_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE){
+            var imageUriString : String = data?.data?.path!!
+            imageUri = Uri.parse(imageUriString)
+            bitmap =   MediaStore.Images.Media.getBitmap(this.contentResolver, imageUri)
+
+            val storageDir = filesDir
+
+
+            //TODO save image
+            val filePath = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",  /* suffix */
+                storageDir /* directory */
+            )
+            try {
+                FileOutputStream(filePath).use { out ->
+                    capturedImg.compress(
+                        Bitmap.CompressFormat.JPEG,
+                        quality,
+                        out
+                    )
+                }
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
     }
 
 

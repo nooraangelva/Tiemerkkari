@@ -57,7 +57,6 @@
             android:layout_height="60dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="40dp"
-            android:onClick="@{() ->  viewModel.imageDownload()}"
             android:text="Get Image"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -142,6 +141,7 @@
             app:layout_constraintHorizontal_bias="0.573"
             app:layout_constraintStart_toStartOf="parent"
             tools:layout_editor_absoluteY="100dp" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

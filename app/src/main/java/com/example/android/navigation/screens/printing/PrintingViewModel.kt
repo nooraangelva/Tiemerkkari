@@ -3,6 +3,7 @@ package com.example.android.navigation.screens.printing
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
+import com.example.android.navigation.MainActivity
 import com.example.android.navigation.database.Instructions
 import com.example.android.navigation.database.SignDatabaseDao
 import com.example.android.navigation.database.Signs

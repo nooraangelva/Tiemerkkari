@@ -14,6 +14,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.android.navigation.MainActivity
 import com.example.android.navigation.R
 import com.example.android.navigation.database.Instructions
 import com.example.android.navigation.database.SignDatabase
@@ -82,7 +83,7 @@ class ImportFragment : Fragment() {
         setAdapter()
 
         //TYPE SPINNER
-        val spinner2: Spinner = binding.typeInput
+        val spinner: Spinner = binding.typeInput
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter.createFromResource(
             requireActivity().applicationContext,
@@ -92,8 +93,19 @@ class ImportFragment : Fragment() {
             // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             // Apply the adapter to the spinner
-            spinner2.adapter = adapter
+            spinner.adapter = adapter
         }
+
+        // set on-click listener
+        binding.newSignImageImportButton.setOnClickListener {
+
+            (activity as MainActivity).openGalleryForImage()
+            //binding.(activity as MainActivity).)
+            //TODO get image to viewmodel
+
+        }
+
+
 
         return binding.root
     }
