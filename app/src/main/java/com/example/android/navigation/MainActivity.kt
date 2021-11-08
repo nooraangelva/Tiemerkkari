@@ -134,11 +134,11 @@ class MainActivity : AppCompatActivity() {
         val darkMode = sharedPreferences.getBoolean("SELECTED_THEME", false)
         if(!darkMode)
         {
-            setTheme(R.style.ThemeOverlay_AppCompat_Dark_ActionBar)
+            setTheme(R.style.DarkTheme)
         }
         else
         {
-            setTheme(R.style.ThemeOverlay_AppCompat_Light)
+            setTheme(R.style.LightTheme)
         }
     }
 
