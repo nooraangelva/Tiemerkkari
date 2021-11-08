@@ -98,8 +98,6 @@
         <item name="android:layout_marginEnd">@dimen/horizontal_margin</item>
 
         <item name="android:background">@drawable/round_button_light</item>
-
-
     </style>
 
     <style name="CustomToolBarStyleDark" parent="@style/Widget.AppCompat.Toolbar">
@@ -108,6 +106,7 @@
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">@font/roboto</item>
     </style>
+
 
     <style name="CustomToolBarStyleLight" parent="@style/Widget.AppCompat.Toolbar">
         <item name="titleTextColor">#2E2E2E</item>

@@ -17,83 +17,119 @@
         android:layout_height="match_parent"
         android:background="?attr/background_color">
 
+
         <EditText
             android:id="@+id/newSignNameInput"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="560dp"
+            android:background="@drawable/boarder_dark"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="@={viewModel.signName}" />
+            android:paddingLeft="20dp"
+            android:text="input"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/newSignImageImportButton"
+            app:layout_constraintTop_toTopOf="parent" />
+        <!--android:text="@={viewModel.signName}"-->
+
+        <!--android:text="@={viewModel.signInfo}"-->
 
         <EditText
             android:id="@+id/newSignInfoInput"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/boarder_dark"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="@={viewModel.signInfo}" />
+            android:paddingLeft="20dp"
+            android:text="input"
+            app:layout_constraintStart_toEndOf="@+id/newSignImageImportButton"
+            app:layout_constraintTop_toBottomOf="@+id/newSignNameInput" />
 
         <Button
             android:id="@+id/newSignImageImportButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="310dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="40dp"
             android:onClick="@{() ->  viewModel.imageDownload()}"
-            android:text="Button" />
+            android:text="Get Image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/createSignButtonImport"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="310dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="32dp"
             android:onClick="@{() ->  viewModel.createSign()}"
-            android:text="Button" />
+            android:text="Create"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/newStepButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button"
+            android:layout_height="60dp"
+            android:layout_marginEnd="145dp"
+            android:layout_marginBottom="32dp"
             android:onClick="@{() ->  viewModel.newStep()}"
-            tools:layout_editor_absoluteX="627dp"
-            tools:layout_editor_absoluteY="84dp" />
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="+"
+            app:layout_constraintBottom_toTopOf="@+id/importButton"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/import_recycle_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_gravity="start"
+            android:layout_marginTop="236dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/importButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="?attr/round_button"
+            android:layout_width="310dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="40dp"
             android:onClick="@{() ->  viewModel.saveSteps()}"
-            android:paddingStart="@dimen/button_padding"
-            android:paddingEnd="@dimen/button_padding"
-            android:text="@string/ImportButtonText"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="Save steps"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/import_recycle_view" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <Button
             android:id="@+id/cancelButtonImport"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="310dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginBottom="40dp"
             android:onClick="@{() ->  viewModel.delete()}"
-            android:text="Button" />
+            android:text="Cancel"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <CheckBox
             android:id="@+id/speedAreaImport"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CheckBox"
+            android:layout_width="123dp"
+            android:layout_height="77dp"
+            android:layout_marginTop="64dp"
             android:checked="@={viewModel.speedArea}"
-            tools:layout_editor_absoluteX="273dp"
-            tools:layout_editor_absoluteY="157dp" />
+            android:text="CheckBox"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="774dp" />
 
         <Spinner
             android:id="@+id/typeInput"
@@ -101,8 +137,11 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="@={viewModel.type}" />
-
+            android:text="@={viewModel.type}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.573"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="100dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
