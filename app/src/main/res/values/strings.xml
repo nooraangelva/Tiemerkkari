@@ -20,12 +20,6 @@
     <string name="chooseSpeedRangeText">Choose speed range</string>
     <string name="title">Title</string>
     <string name="header_text">Options</string>
-    <string-array name="movement_options_array">
-        <item>Vertical</item>
-        <item>Horizontal</item>
-        <item>Diagonal</item>
-        <item>Arc</item>
-    </string-array>
     <string-array name="type_options_array">
         <item>Arrows</item>
         <item>Others</item>
