@@ -11,6 +11,18 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import android.R
+
+import android.widget.ImageView
+
+import android.graphics.BitmapFactory
+
+import android.graphics.Bitmap
+
+import java.io.File
+
+
+
 
 class PrintingViewModel (signId: Long, val database: SignDatabaseDao, application: Application) : AndroidViewModel(application) {
 
@@ -35,6 +47,10 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
     val sign: LiveData<Signs>
         get() = _sign
 
+    private var _bitmap = MutableLiveData<Bitmap>()
+    val bitmap: LiveData<Bitmap>
+        get() = _bitmap
+
     private val _signName = MutableLiveData<String>()
     val signName: LiveData<String>
         get() = _signName
@@ -43,8 +59,8 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
     val signInfo: LiveData<String>
         get() = _signInfo
 
-    private val _signSource = MutableLiveData<Int>()
-    val signSource: LiveData<Int>
+    private val _signSource = MutableLiveData<String>()
+    val signSource: LiveData<String>
         get() = _signSource
 
 
@@ -80,8 +96,12 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
             _sign.value = getSignFromDatabase()
             _signName.value = _sign.value?.signName
             _signInfo.value = _sign.value?.info
-            _signSource.value = _sign.value?.sourcePicture
-            //TODO signSource linking
+            _signSource.value = "sign_images/${_sign.value?.sourcePicture}"
+
+            val imgFile = File(_signSource.value)
+            if (imgFile.exists()) {
+                _bitmap = MutableLiveData(BitmapFactory.decodeFile(imgFile.absolutePath))
+            }
         }
     }
 

@@ -1,8 +1,10 @@
 package com.example.android.navigation.screens.sign_options
 
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +15,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.File
 
 private val ITEM_VIEW_TYPE_HEADER = 0
 private val ITEM_VIEW_TYPE_ITEM = 1
@@ -71,8 +74,17 @@ class SignOptionsAdapter ( val clickListener: SignListener): ListAdapter<DataIte
     class ViewHolder private constructor(val binding: ListItemSignsBinding) : RecyclerView.ViewHolder(binding.root){
 
         fun bind(clickListener: SignListener, item: Signs) {
-
+            //TODO tsekkaa että path oikein kuvaan
             binding.sign = item
+            binding.sign.sourcePicture = "sign_images/${item.sourcePicture}"
+
+            //imagen sidonta
+            val imgFile = File(binding.sign.sourcePicture)
+            if (imgFile.exists()) {
+                var bitmap = BitmapFactory.decodeFile(imgFile.absolutePath)
+                binding.imageViewList.setImageBitmap(bitmap)
+            }
+
             binding.clickListener = clickListener
             binding.executePendingBindings()
 

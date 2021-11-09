@@ -35,6 +35,9 @@ interface SignDatabaseDao {
     @Query("DELETE FROM signs_info_table WHERE sign_id = :key")
     suspend fun clearSign(key: Long): Int?
 
+    @Query("SELECT sign_id FROM signs_info_table ORDER BY sign_id DESC LIMIT 1")
+    suspend fun getBiggestSignId(): Long?
+
     //TABLE INSTRUCTIONS QUERYES
 
     @Insert

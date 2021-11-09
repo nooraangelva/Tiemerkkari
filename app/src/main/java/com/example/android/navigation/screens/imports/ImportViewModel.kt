@@ -35,6 +35,7 @@ import androidx.fragment.app.Fragment
 import android.graphics.Bitmap
 import java.io.ByteArrayOutputStream
 import android.database.Cursor
+import java.io.File
 
 
 class ImportViewModel (val database: SignDatabaseDao, application: Application) : ViewModel()  {
@@ -68,6 +69,10 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
     val signId: LiveData<Long>
         get() = _signId
 
+    private var _futureId = MutableLiveData<Long>()
+    val futureId: LiveData<Long>
+        get() = _futureId
+
     private val _signName = MutableLiveData<String>()
     val signName: LiveData<String>
         get() = _signName
@@ -76,8 +81,8 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
     val signInfo: LiveData<String>
         get() = _signInfo
 
-    private val _signSource = MutableLiveData<Int>()
-    val signSource: LiveData<Int>
+    private val _signSource = MutableLiveData<String>()
+    val signSource: LiveData<String>
         get() = _signSource
 
     private val _type = MutableLiveData<String>()
@@ -107,7 +112,7 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
     //FUNCTIONS
 
     fun createSign(){
-
+        _signSource.value = "${_futureId.value}.JPEG"
         uiScope.launch {
             createSignToDatabase()
         }
@@ -139,18 +144,27 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
         _sign.value?.type = getType()
 
         database.insertSign(_sign.value!!)
+        //TODO oikein?
         _signId.value = database.getSignId(_signName.value!!)
         return true
 
     }
-/*
+
     private suspend fun getSignIdFromDatabase(): Boolean {
 
         _signId.value = database.getSignId(_signName.value!!)
         return true
 
     }
-*/
+
+    private suspend fun getFutureSignIdFromDatabase(): Long? {
+
+
+        return database.getBiggestSignId()
+
+    }
+
+
 
     fun newStep(){
         _stepList.value!!.add(Instructions())
@@ -209,9 +223,10 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
 
     fun imageDownload(){
 
+        uiScope.launch {
+            _futureId = MutableLiveData(getFutureSignIdFromDatabase())
 
-
-
+        }
     }
 
 

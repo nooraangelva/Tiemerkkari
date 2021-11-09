@@ -15,7 +15,7 @@ data class Signs  (
         var signName: String =  "",
 
         @ColumnInfo(name = "source_picture")
-        var sourcePicture: Int = 0,
+        var sourcePicture: String = "",
 
         @ColumnInfo(name = "speed_area")
         var speedArea: Boolean = false,

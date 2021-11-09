@@ -27,6 +27,7 @@ import androidx.navigation.ui.NavigationUI
 import java.util.*
 import android.R.attr.data
 import android.content.Context
+import android.content.ContextWrapper
 import java.io.File
 import java.io.IOException
 
@@ -55,8 +56,9 @@ class MainActivity : AppCompatActivity() {
     val REQUEST_CODE_PERMISSION = 100
     val REQUEST_CODE = 100
     private val REQUIRED_PERMISSIONS = arrayOf("android.permission.READ_EXTERNAL_STORAGE","android.permission.ACCESS_WIFI_STATE","android.permission.CHANGE_WIFI_STATE", "android.permission.INTERNET")
-    lateinit var imageUri : Uri
-    lateinit var bitmap : Bitmap
+    private lateinit var imageUri : Uri
+    private lateinit var bitmap : Bitmap
+    private lateinit var imageName: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.i("MainActivity", "OnCreate")
@@ -147,7 +149,8 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    fun openGalleryForImage() {
+    fun openGalleryForImage(name: String) {
+        imageName = name
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
         startActivityForResult(intent, REQUEST_CODE)
@@ -163,23 +166,41 @@ class MainActivity : AppCompatActivity() {
             val storageDir = filesDir
 
 
-            //TODO save image
-            val filePath = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",  /* suffix */
-                storageDir /* directory */
-            )
+            //TODO save image and name dynamically file with data from import
+
+            // Get the context wrapper instance
+            val wrapper = ContextWrapper(applicationContext)
+
+            // Initializing a new file
+            // The bellow line return a directory in internal storage
+            var file = wrapper.getDir("sign_images", Context.MODE_PRIVATE)
+
+
+            // Create a file to save the image
+            file = File(file, "${imageName}.jpg")
+
             try {
-                FileOutputStream(filePath).use { out ->
-                    capturedImg.compress(
-                        Bitmap.CompressFormat.JPEG,
-                        quality,
-                        out
-                    )
-                }
-            } catch (e: IOException) {
+                // Get the file output stream
+                val stream: OutputStream = FileOutputStream(file)
+
+                // Compress bitmap
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+
+                // Flush the stream
+                stream.flush()
+
+                // Close stream
+                stream.close()
+            } catch (e: IOException){ // Catch the exception
                 e.printStackTrace()
             }
+
+            Log.v("Import", "saved images path ${Uri.parse(file.absolutePath)}")
+
+            // Return the saved image uri
+            //return Uri.parse(file.absolutePath)
+
+
         }
     }
 

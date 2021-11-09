@@ -99,9 +99,9 @@ class ImportFragment : Fragment() {
         // set on-click listener
         binding.newSignImageImportButton.setOnClickListener {
 
-            (activity as MainActivity).openGalleryForImage()
-            //binding.(activity as MainActivity).)
-            //TODO get image to viewmodel
+            viewModel.imageDownload()
+
+            (activity as MainActivity).openGalleryForImage(viewModel.futureId.toString())
 
         }
 
