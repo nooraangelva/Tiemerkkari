@@ -38,6 +38,7 @@
         <item name="colorPrimary">@color/colorPrimaryL</item>
         <item name="android:colorBackground">@drawable/gradient_background_light</item>
         <item name="editTextStyle">@style/inputBoxLight</item>
+        <item name="checkboxStyle">@style/checkBoxDark</item>
 
         <item name="materialButtonStyle">@style/ButtonsLight</item>
         <item name="colorButtonNormal">#EC1A1A</item>
@@ -138,4 +139,12 @@
         <item name="android:textColor">#717171</item>
         <item name="android:textSize">25sp</item>
     </style>
+
+    <!--CHECKBOX-->
+    <style name="checkBoxDark" parent="@style/Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:textColor">#302F2F</item>
+        <item name="android:textSize">15sp</item>
+
+    </style>
+
 </resources>
