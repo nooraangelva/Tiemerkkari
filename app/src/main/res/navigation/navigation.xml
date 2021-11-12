@@ -61,10 +61,10 @@
             app:argType="boolean" />
         <action
             android:id="@+id/action_signOptionsFragment_to_printingFragment"
-            app:destination="@id/printingFragment"      >
+            app:destination="@id/printingFragment">
             <argument
                 android:name="signId"
-                app:argType="Long" />
+                app:argType="long" />
         </action>
     </fragment>
     <fragment
@@ -101,7 +101,7 @@
             app:destination="@id/startMenuFragment" />
         <argument
             android:name="signId"
-            app:argType="Long" />
+            app:argType="long" />
 
     </fragment>
 </navigation>

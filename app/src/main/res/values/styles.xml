@@ -13,7 +13,10 @@
     <style name="DarkTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="android:colorBackground">@drawable/gradient_backround</item>
+        <!--<item name="android:colorBackground">@drawable/gradient_backround</item>
+        https://stackoverflow.com/questions/38700220/cant-find-colorstatelist-from-drawable-resource-id-only-on-android-nougat Turns out you can't set
+        drawable as a colorBackground in XML, so it works after removing this line.
+        The reason this only crashed on Nougat is because this was possible in earlier versions.-->
         <item name="subtitleTextColor">#000000</item>
 
         <item name="materialButtonStyle">@style/ButtonsDark</item>

@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
 
     val REQUEST_CODE_PERMISSION = 100
     val REQUEST_CODE = 100
-    private val REQUIRED_PERMISSIONS = arrayOf("android.permission.READ_EXTERNAL_STORAGE","android.permission.ACCESS_WIFI_STATE","android.permission.CHANGE_WIFI_STATE", "android.permission.INTERNET")
+    private val REQUIRED_PERMISSIONS = arrayOf("android.permission.READ_EXTERNAL_STORAGE")
     private lateinit var imageUri : Uri
     private lateinit var bitmap : Bitmap
     private lateinit var imageName: String
@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
         Log.i("MainActivity", "Langugae pref: " + sharedPreferences.getBoolean("SELECTED_THEME", false))
 
         setContentView(R.layout.activity_main)
-
+/*
         val navHostFragment =
                 supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         navController = navHostFragment.navController
@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
 
 
-        Log.i("MainActivity", "nav graph" + navController.graph.toString())
+        Log.i("MainActivity", "nav graph" + navController.graph.toString())*/
 
         if(allPermissionsGranted()){
             //permission ok

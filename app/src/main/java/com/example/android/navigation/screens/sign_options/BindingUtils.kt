@@ -8,7 +8,7 @@ import com.example.android.navigation.database.Signs
 
 @BindingAdapter("signImage")
 fun ImageView.setSignImage(item: Signs) {
-    setImageResource(item.sourcePicture)
+    //item.sourcePicture)
 }
 
 @BindingAdapter("signName")

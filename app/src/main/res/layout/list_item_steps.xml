@@ -45,17 +45,25 @@
             android:ems="10"
             android:inputType="number"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="@={steps.parX}"
+
             tools:layout_editor_absoluteX="56dp" />
+
+        <!--android:text="@={steps.parX}"-->
 
         <CheckedTextView
             android:id="@+id/xDirectionChecked"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
-            android:checked="@={steps.directionX}"
+
             tools:layout_editor_absoluteX="297dp"
             tools:layout_editor_absoluteY="70dp" />
+
+        <!--android:checked="@={steps.directionX}"
+        android:text="@={steps.parY}"
+        android:checked="@={steps.directionY}"
+        android:checked="@={steps.directionX}"
+        android:text="@={steps.step}"-->
 
 
         <EditText
@@ -64,7 +72,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="number"
-            android:text="@={steps.parY}"
+
             tools:layout_editor_absoluteX="279dp"
             tools:layout_editor_absoluteY="132dp" />
 
@@ -73,7 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
-            android:checked="@={steps.directionY}"
+
             tools:layout_editor_absoluteX="439dp"
             tools:layout_editor_absoluteY="70dp" />
 
@@ -82,7 +90,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="CheckedTextView"
-            android:checked="@={steps.directionX}"
+
             tools:layout_editor_absoluteX="439dp"
             tools:layout_editor_absoluteY="70dp" />
 
@@ -93,7 +101,7 @@
             android:id="@+id/stepNumberTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@={steps.step}"
+
             tools:layout_editor_absoluteX="112dp"
             tools:layout_editor_absoluteY="217dp" />
 

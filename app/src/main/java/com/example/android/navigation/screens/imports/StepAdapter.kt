@@ -21,13 +21,13 @@ class StepAdapter(private val stepList : ArrayList<Instructions>) : RecyclerView
             binding.paintChecked.isChecked = step.paint
             binding.radioArc.isChecked = false
             binding.radioDiagonal.isChecked = false
-            binding.radioHorizontal
-            binding.radioVertical
+            //binding.radioHorizontal
+            //binding.radioVertical
             binding.stepNumberTextView.text = position.toString()
-            binding.xDirectionChecked
-            binding.xMovementInput
-            binding.yDirectionChecked
-            binding.yMovementInput
+            //binding.xDirectionChecked
+            //binding.xMovementInput
+            //binding.yDirectionChecked
+            //binding.yMovementInput
 
 
 

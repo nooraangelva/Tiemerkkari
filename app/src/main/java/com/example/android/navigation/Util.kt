@@ -68,7 +68,7 @@ fun formatSigns(nights: List<Signs>, resources: Resources): Spanned {
             append("<br>")
             //append(resources.getString(R.string.info))
             //append("\t${convertLongToDateString(it.measurements)}<br>")
-            append("\t${it.measurements}<br>")
+            //append("\t${it.measurements}<br>")
 
         }
     }

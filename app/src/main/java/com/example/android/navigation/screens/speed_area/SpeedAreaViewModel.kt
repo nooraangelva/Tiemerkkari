@@ -1,10 +1,11 @@
 package com.example.android.navigation.screens.speed_area
 
 import android.util.Log
+import androidx.annotation.Keep
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-
+@Keep
 class SpeedAreaViewModel () : ViewModel() {
 
 

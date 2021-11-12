@@ -19,7 +19,7 @@ fun TextView.setStepNumberTextView(item: Instructions?) {
 @BindingAdapter("stepOrderTextView")
 fun TextInputEditText.setStepOrderTextView(item: Instructions?) {
     item?.let {
-        text = item.order
+        //text = item.order
     }
 
 }
@@ -27,14 +27,14 @@ fun TextInputEditText.setStepOrderTextView(item: Instructions?) {
 @BindingAdapter("xMovementInput")
 fun TextInputEditText.setXMovementInput(item: Instructions) {
     item?.let {
-        text = item.parX.toString()
+        //text = item.parX.toString()
     }
 }
 
 @BindingAdapter("yMovementInput")
 fun TextInputEditText.setYMovementInput(item: Instructions) {
     item?.let {
-        text = item.parY.toString()
+        //text = item.parY.toString()
     }
 }
 

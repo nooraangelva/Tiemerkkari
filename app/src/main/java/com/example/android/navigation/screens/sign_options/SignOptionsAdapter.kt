@@ -75,11 +75,11 @@ class SignOptionsAdapter ( val clickListener: SignListener): ListAdapter<DataIte
 
         fun bind(clickListener: SignListener, item: Signs) {
             //TODO tsekkaa että path oikein kuvaan
-            binding.sign = item
-            binding.sign.sourcePicture = "sign_images/${item.sourcePicture}"
+            item.also { binding.sign = it }
+            binding.sign?.sourcePicture = "sign_images/${item.sourcePicture}"
 
             //imagen sidonta
-            val imgFile = File(binding.sign.sourcePicture)
+            val imgFile = File(binding.sign?.sourcePicture)
             if (imgFile.exists()) {
                 var bitmap = BitmapFactory.decodeFile(imgFile.absolutePath)
                 binding.imageViewList.setImageBitmap(bitmap)
