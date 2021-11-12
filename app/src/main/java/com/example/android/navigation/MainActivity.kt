@@ -39,14 +39,6 @@ import java.io.InputStream
 
 
 
-
-
-
-
-
-
-
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var sharedPreferences: SharedPreferences
