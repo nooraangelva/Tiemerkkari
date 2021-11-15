@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.android.navigation.MainActivity
 import com.example.android.navigation.R
 import com.example.android.navigation.database.Instructions
+import com.example.android.navigation.database.SignApplication
 import com.example.android.navigation.database.SignDatabase
 import com.example.android.navigation.databinding.FragmentImportBinding
 import com.example.android.navigation.databinding.FragmentPrintingBinding
@@ -48,7 +49,7 @@ class ImportFragment : Fragment() {
         val application = requireNotNull(this.activity).application
         val dataSource = SignDatabase.getInstance(application).signDatabaseDao
 
-        viewModelFactory = ImportViewModelFactory(dataSource, application)
+        viewModelFactory = ImportViewModelFactory(dataSource, (application as SignApplication))
 
         viewModel = ViewModelProvider(this, viewModelFactory)
                 .get(ImportViewModel::class.java)

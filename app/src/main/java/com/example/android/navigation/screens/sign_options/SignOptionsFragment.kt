@@ -13,10 +13,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.android.navigation.R
+import com.example.android.navigation.database.SignApplication
 import com.example.android.navigation.database.SignDatabase
+import com.example.android.navigation.database.SignRepository
 import com.example.android.navigation.databinding.FragmentSignOptionsBinding
-import com.example.android.navigation.screens.sign_type.SignTypeFragmentDirections
-import kotlin.math.sign
 
 
 class SignOptionsFragment : Fragment() {
@@ -40,7 +40,8 @@ class SignOptionsFragment : Fragment() {
 
         // Get arguments
         val signOptionsFragmentArgs by navArgs<SignOptionsFragmentArgs>()
-        viewModelFactory = SignOptionsViewModelFactory(signOptionsFragmentArgs.area, signOptionsFragmentArgs.typeInt, dataSource, application)
+        viewModelFactory = SignOptionsViewModelFactory(signOptionsFragmentArgs.area, signOptionsFragmentArgs.typeInt, dataSource, (application as SignApplication)
+            )
 
         viewModel = ViewModelProvider(this, viewModelFactory)
                 .get(SignOptionsViewModel::class.java)
@@ -58,15 +59,17 @@ class SignOptionsFragment : Fragment() {
         binding.signListRecycleView.layoutManager = manager
 
         val adapter = SignOptionsAdapter(SignListener { signId ->
+
             Toast.makeText(context, "$signId", Toast.LENGTH_LONG).show()
             Log.v("Buttons","SignId - $signId chosen")
+
             navController.navigate(SignOptionsFragmentDirections.actionSignOptionsFragmentToPrintingFragment(signId))
 
         })
 
         binding.signListRecycleView.adapter = adapter
 
-        viewModel.sign.observe(viewLifecycleOwner, Observer {
+        viewModel.signs.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.addHeaderAndSubmitList(it)
             }

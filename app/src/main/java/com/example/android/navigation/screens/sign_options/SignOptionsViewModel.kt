@@ -3,9 +3,8 @@ package com.example.android.navigation.screens.sign_options
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
-import com.example.android.navigation.database.Instructions
-import com.example.android.navigation.database.SignDatabaseDao
-import com.example.android.navigation.database.Signs
+import androidx.room.RoomDatabase
+import com.example.android.navigation.database.*
 import kotlinx.coroutines.*
 import timber.log.Timber
 
@@ -13,7 +12,7 @@ import timber.log.Timber
 /**
  * ViewModel containing all the logic needed to run the sign_options
  */
-class SignOptionsViewModel(area : Boolean, type : Int, database: SignDatabaseDao, application: Application) : AndroidViewModel(application) {
+class SignOptionsViewModel(area : Boolean, type : Int, database: SignDatabaseDao, application: SignApplication) : AndroidViewModel(application) {
 
     /**
      * viewModelJob allows us to cancel all coroutines started by this ViewModel.
@@ -31,7 +30,12 @@ class SignOptionsViewModel(area : Boolean, type : Int, database: SignDatabaseDao
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
      */
 
+
+
+    var signs : LiveData<List<Signs>>
     private var viewModelJob = Job()
+
+    //val repository = repository
 
     private val uiScope = CoroutineScope(Dispatchers.Main +  viewModelJob)
 
@@ -66,7 +70,7 @@ class SignOptionsViewModel(area : Boolean, type : Int, database: SignDatabaseDao
     val area: LiveData<Boolean>
         get() = _area
 
-
+    //lateinit var signs :LiveData<List<Signs>>
 
     init {
         Timber.i("SignOptionsViewModel created.")
