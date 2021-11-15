@@ -7,6 +7,7 @@ import com.example.android.navigation.database.Instructions
 import com.example.android.navigation.database.SignDatabaseDao
 import com.example.android.navigation.database.Signs
 import kotlinx.coroutines.*
+import timber.log.Timber
 
 
 /**
@@ -67,61 +68,27 @@ class SignOptionsViewModel(area : Boolean, type : Int, database: SignDatabaseDao
 
 
 
-    init{
-        Log.i("SignOptionsViewModel", "SignOptionsViewModel created.")
+    init {
+        Timber.i("SignOptionsViewModel created.")
         _area.value = area
         _type.value = type
         _eventSubmit.value = false
         _database.value = database
         _application.value = application
 
-        initializeSign()
+        getSignsFromDatabase()
 
     }
 
     //FUNCTIONS
 
-    private fun initializeSign(){
-            viewModelScope.launch {
-                _sign.value = getSignsFromDatabase()
-                //private val signs = database.filterGetSigns(area, type)
+    private fun getSignsFromDatabase(): Int {
 
-                // In Kotlin, the return@label syntax is used for specifying which function among
-                // several nested ones this statement returns from.
-                // In this case, we are specifying to return from launch(),
-                // not the lambda.
-                //val oldNight = tonight.value ?: return@launch
-
-            }
-
-    }
-
-    /**
-     *  Handling the case of the stopped app or forgotten recording,
-     *  the start and end times will be the same.j
-     *
-     *  If the start time and end time are not the same, then we do not have an unfinished
-     *  recording.
-     */
-
-    private suspend fun getSignsFromDatabase(): List<Signs>? {
-
-        //return withContext(Dispatchers.IO) {
-
-        return _database.value!!.filterGetSigns(_type.value!!,_area.value!!)
-        //}
-
-    }
-
-    fun getChosenSteps(){
-        uiScope.launch {
-            _step.value = getInsFromDatabase()
+        CoroutineScope(Dispatchers.IO).launch {
+        _database.value!!.filterGetSigns(_type.value!!,_area.value!!)
         }
-    }
+        return 200
 
-    private suspend fun getInsFromDatabase(): List<Instructions> {
-
-        return _database.value!!.getIns(_signId.value!!)!!
     }
 
     override fun onCleared() {

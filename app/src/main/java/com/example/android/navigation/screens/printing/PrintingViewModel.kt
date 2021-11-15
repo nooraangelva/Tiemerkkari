@@ -106,8 +106,11 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
     }
 
     private suspend fun getStepsFromDatabase(): List<Instructions>? {
+        CoroutineScope(Dispatchers.IO).launch {
+            database.filterGetIns(_signId.value!!)
+        }
 
-        return database.filterGetIns(_signId.value!!)
+        //TODO return
 
     }
 
