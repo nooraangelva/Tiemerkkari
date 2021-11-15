@@ -13,7 +13,7 @@
     <style name="DarkTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="android:windowBackground">@drawable/gradient_backround</item>
+        <item name="android:windowBackground">@drawable/bg_darks</item>
         <!--https://stackoverflow.com/questions/38700220/cant-find-colorstatelist-from-drawable-resource-id-only-on-android-nougat Turns out you can't set
         drawable as a colorBackground in XML, so it works after removing this line.
         The reason this only crashed on Nougat is because this was possible in earlier versions.-->
@@ -39,7 +39,7 @@
     <style name="LightTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="colorPrimaryDark">@color/colorPrimaryLight</item>
         <item name="colorPrimary">@color/colorPrimaryL</item>
-        <item name="android:windowBackground">@drawable/gradient_background_light</item>
+        <item name="android:windowBackground">@drawable/bg_light</item>
         <item name="editTextStyle">@style/inputBoxLight</item>
         <item name="checkboxStyle">@style/checkBoxDark</item>
 
@@ -74,11 +74,12 @@
         <item name="android:layout_marginStart">@dimen/horizontal_margin</item>
         <item name="android:layout_marginEnd">@dimen/horizontal_margin</item>
         <item name="android:background">@drawable/round_button</item>
-        <item name="android:elevation">10dp</item>
+
 
 
         <!--<item name="android:textColor">@color/buttonTextColorDark</item>
-         <item name="android:strokeColor">@color/colorSecondary</item>-->
+         <item name="android:strokeColor">@color/colorSecondary</item>
+                 <item name="android:elevation">10dp</item>-->
 
     </style>
 
