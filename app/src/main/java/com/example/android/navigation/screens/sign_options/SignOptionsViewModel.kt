@@ -3,16 +3,15 @@ package com.example.android.navigation.screens.sign_options
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
-import com.example.android.navigation.database.Instructions
-import com.example.android.navigation.database.SignDatabaseDao
-import com.example.android.navigation.database.Signs
+import androidx.room.RoomDatabase
+import com.example.android.navigation.database.*
 import kotlinx.coroutines.*
 
 
 /**
  * ViewModel containing all the logic needed to run the sign_options
  */
-class SignOptionsViewModel(area : Boolean, type : Int, database: SignDatabaseDao, application: Application) : AndroidViewModel(application) {
+class SignOptionsViewModel(area : Boolean, type : Int, database: SignDatabaseDao, application: SignApplication) : AndroidViewModel(application) {
 
     /**
      * viewModelJob allows us to cancel all coroutines started by this ViewModel.
@@ -30,7 +29,12 @@ class SignOptionsViewModel(area : Boolean, type : Int, database: SignDatabaseDao
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
      */
 
+
+
+    var signs : LiveData<List<Signs>>
     private var viewModelJob = Job()
+
+    //val repository = repository
 
     private val uiScope = CoroutineScope(Dispatchers.Main +  viewModelJob)
 
@@ -65,7 +69,7 @@ class SignOptionsViewModel(area : Boolean, type : Int, database: SignDatabaseDao
     val area: LiveData<Boolean>
         get() = _area
 
-
+    //lateinit var signs :LiveData<List<Signs>>
 
     init{
         Log.i("SignOptionsViewModel", "SignOptionsViewModel created.")
@@ -75,26 +79,21 @@ class SignOptionsViewModel(area : Boolean, type : Int, database: SignDatabaseDao
         _database.value = database
         _application.value = application
 
-        initializeSign()
+        val db = application.database
+        val repository: SignRepository = application.repository
+        signs = repository.getSignsFromDatabase(_type.value!!, _area.value!!).asLiveData()
+
+        //initializeSign()
 
     }
 
     //FUNCTIONS
 
-    private fun initializeSign(){
-            viewModelScope.launch {
-                _sign.value = getSignsFromDatabase()
-                //private val signs = database.filterGetSigns(area, type)
 
-                // In Kotlin, the return@label syntax is used for specifying which function among
-                // several nested ones this statement returns from.
-                // In this case, we are specifying to return from launch(),
-                // not the lambda.
-                //val oldNight = tonight.value ?: return@launch
-
-            }
-
-    }
+    // Using LiveData and caching what allWords returns has several benefits:
+    // - We can put an observer on the data (instead of polling for changes) and only update the
+    //   the UI when the data actually changes.
+    // - Repository is completely separated from the UI through the ViewModel.
 
     /**
      *  Handling the case of the stopped app or forgotten recording,
@@ -104,30 +103,6 @@ class SignOptionsViewModel(area : Boolean, type : Int, database: SignDatabaseDao
      *  recording.
      */
 
-    private suspend fun getSignsFromDatabase(): List<Signs>? {
-
-        //return withContext(Dispatchers.IO) {
-
-        return _database.value!!.filterGetSigns(_type.value!!,_area.value!!)
-        //}
-
-    }
-
-    fun getChosenSteps(){
-        uiScope.launch {
-            _step.value = getInsFromDatabase()
-        }
-    }
-
-    private suspend fun getInsFromDatabase(): List<Instructions> {
-
-        return _database.value!!.getIns(_signId.value!!)!!
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
-    }
 
     fun eventSubmit(){
 

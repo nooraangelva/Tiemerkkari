@@ -145,14 +145,14 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
 
         database.insertSign(_sign.value!!)
         //TODO oikein?
-        _signId.value = database.getSignId(_signName.value!!)
+        //_signId.value = database.getSignId(_signName.value!!)
         return true
 
     }
 
     private suspend fun getSignIdFromDatabase(): Boolean {
 
-        _signId.value = database.getSignId(_signName.value!!)
+        //_signId.value = database.getSignId(_signName.value!!)
         return true
 
     }
