@@ -1,15 +1,12 @@
 package com.example.android.navigation.screens.printing
 
-import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -18,8 +15,6 @@ import androidx.navigation.fragment.navArgs
 import com.example.android.navigation.R
 import com.example.android.navigation.database.SignDatabase
 import com.example.android.navigation.databinding.FragmentPrintingBinding
-import com.example.android.navigation.screens.sign_type.SignTypeFragmentDirections
-import java.io.File
 
 class PrintingFragment : Fragment() {
 
@@ -37,6 +32,7 @@ class PrintingFragment : Fragment() {
 
 
         val application = requireNotNull(this.activity).application
+
         val dataSource = SignDatabase.getInstance(application).signDatabaseDao
 
         // Get arguments

@@ -7,9 +7,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.android.navigation.database.SignDatabaseDao
 
 
-abstract class ImportViewModelFactory(private val dataSource: SignDatabaseDao, private val application: Application) : ViewModelProvider.Factory {
+class ImportViewModelFactory(private val dataSource: SignDatabaseDao, private val application: Application) : ViewModelProvider.Factory {
 
-    @Suppress("unchecked cast")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ImportViewModel::class.java)) {
             return ImportViewModel(dataSource, application) as T

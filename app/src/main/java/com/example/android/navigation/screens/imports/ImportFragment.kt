@@ -1,32 +1,20 @@
 package com.example.android.navigation.screens.imports
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.ArrayAdapter
 import android.widget.Spinner
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.android.navigation.MainActivity
 import com.example.android.navigation.R
 import com.example.android.navigation.database.Instructions
-import com.example.android.navigation.database.SignApplication
 import com.example.android.navigation.database.SignDatabase
 import com.example.android.navigation.databinding.FragmentImportBinding
-import com.example.android.navigation.databinding.FragmentPrintingBinding
-import com.example.android.navigation.screens.printing.PrintingViewModel
-import com.example.android.navigation.screens.printing.PrintingViewModelFactory
-import com.example.android.navigation.screens.sign_options.SignListener
-import com.example.android.navigation.screens.sign_options.SignOptionsAdapter
-import com.example.android.navigation.screens.sign_options.SignOptionsFragmentDirections
-import com.example.android.navigation.screens.speed_area.SpeedAreaFragmentDirections
 
 class ImportFragment : Fragment() {
 
@@ -47,9 +35,10 @@ class ImportFragment : Fragment() {
                 inflater, R.layout.fragment_import, container, false)
 
         val application = requireNotNull(this.activity).application
+
         val dataSource = SignDatabase.getInstance(application).signDatabaseDao
 
-        viewModelFactory = ImportViewModelFactory(dataSource, (application as SignApplication))
+        viewModelFactory = ImportViewModelFactory(dataSource, application)
 
         viewModel = ViewModelProvider(this, viewModelFactory)
                 .get(ImportViewModel::class.java)
@@ -105,8 +94,10 @@ class ImportFragment : Fragment() {
             (activity as MainActivity).openGalleryForImage(viewModel.futureId.toString())
 
         }
-
-
+        binding.newStepButton.setOnClickListener{
+            stepList.add(Instructions())
+            stepAdapter.notifyItemInserted(stepList.size-1)
+        }
 
         return binding.root
     }
@@ -114,7 +105,7 @@ class ImportFragment : Fragment() {
 
 
     private fun setAdapter(){
-        stepAdapter = StepAdapter(viewModel.stepList.value!!)
+        stepAdapter = StepAdapter(stepList)
         binding.importRecycleView.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = stepAdapter
@@ -133,3 +124,5 @@ class ImportFragment : Fragment() {
 
 
 }
+
+

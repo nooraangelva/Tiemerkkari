@@ -28,15 +28,9 @@ import java.util.*
 import android.R.attr.data
 import android.content.Context
 import android.content.ContextWrapper
-import java.io.File
-import java.io.IOException
-
-import java.io.FileOutputStream
-
-import java.io.OutputStream
-
-import java.io.InputStream
-
+import android.graphics.BitmapFactory
+import timber.log.Timber
+import java.io.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -53,20 +47,20 @@ class MainActivity : AppCompatActivity() {
     private lateinit var imageName: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Log.i("MainActivity", "OnCreate")
+        Timber.i("OnCreate")
 
         super.onCreate(savedInstanceState)
         sharedPreferences = getPreferences(MODE_PRIVATE)
 
         changeLanguage()
-        Log.i("MainActivity", "Langugae pref: " + sharedPreferences.getString("language", "en")!!)
+        Timber.i("Langugae pref: " + sharedPreferences.getString("language", "en")!!)
         changeTheme()
-        Log.i("MainActivity", "Langugae pref: " + sharedPreferences.getBoolean("SELECTED_THEME", false))
+        Timber.i("Langugae pref: " + sharedPreferences.getBoolean("SELECTED_THEME", false))
 
         setContentView(R.layout.activity_main)
 
         val navHostFragment =
-                supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
+            supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         navController = navHostFragment.navController
 
         NavigationUI.setupActionBarWithNavController(this, navController)
@@ -74,15 +68,14 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
 
 
-        Log.i("MainActivity", "nav graph" + navController.graph.toString())
+        Timber.i("nav graph" + navController.graph.toString())
 
-        if(allPermissionsGranted()){
+        if (allPermissionsGranted()) {
             //permission ok
-            Log.v("CameraApp","Permission ok")
-        }
-        else{
+            Timber.tag("CameraApp").v("Permission ok")
+        } else {
             ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSION)
-            Log.v("CameraApp","Ask permissions")
+            Timber.tag("CameraApp").v("Ask permissions")
         }
 
     }
@@ -99,11 +92,10 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    fun changeLanguage()
-    {
+    fun changeLanguage() {
         val currentLanguage = sharedPreferences.getString("SELECTED_LANGUAGE", "fi")
 
-        Log.i("MainActivity", "setApplocale()" + sharedPreferences.getString("SELECTED_LANGUAGE", "fi"))
+        Timber.i("setApplocale()" + sharedPreferences.getString("SELECTED_LANGUAGE", "fi"))
 
         val locale = Locale(currentLanguage!!)
 
@@ -119,7 +111,6 @@ class MainActivity : AppCompatActivity() {
             config.locale = locale
         } catch (e: Exception) {
         }
-
 
 
         val currentLocale = locale
@@ -148,12 +139,27 @@ class MainActivity : AppCompatActivity() {
         startActivityForResult(intent, REQUEST_CODE)
     }
 
+    private fun uriToBitmap(selectedFileUri: Uri): Bitmap? {
+        try {
+            val parcelFileDescriptor = contentResolver.openFileDescriptor(selectedFileUri, "r")
+            val fileDescriptor: FileDescriptor = parcelFileDescriptor!!.fileDescriptor
+            val image = BitmapFactory.decodeFileDescriptor(fileDescriptor)
+            parcelFileDescriptor.close()
+            return image
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        return null
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE){
-            var imageUriString : String = data?.data?.path!!
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE) {
+            var imageUriString: String = data?.data?.path!!
+
             imageUri = Uri.parse(imageUriString)
-            bitmap =   MediaStore.Images.Media.getBitmap(this.contentResolver, imageUri)
+
+            bitmap = uriToBitmap(imageUri!!)!!
 
             val storageDir = filesDir
 
@@ -165,7 +171,7 @@ class MainActivity : AppCompatActivity() {
 
             // Initializing a new file
             // The bellow line return a directory in internal storage
-            var file = wrapper.getDir("sign_images", Context.MODE_PRIVATE)
+            var file = wrapper.getDir("sign_images", MODE_PRIVATE)
 
 
             // Create a file to save the image
@@ -183,11 +189,11 @@ class MainActivity : AppCompatActivity() {
 
                 // Close stream
                 stream.close()
-            } catch (e: IOException){ // Catch the exception
+            } catch (e: IOException) { // Catch the exception
                 e.printStackTrace()
             }
 
-            Log.v("Import", "saved images path ${Uri.parse(file.absolutePath)}")
+            Timber.tag("Import").v("saved images path %s", Uri.parse(file.absolutePath))
 
             // Return the saved image uri
             //return Uri.parse(file.absolutePath)
@@ -200,15 +206,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun changeTheme() {
 
-        Log.i("MainActivity", "checkTheme()" + sharedPreferences.getBoolean("SELECTED_THEME", false))
+        Timber.i("checkTheme()" + sharedPreferences.getBoolean("SELECTED_THEME", false))
 
         val darkMode = sharedPreferences.getBoolean("SELECTED_THEME", false)
-        if(!darkMode)
-        {
+        if (!darkMode) {
             setTheme(R.style.DarkTheme)
-        }
-        else
-        {
+        } else {
             setTheme(R.style.LightTheme)
         }
     }
@@ -222,37 +225,52 @@ class MainActivity : AppCompatActivity() {
             when (sharedPreferences.getString("SELECTED_LANGUAGE", "en")) {
                 "fi" -> {
 
-                    Log.i("MainActivity", "languageOptionMenu pressed to en")
+                    Timber.i("languageOptionMenu pressed to en")
                     // set preference
                     with(sharedPreferences.edit()) {
                         putString("SELECTED_LANGUAGE", "en")
                         apply()
                     }
-                    Log.i("MainActivity", "setApplocale() now" + sharedPreferences.getString("SELECTED_LANGUAGE", "fi"))
+                    Timber.i(
+                        "setApplocale() now" + sharedPreferences.getString(
+                            "SELECTED_LANGUAGE",
+                            "fi"
+                        )
+                    )
                     this.recreate()
 
                 }
                 "en" -> {
 
-                    Log.i("MainActivity", "languageOptionMenu pressed to fi")
+                    Timber.i("languageOptionMenu pressed to fi")
                     // set preference
                     with(sharedPreferences.edit()) {
                         putString("SELECTED_LANGUAGE", "fi")
                         apply()
                     }
-                    Log.i("MainActivity", "setApplocale() now" + sharedPreferences.getString("SELECTED_LANGUAGE", "fi"))
+                    Timber.i(
+                        "setApplocale() now" + sharedPreferences.getString(
+                            "SELECTED_LANGUAGE",
+                            "fi"
+                        )
+                    )
                     this.recreate()
 
                 }
                 else -> {
 
-                    Log.i("MainActivity", "languageOptionMenu pressed to en")
+                    Timber.i("languageOptionMenu pressed to en")
                     // set preference
                     with(sharedPreferences.edit()) {
                         putString("SELECTED_LANGUAGE", "en")
                         apply()
                     }
-                    Log.i("MainActivity", "setApplocale() now" + sharedPreferences.getString("SELECTED_LANGUAGE", "fi"))
+                    Timber.i(
+                        "setApplocale() now" + sharedPreferences.getString(
+                            "SELECTED_LANGUAGE",
+                            "fi"
+                        )
+                    )
                     this.recreate()
                 }
             }
@@ -265,29 +283,49 @@ class MainActivity : AppCompatActivity() {
             when (sharedPreferences.getBoolean("SELECTED_THEME", false)) {
                 true -> {
 
-                    Log.i("MainActivity", "dayNightOptionMenu pressed to day")
-                    Log.i("MainActivity", "checkTheme() now " + sharedPreferences.getBoolean("SELECTED_THEME", false))
+                    Timber.i("dayNightOptionMenu pressed to day")
+                    Timber.i(
+                        "checkTheme() now " + sharedPreferences.getBoolean(
+                            "SELECTED_THEME",
+                            false
+                        )
+                    )
 
                     // set preference
                     with(sharedPreferences.edit()) {
                         putBoolean("SELECTED_THEME", false)
                         apply()
                     }
-                    Log.i("MainActivity", "checkTheme() now " + sharedPreferences.getBoolean("SELECTED_THEME", false))
+                    Timber.i(
+                        "checkTheme() now " + sharedPreferences.getBoolean(
+                            "SELECTED_THEME",
+                            false
+                        )
+                    )
                     this.recreate()
 
                 }
                 false -> {
 
-                    Log.i("MainActivity", "dayNightOptionMenu pressed to night")
-                    Log.i("MainActivity", "checkTheme() now " + sharedPreferences.getBoolean("SELECTED_THEME", false))
+                    Timber.i("dayNightOptionMenu pressed to night")
+                    Timber.i(
+                        "checkTheme() now " + sharedPreferences.getBoolean(
+                            "SELECTED_THEME",
+                            false
+                        )
+                    )
 
                     // set preference
                     with(sharedPreferences.edit()) {
                         putBoolean("SELECTED_THEME", true)
                         apply()
                     }
-                    Log.i("MainActivity", "checkTheme() now" + sharedPreferences.getBoolean("SELECTED_THEME", false))
+                    Timber.i(
+                        "checkTheme() now" + sharedPreferences.getBoolean(
+                            "SELECTED_THEME",
+                            false
+                        )
+                    )
                     this.recreate()
 
                 }

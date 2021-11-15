@@ -12,7 +12,7 @@ import timber.log.Timber
 /**
  * ViewModel containing all the logic needed to run the sign_options
  */
-class SignOptionsViewModel(area : Boolean, type : Int, database: SignDatabaseDao, application: SignApplication) : AndroidViewModel(application) {
+class SignOptionsViewModel(area : Boolean, type : Int, database: SignDatabaseDao, application: Application) : AndroidViewModel(application) {
 
     /**
      * viewModelJob allows us to cancel all coroutines started by this ViewModel.
@@ -31,13 +31,7 @@ class SignOptionsViewModel(area : Boolean, type : Int, database: SignDatabaseDao
      */
 
 
-
-    var signs : LiveData<List<Signs>>
     private var viewModelJob = Job()
-
-    //val repository = repository
-
-    private val uiScope = CoroutineScope(Dispatchers.Main +  viewModelJob)
 
     private val _sign =MutableLiveData<List<Signs>>()
     val sign: LiveData<List<Signs>>
@@ -70,7 +64,6 @@ class SignOptionsViewModel(area : Boolean, type : Int, database: SignDatabaseDao
     val area: LiveData<Boolean>
         get() = _area
 
-    //lateinit var signs :LiveData<List<Signs>>
 
     init {
         Timber.i("SignOptionsViewModel created.")
