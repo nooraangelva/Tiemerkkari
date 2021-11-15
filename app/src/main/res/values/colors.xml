@@ -4,34 +4,31 @@
     <!--<color name="colorPrimary">#486581</color>-->
 
     <!--<color name="colorAccent">#7e53c5</color>
-    <color name="youWinDark">#35A571</color>
-    <color name="youWinBackground">#B7F8C9</color>
-    <color name="gameOverBackground">#f8bbd0</color>-->
-
-    <!-- Dark mode-->
-    <color name="colorPrimaryDark">#2E2E2E</color>
-    <color name="colorPrimary">#2E2E2E</color>
-    <color name="buttonTextColorDark">#F8E326</color>
-    <color name="textColorDark">#96B9CA</color>
-
+    <color name="gameOverBackground">#f8bbd0</color>
     <color name="toolbarDark">#344955</color>
     <color name="colorAccent">#344955</color>
+    <color name="toolbarLight">#4F798F</color>-->
+
+                <!-- DARK MODE-->
+    <!--navigations-->
+    <color name="colorPrimaryDark">#56030303</color>
+    <color name="colorPrimary">#34030303</color>
+    <color name="navigationColorPrimary">#48030303</color>
+    <!--texts-->
+    <color name="buttonTextColorDark">#F8E326</color>
+    <color name="textColorDark">#7A7A7A</color>
 
 
-
-    <!-- Light mode-->
-    <color name="colorPrimaryLight">#929394</color>
-    <color name="colorPrimaryL">#929394</color>
+                <!-- LIGHT MODE-->
+    <!--navigations-->
+    <color name="colorPrimaryLight">#6F040303</color>
+    <color name="colorPrimaryL">#1D040404</color>
+    <color name="navigationColorPrimaryL">#6F040303</color>
+    <!--texts-->
     <color name="buttonTextColorLight">#393A3A</color>
-    <color name="textColorLight">#141719</color>
-
-    <color name="toolbarLight">#4F798F</color>
+    <color name="textColorLight">#393A3A</color>
 
 
-
-
-
-    <color name="youWinBackground">#B7F8C9</color>
 
     <color name="colorSecondary">#F9AA33</color>
     <!--<color name="textColor">#96B9CA</color>-->
