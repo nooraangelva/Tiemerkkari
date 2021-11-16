@@ -1,9 +1,7 @@
 package com.example.android.navigation.screens.printing
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
-import com.example.android.navigation.MainActivity
 import com.example.android.navigation.database.Instructions
 import com.example.android.navigation.database.SignDatabaseDao
 import com.example.android.navigation.database.Signs
@@ -11,13 +9,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import android.R
-
-import android.widget.ImageView
 
 import android.graphics.BitmapFactory
 
 import android.graphics.Bitmap
+import timber.log.Timber
 
 import java.io.File
 
@@ -31,13 +27,6 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
         get() = _signId
 
     private var viewModelJob = Job()
-
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
-    }
-
-    private val uiScope = CoroutineScope(Dispatchers.Main +  viewModelJob)
 
     private val _steps = MutableLiveData<List<Instructions>>()
     val steps: LiveData<List<Instructions>>
@@ -63,59 +52,45 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
     val signSource: LiveData<String>
         get() = _signSource
 
-
-
-    /*
-       val nightsString = Transformations.map(_steps) { nights ->
-           formatNights(nights, application.resources)
-       }
-
-       private val steps = database.filterGetIns(_singId.value!!)
-
-        */
-
-    init{
-        Log.i("PrintingViewModel", "PrintingViewModel created.")
+    init {
+        Timber.i("PrintingViewModel created.")
 
         _signId.value = signId
-        initializeStep()
-        initializeSign()
+        getStepsFromDatabase()
+        getSignFromDatabase()
 
     }
 
     //FUNCTIONS
 
-    fun initializeStep(){
-        uiScope.launch {
-            _steps.value = getStepsFromDatabase()
+    private fun getStepsFromDatabase() {
+        CoroutineScope(Dispatchers.IO).launch {
+            _steps.value = database.filterGetIns(_signId.value!!)
         }
+
     }
 
-    fun initializeSign(){
-        uiScope.launch {
-            _sign.value = getSignFromDatabase()
+    private fun getSignFromDatabase(){
+        CoroutineScope(Dispatchers.IO).launch {
+            _sign.value = database.filterGetSign(_signId.value!!)
+
             _signName.value = _sign.value?.signName
             _signInfo.value = _sign.value?.info
             _signSource.value = "sign_images/${_sign.value?.sourcePicture}"
 
-            val imgFile = File(_signSource.value)
+            val imgFile = File(_signSource.value!!)
             if (imgFile.exists()) {
                 _bitmap = MutableLiveData(BitmapFactory.decodeFile(imgFile.absolutePath))
             }
         }
-    }
-
-    private suspend fun getStepsFromDatabase(): List<Instructions>? {
-
-        return database.filterGetIns(_signId.value!!)
 
     }
 
-    private suspend fun getSignFromDatabase(): Signs? {
-
-        return database.filterGetSign(_signId.value!!)
-
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
     }
+
 
     fun startPrinting(){
     //TODO send info and steps from the list

@@ -1,23 +1,10 @@
 package com.example.android.navigation.screens.imports
 
-import android.Manifest
-import android.app.Activity
-import android.app.Activity.RESULT_OK
 import android.app.Application
-import android.content.Intent
-import android.content.Intent.ACTION_PICK
-import android.content.pm.PackageManager
-import android.net.Uri
-import android.util.Log
-import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityCompat.*
-import androidx.databinding.BaseObservable
-import androidx.databinding.Bindable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.example.android.navigation.R
 import com.example.android.navigation.database.Instructions
 import com.example.android.navigation.database.SignDatabaseDao
 import com.example.android.navigation.database.Signs
@@ -25,17 +12,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import kotlin.math.absoluteValue
-import com.google.android.material.internal.ContextUtils.getActivity
-import androidx.core.app.ActivityCompat.startActivityForResult
 
-import android.os.Build
-import android.provider.MediaStore
-import androidx.fragment.app.Fragment
-import android.graphics.Bitmap
-import java.io.ByteArrayOutputStream
-import android.database.Cursor
-import java.io.File
+import timber.log.Timber
 
 
 class ImportViewModel (val database: SignDatabaseDao, application: Application) : ViewModel()  {
@@ -93,18 +71,9 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
     val speedArea: LiveData<Boolean>
         get() = _speedArea
 
-    /*
 
-       private val steps = database.filterGetIns(_singId.value!!)
-
-
-
-    val nightsString = Transformations.map(steps) { nights ->
-        formatNights(nights, application.resources)
-    }*/
-
-    init{
-        Log.i("PrintingViewModel", "PrintingViewModel created.")
+    init {
+        Timber.i("PrintingViewModel created.")
 
 
     }
@@ -113,9 +82,7 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
 
     fun createSign(){
         _signSource.value = "${_futureId.value}.JPEG"
-        uiScope.launch {
-            createSignToDatabase()
-        }
+        createSignToDatabase()
 
     }
 
@@ -135,86 +102,88 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
 
     }
 
-    private suspend fun createSignToDatabase(): Boolean {
+    private fun createSignToDatabase(): Boolean {
 
-        _sign.value?.sourcePicture = _signSource.value!!
-        _sign.value?.signName = _signName.value!!
-        _sign.value?.info = _signInfo.value!!
-        _sign.value?.speedArea = _speedArea.value!!
-        _sign.value?.type = getType()
+        CoroutineScope(Dispatchers.IO).launch {
 
-        database.insertSign(_sign.value!!)
-        //TODO oikein?
-        //_signId.value = database.getSignId(_signName.value!!)
+            _sign.value?.sourcePicture = _signSource.value!!
+            _sign.value?.signName = _signName.value!!
+            _sign.value?.info = _signInfo.value!!
+            _sign.value?.speedArea = _speedArea.value!!
+            _sign.value?.type = getType()
+
+            database.insertSign(_sign.value!!)
+            //TODO oikein?
+            _signId.value = database.getSignId(_signName.value!!)
+        }
         return true
 
     }
 
-    private suspend fun getSignIdFromDatabase(): Boolean {
-
-        //_signId.value = database.getSignId(_signName.value!!)
+    private fun getSignIdFromDatabase(): Boolean {
+        CoroutineScope(Dispatchers.IO).launch {
+            _signId.value = database.getSignId(_signName.value!!)
+        }
         return true
 
     }
 
     private suspend fun getFutureSignIdFromDatabase(): Long? {
+        //CoroutineScope(Dispatchers.IO).launch {
 
-
-        return database.getBiggestSignId()
+            return database.getBiggestSignId()
+        //}
 
     }
 
-
-
-    fun newStep(){
+/*    fun newStep(){
         _stepList.value!!.add(Instructions())
     }
-
+*/
     fun saveSteps(){
 
         //TODO final resting spot and maybe strat too?
 
         _stepList.value?.forEachIndexed { index, step ->
 
-            Log.v("<RESULT>", " ${step.step} - ${step.order}")
+
             _step.value = step
             _step.value?.step = index
             _step.value?.signId = _signId.value!!
 
-            uiScope.launch {
+            createStepToDatabase()
 
-                createStepToDatabase()
-            }
         }
 
     }
 
-    private suspend fun createStepToDatabase():Boolean {
-
-        database.insertIns(_step.value!!)
+    private fun createStepToDatabase():Boolean {
+        CoroutineScope(Dispatchers.IO).launch {
+            database.insertIns(_step.value!!)
+        }
         return true
 
     }
 
     fun delete(){
 
-        uiScope.launch {
-            deleteSignFromDatabase()
-            deleteStepsFromDatabase()
-        }
+        deleteSignFromDatabase()
+        deleteStepsFromDatabase()
 
     }
 
-    private suspend fun deleteStepsFromDatabase():Boolean {
-
-        database.clearIns(signId.value!!)
+    private fun deleteStepsFromDatabase():Boolean {
+        CoroutineScope(Dispatchers.IO).launch {
+            database.clearIns(signId.value!!)
+        }
         return true
 
     }
 
-    private suspend fun deleteSignFromDatabase():Boolean {
-
-        database.clearSign(signId.value!!)
+    private fun deleteSignFromDatabase():Boolean {
+        CoroutineScope(Dispatchers.IO).launch {
+            database.clearSign(signId.value!!)
+        }
         return true
 
     }

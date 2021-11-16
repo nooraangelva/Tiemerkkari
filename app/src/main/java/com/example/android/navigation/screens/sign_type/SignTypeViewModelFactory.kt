@@ -6,7 +6,7 @@ import com.example.android.navigation.screens.imports.ImportViewModel
 
 class SignTypeViewModelFactory(private val area: Boolean ) : ViewModelProvider.Factory {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SignTypeViewModel::class.java)) {
             return SignTypeViewModel(area) as T
         }

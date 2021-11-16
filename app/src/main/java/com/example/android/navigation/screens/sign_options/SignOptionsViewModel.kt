@@ -6,12 +6,13 @@ import androidx.lifecycle.*
 import androidx.room.RoomDatabase
 import com.example.android.navigation.database.*
 import kotlinx.coroutines.*
+import timber.log.Timber
 
 
 /**
  * ViewModel containing all the logic needed to run the sign_options
  */
-class SignOptionsViewModel(area : Boolean, type : Int, database: SignDatabaseDao, application: SignApplication) : AndroidViewModel(application) {
+class SignOptionsViewModel(area : Boolean, type : Int, database: SignDatabaseDao, application: Application) : AndroidViewModel(application) {
 
     /**
      * viewModelJob allows us to cancel all coroutines started by this ViewModel.
@@ -30,13 +31,7 @@ class SignOptionsViewModel(area : Boolean, type : Int, database: SignDatabaseDao
      */
 
 
-
-    var signs : LiveData<List<Signs>>
     private var viewModelJob = Job()
-
-    //val repository = repository
-
-    private val uiScope = CoroutineScope(Dispatchers.Main +  viewModelJob)
 
     private val _sign =MutableLiveData<List<Signs>>()
     val sign: LiveData<List<Signs>>
@@ -69,40 +64,34 @@ class SignOptionsViewModel(area : Boolean, type : Int, database: SignDatabaseDao
     val area: LiveData<Boolean>
         get() = _area
 
-    //lateinit var signs :LiveData<List<Signs>>
 
-    init{
-        Log.i("SignOptionsViewModel", "SignOptionsViewModel created.")
+    init {
+        Timber.i("SignOptionsViewModel created.")
         _area.value = area
         _type.value = type
         _eventSubmit.value = false
         _database.value = database
         _application.value = application
 
-        val db = application.database
-        val repository: SignRepository = application.repository
-        signs = repository.getSignsFromDatabase(_type.value!!, _area.value!!).asLiveData()
-
-        //initializeSign()
+        getSignsFromDatabase()
 
     }
 
     //FUNCTIONS
 
+    private fun getSignsFromDatabase(): Int {
 
-    // Using LiveData and caching what allWords returns has several benefits:
-    // - We can put an observer on the data (instead of polling for changes) and only update the
-    //   the UI when the data actually changes.
-    // - Repository is completely separated from the UI through the ViewModel.
+        CoroutineScope(Dispatchers.IO).launch {
+        _database.value!!.filterGetSigns(_type.value!!,_area.value!!)
+        }
+        return 200
 
-    /**
-     *  Handling the case of the stopped app or forgotten recording,
-     *  the start and end times will be the same.j
-     *
-     *  If the start time and end time are not the same, then we do not have an unfinished
-     *  recording.
-     */
+    }
 
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
+    }
 
     fun eventSubmit(){
 

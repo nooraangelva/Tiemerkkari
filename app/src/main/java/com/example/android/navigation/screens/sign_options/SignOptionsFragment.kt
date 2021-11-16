@@ -13,9 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.android.navigation.R
-import com.example.android.navigation.database.SignApplication
 import com.example.android.navigation.database.SignDatabase
-import com.example.android.navigation.database.SignRepository
 import com.example.android.navigation.databinding.FragmentSignOptionsBinding
 
 
@@ -35,13 +33,13 @@ class SignOptionsFragment : Fragment() {
 
 
         val application = requireNotNull(this.activity).application
+
         val dataSource = SignDatabase.getInstance(application).signDatabaseDao
 
 
         // Get arguments
         val signOptionsFragmentArgs by navArgs<SignOptionsFragmentArgs>()
-        viewModelFactory = SignOptionsViewModelFactory(signOptionsFragmentArgs.area, signOptionsFragmentArgs.typeInt, dataSource, (application as SignApplication)
-            )
+        viewModelFactory = SignOptionsViewModelFactory(signOptionsFragmentArgs.area, signOptionsFragmentArgs.typeInt, dataSource, application)
 
         viewModel = ViewModelProvider(this, viewModelFactory)
                 .get(SignOptionsViewModel::class.java)
@@ -69,7 +67,7 @@ class SignOptionsFragment : Fragment() {
 
         binding.signListRecycleView.adapter = adapter
 
-        viewModel.signs.observe(viewLifecycleOwner, Observer {
+        viewModel.sign.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.addHeaderAndSubmitList(it)
             }
