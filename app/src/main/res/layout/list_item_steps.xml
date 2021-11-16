@@ -11,61 +11,76 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        style="@style/DarkTheme">
 
+        <TextView
+            android:id="@+id/stepNumberTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="50dp"
+            android:text="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <RadioGroup
+            android:id="@+id/radioGroup"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="vertical"
-            android:paddingLeft="200dp">
+            android:paddingLeft="120dp">
 
-            <RadioButton android:id="@+id/radio_vertical"
+            <RadioButton
+                android:id="@+id/radio_vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Vertical"
-                android:paddingLeft="10dp"
-                />
+                android:layout_height="50dp"
+                android:checked="true"
+                android:text="Vertical" />
 
-            <RadioButton android:id="@+id/radio_horizontal"
+            <RadioButton
+                android:id="@+id/radio_horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:text="Horizontal" />
 
-            <RadioButton android:id="@+id/radio_arc"
+            <RadioButton
+                android:id="@+id/radio_arc"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Arc"/>
+                android:layout_height="50dp"
+                android:text="Arc" />
 
-            <RadioButton android:id="@+id/radio_diagonal"
+            <RadioButton
+                android:id="@+id/radio_diagonal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:text="Diagonal" />
 
         </RadioGroup>
 
-
         <EditText
             android:id="@+id/xMovementInput"
-            android:layout_width="180dp"
-            android:layout_height="27dp"
-            android:layout_marginStart="300dp"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="314dp"
+            android:layout_marginTop="32dp"
             android:ems="10"
+            android:hint=" x numerot"
             android:inputType="number"
-            android:text=" x numerot"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/yMovementInput"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="314dp"
+            android:layout_marginTop="32dp"
             android:ems="10"
+            android:hint="y numerot"
             android:inputType="number"
-            android:text="y numerot"
-            app:layout_constraintTop_toBottomOf="@+id/xMovementInput"
-            tools:layout_editor_absoluteX="279dp" />
+            app:layout_constraintStart_toStartOf="@+id/radioGroup"
+            app:layout_constraintTop_toBottomOf="@+id/xMovementInput" />
 
         <!--android:text="@={steps.parX}"-->
 
@@ -73,10 +88,12 @@
             android:id="@+id/xDirectionChecked"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="suunta on eteenpäin"
 
-            tools:layout_editor_absoluteX="297dp"
-            tools:layout_editor_absoluteY="70dp" />
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:text="suunta on eteenpäin"
+            app:layout_constraintStart_toEndOf="@+id/xMovementInput"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!--android:checked="@={steps.directionX}"
         android:text="@={steps.parY}"
@@ -85,31 +102,53 @@
         android:text="@={steps.step}"-->
 
         <CheckedTextView
-            android:id="@+id/paintChecked"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Maalaa"
-
-            tools:layout_editor_absoluteX="439dp"
-            tools:layout_editor_absoluteY="70dp" />
-
-        <CheckedTextView
             android:id="@+id/yDirectionChecked"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
-
-            tools:layout_editor_absoluteY="192dp" />
-
-        <TextView
-            android:id="@+id/stepNumberTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
-            android:hint="Mones steppi"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+
+            android:layout_marginTop="65dp"
+            android:text="suunta on eteenpäin"
+            app:layout_constraintStart_toEndOf="@+id/yMovementInput"
+            app:layout_constraintTop_toBottomOf="@+id/xDirectionChecked" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupPaint"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:paddingLeft="900dp">
+
+            <RadioButton
+                android:id="@+id/radio_noPaint"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:checked="true"
+                android:text="No painting" />
+
+            <RadioButton
+                android:id="@+id/radio_5WidePaint"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="5 cm wide painting" />
+
+            <RadioButton
+                android:id="@+id/radio_10WidePaint"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="10 cm wide painting" />
+
+            <RadioButton
+                android:id="@+id/radio_50WidePaint"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="50 cm wide painting" />
+
+        </RadioGroup>
+
+
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

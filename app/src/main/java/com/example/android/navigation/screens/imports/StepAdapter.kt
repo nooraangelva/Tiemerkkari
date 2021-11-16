@@ -18,7 +18,7 @@ class StepAdapter(private val stepList : ArrayList<Instructions>) : RecyclerView
     inner class StepViewHolder(private val binding : ListItemStepsBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(step : Instructions, position: Int){
             //binding.steps = step
-            binding.paintChecked.isChecked = step.paint
+            //binding.paintChecked.isChecked = step.paint
             binding.radioArc.isChecked = false
             binding.radioDiagonal.isChecked = false
             //binding.radioHorizontal
