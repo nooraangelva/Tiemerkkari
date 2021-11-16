@@ -43,7 +43,7 @@ class ImportFragment : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory)
                 .get(ImportViewModel::class.java)
 
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
         navController = findNavController()
 
         binding.viewModel = viewModel
@@ -66,7 +66,7 @@ class ImportFragment : Fragment() {
         binding.importListRecycleView.adapter = adapter*/
 
 
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
         navController = findNavController()
         setHasOptionsMenu(true)
 
@@ -89,11 +89,10 @@ class ImportFragment : Fragment() {
         // set on-click listener
         binding.newSignImageImportButton.setOnClickListener {
 
-            viewModel.imageDownload()
-
             (activity as MainActivity).openGalleryForImage(viewModel.futureId.toString())
 
         }
+
         binding.newStepButton.setOnClickListener{
             stepList.add(Instructions())
             stepAdapter.notifyItemInserted(stepList.size-1)

@@ -5,14 +5,11 @@ import androidx.lifecycle.*
 import com.example.android.navigation.database.Instructions
 import com.example.android.navigation.database.SignDatabaseDao
 import com.example.android.navigation.database.Signs
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 
 import android.graphics.BitmapFactory
 
 import android.graphics.Bitmap
+import kotlinx.coroutines.*
 import timber.log.Timber
 
 import java.io.File
@@ -22,11 +19,14 @@ import java.io.File
 
 class PrintingViewModel (signId: Long, val database: SignDatabaseDao, application: Application) : AndroidViewModel(application) {
 
+    private var viewModelJob = Job()
+
+    private val uiScope = CoroutineScope(Dispatchers.Main +  viewModelJob)
+
+
     private val _signId = MutableLiveData<Long>()
     val signId: LiveData<Long>
         get() = _signId
-
-    private var viewModelJob = Job()
 
     private val _steps = MutableLiveData<List<Instructions>>()
     val steps: LiveData<List<Instructions>>
@@ -56,24 +56,18 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
         Timber.i("PrintingViewModel created.")
 
         _signId.value = signId
-        getStepsFromDatabase()
-        getSignFromDatabase()
+        getDataFromDatabase()
+
 
     }
 
     //FUNCTIONS
+    private fun getDataFromDatabase() {
+        uiScope.launch {
 
-    private fun getStepsFromDatabase() {
-        CoroutineScope(Dispatchers.IO).launch {
-            _steps.value = database.filterGetIns(_signId.value!!)
-        }
-
-    }
-
-    private fun getSignFromDatabase(){
-        CoroutineScope(Dispatchers.IO).launch {
-            _sign.value = database.filterGetSign(_signId.value!!)
-
+            _sign.value = getSignFromDatabase()
+            _steps.value = getFromStepsDatabase()
+            Timber.i("PrintingViewModel created.")
             _signName.value = _sign.value?.signName
             _signInfo.value = _sign.value?.info
             _signSource.value = "sign_images/${_sign.value?.sourcePicture}"
@@ -82,6 +76,24 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
             if (imgFile.exists()) {
                 _bitmap = MutableLiveData(BitmapFactory.decodeFile(imgFile.absolutePath))
             }
+
+        }
+    }
+
+    private suspend fun getFromStepsDatabase() : List<Instructions>{
+        return withContext(Dispatchers.IO) {
+
+            val temp = database.filterGetIns(_signId.value!!)
+            temp
+        }
+
+    }
+
+    private suspend fun getSignFromDatabase(): Signs{
+        return withContext(Dispatchers.IO) {
+
+            val temp = database.filterGetSign(_signId.value!!)
+            temp
         }
 
     }

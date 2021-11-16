@@ -8,10 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.example.android.navigation.database.Instructions
 import com.example.android.navigation.database.SignDatabaseDao
 import com.example.android.navigation.database.Signs
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 import timber.log.Timber
 
@@ -19,8 +16,6 @@ import timber.log.Timber
 class ImportViewModel (val database: SignDatabaseDao, application: Application) : ViewModel()  {
 
     private var viewModelJob = Job()
-    private val GET_IMAGE = 100
-
 
     override fun onCleared() {
 
@@ -30,6 +25,9 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
     }
 
     private val uiScope = CoroutineScope(Dispatchers.Main +  viewModelJob)
+
+
+
 
     private val _stepList = MutableLiveData<ArrayList<Instructions>>()
     val stepList: LiveData<ArrayList<Instructions>>
@@ -75,16 +73,83 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
     init {
         Timber.i("PrintingViewModel created.")
 
+        initializeTonight()
+    }
+
+    private fun initializeTonight() {
+        uiScope.launch {
+            _futureId.value = getFutureSignIdFromDatabase()
+            Timber.i("PrintingViewModel created."+_futureId.value)
+        }
+    }
+
+    private suspend fun getFutureSignIdFromDatabase():  Long? {
+        return withContext(Dispatchers.IO) {
+            var temp: Long? = database.getBiggestSignId()
+            temp ?: run {
+                Timber.i("PrintingViewModel created.")
+                temp = 0
+            }
+            temp
+        }
+
+    }
+
+    fun createSign(){
+        //TODO Check  if empty and linking
+        /*
+        _sign.value?.sourcePicture = "${_futureId.value}.PNG"
+        _sign.value?.signName = _signName.value!!
+        _sign.value?.info = _signInfo.value!!
+        _sign.value?.speedArea = _speedArea.value!!
+        _sign.value?.type = getType()
+        */
+
+        var temp = Signs()
+        temp.sourcePicture = "${_futureId.value}.PNG"
+        temp.signName = "Suora"
+        temp.info = "iso"
+        temp.speedArea = true
+        temp.type = 1
+
+        Timber.i("Import: "+_sign.value?.signName)
+        Timber.i("Import: "+_sign.value?.sourcePicture)
+        Timber.i("Import: "+_sign.value?.info)
+
+
+        uiScope.launch {
+            createSignToDatabase(temp)
+            _signId.value = getSignIdFromDatabase(temp.signName)
+            Timber.i("Import signId: "+_signId.value)
+        }
+
+
+
+    }
+
+    private suspend fun getSignIdFromDatabase(temp: String): Long {
+        return withContext(Dispatchers.IO) {
+            var id = database.getSignId(temp)
+            id ?: run {
+                Timber.i("PrintingViewModel created.")
+            }
+            id
+        }
+
+    }
+
+    private suspend fun createSignToDatabase(temp: Signs){
+
+        withContext(Dispatchers.IO){
+
+            database.insertSign(temp)
+            //TODO oikein?
+
+        }
 
     }
 
     //FUNCTIONS
-
-    fun createSign(){
-        _signSource.value = "${_futureId.value}.JPEG"
-        createSignToDatabase()
-
-    }
 
     fun getType():Int{
 
@@ -102,56 +167,19 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
 
     }
 
-    private fun createSignToDatabase(): Boolean {
-
-        CoroutineScope(Dispatchers.IO).launch {
-
-            _sign.value?.sourcePicture = _signSource.value!!
-            _sign.value?.signName = _signName.value!!
-            _sign.value?.info = _signInfo.value!!
-            _sign.value?.speedArea = _speedArea.value!!
-            _sign.value?.type = getType()
-
-            database.insertSign(_sign.value!!)
-            //TODO oikein?
-            _signId.value = database.getSignId(_signName.value!!)
-        }
-        return true
-
-    }
-
-    private fun getSignIdFromDatabase(): Boolean {
-        CoroutineScope(Dispatchers.IO).launch {
-            _signId.value = database.getSignId(_signName.value!!)
-        }
-        return true
-
-    }
-
-    private suspend fun getFutureSignIdFromDatabase(): Long? {
-        //CoroutineScope(Dispatchers.IO).launch {
-
-            return database.getBiggestSignId()
-        //}
-
-    }
-
-/*    fun newStep(){
-        _stepList.value!!.add(Instructions())
-    }
-*/
     fun saveSteps(){
 
         //TODO final resting spot and maybe strat too?
+        uiScope.launch {
+            _stepList.value?.forEachIndexed { index, step ->
 
-        _stepList.value?.forEachIndexed { index, step ->
+                _step.value = step
+                _step.value?.step = index
+                _step.value?.signId = _signId.value!!
 
+                createStepToDatabase()
 
-            _step.value = step
-            _step.value?.step = index
-            _step.value?.signId = _signId.value!!
-
-            createStepToDatabase()
+            }
 
         }
 
@@ -166,9 +194,10 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
     }
 
     fun delete(){
-
-        deleteSignFromDatabase()
-        deleteStepsFromDatabase()
+        uiScope.launch {
+            deleteSignFromDatabase()
+            deleteStepsFromDatabase()
+        }
 
     }
 
@@ -187,19 +216,5 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
         return true
 
     }
-
-    // DOWNLOADING IMAGE
-
-    fun imageDownload(){
-
-        uiScope.launch {
-            _futureId = MutableLiveData(getFutureSignIdFromDatabase())
-
-        }
-    }
-
-
-
-
 
 }

@@ -12,7 +12,7 @@ import timber.log.Timber
 /**
  * ViewModel containing all the logic needed to run the sign_options
  */
-class SignOptionsViewModel(area : Boolean, type : Int, database: SignDatabaseDao, application: Application) : AndroidViewModel(application) {
+class SignOptionsViewModel(area : Boolean, type : Int, val database: SignDatabaseDao, application: Application) : AndroidViewModel(application) {
 
     /**
      * viewModelJob allows us to cancel all coroutines started by this ViewModel.
@@ -33,21 +33,11 @@ class SignOptionsViewModel(area : Boolean, type : Int, database: SignDatabaseDao
 
     private var viewModelJob = Job()
 
+    private val uiScope = CoroutineScope(Dispatchers.Main +  viewModelJob)
+
     private val _sign =MutableLiveData<List<Signs>>()
     val sign: LiveData<List<Signs>>
         get() = _sign
-
-    private val _step = MutableLiveData<List<Instructions>>()
-    val step: LiveData<List<Instructions>>
-        get() = _step
-
-    private val _application = MutableLiveData<Application>()
-    val application: LiveData<Application>
-        get() = _application
-
-    private val _database = MutableLiveData<SignDatabaseDao?>()
-    val database: LiveData<SignDatabaseDao?>
-        get() = _database
 
     private val _signId = MutableLiveData<Long>()
     val signId: LiveData<Long>
@@ -60,6 +50,7 @@ class SignOptionsViewModel(area : Boolean, type : Int, database: SignDatabaseDao
     private val _type = MutableLiveData<Int>()
     val type: LiveData<Int>
         get() = _type
+
     private val _area = MutableLiveData<Boolean>()
     val area: LiveData<Boolean>
         get() = _area
@@ -70,21 +61,26 @@ class SignOptionsViewModel(area : Boolean, type : Int, database: SignDatabaseDao
         _area.value = area
         _type.value = type
         _eventSubmit.value = false
-        _database.value = database
-        _application.value = application
 
-        getSignsFromDatabase()
+        initializeTonight()
 
     }
 
     //FUNCTIONS
-
-    private fun getSignsFromDatabase(): Int {
-
-        CoroutineScope(Dispatchers.IO).launch {
-        _database.value!!.filterGetSigns(_type.value!!,_area.value!!)
+    private fun initializeTonight() {
+        uiScope.launch {
+            _sign.value = getSignsFromDatabase()
+            Timber.i("PrintingViewModel created.")
         }
-        return 200
+    }
+
+
+    private suspend fun getSignsFromDatabase():  List<Signs> {
+        return withContext(Dispatchers.IO) {
+            val temp: List<Signs> = database.filterGetSigns(_type.value!!,_area.value!!)
+
+            temp
+        }
 
     }
 
