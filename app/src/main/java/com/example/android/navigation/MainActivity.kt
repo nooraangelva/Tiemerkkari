@@ -40,13 +40,16 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
 
     val REQUEST_CODE_PERMISSION = 100
-    val REQUEST_CODE = 100
+    val RESULT_LOAD_IMAGE = 200
     private val REQUIRED_PERMISSIONS = arrayOf("android.permission.READ_EXTERNAL_STORAGE")
-    private lateinit var imageUri : Uri
     private lateinit var bitmap : Bitmap
     private lateinit var imageName: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        if(BuildConfig.DEBUG){
+            Timber.plant(Timber.DebugTree())
+        }
         Timber.i("OnCreate")
 
         super.onCreate(savedInstanceState)
@@ -133,13 +136,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun openGalleryForImage(name: String) {
+
         imageName = name
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "image/*"
-        startActivityForResult(intent, REQUEST_CODE)
+        val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        startActivityForResult(galleryIntent, RESULT_LOAD_IMAGE)
+
     }
 
     private fun uriToBitmap(selectedFileUri: Uri): Bitmap? {
+
         try {
             val parcelFileDescriptor = contentResolver.openFileDescriptor(selectedFileUri, "r")
             val fileDescriptor: FileDescriptor = parcelFileDescriptor!!.fileDescriptor
@@ -150,21 +155,19 @@ class MainActivity : AppCompatActivity() {
             e.printStackTrace()
         }
         return null
+
     }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE) {
-            var imageUriString: String = data?.data?.path!!
-
-            imageUri = Uri.parse(imageUriString)
-
-            bitmap = uriToBitmap(imageUri!!)!!
-
-            val storageDir = filesDir
-
-
-            //TODO save image and name dynamically file with data from import
+        if (requestCode == RESULT_LOAD_IMAGE && resultCode == Activity.RESULT_OK && data != null) {
+            val image_uri = data.data
+            //frame!!.setImageURI(image_uri)
+            bitmap = uriToBitmap(image_uri!!)!!
+            Timber.i("Langugae pref:"+image_uri)
+        }
+        if(data != null){
 
             // Get the context wrapper instance
             val wrapper = ContextWrapper(applicationContext)
@@ -173,31 +176,24 @@ class MainActivity : AppCompatActivity() {
             // The bellow line return a directory in internal storage
             var file = wrapper.getDir("sign_images", MODE_PRIVATE)
 
-
-            // Create a file to save the image
-            file = File(file, "${imageName}.jpg")
+            Timber.i("Langugae pref:"+file)
 
             try {
-                // Get the file output stream
-                val stream: OutputStream = FileOutputStream(file)
 
-                // Compress bitmap
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+                val mypath = File(file, "${imageName}.jpg")
+                val fos = FileOutputStream(mypath);
+                //val fos = openFileOutput(mypath, MODE_PRIVATE)
+                Timber.i("Langugae pref:"+fos)
 
-                // Flush the stream
-                stream.flush()
+                bitmap.compress(Bitmap.CompressFormat.PNG, 90, fos)
+                fos.close()
 
-                // Close stream
-                stream.close()
-            } catch (e: IOException) { // Catch the exception
+
+            } catch (e: FileNotFoundException) {
+                e.printStackTrace()
+            } catch (e: IOException) {
                 e.printStackTrace()
             }
-
-            Timber.tag("Import").v("saved images path %s", Uri.parse(file.absolutePath))
-
-            // Return the saved image uri
-            //return Uri.parse(file.absolutePath)
-
 
         }
     }
