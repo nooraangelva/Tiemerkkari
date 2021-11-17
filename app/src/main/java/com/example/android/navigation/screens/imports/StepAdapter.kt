@@ -8,30 +8,26 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.android.navigation.database.Instructions
 import com.example.android.navigation.databinding.ListItemStepsBinding
 import android.widget.ArrayAdapter
+import android.widget.RadioGroup
 
 import android.widget.Spinner
+import androidx.core.view.get
+import com.example.android.navigation.Step
+import timber.log.Timber
 import kotlin.coroutines.EmptyCoroutineContext.plus
 
 
-class StepAdapter(private val stepList : ArrayList<Instructions>) : RecyclerView.Adapter<StepAdapter.StepViewHolder>() {
+class StepAdapter(private val stepList : ArrayList<Step>) : RecyclerView.Adapter<StepAdapter.StepViewHolder>() {
 
     inner class StepViewHolder(private val binding : ListItemStepsBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(step : Instructions, position: Int){
-            //binding.steps = step
-            //binding.paintChecked.isChecked = step.paint
-            binding.radioArc.isChecked = false
-            binding.radioDiagonal.isChecked = false
-            //binding.radioHorizontal
-            //binding.radioVertical
+        fun bind(step : Step, position: Int){
+
+            binding.step = step
             binding.stepNumberTextView.text = position.toString()
-            //binding.xDirectionChecked
-            //binding.xMovementInput
-            //binding.yDirectionChecked
-            //binding.yMovementInput
-
-
+            Timber.i("Radiobutton Id v: " + binding.radioVertical)
 
         }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StepViewHolder =

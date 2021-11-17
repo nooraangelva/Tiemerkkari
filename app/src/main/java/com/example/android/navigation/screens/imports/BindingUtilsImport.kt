@@ -38,19 +38,8 @@ fun TextInputEditText.setYMovementInput(item: Instructions) {
     }
 }
 
-@BindingAdapter("xDirectionChecked")
-fun CheckedTextView.setXDirectionChecked(item: Instructions) {
-        isChecked = item.directionX
-
-}
-
-@BindingAdapter("yDirectionChecked")
-fun CheckedTextView.setYDirectionChecked(item: Instructions) {
-    isChecked = item.directionY
-}
-
 @BindingAdapter("paintChecked")
 fun CheckedTextView.setPaintChecked(item: Instructions) {
-    isChecked = item.paint
+    //isChecked = item.paint
 }
 

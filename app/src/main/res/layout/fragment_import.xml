@@ -25,14 +25,14 @@
             android:layout_marginTop="39dp"
             android:layout_marginBottom="560dp"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="Sign name"
+            android:inputType="text"
+            android:hint="@string/sign_name"
+            android:text="@={viewModel.signName}"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/newSignImageImportButton"
             app:layout_constraintTop_toTopOf="parent" />
-        <!--android:text="@={viewModel.signName}"-->
-
-        <!--android:text="@={viewModel.signInfo}"-->
 
         <EditText
             android:id="@+id/newSignInfoInput"
@@ -42,10 +42,13 @@
             android:layout_marginTop="32dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:hint="Info, measurements..."
+            android:hint="@string/info_measurements"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             app:layout_constraintStart_toEndOf="@+id/newSignImageImportButton"
+            android:text="@={viewModel.signInfo}"
             app:layout_constraintTop_toBottomOf="@+id/newSignNameInput" />
-            <!-- android:background="@drawable/boarder_dark"-->
+
         <Button
             android:id="@+id/newSignImageImportButton"
             android:layout_width="250dp"
@@ -66,7 +69,6 @@
             android:paddingEnd="10dp"
             android:layout_marginTop="40dp"
             android:layout_marginEnd="32dp"
-            android:onClick="@{() ->  viewModel.createSign()}"
             android:text="Create"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -79,12 +81,11 @@
             android:layout_marginBottom="24dp"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
-            android:text="+"
+            android:text="@string/newStepButtonString"
             android:textSize="30dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/importButton"
             app:layout_constraintEnd_toEndOf="parent" />
-        <!--android:onClick="@{() ->  viewModel.newStep()}"-->
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/import_recycle_view"
@@ -103,10 +104,10 @@
             android:layout_height="50dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="24dp"
-            android:onClick="@{() ->  viewModel.saveSteps()}"
+
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:text="Save steps"
+            android:text="@string/save_steps"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -118,7 +119,6 @@
             android:paddingEnd="10dp"
             android:layout_marginStart="32dp"
             android:layout_marginBottom="24dp"
-            android:onClick="@{() ->  viewModel.delete()}"
             android:text="Cancel"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -130,7 +130,8 @@
             android:layout_width="150dp"
             android:layout_height="70dp"
             android:layout_marginTop="40dp"
-            android:text="Over 50km/h"
+            android:checked="@={viewModel.speedArea}"
+            android:text="@string/over_50km_hCheckBoxString"
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="769dp" />
 
@@ -140,7 +141,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-
+            tools:setOnItemSelectedListener="@{viewModel.clicksListener}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.554"
             app:layout_constraintStart_toStartOf="parent"

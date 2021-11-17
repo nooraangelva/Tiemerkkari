@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     val REQUEST_CODE_PERMISSION = 100
     val RESULT_LOAD_IMAGE = 200
     private val REQUIRED_PERMISSIONS = arrayOf("android.permission.READ_EXTERNAL_STORAGE")
-    private lateinit var bitmap : Bitmap
+    lateinit var bitmap : Bitmap
     private lateinit var imageName: String
 
     override fun onCreate(savedInstanceState: Bundle?) {

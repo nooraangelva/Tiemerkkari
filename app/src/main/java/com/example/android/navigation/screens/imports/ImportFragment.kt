@@ -1,20 +1,27 @@
 package com.example.android.navigation.screens.imports
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.android.navigation.MainActivity
 import com.example.android.navigation.R
+import com.example.android.navigation.Step
 import com.example.android.navigation.database.Instructions
 import com.example.android.navigation.database.SignDatabase
 import com.example.android.navigation.databinding.FragmentImportBinding
+import com.example.android.navigation.screens.speed_area.SpeedAreaFragmentDirections
+import timber.log.Timber
 
 class ImportFragment : Fragment() {
 
@@ -23,7 +30,7 @@ class ImportFragment : Fragment() {
     private lateinit var navController: NavController
     private lateinit var binding: FragmentImportBinding
 
-    private val stepList : ArrayList<Instructions> = ArrayList()
+    private val stepList : ArrayList<Step> = ArrayList()
     private lateinit var stepAdapter : StepAdapter
 
 
@@ -53,6 +60,9 @@ class ImportFragment : Fragment() {
         val manager = LinearLayoutManager(activity)
 
         binding.importRecycleView.layoutManager = manager
+
+        binding.importButton.isVisible = false
+        binding.cancelButtonImport.isVisible = false
 
         /*
         val adapter = ImportAdapter(SignListener { signId ->
@@ -94,9 +104,44 @@ class ImportFragment : Fragment() {
         }
 
         binding.newStepButton.setOnClickListener{
-            stepList.add(Instructions())
-            stepAdapter.notifyItemInserted(stepList.size-1)
+            stepList.add(Step())
+            stepAdapter.notifyItemInserted(stepList.size)
         }
+
+        binding.createSignButtonImport.setOnClickListener{
+            viewModel.createSign()
+            stepList.add(Step())
+            stepAdapter.notifyItemInserted(stepList.size)
+        }
+
+        binding.cancelButtonImport.setOnClickListener{
+            viewModel.delete()
+        }
+
+        binding.newStepButton.setOnClickListener{
+            stepList.add(Step())
+            stepAdapter.notifyItemInserted(stepList.size)
+        }
+
+        binding.importButton.setOnClickListener{
+            stepList.forEachIndexed { index, step ->
+                Timber.i("Import O: " + step.order)
+                viewModel.saveSteps(step, index)
+            }
+        }
+
+        viewModel.error.observe(viewLifecycleOwner, Observer { error ->
+            Toast.makeText(context, error, Toast.LENGTH_LONG).show()
+        })
+
+        viewModel.signCreated.observe(viewLifecycleOwner, Observer { created ->
+            binding.createSignButtonImport.isVisible = !viewModel.signCreated.value!!
+            binding.importButton.isVisible = viewModel.signCreated.value!!
+            binding.newStepButton.isVisible = viewModel.signCreated.value!!
+            binding.cancelButtonImport.isVisible = viewModel.signCreated.value!!
+
+        })
+
 
         return binding.root
     }

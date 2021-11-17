@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import java.time.chrono.HijrahChronology
 import java.time.chrono.HijrahChronology.INSTANCE
 
-@Database(entities = [Signs::class, Instructions::class], version = 1,  exportSchema = false)
+@Database(entities = [Signs::class, Instructions::class], version = 2,  exportSchema = false)
 abstract class SignDatabase : RoomDatabase() {
 
     abstract val signDatabaseDao: SignDatabaseDao

@@ -1,10 +1,15 @@
 package com.example.android.navigation.screens.imports
 
 import android.app.Application
+import android.view.View
+import android.widget.AdapterView
+import android.widget.EditText
 import androidx.core.app.ActivityCompat.*
+import androidx.databinding.InverseBindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.android.navigation.Step
 import com.example.android.navigation.database.Instructions
 import com.example.android.navigation.database.SignDatabaseDao
 import com.example.android.navigation.database.Signs
@@ -13,7 +18,7 @@ import kotlinx.coroutines.*
 import timber.log.Timber
 
 
-class ImportViewModel (val database: SignDatabaseDao, application: Application) : ViewModel()  {
+class ImportViewModel (val database: SignDatabaseDao, application: Application) : ViewModel() {
 
     private var viewModelJob = Job()
 
@@ -24,10 +29,7 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
 
     }
 
-    private val uiScope = CoroutineScope(Dispatchers.Main +  viewModelJob)
-
-
-
+    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     private val _stepList = MutableLiveData<ArrayList<Instructions>>()
     val stepList: LiveData<ArrayList<Instructions>>
@@ -49,41 +51,43 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
     val futureId: LiveData<Long>
         get() = _futureId
 
-    private val _signName = MutableLiveData<String>()
-    val signName: LiveData<String>
-        get() = _signName
+    private var _error = MutableLiveData<String>()
+    val error: LiveData<String>
+        get() = _error
 
-    private val _signInfo = MutableLiveData<String>()
-    val signInfo: LiveData<String>
-        get() = _signInfo
+    private var _signCreated = MutableLiveData<Boolean>()
+    val signCreated: LiveData<Boolean>
+        get() = _signCreated
 
-    private val _signSource = MutableLiveData<String>()
-    val signSource: LiveData<String>
-        get() = _signSource
+    // Inputs
 
-    private val _type = MutableLiveData<String>()
-    val type: LiveData<String>
-        get() = _type
+    val signName = MutableLiveData<String>()
 
-    private val _speedArea = MutableLiveData<Boolean>()
-    val speedArea: LiveData<Boolean>
-        get() = _speedArea
+    val signInfo = MutableLiveData<String>()
+
+    val signSource = MutableLiveData<String>()
+
+    val type = MutableLiveData<String>()
+
+    val speedArea = MutableLiveData<Boolean>()
 
 
     init {
         Timber.i("PrintingViewModel created.")
 
         initializeTonight()
+        _signCreated.value = false
+        speedArea.value = false
     }
 
     private fun initializeTonight() {
         uiScope.launch {
             _futureId.value = getFutureSignIdFromDatabase()
-            Timber.i("PrintingViewModel created."+_futureId.value)
+            Timber.i("PrintingViewModel created." + _futureId.value)
         }
     }
 
-    private suspend fun getFutureSignIdFromDatabase():  Long? {
+    private suspend fun getFutureSignIdFromDatabase(): Long? {
         return withContext(Dispatchers.IO) {
             var temp: Long? = database.getBiggestSignId()
             temp ?: run {
@@ -95,41 +99,55 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
 
     }
 
-    fun createSign(){
-        //TODO Check  if empty and linking
-        /*
-        _sign.value?.sourcePicture = "${_futureId.value}.PNG"
-        _sign.value?.signName = _signName.value!!
-        _sign.value?.info = _signInfo.value!!
-        _sign.value?.speedArea = _speedArea.value!!
-        _sign.value?.type = getType()
-        */
+    fun createSign() {
 
-        var temp = Signs()
+        val temp = Signs()
         temp.sourcePicture = "${_futureId.value}.PNG"
-        temp.signName = "Suora"
-        temp.info = "iso"
-        temp.speedArea = true
-        temp.type = 1
+        temp.signName = signName.value!!
+        temp.info = signInfo.value!!
+        temp.speedArea = speedArea.value!!
+        temp.type = getType()
 
-        Timber.i("Import: "+_sign.value?.signName)
-        Timber.i("Import: "+_sign.value?.sourcePicture)
-        Timber.i("Import: "+_sign.value?.info)
+        Timber.i("Import: " + temp.signName)
+        Timber.i("Import: " + temp.info)
+        Timber.i("Import: " + temp.speedArea)
+        Timber.i("Import: " + temp.type)
 
+        if(temp.sourcePicture.isEmpty()){
+            _error.value = "Get Picture"
+        }
+        else if(temp.signName.isEmpty()){
+            _error.value = "Set Name"
+        }
+        else if(temp.info.isEmpty()){
+            _error.value = "set Info"
+        }
+        else{
 
-        uiScope.launch {
-            createSignToDatabase(temp)
-            _signId.value = getSignIdFromDatabase(temp.signName)
-            Timber.i("Import signId: "+_signId.value)
+            uiScope.launch {
+                //createSignToDatabase(temp)
+                _signId.value = getSignIdFromDatabase(temp.signName)
+                Timber.i("Import signId: " + _signId.value)
+                _signCreated.value = true
+            }
+
         }
 
+    }
 
+    val clicksListener = object : AdapterView.OnItemSelectedListener {
+        override fun onNothingSelected(parent: AdapterView<*>?) {
 
+        }
+
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            type.value = parent?.getItemAtPosition(position) as String
+        }
     }
 
     private suspend fun getSignIdFromDatabase(temp: String): Long {
         return withContext(Dispatchers.IO) {
-            var id = database.getSignId(temp)
+            val id = database.getSignId(temp)
             id ?: run {
                 Timber.i("PrintingViewModel created.")
             }
@@ -138,9 +156,9 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
 
     }
 
-    private suspend fun createSignToDatabase(temp: Signs){
+    private suspend fun createSignToDatabase(temp: Signs) {
 
-        withContext(Dispatchers.IO){
+        withContext(Dispatchers.IO) {
 
             database.insertSign(temp)
             //TODO oikein?
@@ -151,9 +169,9 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
 
     //FUNCTIONS
 
-    fun getType():Int{
+    fun getType(): Int {
 
-        when (_type.value!!) {
+        when (type.value!!) {
             "Arrows" -> return 0
             "Others" -> return 2
             "SpeedLimits" -> return 1
@@ -167,41 +185,74 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
 
     }
 
-    fun saveSteps(){
+    fun saveSteps(step: Step, index: Int) {
 
-        //TODO final resting spot and maybe strat too?
         uiScope.launch {
-            _stepList.value?.forEachIndexed { index, step ->
 
-                _step.value = step
-                _step.value?.step = index
-                _step.value?.signId = _signId.value!!
+            val temp : Instructions = Instructions(0,_signId.value!!,
+                index,whichOrder(step.order),step.parX.toInt(),
+                step.parY.toInt(),whichPaint(step.paint))
 
-                createStepToDatabase()
 
+            Timber.i("Import O: " + whichOrder(step.order))
+            Timber.i("Import P: " + whichPaint(temp.paint).toString())
+            Timber.i("Import: X" + temp.parY.toString())
+            Timber.i("Import: Y" + temp.parX.toString())
+
+            if(step.parX.isEmpty()){
+                _error.value = "Set value to X"
+            }
+            else if(step.parY.isEmpty()){
+                _error.value = "Set value to Y"
+            }
+            else{
+                //createStepToDatabase(temp)
             }
 
         }
 
     }
 
-    private fun createStepToDatabase():Boolean {
-        CoroutineScope(Dispatchers.IO).launch {
-            database.insertIns(_step.value!!)
+    private fun whichOrder(tmp : Int): String{
+        when (tmp) {
+            2131362179 -> return "Vertical"
+            2131362177 -> return "Horizontal"
+            2131362175 -> return "Arc"
+            2131362176 -> return "Diagonal"
+            else -> {
+                return ""
+            }
         }
-        return true
+    }
 
+    private fun whichPaint(tmp : Int): Int{
+        when (tmp) {
+            2131362178 -> return 0
+            2131362174 -> return 1
+            2131362172 -> return 2
+            2131362173 -> return 3
+            else -> {
+                return 0
+            }
+        }
+    }
+
+    private suspend fun createStepToDatabase(tmp : Instructions){
+        CoroutineScope(Dispatchers.IO).launch {
+            database.insertIns(tmp)
+        }
     }
 
     fun delete(){
         uiScope.launch {
             deleteSignFromDatabase()
             deleteStepsFromDatabase()
+            _signCreated.value = false
         }
 
     }
 
-    private fun deleteStepsFromDatabase():Boolean {
+    private suspend fun deleteStepsFromDatabase():Boolean {
         CoroutineScope(Dispatchers.IO).launch {
             database.clearIns(signId.value!!)
         }
@@ -209,7 +260,7 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
 
     }
 
-    private fun deleteSignFromDatabase():Boolean {
+    private suspend fun deleteSignFromDatabase():Boolean {
         CoroutineScope(Dispatchers.IO).launch {
             database.clearSign(signId.value!!)
         }

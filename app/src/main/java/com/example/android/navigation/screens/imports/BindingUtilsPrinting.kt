@@ -36,6 +36,6 @@ fun TextView.setParameterY(item: Instructions?) {
 @BindingAdapter("paint")
 fun CheckBox.setPaint(item: Instructions) {
 
-    isChecked = item.paint
+    //isChecked = item.paint
 
 }

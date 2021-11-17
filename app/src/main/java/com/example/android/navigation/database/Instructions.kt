@@ -17,12 +17,6 @@ data class Instructions  (
         @ColumnInfo(name = "Step")
         var step: Int = 0,
 
-        @ColumnInfo(name = "directionX")
-        var directionX: Boolean = false,
-
-        @ColumnInfo(name = "directionY")
-        var directionY: Boolean = false,
-
         @ColumnInfo(name = "order")
         var order: String = "",
 
@@ -33,6 +27,6 @@ data class Instructions  (
         var parY: Int = 0,
 
         @ColumnInfo(name = "paint")
-        var paint: Boolean = false,
+        var paint: Int = 0,
 
 )
