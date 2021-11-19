@@ -4,6 +4,8 @@ import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.adapters.ImageViewBindingAdapter
+import androidx.databinding.adapters.ImageViewBindingAdapter.setImageUri
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -15,65 +17,29 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 import java.io.File
 
-private val ITEM_VIEW_TYPE_HEADER = 0
-private val ITEM_VIEW_TYPE_ITEM = 1
 
-class SignOptionsAdapter ( val clickListener: SignListener): ListAdapter<DataItem, RecyclerView.ViewHolder>(SignDiffCallback()){
+class SignOptionsAdapter ( val clickListener: SignListener): ListAdapter<Signs,
+        SignOptionsAdapter.ViewHolder>(SignDiffCallback()){
 
-    private val adapterScope = CoroutineScope(Dispatchers.Default)
-
-    fun addHeaderAndSubmitList(list: List<Signs>?) {
-        adapterScope.launch {
-            val items = when (list) {
-                null -> listOf(DataItem.Header)
-                else -> listOf(DataItem.Header) + list.map { DataItem.SignsItem(it) }
-            }
-            withContext(Dispatchers.Main) {
-                submitList(items)
-            }
-        }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder.from(parent)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when (viewType) {
-            ITEM_VIEW_TYPE_HEADER -> TextViewHolder.from(parent)
-            ITEM_VIEW_TYPE_ITEM -> ViewHolder.from(parent)
-            else -> throw ClassCastException("Unknown viewType $viewType")
-        }
-    }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (holder) {
-            is ViewHolder -> {
-                val signItem = getItem(position) as DataItem.SignsItem
-                holder.bind(clickListener, signItem.sign)
-            }
-        }
-    }
+                val signItem = getItem(position)
+                holder.bind(clickListener, signItem)
 
-    class TextViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        companion object {
-            fun from(parent: ViewGroup): TextViewHolder {
-                val layoutInflater = LayoutInflater.from(parent.context)
-                val view = layoutInflater.inflate(R.layout.sign_options_header, parent, false)
-                return TextViewHolder(view)
-            }
-        }
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return when (getItem(position)) {
-            is DataItem.Header -> ITEM_VIEW_TYPE_HEADER
-            is DataItem.SignsItem -> ITEM_VIEW_TYPE_ITEM
-        }
     }
 
     class ViewHolder private constructor(val binding: ListItemSignsBinding) : RecyclerView.ViewHolder(binding.root){
 
         fun bind(clickListener: SignListener, item: Signs) {
             //TODO tsekkaa että path oikein kuvaan
+            /*
             item.also { binding.sign = it }
             binding.sign?.sourcePicture = "sign_images/${item.sourcePicture}"
 
@@ -82,8 +48,10 @@ class SignOptionsAdapter ( val clickListener: SignListener): ListAdapter<DataIte
             if (imgFile.exists()) {
                 var bitmap = BitmapFactory.decodeFile(imgFile.absolutePath)
                 binding.imageViewList.setImageBitmap(bitmap)
-            }
-
+            }*/
+            Timber.i("source : "+ item.sourcePicture)
+            //binding.imageViewList.setImageURI(item.sourcePicture.toU)
+            binding.sign = item
             binding.clickListener = clickListener
             binding.executePendingBindings()
 
@@ -97,6 +65,8 @@ class SignOptionsAdapter ( val clickListener: SignListener): ListAdapter<DataIte
             }
         }
     }
+
+
 }
 
 /**
@@ -105,12 +75,12 @@ class SignOptionsAdapter ( val clickListener: SignListener): ListAdapter<DataIte
  * Used by ListAdapter to calculate the minumum number of changes between and old list and a new
  * list that's been passed to `submitList`.
  */
-class SignDiffCallback : DiffUtil.ItemCallback<DataItem>(){
-    override fun areItemsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {
-        return oldItem.id == newItem.id
+class SignDiffCallback : DiffUtil.ItemCallback<Signs>(){
+    override fun areItemsTheSame(oldItem: Signs, newItem: Signs): Boolean {
+        return oldItem.signId == newItem.signId
     }
 
-    override fun areContentsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {
+    override fun areContentsTheSame(oldItem: Signs, newItem: Signs): Boolean {
         return oldItem == newItem
     }
 
@@ -120,16 +90,3 @@ class SignListener(val clickListener: (signId: Long) -> Unit){
     fun onClick(sign: Signs) = clickListener(sign.signId)
 
 }
-
-sealed class DataItem {
-    data class SignsItem(val sign: Signs): DataItem() {
-        override val id = sign.signId
-    }
-
-    object Header: DataItem() {
-        override val id = Long.MIN_VALUE
-    }
-
-    abstract val id: Long
-}
-

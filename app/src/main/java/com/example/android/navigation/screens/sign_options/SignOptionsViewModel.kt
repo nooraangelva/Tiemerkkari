@@ -71,14 +71,16 @@ class SignOptionsViewModel(area : Boolean, type : Int, val database: SignDatabas
         uiScope.launch {
             _sign.value = getSignsFromDatabase()
             Timber.i("PrintingViewModel created.")
+            Timber.i("Number of signs: "+_sign.value!!.size)
         }
     }
 
 
     private suspend fun getSignsFromDatabase():  List<Signs> {
         return withContext(Dispatchers.IO) {
-            val temp: List<Signs> = database.filterGetSigns(_type.value!!,_area.value!!)
-
+            //TODO vaihda takas ja tarkista toiminta
+            //val temp: List<Signs> = database.filterGetSigns(_type.value!!,_area.value!!)
+            val temp: List<Signs> = database.getSign()
             temp
         }
 

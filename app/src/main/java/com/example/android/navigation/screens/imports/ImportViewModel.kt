@@ -47,10 +47,6 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
     val signId: LiveData<Long>
         get() = _signId
 
-    private var _futureId = MutableLiveData<Long>()
-    val futureId: LiveData<Long>
-        get() = _futureId
-
     private var _error = MutableLiveData<String>()
     val error: LiveData<String>
         get() = _error
@@ -75,34 +71,19 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
     init {
         Timber.i("PrintingViewModel created.")
 
-        initializeTonight()
         _signCreated.value = false
         speedArea.value = false
     }
 
-    private fun initializeTonight() {
-        uiScope.launch {
-            _futureId.value = getFutureSignIdFromDatabase()
-            Timber.i("PrintingViewModel created." + _futureId.value)
-        }
-    }
+    fun savedImagepath(temp: String){
 
-    private suspend fun getFutureSignIdFromDatabase(): Long? {
-        return withContext(Dispatchers.IO) {
-            var temp: Long? = database.getBiggestSignId()
-            temp ?: run {
-                Timber.i("PrintingViewModel created.")
-                temp = 0
-            }
-            temp
-        }
-
+        signSource.value = temp
     }
 
     fun createSign() {
 
         val temp = Signs()
-        temp.sourcePicture = "${_futureId.value}.PNG"
+        temp.sourcePicture = signSource.value!!
         temp.signName = signName.value!!
         temp.info = signInfo.value!!
         temp.speedArea = speedArea.value!!
@@ -122,10 +103,13 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
         else if(temp.info.isEmpty()){
             _error.value = "set Info"
         }
+        else if(temp.type == -1){
+            _error.value = "set Type"
+        }
         else{
 
             uiScope.launch {
-                //createSignToDatabase(temp)
+                createSignToDatabase(temp)
                 _signId.value = getSignIdFromDatabase(temp.signName)
                 Timber.i("Import signId: " + _signId.value)
                 _signCreated.value = true
@@ -206,7 +190,7 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
                 _error.value = "Set value to Y"
             }
             else{
-                //createStepToDatabase(temp)
+                createStepToDatabase(temp)
             }
 
         }

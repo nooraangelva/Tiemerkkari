@@ -99,8 +99,7 @@ class ImportFragment : Fragment() {
         // set on-click listener
         binding.newSignImageImportButton.setOnClickListener {
 
-            (activity as MainActivity).openGalleryForImage(viewModel.futureId.toString())
-
+            (activity as MainActivity).openGalleryForImage()
         }
 
         binding.newStepButton.setOnClickListener{
@@ -109,6 +108,8 @@ class ImportFragment : Fragment() {
         }
 
         binding.createSignButtonImport.setOnClickListener{
+            val imagePath = (activity as MainActivity).pathInString
+            viewModel.savedImagepath(imagePath)
             viewModel.createSign()
             stepList.add(Step())
             stepAdapter.notifyItemInserted(stepList.size)

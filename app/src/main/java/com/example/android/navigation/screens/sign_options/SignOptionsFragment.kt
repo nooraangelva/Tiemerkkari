@@ -47,18 +47,15 @@ class SignOptionsFragment : Fragment() {
 
         binding.viewModel = viewModel
 
+        navController = findNavController();
+
+        // Recyclerview
+
         val manager = GridLayoutManager(activity, 3)
-        manager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-            override fun getSpanSize(position: Int) = when (position) {
-                0 -> 3
-                else -> 1
-            }
-        }
         binding.signListRecycleView.layoutManager = manager
 
         val adapter = SignOptionsAdapter(SignListener { signId ->
 
-            Toast.makeText(context, "$signId", Toast.LENGTH_LONG).show()
             Log.v("Buttons","SignId - $signId chosen")
 
             navController.navigate(SignOptionsFragmentDirections.actionSignOptionsFragmentToPrintingFragment(signId))
@@ -69,13 +66,13 @@ class SignOptionsFragment : Fragment() {
 
         viewModel.sign.observe(viewLifecycleOwner, Observer {
             it?.let {
-                adapter.addHeaderAndSubmitList(it)
+                adapter.submitList(it)
             }
         })
 
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
 
-        navController = findNavController();
+
 
         // Sets the onClickListener for buttons
 

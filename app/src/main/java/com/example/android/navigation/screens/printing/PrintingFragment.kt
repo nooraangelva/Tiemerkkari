@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -60,6 +61,11 @@ class PrintingFragment : Fragment() {
             }
         })*/
 
+        viewModel.isPrinting.observe(viewLifecycleOwner, Observer {
+            binding.printingButton.isVisible = !it
+            binding.printingStopButton.isVisible = it
+        })
+
         //ViewModel adding image to imageview
         viewModel.bitmap.observe(viewLifecycleOwner, Observer { bitMap ->
             binding.printingImageView.setImageBitmap(viewModel.bitmap.value)
@@ -77,6 +83,9 @@ class PrintingFragment : Fragment() {
 
             view.findNavController().navigate(SpeedAreaFragmentDirections.actionSpeedAreaFragmentToSignTypeFragment("city"))
         }*/
+
+        binding.printingButton.isVisible = viewModel.isPrinting.value!!
+        binding.printingStopButton.isVisible = !viewModel.isPrinting.value!!
 
         setHasOptionsMenu(true)
         return binding.root

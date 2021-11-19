@@ -52,12 +52,16 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
     val signSource: LiveData<String>
         get() = _signSource
 
+    private val _isPrinting = MutableLiveData<Boolean>()
+    val isPrinting: LiveData<Boolean>
+        get() = _isPrinting
+
     init {
         Timber.i("PrintingViewModel created.")
 
         _signId.value = signId
         getDataFromDatabase()
-
+        _isPrinting.value = false
 
     }
 
@@ -106,12 +110,14 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
 
     fun startPrinting(){
     //TODO send info and steps from the list
+        _isPrinting.value = true
 
     }
 
     fun energencyStop(){
 
         //TODO send stop command
+        _isPrinting.value = false
 
     }
 

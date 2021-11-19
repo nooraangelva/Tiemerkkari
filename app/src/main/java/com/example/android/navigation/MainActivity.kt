@@ -29,8 +29,12 @@ import android.R.attr.data
 import android.content.Context
 import android.content.ContextWrapper
 import android.graphics.BitmapFactory
+import androidx.fragment.app.FragmentManager
+import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import timber.log.Timber
 import java.io.*
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
 class MainActivity : AppCompatActivity() {
@@ -44,6 +48,7 @@ class MainActivity : AppCompatActivity() {
     private val REQUIRED_PERMISSIONS = arrayOf("android.permission.READ_EXTERNAL_STORAGE")
     lateinit var bitmap : Bitmap
     private lateinit var imageName: String
+    lateinit var  pathInString : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -66,9 +71,10 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         navController = navHostFragment.navController
 
-        NavigationUI.setupActionBarWithNavController(this, navController)
+        setupActionBarWithNavController(this, navController)
 
-        appBarConfiguration = AppBarConfiguration(navController.graph)
+
+        //appBarConfiguration = AppBarConfiguration(navController.graph)
 
 
         Timber.i("nav graph" + navController.graph.toString())
@@ -82,10 +88,13 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
+    /*
     override fun onSupportNavigateUp(): Boolean {
         val navController = this.findNavController(R.id.navHostFragment)
         return NavigationUI.navigateUp(navController, appBarConfiguration)
+    }*/
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -135,9 +144,10 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    fun openGalleryForImage(name: String) {
-
-        imageName = name
+    fun openGalleryForImage() {
+        val current = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("yyyy_MM_dd_HH_mm_ss")
+        imageName = current.format(formatter)
         val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         startActivityForResult(galleryIntent, RESULT_LOAD_IMAGE)
 
@@ -181,6 +191,7 @@ class MainActivity : AppCompatActivity() {
             try {
 
                 val mypath = File(file, "${imageName}.jpg")
+                pathInString = mypath.path
                 val fos = FileOutputStream(mypath);
                 //val fos = openFileOutput(mypath, MODE_PRIVATE)
                 Timber.i("Langugae pref:"+fos)
@@ -197,7 +208,6 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
-
 
 
     private fun changeTheme() {

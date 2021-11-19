@@ -8,55 +8,43 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.android.navigation.R
 import com.example.android.navigation.databinding.FragmentSpeedAreaBinding
+import com.example.android.navigation.databinding.FragmentStartMenuBinding
+import com.example.android.navigation.screens.start.StartMenuFragmentDirections
+import timber.log.Timber
 
 class SpeedAreaFragment : Fragment() {
 
-    private lateinit var viewModel: SpeedAreaViewModel
-    private lateinit var viewModelFactory: SpeedAreaViewModelFactory
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        // Inflate the layout for this fragment
-        val binding = DataBindingUtil.inflate<FragmentSpeedAreaBinding>(
-                inflater, R.layout.fragment_speed_area, container, false)
-
-        viewModelFactory = SpeedAreaViewModelFactory()
-
-        // Get the viewmodel
-        viewModel =ViewModelProvider(this, viewModelFactory)
-                .get(SpeedAreaViewModel::class.java)
+        val binding: FragmentSpeedAreaBinding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_speed_area, container, false
+        )
 
 
+        // Sets the onClickListener for buttons
 
-        // Set the viewmodel for databinding - this allows the bound layout access to all of the
-        // data in the VieWModel
-        binding.viewModel = viewModel
-        // Specify the current activity as the lifecycle owner of the binding. This is used so that
-        // the binding can observe LiveData updates
-        binding.setLifecycleOwner(this)
+        binding.cityButton.setOnClickListener { view: View ->
 
-        val navController = findNavController();
+            Timber.tag("Buttons").v("Star menu - start pressed")
+            view.findNavController().navigate(
+                SpeedAreaFragmentDirections.actionSpeedAreaFragmentToSignTypeFragment(true)
+            )
 
+        }
 
-        // Sets the listener for buttons
+        binding.outsideCityButton.setOnClickListener { view: View ->
 
-        viewModel.cityChosen.observe(viewLifecycleOwner, Observer { city ->
-            if (city) {
-                Log.v("SpeedAreaFragment", "Speed area - city pressed")
+            Timber.tag("Buttons").v("Star menu - guide pressed")
+            view.findNavController()
+                .navigate(SpeedAreaFragmentDirections.actionSpeedAreaFragmentToSignTypeFragment(false))
 
-                navController.navigate(SpeedAreaFragmentDirections.actionSpeedAreaFragmentToSignTypeFragment(city))
-                viewModel.cityChosenComplete()
-            }
-            else{
-                Log.v("SpeedAreaFragment", "Speed area - outsideCity pressed")
-                navController.navigate(SpeedAreaFragmentDirections.actionSpeedAreaFragmentToSignTypeFragment(city))
-                viewModel.countyChosenComplete()
-            }
-        })
+        }
 
         setHasOptionsMenu(true)
         return binding.root
