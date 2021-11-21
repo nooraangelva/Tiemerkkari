@@ -127,25 +127,29 @@
 
         <CheckBox
             android:id="@+id/speedAreaImport"
-            android:layout_width="150dp"
+            android:layout_width="0dp"
             android:layout_height="70dp"
             android:layout_marginTop="40dp"
+            android:layout_marginEnd="40dp"
             android:checked="@={viewModel.speedArea}"
+            android:scaleX="1.50"
+            android:scaleY="1.50"
             android:text="@string/over_50km_hCheckBoxString"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="769dp" />
+            android:textSize="15dp"
+            app:layout_constraintEnd_toStartOf="@+id/createSignButtonImport"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Spinner
             android:id="@+id/typeInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="40dp"
             android:ems="10"
             android:inputType="textPersonName"
-            tools:setOnItemSelectedListener="@{viewModel.clicksListener}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.554"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="41dp" />
+            app:layout_constraintStart_toEndOf="@+id/newSignNameInput"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:setOnItemSelectedListener="@{viewModel.clicksListener}" />
 
         <!--android:text="@={viewModel.type}"-->
 
