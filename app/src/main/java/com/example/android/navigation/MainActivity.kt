@@ -3,8 +3,6 @@ package com.example.android.navigation
 import android.Manifest
 import android.R.attr
 import android.app.Activity
-import android.content.Intent
-import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Bitmap
@@ -26,11 +24,25 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import java.util.*
 import android.R.attr.data
-import android.content.Context
-import android.content.ContextWrapper
+import android.bluetooth.*
+import android.bluetooth.le.ScanCallback
+import android.bluetooth.le.ScanFilter
+import android.bluetooth.le.ScanResult
+import android.bluetooth.le.ScanSettings
+import android.content.*
+import android.content.ContentValues.TAG
 import android.graphics.BitmapFactory
+import android.os.Handler
+import android.os.IBinder
+import android.view.View
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
+import com.example.android.navigation.databinding.ActivityMainBinding
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
+import org.json.JSONArray
 import timber.log.Timber
 import java.io.*
 import java.time.LocalDateTime
@@ -45,10 +57,31 @@ class MainActivity : AppCompatActivity() {
 
     val REQUEST_CODE_PERMISSION = 100
     val RESULT_LOAD_IMAGE = 200
-    private val REQUIRED_PERMISSIONS = arrayOf("android.permission.READ_EXTERNAL_STORAGE")
+    private val REQUIRED_PERMISSIONS = arrayOf("android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.BLUETOOTH","android.permission.BLUETOOTH_SCAN","android.permission.BLUETOOTH_ADMIN",
+        "android.permission.BLUETOOTH_CONNECT","android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION")
+
     lateinit var bitmap : Bitmap
     private lateinit var imageName: String
     lateinit var  pathInString : String
+
+    var SERVICE_UUID = UUID.fromString("4fa4c201-1fb5-459e-8fcc-c5c9c331914b")
+    var CHARACTERISTIC_UUID = UUID.fromString("beb5483e-36e1-4688-b7f5-ea07361b26a8")
+
+    lateinit var receivedMessage : Receive
+    lateinit var sendMessage : Send
+
+    private lateinit var binding : ActivityMainBinding
+    private val bluetoothAdapter : BluetoothAdapter by lazy{
+        (getSystemService(BLUETOOTH_SERVICE) as BluetoothManager).adapter
+    }
+    val btRequestActivity = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+            result ->
+        if (result.resultCode == Activity.RESULT_OK){
+            Toast.makeText(this, "Bluetooth is now enabled.", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -87,12 +120,116 @@ class MainActivity : AppCompatActivity() {
             Timber.tag("CameraApp").v("Ask permissions")
         }
 
+        if(!bluetoothAdapter.isEnabled){
+            openBtActivity()
+        }
+        startBleScan()
+
+
     }
-    /*
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = this.findNavController(R.id.navHostFragment)
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
-    }*/
+
+
+    fun openBtActivity(){
+
+        val intent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+        btRequestActivity.launch(intent)
+
+    }
+
+    fun startBleScan(){
+
+        var filter = ScanFilter.Builder().setDeviceName("Tiemerkkari").build()
+        var filters : MutableList<ScanFilter> = mutableListOf(filter)
+
+        var setting = ScanSettings.Builder().build()
+        bluetoothAdapter.bluetoothLeScanner.startScan(filters,setting,bleScanCallback)
+
+    }
+
+    fun connectToDevice(bluetoothDevice: BluetoothDevice){
+
+        bluetoothDevice.connectGatt(this,false,bleGattCallback)
+
+    }
+
+    private val bleScanCallback : ScanCallback by lazy{
+        object : ScanCallback(){
+
+            override fun onScanResult(callbackType: Int, result: ScanResult) {
+                super.onScanResult(callbackType, result)
+                val bluetoothDevice = result.device
+                connectToDevice(bluetoothDevice)
+
+                Timber.tag("Buttons").v("laite: %s", bluetoothDevice.name)
+
+                if (bluetoothDevice != null) {
+                    connectToDevice(bluetoothDevice)
+                }
+            }
+        }
+    }
+    private val bleGattCallback : BluetoothGattCallback by lazy {
+        object : BluetoothGattCallback(){
+            override fun onConnectionStateChange(gatt: BluetoothGatt?, status: Int, newState: Int) {
+                super.onConnectionStateChange(gatt, status, newState)
+
+                if(newState == BluetoothProfile.STATE_CONNECTED){
+                    gatt?.discoverServices()
+                }
+            }
+
+            override fun onServicesDiscovered(gatt: BluetoothGatt?, status: Int) {
+                super.onServicesDiscovered(gatt, status)
+
+
+                val service = gatt?.getService(SERVICE_UUID)
+                val characteristic = service?.getCharacteristic(CHARACTERISTIC_UUID)
+
+                gatt?.setCharacteristicNotification(characteristic,true)
+            }
+
+            override fun onCharacteristicChanged(
+                gatt: BluetoothGatt?,
+                characteristic: BluetoothGattCharacteristic?
+            ) {
+                super.onCharacteristicChanged(gatt, characteristic)
+                Timber.v("laite: " + characteristic?.getStringValue(0))
+                if (characteristic != null) {
+                    receivedMessage = Json.decodeFromString<Receive>(characteristic.getStringValue(0))
+                }
+            }
+
+            override fun onCharacteristicWrite(
+                gatt: BluetoothGatt?,
+                characteristic: BluetoothGattCharacteristic?,
+                status: Int
+            ) {
+                if (status == BluetoothGatt.GATT_SUCCESS) {                                 //See if the write was successful
+                    Timber.e("**ACTION_DATA_WRITTEN**" + characteristic)
+
+                }
+            }
+        }
+    }
+
+    fun write(gatt: BluetoothGatt){
+
+        val service = gatt?.getService(SERVICE_UUID)
+        gatt.writeCharacteristic(service?.getCharacteristic(CHARACTERISTIC_UUID))
+    }
+    fun read(){
+
+    }
+
+
+
+
+
+
+
+
+
+
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
@@ -115,17 +252,12 @@ class MainActivity : AppCompatActivity() {
 
         val config = Configuration()
 
-
-
         config.setLocale(locale)
 
         try {
             config.locale = locale
         } catch (e: Exception) {
         }
-
-
-        val currentLocale = locale
 
         val resources = resources
 
@@ -168,7 +300,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == Activity.RESULT_OK && data != null) {
@@ -208,7 +339,6 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
-
 
     private fun changeTheme() {
 

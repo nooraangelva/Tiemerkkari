@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.android.navigation.MainActivity
 import com.example.android.navigation.R
 import com.example.android.navigation.database.SignDatabase
 import com.example.android.navigation.databinding.FragmentPrintingBinding
@@ -86,6 +87,8 @@ class PrintingFragment : Fragment() {
 
         binding.printingButton.isVisible = viewModel.isPrinting.value!!
         binding.printingStopButton.isVisible = !viewModel.isPrinting.value!!
+
+        (activity as MainActivity).connectBle()
 
         setHasOptionsMenu(true)
         return binding.root
