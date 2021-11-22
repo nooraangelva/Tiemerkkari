@@ -126,7 +126,7 @@
     <!--OTSIKOT-->
     <style name="textStyle" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="android:textSize">30sp</item>
-        <item name="android:textColor">#96B9CA</item>
+        <item name="android:textColor">#7A7A7A</item>
         <item name="android:textAlignment">center</item>
         <item name="android:fontFamily">@font/roboto</item>
         <item name="android:textStyle">bold</item>
