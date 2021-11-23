@@ -108,11 +108,17 @@ class ImportFragment : Fragment() {
         }
 
         binding.createSignButtonImport.setOnClickListener{
-            val imagePath = (activity as MainActivity).pathInString
-            viewModel.savedImagepath(imagePath)
-            viewModel.createSign()
-            stepList.add(Step())
-            stepAdapter.notifyItemInserted(stepList.size)
+
+            if((activity as MainActivity).pathInString != "") {
+                val imagePath = (activity as MainActivity).pathInString
+                viewModel.savedImagepath(imagePath)
+                viewModel.createSign()
+                stepList.add(Step())
+                stepAdapter.notifyItemInserted(stepList.size)
+            }
+            else{
+                Toast.makeText(context, "Get Picture first", Toast.LENGTH_LONG).show()
+            }
         }
 
         binding.cancelButtonImport.setOnClickListener{

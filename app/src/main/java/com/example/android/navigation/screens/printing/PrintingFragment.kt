@@ -88,7 +88,7 @@ class PrintingFragment : Fragment() {
         binding.printingButton.isVisible = viewModel.isPrinting.value!!
         binding.printingStopButton.isVisible = !viewModel.isPrinting.value!!
 
-        (activity as MainActivity).connectBle()
+        //(activity as MainActivity).connectBle()
 
         setHasOptionsMenu(true)
         return binding.root

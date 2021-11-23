@@ -5,12 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.android.navigation.screens.speed_area.SpeedAreaFragment">
 
-    <data>
-        <variable
-            name="viewModel"
-            type="com.example.android.navigation.screens.speed_area.SpeedAreaViewModel" />
-    </data>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -109,7 +109,7 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
         else{
 
             uiScope.launch {
-                createSignToDatabase(temp)
+                //createSignToDatabase(temp)
                 _signId.value = getSignIdFromDatabase(temp.signName)
                 Timber.i("Import signId: " + _signId.value)
                 _signCreated.value = true
@@ -190,7 +190,7 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
                 _error.value = "Set value to Y"
             }
             else{
-                createStepToDatabase(temp)
+                //createStepToDatabase(temp)
             }
 
         }

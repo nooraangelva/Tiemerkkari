@@ -124,6 +124,7 @@ class MainActivity : AppCompatActivity() {
             openBtActivity()
         }
         startBleScan()
+        pathInString = ""
 
 
     }
