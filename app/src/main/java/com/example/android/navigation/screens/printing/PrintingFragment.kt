@@ -20,6 +20,7 @@ import com.example.android.navigation.R
 import com.example.android.navigation.SEND
 import com.example.android.navigation.database.SignDatabase
 import com.example.android.navigation.databinding.FragmentPrintingBinding
+import kotlinx.serialization.json.JsonArray
 
 class PrintingFragment : Fragment() {
 
@@ -93,21 +94,18 @@ class PrintingFragment : Fragment() {
         binding.printingStopButton.isVisible = !viewModel.isPrinting.value!!
 
         //(activity as MainActivity).connectBle()
-
-        binding.printingButton.setOnClickListener {
+    //TODO luo jsoneiksi data
+        binding.printingStopButton.setOnClickListener {
             Log.v("ThreadHandler", "check prime number pressed")
-            var msg = Message()
-            msg.what = SEND
-            msg.obj = viewModel.steps
-            (activity as MainActivity).runnable.workerThreadHandler!!.sendMessage(msg)
+
+            (activity as MainActivity).write()
         }
 
         binding.printingButton.setOnClickListener {
             Log.v("ThreadHandler", "check prime number pressed")
-            var msg = Message()
-            msg.what = SEND
-            msg.obj = viewModel.steps
-            (activity as MainActivity).runnable.workerThreadHandler!!.sendMessage(msg)
+
+            val data = JsonArray(viewModel.steps.value)
+            (activity as MainActivity).write()
         }
 
         setHasOptionsMenu(true)

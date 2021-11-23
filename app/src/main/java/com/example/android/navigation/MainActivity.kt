@@ -34,19 +34,28 @@ import android.os.*
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import com.example.android.navigation.databinding.ActivityMainBinding
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonArray
 import org.json.JSONArray
 import timber.log.Timber
 import java.io.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-const val SEND = 1
-const val RECEIVE = 2
+const val CONNECT = 1
+const val SEND = 2
+const val RECEIVE = 3
+
+var SERVICE_UUID_SEND = UUID.fromString("4fa4c201-1fb5-459e-8fcc-c5c9c331914b")
+var CHARACTERISTIC_UUID_SEND = UUID.fromString("beb5483e-36e1-4688-b7f5-ea07361b26a8")
+
+var SERVICE_UUID_RECEIVE = UUID.fromString("4fa4c201-1fb5-459e-8fcc-c5c9c331914b")
+var CHARACTERISTIC_UUID_RECEIVE = UUID.fromString("beb5483e-36e1-4688-b7f5-ea07361b26a8")
 
 class MainActivity : AppCompatActivity() {
 
@@ -54,8 +63,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration : AppBarConfiguration
     private lateinit var navController: NavController
     var mainThreadHandler : Handler? = null
-    var runnable = ThreadHandler(mainThreadHandler)
-    var thread = Thread(runnable)
+
 
 
     val REQUEST_CODE_PERMISSION = 100
@@ -69,14 +77,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var imageName: String
     lateinit var  pathInString : String
 
-    var SERVICE_UUID = UUID.fromString("4fa4c201-1fb5-459e-8fcc-c5c9c331914b")
-    var CHARACTERISTIC_UUID = UUID.fromString("beb5483e-36e1-4688-b7f5-ea07361b26a8")
 
     lateinit var receivedMessage : Receive
     lateinit var sendMessage : Send
 
     private lateinit var binding : ActivityMainBinding
-    private val bluetoothAdapter : BluetoothAdapter by lazy{
+
+    val bluetoothAdapter : BluetoothAdapter by lazy{
         (getSystemService(BLUETOOTH_SERVICE) as BluetoothManager).adapter
     }
     val btRequestActivity = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
@@ -140,10 +147,17 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
+        var runnable = ThreadHandler(mainThreadHandler)
+        var thread = Thread(runnable)
         thread.start()
+        runnable.setBluetoothAdapter(bluetoothAdapter)
 
-        startBleScan()
+
+        //runnable.workerThreadHandler!!.startBleScan(bluetoothAdapter)
+        var msg = Message()
+        msg.what = CONNECT
+        runnable.workerThreadHandler!!.sendMessage(msg)
+
         pathInString = ""
 
 
@@ -157,93 +171,14 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun startBleScan(){
 
-        var filter = ScanFilter.Builder().setDeviceName("Tiemerkkari").build()
-        var filters : MutableList<ScanFilter> = mutableListOf(filter)
+    fun write(data : JsonArray){
 
-        var setting = ScanSettings.Builder().build()
-        bluetoothAdapter.bluetoothLeScanner.startScan(filters,setting,bleScanCallback)
-
-    }
-
-    fun connectToDevice(bluetoothDevice: BluetoothDevice){
-
-        bluetoothDevice.connectGatt(this,false,bleGattCallback)
-
-    }
-
-    private val bleScanCallback : ScanCallback by lazy{
-        object : ScanCallback(){
-
-            override fun onScanResult(callbackType: Int, result: ScanResult) {
-                super.onScanResult(callbackType, result)
-                val bluetoothDevice = result.device
-                connectToDevice(bluetoothDevice)
-
-                Timber.tag("Buttons").v("laite: %s", bluetoothDevice.name)
-
-                if (bluetoothDevice != null) {
-                    connectToDevice(bluetoothDevice)
-                }
-            }
-        }
-    }
-    private val bleGattCallback : BluetoothGattCallback by lazy {
-        object : BluetoothGattCallback(){
-            override fun onConnectionStateChange(gatt: BluetoothGatt?, status: Int, newState: Int) {
-                super.onConnectionStateChange(gatt, status, newState)
-
-                if(newState == BluetoothProfile.STATE_CONNECTED){
-                    gatt?.discoverServices()
-                }
-            }
-
-            override fun onServicesDiscovered(gatt: BluetoothGatt?, status: Int) {
-                super.onServicesDiscovered(gatt, status)
-
-
-                val service = gatt?.getService(SERVICE_UUID)
-                val characteristic = service?.getCharacteristic(CHARACTERISTIC_UUID)
-
-                gatt?.setCharacteristicNotification(characteristic,true)
-            }
-
-            override fun onCharacteristicChanged(
-                gatt: BluetoothGatt?,
-                characteristic: BluetoothGattCharacteristic?
-            ) {
-                super.onCharacteristicChanged(gatt, characteristic)
-                Timber.v("laite: " + characteristic?.getStringValue(0))
-                if (characteristic != null) {
-                    receivedMessage = Json.decodeFromString<Receive>(characteristic.getStringValue(0))
-                }
-            }
-
-            override fun onCharacteristicWrite(
-                gatt: BluetoothGatt?,
-                characteristic: BluetoothGattCharacteristic?,
-                status: Int
-            ) {
-                if (status == BluetoothGatt.GATT_SUCCESS) {                                 //See if the write was successful
-                    Timber.e("**ACTION_DATA_WRITTEN**" + characteristic)
-
-                }
-            }
-        }
-    }
-
-    fun write(msg : String){
-
-        /*
-        //gatt: BluetoothGatt
-        val service : BluetoothGattService? = gatt?.getService(SERVICE_UUID)
-        val characteristic = service?.getCharacteristic(CHARACTERISTIC_UUID)
-        var messageBytes = msg.toByteArray(charset("UTF-8"))
-        characteristic!!.value = messageBytes
-
-        gatt?.writeCharacteristic(characteristic)
-        */
+        var runnable = ThreadHandler(mainThreadHandler)
+        var msg = Message()
+        msg.what = SEND
+        msg.obj = data
+        runnable.workerThreadHandler!!.sendMessage(msg)
 
     }
     fun read(){
