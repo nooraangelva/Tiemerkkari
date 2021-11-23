@@ -4,12 +4,14 @@ package com.example.android.navigation.screens.speed_area
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.example.android.navigation.MainActivity
 import com.example.android.navigation.R
 import com.example.android.navigation.databinding.FragmentSpeedAreaBinding
 import com.example.android.navigation.databinding.FragmentStartMenuBinding
@@ -26,7 +28,17 @@ class SpeedAreaFragment : Fragment() {
             inflater, R.layout.fragment_speed_area, container, false
         )
 
-
+        when ((activity as MainActivity).sharedPreferences.getString("SELECTED_LANGUAGE", "en")) {
+            "fi" -> {
+                (activity as AppCompatActivity).supportActionBar?.title = "Nopeusalue"
+            }
+            "en" -> {
+                (activity as AppCompatActivity).supportActionBar?.title = "Speed area"
+            }
+            else -> {
+                (activity as AppCompatActivity).supportActionBar?.title = "Speed area"
+            }
+        }
         // Sets the onClickListener for buttons
 
         binding.cityButton.setOnClickListener { view: View ->

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -21,6 +22,8 @@ import com.example.android.navigation.SEND
 import com.example.android.navigation.database.SignDatabase
 import com.example.android.navigation.databinding.FragmentPrintingBinding
 import kotlinx.serialization.json.JsonArray
+import timber.log.Timber
+
 
 class PrintingFragment : Fragment() {
 
@@ -31,6 +34,19 @@ class PrintingFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
+
+
+        when ((activity as MainActivity).sharedPreferences.getString("SELECTED_LANGUAGE", "en")) {
+            "fi" -> {
+                (activity as AppCompatActivity).supportActionBar?.title = "Tulostus"
+            }
+            "en" -> {
+                (activity as AppCompatActivity).supportActionBar?.title = "Printing"
+            }
+            else -> {
+                (activity as AppCompatActivity).supportActionBar?.title = "Printing"
+            }
+        }
 
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(

@@ -24,10 +24,12 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.android.navigation.MainActivity
 
 import com.example.android.navigation.R
 import com.example.android.navigation.databinding.FragmentSignTypeBinding
@@ -44,6 +46,18 @@ class SignTypeFragment : Fragment() {
         // Inflate the layout for this fragment
         val binding: FragmentSignTypeBinding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_sign_type, container, false)
+
+        when ((activity as MainActivity).sharedPreferences.getString("SELECTED_LANGUAGE", "en")) {
+            "fi" -> {
+                (activity as AppCompatActivity).supportActionBar?.title = "Merkin tyyppi"
+            }
+            "en" -> {
+                (activity as AppCompatActivity).supportActionBar?.title = "Sign type"
+            }
+            else -> {
+                (activity as AppCompatActivity).supportActionBar?.title = "Sign type"
+            }
+        }
 
         // Get arguments
         val signTypeFragmentArgs by navArgs<SignTypeFragmentArgs>()

@@ -59,7 +59,7 @@ var CHARACTERISTIC_UUID_RECEIVE = UUID.fromString("beb5483e-36e1-4688-b7f5-ea073
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var sharedPreferences: SharedPreferences
+    lateinit var sharedPreferences: SharedPreferences
     private lateinit var appBarConfiguration : AppBarConfiguration
     private lateinit var navController: NavController
     var mainThreadHandler : Handler? = null

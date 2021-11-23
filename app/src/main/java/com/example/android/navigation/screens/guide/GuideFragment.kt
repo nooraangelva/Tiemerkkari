@@ -18,7 +18,10 @@ package com.example.android.navigation.screens.guide
 
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.android.navigation.MainActivity
 import com.example.android.navigation.R
 
 class GuideFragment : Fragment() {
@@ -26,6 +29,19 @@ class GuideFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
 
         setHasOptionsMenu(true)
+
+
+        when ((activity as MainActivity).sharedPreferences.getString("SELECTED_LANGUAGE", "en")) {
+            "fi" -> {
+                (activity as AppCompatActivity).supportActionBar?.title = "Ohjeet"
+            }
+            "en" -> {
+                (activity as AppCompatActivity).supportActionBar?.title = "Guide"
+            }
+            else -> {
+                (activity as AppCompatActivity).supportActionBar?.title = "Guide"
+            }
+        }
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_guide, container, false)

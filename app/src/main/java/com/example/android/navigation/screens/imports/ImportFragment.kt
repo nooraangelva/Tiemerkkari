@@ -6,6 +6,7 @@ import android.view.*
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -37,6 +38,17 @@ class ImportFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
+        when ((activity as MainActivity).sharedPreferences.getString("SELECTED_LANGUAGE", "en")) {
+            "fi" -> {
+                (activity as AppCompatActivity).supportActionBar?.title = "Luo merkki"
+            }
+            "en" -> {
+                (activity as AppCompatActivity).supportActionBar?.title = "Import"
+            }
+            else -> {
+                (activity as AppCompatActivity).supportActionBar?.title = "Import"
+            }
+        }
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_import, container, false)
