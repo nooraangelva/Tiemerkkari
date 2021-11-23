@@ -80,7 +80,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:progress="70" />
+            tools:progress="99" />
 
         <TextView
             android:id="@+id/printingPaintPlaceTextView"

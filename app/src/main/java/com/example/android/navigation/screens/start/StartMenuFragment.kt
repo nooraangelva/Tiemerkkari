@@ -3,9 +3,11 @@ package com.example.android.navigation.screens.start
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil.inflate
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.example.android.navigation.MainActivity
 import com.example.android.navigation.R
 import com.example.android.navigation.databinding.FragmentStartMenuBinding
 import timber.log.Timber
@@ -19,6 +21,18 @@ class StartMenuFragment : Fragment() {
 
 
         // Sets the onClickListener for buttons
+
+        when ((activity as MainActivity).sharedPreferences.getString("SELECTED_LANGUAGE", "en")) {
+            "fi" -> {
+                (activity as AppCompatActivity).supportActionBar?.title = "Aloita"
+            }
+            "en" -> {
+                (activity as AppCompatActivity).supportActionBar?.title = "Start"
+            }
+            else -> {
+                (activity as AppCompatActivity).supportActionBar?.title = "Start"
+            }
+        }
 
         binding.startButton.setOnClickListener { view: View ->
 

@@ -51,7 +51,7 @@ import java.time.format.DateTimeFormatter
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var sharedPreferences: SharedPreferences
+    lateinit var sharedPreferences: SharedPreferences
     private lateinit var appBarConfiguration : AppBarConfiguration
     private lateinit var navController: NavController
 
