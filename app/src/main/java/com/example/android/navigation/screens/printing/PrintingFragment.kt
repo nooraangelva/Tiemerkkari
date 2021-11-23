@@ -1,6 +1,8 @@
 package com.example.android.navigation.screens.printing
 
 import android.os.Bundle
+import android.os.Message
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
@@ -16,6 +18,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.android.navigation.MainActivity
 import com.example.android.navigation.R
+import com.example.android.navigation.SEND
 import com.example.android.navigation.database.SignDatabase
 import com.example.android.navigation.databinding.FragmentPrintingBinding
 import timber.log.Timber
@@ -82,6 +85,7 @@ class PrintingFragment : Fragment() {
             binding.printingStopButton.isVisible = it
         })
 
+        //TODO laita kuva
         //ViewModel adding image to imageview
         viewModel.bitmap.observe(viewLifecycleOwner, Observer { bitMap ->
             binding.printingImageView.setImageBitmap(viewModel.bitmap.value)
@@ -104,6 +108,22 @@ class PrintingFragment : Fragment() {
         binding.printingStopButton.isVisible = !viewModel.isPrinting.value!!
 
         //(activity as MainActivity).connectBle()
+
+        binding.printingButton.setOnClickListener {
+            Log.v("ThreadHandler", "check prime number pressed")
+            var msg = Message()
+            msg.what = SEND
+            msg.obj = viewModel.steps
+            (activity as MainActivity).runnable.workerThreadHandler!!.sendMessage(msg)
+        }
+
+        binding.printingButton.setOnClickListener {
+            Log.v("ThreadHandler", "check prime number pressed")
+            var msg = Message()
+            msg.what = SEND
+            msg.obj = viewModel.steps
+            (activity as MainActivity).runnable.workerThreadHandler!!.sendMessage(msg)
+        }
 
         setHasOptionsMenu(true)
         return binding.root

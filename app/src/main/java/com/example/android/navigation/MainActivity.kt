@@ -8,8 +8,6 @@ import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
-import android.os.Build
-import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.Menu
@@ -32,8 +30,7 @@ import android.bluetooth.le.ScanSettings
 import android.content.*
 import android.content.ContentValues.TAG
 import android.graphics.BitmapFactory
-import android.os.Handler
-import android.os.IBinder
+import android.os.*
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -48,12 +45,18 @@ import java.io.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
+const val SEND = 1
+const val RECEIVE = 2
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var sharedPreferences: SharedPreferences
     private lateinit var appBarConfiguration : AppBarConfiguration
     private lateinit var navController: NavController
+    var mainThreadHandler : Handler? = null
+    var runnable = ThreadHandler(mainThreadHandler)
+    var thread = Thread(runnable)
+
 
     val REQUEST_CODE_PERMISSION = 100
     val RESULT_LOAD_IMAGE = 200
@@ -123,6 +126,23 @@ class MainActivity : AppCompatActivity() {
         if(!bluetoothAdapter.isEnabled){
             openBtActivity()
         }
+
+        mainThreadHandler = object : Handler(Looper.getMainLooper()){
+            override fun handleMessage(msg: Message){
+                if(SEND == msg.what) {
+                    //super.handleMessage(msg)
+                    Timber.v(""+msg.obj)
+                    //binding.helloText.setText(msg.obj as String)
+                }
+                else if(RECEIVE == msg.what) {
+                    Timber.v(""+msg.obj)
+                    //binding.helloText.setText(msg.obj as String)
+                }
+            }
+        }
+
+        thread.start()
+
         startBleScan()
         pathInString = ""
 
@@ -213,10 +233,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun write(gatt: BluetoothGatt){
+    fun write(msg : String){
 
-        val service = gatt?.getService(SERVICE_UUID)
-        gatt.writeCharacteristic(service?.getCharacteristic(CHARACTERISTIC_UUID))
+        /*
+        //gatt: BluetoothGatt
+        val service : BluetoothGattService? = gatt?.getService(SERVICE_UUID)
+        val characteristic = service?.getCharacteristic(CHARACTERISTIC_UUID)
+        var messageBytes = msg.toByteArray(charset("UTF-8"))
+        characteristic!!.value = messageBytes
+
+        gatt?.writeCharacteristic(characteristic)
+        */
+
     }
     fun read(){
 
