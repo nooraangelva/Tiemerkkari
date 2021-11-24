@@ -65,10 +65,6 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
                         //bluetoothAdapter?.bluetoothLeScanner?.startScan(filters, setting, bleScanCallback)
 
 
-                        var msgReply = Message()
-                        msgReply.what = CONNECT
-                        //msgReply.obj = bluetoothDevice.name
-
                     }
 
 
@@ -86,6 +82,10 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
     fun connectToDevice(bluetoothDevice: BluetoothDevice) {
 
         bluetoothGatt = bluetoothDevice.connectGatt( thisContext, false, bleGattCallback)
+        var msgReply = Message()
+        msgReply.what = CONNECT
+        msgReply.obj = "yhdisty"
+        mainThreadHandler!!.sendMessage(msgReply)
 
     }
 
@@ -99,8 +99,14 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
 
                 Timber.tag("Buttons").v("laite: %s", bluetoothDevice.name)
                 //if (bluetoothDevice != null &) {
-                if (bluetoothDevice != null && bluetoothDevice?.name.contains("Polar ",true)) {
-                    connectToDevice(bluetoothDevice)
+                if(!bluetoothDevice.name.isNullOrEmpty()) {
+                    if (bluetoothDevice != null && bluetoothDevice?.name.contains(
+                            "TONIESP",
+                            true
+                        )
+                    ) {
+                        connectToDevice(bluetoothDevice)
+                    }
                 }
             }
         }
@@ -125,8 +131,7 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
 
 
                 val service = gatt?.getService(SERVICE_UUID)
-                val characteristic =
-                    service?.getCharacteristic(CHARACTERISTIC_UUID_RECEIVE)
+                val characteristic = service?.getCharacteristic(CHARACTERISTIC_UUID_RECEIVE)
 
                 gatt?.setCharacteristicNotification(characteristic, true)
             }
@@ -141,10 +146,11 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
                 msgReply.what = RECEIVE
 
                 Timber.v("laite: " + characteristic?.getStringValue(0))
+
                 if (characteristic != null) {
 
-                    msgReply.obj =
-                        Json.decodeFromString<Receive>(characteristic.getStringValue(0))
+                    //msgReply.obj = Json.decodeFromString<Receive>(characteristic.getStringValue(0))
+                        msgReply.obj = characteristic.getStringValue(0)
                     mainThreadHandler!!.sendMessage(msgReply)
                 }
             }

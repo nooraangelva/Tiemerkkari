@@ -124,17 +124,19 @@ class PrintingFragment : Fragment() {
             Log.v("ThreadHandler", "check prime number pressed")
 
             viewModel.steps.value?.forEachIndexed { index, step ->
-                Timber.i("Import O: " + step.order)
+
                 var array = JSONArray(step)
+                Timber.i("Import O: " + step.order)
                 (activity as MainActivity).write(array)
             }
 
         }
 
+        /*
         (activity as MainActivity).receivedMessage.observe(viewLifecycleOwner, Observer {
             //binding.viewModel.update(it)
 
-        })
+        })*/
 
 
         setHasOptionsMenu(true)

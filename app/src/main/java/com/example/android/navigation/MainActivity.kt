@@ -145,7 +145,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 else if(RECEIVE == msg.what) {
                     Timber.v(""+msg.obj)
-                    receivedMessage = msg.obj as LiveData<JsonArray>
+                    //receivedMessage = msg.obj as LiveData<JsonArray>
                 }
                 else if(CONNECT == msg.what) {
                     Timber.v(""+msg.obj)
@@ -168,6 +168,7 @@ class MainActivity : AppCompatActivity() {
         runnable.workerThreadHandler!!.sendMessage(msg)
 
         pathInString = ""
+        //receivedMessage =
 
 
     }
