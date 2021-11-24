@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.getSystemService
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
+import org.json.JSONArray
 import timber.log.Timber
 import java.lang.Math.sqrt
 
@@ -40,7 +41,7 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
 
                         val data = msg.obj
 
-                        val service : BluetoothGattService? = bluetoothGatt?.getService(SERVICE_UUID_SEND)
+                        val service : BluetoothGattService? = bluetoothGatt?.getService(SERVICE_UUID)
                         val characteristic = service?.getCharacteristic(CHARACTERISTIC_UUID_SEND)
                         characteristic!!.setValue(data.toString())
 
@@ -50,24 +51,23 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
 
                         var msgReply = Message()
                         msgReply.what = SEND
-
-
-                        msgReply.obj = "is not a prime number."
+                        msgReply.obj = "printing started"
                         mainThreadHandler!!.sendMessage(msgReply)
                     }
                     else if (CONNECT == msg.what) {
                         Timber.tag("ThreadHandler").v("ISPRIME")
+                        //var filter = ScanFilter.Builder().setDeviceAddress("64:A2:F9:31:6F:2B").build()
+                        //var filter = ScanFilter.Builder().setDeviceName("Polar Vantage M 5D0E0424").build()
+                        //var filters: MutableList<ScanFilter> = mutableListOf(filter)
 
-                        var filter = ScanFilter.Builder().setDeviceName("Tiemerkkari").build()
-                        var filters: MutableList<ScanFilter> = mutableListOf(filter)
-
-                        var setting = ScanSettings.Builder().build()
-                        bluetoothAdapter?.bluetoothLeScanner?.startScan(filters, setting, bleScanCallback)
+                        //var setting = ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).build()
+                        bluetoothAdapter.bluetoothLeScanner.startScan(bleScanCallback)
+                        //bluetoothAdapter?.bluetoothLeScanner?.startScan(filters, setting, bleScanCallback)
 
 
                         var msgReply = Message()
                         msgReply.what = CONNECT
-                        msgReply.obj = bluetoothDevice?.name
+                        //msgReply.obj = bluetoothDevice.name
 
                     }
 
@@ -95,11 +95,11 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
             override fun onScanResult(callbackType: Int, result: ScanResult) {
                 super.onScanResult(callbackType, result)
                 bluetoothDevice = result.device
-                connectToDevice(bluetoothDevice)
+                //connectToDevice(bluetoothDevice)
 
                 Timber.tag("Buttons").v("laite: %s", bluetoothDevice.name)
-
-                if (bluetoothDevice != null) {
+                //if (bluetoothDevice != null &) {
+                if (bluetoothDevice != null && bluetoothDevice?.name.contains("Polar ",true)) {
                     connectToDevice(bluetoothDevice)
                 }
             }
@@ -124,7 +124,7 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
                 super.onServicesDiscovered(gatt, status)
 
 
-                val service = gatt?.getService(SERVICE_UUID_RECEIVE)
+                val service = gatt?.getService(SERVICE_UUID)
                 val characteristic =
                     service?.getCharacteristic(CHARACTERISTIC_UUID_RECEIVE)
 

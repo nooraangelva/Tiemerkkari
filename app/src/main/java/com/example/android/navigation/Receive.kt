@@ -4,7 +4,7 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
 @Serializable
-data class Receive(val a: Int, val b: String)
+data class Receive(val progress: Int, val step: String, val locationOnAxel: String, val tripMadeInStep: String)
 
 fun main() {
     val obj = Json.decodeFromString<Receive>("""{"a":42, "b": "str"}""")

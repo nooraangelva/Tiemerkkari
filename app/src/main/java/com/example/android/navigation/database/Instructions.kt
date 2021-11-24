@@ -3,7 +3,9 @@ package com.example.android.navigation.database
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.serialization.Serializable
 
+@Serializable
 @Entity(tableName = "printing_instructions_table")
 data class Instructions  (
 

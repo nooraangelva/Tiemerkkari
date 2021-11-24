@@ -36,8 +36,11 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.LiveData
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
+import com.example.android.navigation.database.Instructions
 import com.example.android.navigation.databinding.ActivityMainBinding
+import com.example.android.navigation.screens.printing.PrintingFragment
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
@@ -51,10 +54,9 @@ const val CONNECT = 1
 const val SEND = 2
 const val RECEIVE = 3
 
-var SERVICE_UUID_SEND = UUID.fromString("4fa4c201-1fb5-459e-8fcc-c5c9c331914b")
-var CHARACTERISTIC_UUID_SEND = UUID.fromString("beb5483e-36e1-4688-b7f5-ea07361b26a8")
+var SERVICE_UUID = UUID.fromString("4fa4c201-1fb5-459e-8fcc-c5c9c331914b")
+var CHARACTERISTIC_UUID_SEND = UUID.fromString("4ec4893c-6c9e-478e-9ad2-7a964946bc86")
 
-var SERVICE_UUID_RECEIVE = UUID.fromString("4fa4c201-1fb5-459e-8fcc-c5c9c331914b")
 var CHARACTERISTIC_UUID_RECEIVE = UUID.fromString("beb5483e-36e1-4688-b7f5-ea07361b26a8")
 
 class MainActivity : AppCompatActivity() {
@@ -78,8 +80,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var  pathInString : String
 
 
-    lateinit var receivedMessage: Json
-    lateinit var sendMessage : Send
+    lateinit var receivedMessage: LiveData<JsonArray>
+    lateinit var sendMessage : Instructions
 
     private lateinit var binding : ActivityMainBinding
 
@@ -139,18 +141,17 @@ class MainActivity : AppCompatActivity() {
                 if(SEND == msg.what) {
                     //super.handleMessage(msg)
                     Timber.v(""+msg.obj)
-                    //binding.helloText.setText(msg.obj as String)
+                    Toast.makeText(getApplicationContext(), ""+msg.obj, Toast.LENGTH_LONG).show()
                 }
                 else if(RECEIVE == msg.what) {
                     Timber.v(""+msg.obj)
-                    receivedMessage = msg.obj
-                    //binding.helloText.setText(msg.obj as String)
+                    receivedMessage = msg.obj as LiveData<JsonArray>
                 }
                 else if(CONNECT == msg.what) {
                     Timber.v(""+msg.obj)
                     var text = "Connected to device: "+msg.obj
                     Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show()
-                    //binding.helloText.setText(msg.obj as String)
+
                 }
             }
         }
@@ -162,6 +163,8 @@ class MainActivity : AppCompatActivity() {
         //runnable.workerThreadHandler!!.startBleScan(bluetoothAdapter)
         var msg = Message()
         msg.what = CONNECT
+
+        Timber.v("NULL  "+msg.what)
         runnable.workerThreadHandler!!.sendMessage(msg)
 
         pathInString = ""
@@ -178,12 +181,12 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun write(data : JsonArray){
+    fun write(data : JSONArray){
 
         var msg = Message()
         msg.what = SEND
         msg.obj = data
-        runnable.workerThreadHandler!!.sendMessage(msg)
+        //runnable.workerThreadHandler!!.sendMessage(msg)
 
 
     }

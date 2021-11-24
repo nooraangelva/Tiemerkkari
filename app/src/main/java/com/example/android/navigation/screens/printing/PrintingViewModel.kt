@@ -9,7 +9,11 @@ import com.example.android.navigation.database.Signs
 import android.graphics.BitmapFactory
 
 import android.graphics.Bitmap
+import com.example.android.navigation.MainActivity
+import com.example.android.navigation.Receive
 import kotlinx.coroutines.*
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonArray
 import timber.log.Timber
 
 import java.io.File
@@ -56,16 +60,44 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
     val isPrinting: LiveData<Boolean>
         get() = _isPrinting
 
+    private val _progress = MutableLiveData<Int>()
+    val progress: LiveData<Int>
+        get() = _progress
+
+    private val _progressProsent = MutableLiveData("$progress%")
+    val progressProsent: LiveData<String>
+        get() = _progressProsent
+
+    private val _status = MutableLiveData<Receive>()
+    val status: LiveData<Receive>
+        get() = _status
+
+    private val _stepInTheWorks = MutableLiveData<String>()
+    val stepInTheWorks: LiveData<String>
+        get() = _stepInTheWorks
+
     init {
         Timber.i("PrintingViewModel created.")
 
         _signId.value = signId
         getDataFromDatabase()
         _isPrinting.value = false
+        _stepInTheWorks.value = ""
+        _progress.value = 0
+
 
     }
 
     //FUNCTIONS
+    fun update(temp: JsonArray){
+
+        //_status.value = Receive(temp[0],temp[1],temp[2],temp[3])
+        //_progress.value = temp[0]
+        //_stepInProgress.value = temp[1]+"moved: (x, y) "+temp[3]
+
+    }
+
+
     private fun getDataFromDatabase() {
         uiScope.launch {
 
@@ -74,7 +106,7 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
             Timber.i("PrintingViewModel created.")
             _signName.value = _sign.value?.signName
             _signInfo.value = _sign.value?.info
-            _signSource.value = "sign_images/${_sign.value?.sourcePicture}"
+            _signSource.value = _sign.value?.sourcePicture
 
             val imgFile = File(_signSource.value!!)
             if (imgFile.exists()) {
@@ -94,6 +126,7 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
     }
 
     private suspend fun getSignFromDatabase(): Signs{
+
         return withContext(Dispatchers.IO) {
 
             val temp = database.filterGetSign(_signId.value!!)

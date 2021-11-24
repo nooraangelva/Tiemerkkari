@@ -19,9 +19,12 @@ import androidx.navigation.fragment.navArgs
 import com.example.android.navigation.MainActivity
 import com.example.android.navigation.R
 import com.example.android.navigation.SEND
+import com.example.android.navigation.Step
+import com.example.android.navigation.database.Instructions
 import com.example.android.navigation.database.SignDatabase
 import com.example.android.navigation.databinding.FragmentPrintingBinding
-import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.*
+import org.json.JSONArray
 import timber.log.Timber
 
 
@@ -89,8 +92,8 @@ class PrintingFragment : Fragment() {
 
         //TODO laita kuva
         //ViewModel adding image to imageview
-        viewModel.bitmap.observe(viewLifecycleOwner, Observer { bitMap ->
-            binding.printingImageView.setImageBitmap(viewModel.bitmap.value)
+        viewModel.bitmap.observe(viewLifecycleOwner, Observer {
+            binding.printingImageView.setImageBitmap(it)
 
         })
 
@@ -110,19 +113,29 @@ class PrintingFragment : Fragment() {
         binding.printingStopButton.isVisible = !viewModel.isPrinting.value!!
 
         //(activity as MainActivity).connectBle()
-    //TODO luo jsoneiksi data
+
         binding.printingStopButton.setOnClickListener {
             Log.v("ThreadHandler", "check prime number pressed")
 
-            (activity as MainActivity).write()
+            (activity as MainActivity).write(JSONArray("stop"))
         }
 
         binding.printingButton.setOnClickListener {
             Log.v("ThreadHandler", "check prime number pressed")
 
-            val data = JsonArray(viewModel.steps.value)
-            (activity as MainActivity).write()
+            viewModel.steps.value?.forEachIndexed { index, step ->
+                Timber.i("Import O: " + step.order)
+                var array = JSONArray(step)
+                (activity as MainActivity).write(array)
+            }
+
         }
+
+        (activity as MainActivity).receivedMessage.observe(viewLifecycleOwner, Observer {
+            //binding.viewModel.update(it)
+
+        })
+
 
         setHasOptionsMenu(true)
         return binding.root

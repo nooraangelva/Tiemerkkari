@@ -49,6 +49,7 @@ class ImportFragment : Fragment() {
                 (activity as AppCompatActivity).supportActionBar?.title = "Import"
             }
         }
+
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_import, container, false)
