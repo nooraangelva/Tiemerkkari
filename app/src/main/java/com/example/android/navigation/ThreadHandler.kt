@@ -5,6 +5,7 @@ import android.bluetooth.le.ScanCallback
 import android.bluetooth.le.ScanFilter
 import android.bluetooth.le.ScanResult
 import android.bluetooth.le.ScanSettings
+import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
@@ -16,17 +17,12 @@ import kotlinx.serialization.json.Json
 import timber.log.Timber
 import java.lang.Math.sqrt
 
-class ThreadHandler(val mainThreadHandler: Handler?) : Runnable{
+class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, val bluetoothAdapter: BluetoothAdapter) : Runnable{
 
-
-    private var bluetoothAdapter: BluetoothAdapter? = null
-
-    @Synchronized
-    fun setBluetoothAdapter(value: BluetoothAdapter?){
-        bluetoothAdapter = value
-    }
 
     var workerThreadHandler : Handler? = null
+    var bluetoothGatt : BluetoothGatt? = null
+    lateinit var bluetoothDevice : BluetoothDevice
 
 
     override fun run() {
@@ -44,26 +40,20 @@ class ThreadHandler(val mainThreadHandler: Handler?) : Runnable{
 
                         val data = msg.obj
 
-                        val service : BluetoothGattService? = gatt?.getService(SERVICE_UUID_SEND)
+                        val service : BluetoothGattService? = bluetoothGatt?.getService(SERVICE_UUID_SEND)
                         val characteristic = service?.getCharacteristic(CHARACTERISTIC_UUID_SEND)
                         characteristic!!.setValue(data.toString())
 
-                        gatt?.writeCharacteristic(characteristic)
+                        bluetoothGatt?.writeCharacteristic(characteristic)
+                        bluetoothGatt?.setCharacteristicNotification(characteristic,true)
 
 
                         var msgReply = Message()
                         msgReply.what = SEND
 
 
-                        msgReply.obj = "$num is not a prime number."
+                        msgReply.obj = "is not a prime number."
                         mainThreadHandler!!.sendMessage(msgReply)
-                    }
-                    else if (RECEIVE == msg.what) {
-                        Timber.tag("ThreadHandler").v("ISPRIME")
-
-                        val num: Int = msg.arg1
-                        var msgReply = Message()
-                        msgReply.what = RECEIVE
                     }
                     else if (CONNECT == msg.what) {
                         Timber.tag("ThreadHandler").v("ISPRIME")
@@ -77,6 +67,8 @@ class ThreadHandler(val mainThreadHandler: Handler?) : Runnable{
 
                         var msgReply = Message()
                         msgReply.what = CONNECT
+                        msgReply.obj = bluetoothDevice?.name
+
                     }
 
 
@@ -93,7 +85,7 @@ class ThreadHandler(val mainThreadHandler: Handler?) : Runnable{
 
     fun connectToDevice(bluetoothDevice: BluetoothDevice) {
 
-        bluetoothDevice.connectGatt( , false, bleGattCallback)
+        bluetoothGatt = bluetoothDevice.connectGatt( thisContext, false, bleGattCallback)
 
     }
 
@@ -102,7 +94,7 @@ class ThreadHandler(val mainThreadHandler: Handler?) : Runnable{
 
             override fun onScanResult(callbackType: Int, result: ScanResult) {
                 super.onScanResult(callbackType, result)
-                val bluetoothDevice = result.device
+                bluetoothDevice = result.device
                 connectToDevice(bluetoothDevice)
 
                 Timber.tag("Buttons").v("laite: %s", bluetoothDevice.name)
@@ -115,6 +107,7 @@ class ThreadHandler(val mainThreadHandler: Handler?) : Runnable{
     }
     private val bleGattCallback: BluetoothGattCallback by lazy {
         object : BluetoothGattCallback() {
+
             override fun onConnectionStateChange(
                 gatt: BluetoothGatt?,
                 status: Int,
@@ -123,7 +116,7 @@ class ThreadHandler(val mainThreadHandler: Handler?) : Runnable{
                 super.onConnectionStateChange(gatt, status, newState)
 
                 if (newState == BluetoothProfile.STATE_CONNECTED) {
-                    gatt?.discoverServices()
+                    bluetoothGatt?.discoverServices()
                 }
             }
 

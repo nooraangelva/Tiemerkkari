@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration : AppBarConfiguration
     private lateinit var navController: NavController
     var mainThreadHandler : Handler? = null
-
+    lateinit var runnable: ThreadHandler
 
 
     val REQUEST_CODE_PERMISSION = 100
@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var  pathInString : String
 
 
-    lateinit var receivedMessage : Receive
+    lateinit var receivedMessage: Json
     lateinit var sendMessage : Send
 
     private lateinit var binding : ActivityMainBinding
@@ -143,14 +143,20 @@ class MainActivity : AppCompatActivity() {
                 }
                 else if(RECEIVE == msg.what) {
                     Timber.v(""+msg.obj)
+                    receivedMessage = msg.obj
+                    //binding.helloText.setText(msg.obj as String)
+                }
+                else if(CONNECT == msg.what) {
+                    Timber.v(""+msg.obj)
+                    var text = "Connected to device: "+msg.obj
+                    Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show()
                     //binding.helloText.setText(msg.obj as String)
                 }
             }
         }
-        var runnable = ThreadHandler(mainThreadHandler)
+        runnable = ThreadHandler(mainThreadHandler,this,bluetoothAdapter)
         var thread = Thread(runnable)
         thread.start()
-        runnable.setBluetoothAdapter(bluetoothAdapter)
 
 
         //runnable.workerThreadHandler!!.startBleScan(bluetoothAdapter)
@@ -174,16 +180,14 @@ class MainActivity : AppCompatActivity() {
 
     fun write(data : JsonArray){
 
-        var runnable = ThreadHandler(mainThreadHandler)
         var msg = Message()
         msg.what = SEND
         msg.obj = data
         runnable.workerThreadHandler!!.sendMessage(msg)
 
-    }
-    fun read(){
 
     }
+
 
 
 
