@@ -64,7 +64,7 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
     val progress: LiveData<Int>
         get() = _progress
 
-    private val _progressProsent = MutableLiveData("$progress%")
+    private val _progressProsent = MutableLiveData<String>()
     val progressProsent: LiveData<String>
         get() = _progressProsent
 
@@ -89,11 +89,15 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
     }
 
     //FUNCTIONS
-    fun update(temp: JsonArray){
+    //fun update(temp: JsonArray){
+    fun update(temp : String){
 
         //_status.value = Receive(temp[0],temp[1],temp[2],temp[3])
         //_progress.value = temp[0]
         //_stepInProgress.value = temp[1]+"moved: (x, y) "+temp[3]
+        //_progress.value = temp.toInt()
+        _progress.value = 50
+        _progressProsent.value = temp+"%"
 
     }
 

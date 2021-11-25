@@ -56,14 +56,12 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
                     }
                     else if (CONNECT == msg.what) {
                         Timber.tag("ThreadHandler").v("ISPRIME")
-                        //var filter = ScanFilter.Builder().setDeviceAddress("64:A2:F9:31:6F:2B").build()
-                        //var filter = ScanFilter.Builder().setDeviceName("Polar Vantage M 5D0E0424").build()
+
+                        //var filter = ScanFilter.Builder().setDeviceName("TONIBLE").build()
                         //var filters: MutableList<ScanFilter> = mutableListOf(filter)
-
                         //var setting = ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).build()
-                        bluetoothAdapter.bluetoothLeScanner.startScan(bleScanCallback)
                         //bluetoothAdapter?.bluetoothLeScanner?.startScan(filters, setting, bleScanCallback)
-
+                        bluetoothAdapter?.bluetoothLeScanner?.startScan( bleScanCallback)
 
                     }
 
@@ -86,6 +84,7 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
         msgReply.what = CONNECT
         msgReply.obj = "yhdisty"
         mainThreadHandler!!.sendMessage(msgReply)
+        bluetoothAdapter?.bluetoothLeScanner?.stopScan(bleScanCallback)
 
     }
 
@@ -124,6 +123,13 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
                 if (newState == BluetoothProfile.STATE_CONNECTED) {
                     bluetoothGatt?.discoverServices()
                 }
+                else{
+                    var filter = ScanFilter.Builder().setDeviceName("TONIBLE").build()
+                    var filters: MutableList<ScanFilter> = mutableListOf(filter)
+                    var setting = ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).build()
+                    bluetoothAdapter?.bluetoothLeScanner?.startScan(filters, setting, bleScanCallback)
+                }
+
             }
 
             override fun onServicesDiscovered(gatt: BluetoothGatt?, status: Int) {

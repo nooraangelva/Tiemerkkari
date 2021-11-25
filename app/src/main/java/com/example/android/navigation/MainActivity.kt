@@ -37,6 +37,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import com.example.android.navigation.database.Instructions
 import com.example.android.navigation.databinding.ActivityMainBinding
@@ -79,8 +80,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var imageName: String
     lateinit var  pathInString : String
 
+/*
+    private val _receivedMessage = MutableLiveData<JsonArray>()
+    val receivedMessage: LiveData<JsonArray>
+        get() = _receivedMessage*/
+    private val _receivedMessage = MutableLiveData<String>()
+    val receivedMessage: LiveData<String>
+        get() = _receivedMessage
 
-    lateinit var receivedMessage: LiveData<JsonArray>
     lateinit var sendMessage : Instructions
 
     private lateinit var binding : ActivityMainBinding
@@ -145,12 +152,12 @@ class MainActivity : AppCompatActivity() {
                 }
                 else if(RECEIVE == msg.what) {
                     Timber.v(""+msg.obj)
-                    //receivedMessage = msg.obj as LiveData<JsonArray>
+                    _receivedMessage.value = msg.obj.toString() //as LiveData<JsonArray>
                 }
                 else if(CONNECT == msg.what) {
                     Timber.v(""+msg.obj)
                     var text = "Connected to device: "+msg.obj
-                    Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show()
+                    Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show()
 
                 }
             }
@@ -182,12 +189,13 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun write(data : JSONArray){
+    //fun write(data : JSONArray){
+    fun write(data : String){
 
         var msg = Message()
         msg.what = SEND
         msg.obj = data
-        //runnable.workerThreadHandler!!.sendMessage(msg)
+        runnable.workerThreadHandler!!.sendMessage(msg)
 
 
     }
