@@ -47,17 +47,8 @@ class SignTypeFragment : Fragment() {
         val binding: FragmentSignTypeBinding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_sign_type, container, false)
 
-        when ((activity as MainActivity).sharedPreferences.getString("SELECTED_LANGUAGE", "en")) {
-            "fi" -> {
-                (activity as AppCompatActivity).supportActionBar?.title = "Merkin tyyppi"
-            }
-            "en" -> {
-                (activity as AppCompatActivity).supportActionBar?.title = "Sign type"
-            }
-            else -> {
-                (activity as AppCompatActivity).supportActionBar?.title = "Sign type"
-            }
-        }
+        (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.titleSignType)
+
 
         // Get arguments
         val signTypeFragmentArgs by navArgs<SignTypeFragmentArgs>()

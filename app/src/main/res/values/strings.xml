@@ -20,6 +20,20 @@
     <string name="chooseSpeedRangeText">Choose speed range</string>
     <string name="title">Title</string>
     <string name="header_text">Options</string>
+
+    <!-- Sivun nimiä, titlet-->
+    <string name="titleSignOptions">Signs</string>
+    <string name="titleGuide">Guide</string>
+    <string name="titleImport">Import</string>
+    <string name="titlePrinting">Printing</string>
+    <string name="titleSignType">Sign type</string>
+    <string name="titleSpeedArea">Speed area</string>
+    <string name="titleStart">Start</string>
+
+
+
+
+
     <string-array name="type_options_array">
         <item>Arrows</item>
         <item>Others</item>

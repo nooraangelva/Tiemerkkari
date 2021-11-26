@@ -21,4 +21,11 @@
     <string name="header_text">Asetukset</string>
     <string name="languageOptionText">Kieli</string>
     <string name="nightDayOptionText">Yö/Päivä väritys</string>
+    <string name="titleSignOptions">Merkit</string>
+    <string name="titleGuide">Ohjeet</string>
+    <string name="titleImport">Luo  uusi merkki</string>
+    <string name="titlePrinting">Tulostus</string>
+    <string name="titleSignType">Merkin valinta</string>
+    <string name="titleSpeedArea">Nopeusalue</string>
+    <string name="titleStart">Aloitus</string>
 </resources>

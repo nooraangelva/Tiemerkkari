@@ -20,36 +20,43 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.example.android.navigation.MainActivity
 import com.example.android.navigation.R
+import com.example.android.navigation.databinding.FragmentGuideBinding
+import com.example.android.navigation.databinding.FragmentStartMenuBinding
+import com.example.android.navigation.screens.start.StartMenuFragmentDirections
+import timber.log.Timber
 
 class GuideFragment : Fragment() {
+
+    private lateinit var binding: FragmentGuideBinding
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
+        binding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_guide, container, false
+        )
+
         setHasOptionsMenu(true)
 
-
-        when ((activity as MainActivity).sharedPreferences.getString("SELECTED_LANGUAGE", "en")) {
-            "fi" -> {
-                (activity as AppCompatActivity).supportActionBar?.title = "Ohjeet"
-            }
-            "en" -> {
-                (activity as AppCompatActivity).supportActionBar?.title = "Guide"
-            }
-            else -> {
-                (activity as AppCompatActivity).supportActionBar?.title = "Guide"
-            }
-        }
+        (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.titleGuide)
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_guide, container, false)
+
 
         // ADDS SIDE MENU
+        binding.startButton.setOnClickListener { view: View ->
+            binding.
 
-
+        }
+        return binding.root
     }
+
+
 
     // MENU FUNCTIONS
 

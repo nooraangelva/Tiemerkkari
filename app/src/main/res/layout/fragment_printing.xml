@@ -24,23 +24,25 @@
 
         <TextView
             android:id="@+id/printingSignNameView"
-            android:layout_width="119dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="370dp"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="332dp"
             android:text="@{viewModel.signName}"
             app:layout_constraintBottom_toTopOf="@+id/printingImageView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.549" />
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="119dp"
-            android:layout_height="25dp"
-            android:layout_marginEnd="370dp"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="328dp"
             android:text="@{viewModel.signInfo}"
             app:layout_constraintBottom_toTopOf="@+id/progressBarPrinting"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.549" />
 
         <Button
             android:id="@+id/printingButton"
@@ -80,7 +82,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!--tools:progress="@{viewModel.progress}" -->
+        <!--tools:progress="@{viewModel.progress}"
+        android:progress="65"-->
 
         <TextView
             android:id="@+id/printingPaintPlaceTextView"

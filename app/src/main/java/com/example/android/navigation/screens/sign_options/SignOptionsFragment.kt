@@ -29,17 +29,7 @@ class SignOptionsFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
-        when ((activity as MainActivity).sharedPreferences.getString("SELECTED_LANGUAGE", "en")) {
-            "fi" -> {
-                (activity as AppCompatActivity).supportActionBar?.title = "Merkit"
-            }
-            "en" -> {
-                (activity as AppCompatActivity).supportActionBar?.title = "Signs"
-            }
-            else -> {
-                (activity as AppCompatActivity).supportActionBar?.title = "Signs"
-            }
-        }
+        (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.titleSignOptions)
 
 
         // Inflate the layout for this fragment
