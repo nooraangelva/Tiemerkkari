@@ -18,7 +18,6 @@
             android:layout_width="300dp"
             android:layout_height="300dp"
             android:layout_marginStart="280dp"
-
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -100,7 +99,7 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/progressBarPrinting"
             tools:layout_editor_absoluteX="700dp"
-            tools:text="@{viewModel.status.locationOnAxel}" />
+            tools:text="@{viewModel.locationOnAxel}" />
 
         <TextView
             android:id="@+id/madeOfStepTextView"

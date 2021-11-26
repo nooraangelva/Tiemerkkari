@@ -80,6 +80,10 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
     val getData: LiveData<Boolean>
         get() = _getData
 
+    private val _locationOnAxel = MutableLiveData<String>()
+    val locationOnAxel: LiveData<String>
+        get() = _locationOnAxel
+
     init {
         Timber.i("PrintingViewModel created.")
 
@@ -104,6 +108,7 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
         _progress.value = temp.toInt()
         _progressProsent.value = temp+"%"
         _stepInTheWorks.value = temp
+        _locationOnAxel.value = temp
 
     }
 
