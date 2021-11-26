@@ -80,7 +80,7 @@ class PrintingFragment : Fragment() {
         //TODO laita kuva
         //ViewModel adding image to imageview
         viewModel.getData.observe(viewLifecycleOwner, Observer {
-            //binding.printingImageView.setImageBitmap(viewModel.bitmap.value)
+
             binding.printingImageView.setImageURI(viewModel.signSource.value?.toUri())
 
         })
