@@ -31,6 +31,7 @@ import com.example.android.navigation.databinding.FragmentPrintingBinding
 import com.example.android.navigation.screens.start.StartMenuFragmentDirections
 import timber.log.Timber
 
+import com.example.android.navigation.databinding.FragmentPrintingBinding
 
 class GuideFragment : Fragment() {
     private lateinit var binding: ViewDataBinding
@@ -45,6 +46,7 @@ class GuideFragment : Fragment() {
         // Inflate the layout for this fragment
 
 
+        // ADDS SIDE MENU
 
 
 

@@ -1,11 +1,7 @@
 <resources>
     <string name="app_name">ROAD PRINTER</string>
-    <string name="position">Position</string>
     <string name="about_text">Android Trivia will help remind you of important concepts you have learned and will learn in Android development.\n\nConsider modifying the questions and graphics to make this game your own!</string>
-    <string name="about" translatable="false">About</string>
-    <string name="submit_button">Submit</string>
     <string name="speed_area">Speed area</string>
-    <string name="startButton">START</string>
     <string name="ArrowsButtonText">ARROWS</string>
     <string name="SpeedLimitButtonText">SPEED LIMITS</string>
     <string name="othersButtonText">OTHERS</string>
@@ -16,10 +12,7 @@
     <string name="ImportButtonText">IMPORT</string>
     <string name="GuideButtonText">GUIDE</string>
     <string name="GuideText">Instructions</string>
-    <string name="OptionOneButton">One</string>
     <string name="chooseSpeedRangeText">Choose speed range</string>
-    <string name="title">Title</string>
-    <string name="header_text">Options</string>
 
     <!-- Sivun nimiä, titlet-->
     <string name="titleSignOptions">Signs</string>
