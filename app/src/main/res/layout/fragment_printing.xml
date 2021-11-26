@@ -92,26 +92,34 @@
             android:id="@+id/printingPaintPlaceTextView"
             android:layout_width="150dp"
             android:layout_height="40dp"
+            android:layout_marginTop="117dp"
             android:layout_marginBottom="25dp"
             android:textAlignment="center"
             android:textColor="#1334EC"
             android:textSize="25dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/progressBarPrinting"
+
             tools:layout_editor_absoluteX="700dp"
-            tools:text="@{viewModel.locationOnAxel}" />
+            tools:text="@{viewModel.locationOnAxel}"
+            app:layout_constraintEnd_toStartOf="@+id/madeOfStepTextView"
+            app:layout_constraintTop_toTopOf="parent" />
+
 
         <TextView
             android:id="@+id/madeOfStepTextView"
             android:layout_width="150dp"
             android:layout_height="40dp"
-            android:layout_marginBottom="23dp"
+            android:layout_marginTop="117dp"
+            android:layout_marginEnd="280dp"
+            android:layout_marginBottom="25dp"
             android:textAlignment="center"
             android:textColor="#1334EC"
             android:textSize="25dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/progressBarPrinting"
-            tools:layout_editor_absoluteX="850dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="@{viewModel.stepInTheWorks}" />
 
         <TextView
