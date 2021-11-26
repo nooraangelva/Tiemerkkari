@@ -25,8 +25,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.android.navigation.MainActivity
 import com.example.android.navigation.R
-
 import com.example.android.navigation.databinding.FragmentPrintingBinding
+
 
 class GuideFragment : Fragment() {
     private lateinit var binding: FragmentPrintingBinding
@@ -44,11 +44,7 @@ class GuideFragment : Fragment() {
         // Inflate the layout for this fragment
 
 
-        // ADDS SIDE MENU
-        binding.startButton.setOnClickListener { view: View ->
-            binding.
 
-        }
         return binding.root
     }
 

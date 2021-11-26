@@ -78,12 +78,13 @@
             android:indeterminateOnly="false"
             android:progressDrawable="@drawable/pg_circular"
             android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        tools:progress="@{viewModel.progress}"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintTop_toTopOf="parent" />
 
-        <!--tools:progress="@{viewModel.progress}"
-        android:progress="65"-->
+
+<!--android:progress="65"-->
 
         <TextView
             android:id="@+id/printingPaintPlaceTextView"
