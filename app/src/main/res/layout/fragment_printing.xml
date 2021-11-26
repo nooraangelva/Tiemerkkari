@@ -26,23 +26,25 @@
             android:id="@+id/printingSignNameView"
             android:layout_width="200dp"
             android:layout_height="40dp"
-            android:layout_marginStart="332dp"
+            android:layout_marginStart="328dp"
             android:text="@{viewModel.signName}"
             app:layout_constraintBottom_toTopOf="@+id/printingImageView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.549" />
+            app:layout_constraintVertical_bias="0.359" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="200dp"
             android:layout_height="40dp"
-            android:layout_marginEnd="328dp"
+            android:layout_marginEnd="752dp"
             android:text="@{viewModel.signInfo}"
-            app:layout_constraintBottom_toTopOf="@+id/progressBarPrinting"
+            android:textColor="#E11313"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/printingImageView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.549" />
+            app:layout_constraintTop_toBottomOf="@+id/printingSignNameView" />
 
         <Button
             android:id="@+id/printingButton"
@@ -78,49 +80,47 @@
             android:indeterminateOnly="false"
             android:progressDrawable="@drawable/pg_circular"
             android:visibility="visible"
-        tools:progress="@{viewModel.progress}"
-app:layout_constraintBottom_toBottomOf="parent"
-app:layout_constraintEnd_toEndOf="parent"
-app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:progress="@{viewModel.progress}" />
 
 
 <!--android:progress="65"-->
 
         <TextView
             android:id="@+id/printingPaintPlaceTextView"
-            android:layout_width="50dp"
-            android:layout_height="30dp"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="25dp"
             android:textAlignment="center"
-            android:textColor="@android:color/black"
-            android:textSize="20dp"
+            android:textColor="#1334EC"
+            android:textSize="25dp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/progressBarPrinting"
-            app:layout_constraintEnd_toEndOf="@+id/progressBarPrinting"
-            app:layout_constraintStart_toStartOf="@+id/progressBarPrinting"
-            app:layout_constraintTop_toTopOf="@+id/progressBarPrinting"
+            app:layout_constraintBottom_toTopOf="@+id/progressBarPrinting"
+            tools:layout_editor_absoluteX="700dp"
             tools:text="@{viewModel.status.locationOnAxel}" />
 
         <TextView
             android:id="@+id/madeOfStepTextView"
-            android:layout_width="50dp"
-            android:layout_height="30dp"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="23dp"
             android:textAlignment="center"
-            android:textColor="@android:color/black"
-            android:textSize="20dp"
+            android:textColor="#1334EC"
+            android:textSize="25dp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/progressBarPrinting"
-            app:layout_constraintEnd_toEndOf="@+id/progressBarPrinting"
-            app:layout_constraintStart_toStartOf="@+id/progressBarPrinting"
-            app:layout_constraintTop_toTopOf="@+id/progressBarPrinting"
+            app:layout_constraintBottom_toTopOf="@+id/progressBarPrinting"
+            tools:layout_editor_absoluteX="850dp"
             tools:text="@{viewModel.stepInTheWorks}" />
 
         <TextView
             android:id="@+id/printingprogress"
             android:layout_width="50dp"
-            android:layout_height="30dp"
+            android:layout_height="50dp"
             android:textAlignment="center"
-            android:textColor="@android:color/black"
-            android:textSize="20dp"
+            android:textColor="#CC1C1C"
+            android:textSize="30dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/progressBarPrinting"
             app:layout_constraintEnd_toEndOf="@+id/progressBarPrinting"
