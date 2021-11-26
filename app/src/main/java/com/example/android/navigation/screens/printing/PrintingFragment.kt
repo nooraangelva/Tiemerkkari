@@ -141,7 +141,7 @@ class PrintingFragment : Fragment() {
             Timber.v(it)
         })
 
-
+        //(activity as MainActivity).connect()
         setHasOptionsMenu(true)
         return binding.root
     }

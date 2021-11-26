@@ -1,64 +1,54 @@
 package com.example.android.navigation
 
-import android.Manifest
-import android.R.attr
 import android.app.Activity
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.provider.MediaStore
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
 import java.util.*
-import android.R.attr.data
 import android.bluetooth.*
-import android.bluetooth.le.ScanCallback
-import android.bluetooth.le.ScanFilter
-import android.bluetooth.le.ScanResult
-import android.bluetooth.le.ScanSettings
 import android.content.*
-import android.content.ContentValues.TAG
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.graphics.BitmapFactory
 import android.os.*
-import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.os.bundleOf
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
-import com.example.android.navigation.database.Instructions
 import com.example.android.navigation.databinding.ActivityMainBinding
-import com.example.android.navigation.screens.printing.PrintingFragment
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonArray
-import org.json.JSONArray
 import timber.log.Timber
 import java.io.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import android.content.Intent
+
+
+
 
 const val CONNECT = 1
 const val SEND = 2
 const val RECEIVE = 3
 
-var SERVICE_UUID = UUID.fromString("4fa4c201-1fb5-459e-8fcc-c5c9c331914b")
-var CHARACTERISTIC_UUID_SEND = UUID.fromString("4ec4893c-6c9e-478e-9ad2-7a964946bc86")
+val SERVICE_UUID = UUID.fromString("4fa4c201-1fb5-459e-8fcc-c5c9c331914b")!!
+val CHARACTERISTIC_UUID_SEND = UUID.fromString("4ec4893c-6c9e-478e-9ad2-7a964946bc86")!!
+val CHARACTERISTIC_UUID_RECEIVE = UUID.fromString("beb5483e-36e1-4688-b7f5-ea07361b26a8")!!
 
-var CHARACTERISTIC_UUID_RECEIVE = UUID.fromString("beb5483e-36e1-4688-b7f5-ea07361b26a8")
+const val REQUEST_CODE_PERMISSION = 100
+const val RESULT_LOAD_IMAGE = 200
+val REQUIRED_PERMISSIONS = arrayOf("android.permission.READ_EXTERNAL_STORAGE",
+    "android.permission.BLUETOOTH","android.permission.BLUETOOTH_SCAN","android.permission.BLUETOOTH_ADMIN",
+    "android.permission.BLUETOOTH_CONNECT","android.permission.ACCESS_COARSE_LOCATION",
+    "android.permission.ACCESS_FINE_LOCATION")
 
 class MainActivity : AppCompatActivity() {
 
@@ -68,13 +58,6 @@ class MainActivity : AppCompatActivity() {
     var mainThreadHandler : Handler? = null
     lateinit var runnable: ThreadHandler
 
-
-    val REQUEST_CODE_PERMISSION = 100
-    val RESULT_LOAD_IMAGE = 200
-    private val REQUIRED_PERMISSIONS = arrayOf("android.permission.READ_EXTERNAL_STORAGE",
-        "android.permission.BLUETOOTH","android.permission.BLUETOOTH_SCAN","android.permission.BLUETOOTH_ADMIN",
-        "android.permission.BLUETOOTH_CONNECT","android.permission.ACCESS_COARSE_LOCATION",
-        "android.permission.ACCESS_FINE_LOCATION")
 
     lateinit var bitmap : Bitmap
     private lateinit var imageName: String
@@ -88,14 +71,14 @@ class MainActivity : AppCompatActivity() {
     val receivedMessage: LiveData<String>
         get() = _receivedMessage
 
-    lateinit var sendMessage : Instructions
+    lateinit var sendMessage : String
 
     private lateinit var binding : ActivityMainBinding
 
-    val bluetoothAdapter : BluetoothAdapter by lazy{
+    private val bluetoothAdapter : BluetoothAdapter by lazy{
         (getSystemService(BLUETOOTH_SERVICE) as BluetoothManager).adapter
     }
-    val btRequestActivity = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+    private val btRequestActivity = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
             result ->
         if (result.resultCode == Activity.RESULT_OK){
             Toast.makeText(this, "Bluetooth is now enabled.", Toast.LENGTH_SHORT).show()
@@ -113,9 +96,9 @@ class MainActivity : AppCompatActivity() {
         sharedPreferences = getPreferences(MODE_PRIVATE)
 
         changeLanguage()
-        Timber.i("Langugae pref: " + sharedPreferences.getString("language", "en")!!)
-        changeTheme()
-        Timber.i("Langugae pref: " + sharedPreferences.getBoolean("SELECTED_THEME", false))
+        Timber.i("Language pref: " + sharedPreferences.getString("language", "en")!!)
+        setTheme()
+        Timber.i("Language pref: " + sharedPreferences.getBoolean("SELECTED_THEME", false))
 
         setContentView(R.layout.activity_main)
 
@@ -145,46 +128,51 @@ class MainActivity : AppCompatActivity() {
 
         mainThreadHandler = object : Handler(Looper.getMainLooper()){
             override fun handleMessage(msg: Message){
-                if(SEND == msg.what) {
-                    //super.handleMessage(msg)
-                    Timber.v(""+msg.obj)
-                    Toast.makeText(getApplicationContext(), ""+msg.obj, Toast.LENGTH_LONG).show()
-                }
-                else if(RECEIVE == msg.what) {
-                    Timber.v(""+msg.obj)
-                    _receivedMessage.value = msg.obj.toString() //as LiveData<JsonArray>
-                }
-                else if(CONNECT == msg.what) {
-                    Timber.v(""+msg.obj)
-                    var text = "Connected to device: "+msg.obj
-                    Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show()
+                when (msg.what) {
+                    SEND -> {
+                        //super.handleMessage(msg)
+                        Timber.v(""+msg.obj)
+                        Toast.makeText(applicationContext, ""+msg.obj, Toast.LENGTH_SHORT).show()
+                    }
+                    RECEIVE -> {
+                        Timber.v(""+msg.obj)
+                        _receivedMessage.value = msg.obj.toString() //as LiveData<JsonArray>
+                    }
+                    CONNECT -> {
+                        Timber.v(""+msg.obj)
+                        val text = "Connected to device: "+msg.obj
+                        Toast.makeText(applicationContext, text, Toast.LENGTH_SHORT).show()
 
+                    }
                 }
             }
         }
         runnable = ThreadHandler(mainThreadHandler,this,bluetoothAdapter)
-        var thread = Thread(runnable)
+        val thread = Thread(runnable)
         thread.start()
-
-
-        //runnable.workerThreadHandler!!.startBleScan(bluetoothAdapter)
-        var msg = Message()
-        msg.what = CONNECT
-
-        Timber.v("NULL  "+msg.what)
-        runnable.workerThreadHandler!!.sendMessage(msg)
+        connect()
+        thread.interrupt()
 
         pathInString = ""
-        //receivedMessage =
+        _receivedMessage.value = ""
 
 
     }
+fun connect() {
+    val msg = Message()
+    msg.what = CONNECT
+
+    Timber.v("NULL  " + msg.what)
+    runnable.workerThreadHandler!!.sendMessage(msg)
+}
 
 
-    fun openBtActivity(){
+    private fun openBtActivity(){
 
         val intent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
         btRequestActivity.launch(intent)
+
+
 
     }
 
@@ -192,22 +180,13 @@ class MainActivity : AppCompatActivity() {
     //fun write(data : JSONArray){
     fun write(data : String){
 
-        var msg = Message()
+        val msg = Message()
         msg.what = SEND
         msg.obj = data
         runnable.workerThreadHandler!!.sendMessage(msg)
 
 
     }
-
-
-
-
-
-
-
-
-
 
 
     override fun onSupportNavigateUp(): Boolean {
@@ -221,10 +200,10 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    fun changeLanguage() {
-        val currentLanguage = sharedPreferences.getString("SELECTED_LANGUAGE", "fi")
+    private fun changeLanguage() {
+        val currentLanguage = sharedPreferences.getString("SELECTED_LANGUAGE", Locale.getDefault().displayLanguage)
 
-        Timber.i("setApplocale()" + sharedPreferences.getString("SELECTED_LANGUAGE", "fi"))
+        Timber.i("setApplocale()" + sharedPreferences.getString("SELECTED_LANGUAGE", Locale.getDefault().displayLanguage))
 
         val locale = Locale(currentLanguage!!)
 
@@ -246,7 +225,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun allPermissionsGranted() : Boolean{
+    private fun allPermissionsGranted() : Boolean{
         //Tsekkaa onko kaikki permissionit annettu
         for (permission in REQUIRED_PERMISSIONS){
             if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED){
@@ -295,7 +274,7 @@ class MainActivity : AppCompatActivity() {
 
             // Initializing a new file
             // The bellow line return a directory in internal storage
-            var file = wrapper.getDir("sign_images", MODE_PRIVATE)
+            val file = wrapper.getDir("sign_images", MODE_PRIVATE)
 
             Timber.i("Langugae pref:"+file)
 
@@ -303,7 +282,7 @@ class MainActivity : AppCompatActivity() {
 
                 val mypath = File(file, "${imageName}.jpg")
                 pathInString = mypath.path
-                val fos = FileOutputStream(mypath);
+                val fos = FileOutputStream(mypath)
                 //val fos = openFileOutput(mypath, MODE_PRIVATE)
                 Timber.i("Langugae pref:"+fos)
 
@@ -320,17 +299,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun changeTheme() {
+    private fun setTheme() {
 
-        Timber.i("checkTheme()" + sharedPreferences.getBoolean("SELECTED_THEME", false))
-
-        val darkMode = sharedPreferences.getBoolean("SELECTED_THEME", false)
-        if (!darkMode) {
+        val darkMode = sharedPreferences.getBoolean("SELECTED_THEME", (resources.configuration.uiMode and
+                Configuration.UI_MODE_NIGHT_MASK == UI_MODE_NIGHT_YES))
+        if (darkMode) {
             setTheme(R.style.DarkTheme)
         } else {
             setTheme(R.style.LightTheme)
         }
     }
+
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
 
@@ -338,7 +318,7 @@ class MainActivity : AppCompatActivity() {
         R.id.languageOptionMenu -> {
 
 
-            when (sharedPreferences.getString("SELECTED_LANGUAGE", "en")) {
+            when (sharedPreferences.getString("SELECTED_LANGUAGE", Locale.getDefault().displayLanguage)) {
                 "fi" -> {
 
                     Timber.i("languageOptionMenu pressed to en")
@@ -353,7 +333,12 @@ class MainActivity : AppCompatActivity() {
                             "fi"
                         )
                     )
-                    this.recreate()
+                    //this.recreate()
+                    val i = Intent(this@MainActivity, MainActivity::class.java)
+                    finish()
+                    overridePendingTransition(0, 0)
+                    startActivity(i)
+                    overridePendingTransition(0, 0)
 
                 }
                 "en" -> {
@@ -370,7 +355,12 @@ class MainActivity : AppCompatActivity() {
                             "fi"
                         )
                     )
-                    this.recreate()
+                    //this.recreate()
+                    val i = Intent(this@MainActivity, MainActivity::class.java)
+                    finish()
+                    overridePendingTransition(0, 0)
+                    startActivity(i)
+                    overridePendingTransition(0, 0)
 
                 }
                 else -> {
@@ -396,40 +386,20 @@ class MainActivity : AppCompatActivity() {
 
         R.id.dayNightOptionMenu -> {
 
-            when (sharedPreferences.getBoolean("SELECTED_THEME", false)) {
+            when (sharedPreferences.getBoolean("SELECTED_THEME", (resources.configuration.uiMode and
+                    Configuration.UI_MODE_NIGHT_MASK == UI_MODE_NIGHT_YES))) {
                 true -> {
-
-                    Timber.i("dayNightOptionMenu pressed to day")
-                    Timber.i(
-                        "checkTheme() now " + sharedPreferences.getBoolean(
-                            "SELECTED_THEME",
-                            false
-                        )
-                    )
 
                     // set preference
                     with(sharedPreferences.edit()) {
                         putBoolean("SELECTED_THEME", false)
                         apply()
                     }
-                    Timber.i(
-                        "checkTheme() now " + sharedPreferences.getBoolean(
-                            "SELECTED_THEME",
-                            false
-                        )
-                    )
+
                     this.recreate()
 
                 }
                 false -> {
-
-                    Timber.i("dayNightOptionMenu pressed to night")
-                    Timber.i(
-                        "checkTheme() now " + sharedPreferences.getBoolean(
-                            "SELECTED_THEME",
-                            false
-                        )
-                    )
 
                     // set preference
                     with(sharedPreferences.edit()) {

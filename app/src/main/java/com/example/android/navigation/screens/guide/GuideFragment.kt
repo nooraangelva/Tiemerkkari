@@ -20,13 +20,20 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.android.navigation.MainActivity
 import com.example.android.navigation.R
+import com.example.android.navigation.databinding.FragmentPrintingBinding
 
 class GuideFragment : Fragment() {
+    private lateinit var binding: FragmentPrintingBinding
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+
+        // Inflate the layout for this fragment
+        binding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_guide, container, false)
 
         setHasOptionsMenu(true)
 

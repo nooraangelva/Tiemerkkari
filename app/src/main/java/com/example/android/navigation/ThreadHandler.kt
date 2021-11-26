@@ -49,19 +49,21 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
                         bluetoothGatt?.setCharacteristicNotification(characteristic,true)
 
 
-                        var msgReply = Message()
+                        val msgReply = Message()
                         msgReply.what = SEND
-                        msgReply.obj = "printing started"
+                        msgReply.obj = "Printing started"
                         mainThreadHandler!!.sendMessage(msgReply)
+
                     }
                     else if (CONNECT == msg.what) {
+
                         Timber.tag("ThreadHandler").v("ISPRIME")
 
                         //var filter = ScanFilter.Builder().setDeviceName("TONIBLE").build()
                         //var filters: MutableList<ScanFilter> = mutableListOf(filter)
                         //var setting = ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).build()
                         //bluetoothAdapter?.bluetoothLeScanner?.startScan(filters, setting, bleScanCallback)
-                        bluetoothAdapter?.bluetoothLeScanner?.startScan( bleScanCallback)
+                        bluetoothAdapter.bluetoothLeScanner?.startScan( bleScanCallback)
 
                     }
 
@@ -71,20 +73,18 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
             }
             Looper.loop()
 
-            Timber.v("class SimpleRunnable current " + Thread.currentThread())
-            var msg = Message()
-            mainThreadHandler!!.sendMessage(msg)
-
     }
 
     fun connectToDevice(bluetoothDevice: BluetoothDevice) {
 
         bluetoothGatt = bluetoothDevice.connectGatt( thisContext, false, bleGattCallback)
-        var msgReply = Message()
+
+        val msgReply = Message()
         msgReply.what = CONNECT
-        msgReply.obj = "yhdisty"
+        msgReply.obj = bluetoothDevice.name
         mainThreadHandler!!.sendMessage(msgReply)
-        bluetoothAdapter?.bluetoothLeScanner?.stopScan(bleScanCallback)
+
+        bluetoothAdapter.bluetoothLeScanner?.stopScan(bleScanCallback)
 
     }
 
@@ -94,16 +94,11 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
             override fun onScanResult(callbackType: Int, result: ScanResult) {
                 super.onScanResult(callbackType, result)
                 bluetoothDevice = result.device
-                //connectToDevice(bluetoothDevice)
 
-                Timber.tag("Buttons").v("laite: %s", bluetoothDevice.name)
-                //if (bluetoothDevice != null &) {
+                //Timber.tag("Buttons").v("laite: %s", bluetoothDevice.name)
+
                 if(!bluetoothDevice.name.isNullOrEmpty()) {
-                    if (bluetoothDevice != null && bluetoothDevice?.name.contains(
-                            "TONIESP",
-                            true
-                        )
-                    ) {
+                    if (bluetoothDevice.name.contains("TONIESP", true)) {
                         connectToDevice(bluetoothDevice)
                     }
                 }
@@ -124,10 +119,11 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
                     bluetoothGatt?.discoverServices()
                 }
                 else{
-                    var filter = ScanFilter.Builder().setDeviceName("TONIBLE").build()
-                    var filters: MutableList<ScanFilter> = mutableListOf(filter)
-                    var setting = ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).build()
-                    bluetoothAdapter?.bluetoothLeScanner?.startScan(filters, setting, bleScanCallback)
+                    //var filter = ScanFilter.Builder().setDeviceName("TONIBLE").build()
+                    //var filters: MutableList<ScanFilter> = mutableListOf(filter)
+                    //var setting = ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).build()
+                    //bluetoothAdapter?.bluetoothLeScanner?.startScan(filters, setting, bleScanCallback)
+                    bluetoothAdapter.bluetoothLeScanner?.startScan( bleScanCallback)
                 }
 
             }
@@ -148,10 +144,10 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
             ) {
                 super.onCharacteristicChanged(gatt, characteristic)
 
-                var msgReply = Message()
+                val msgReply = Message()
                 msgReply.what = RECEIVE
 
-                Timber.v("laite: " + characteristic?.getStringValue(0))
+                //Timber.v("laite: " + characteristic?.getStringValue(0))
 
                 if (characteristic != null) {
 
