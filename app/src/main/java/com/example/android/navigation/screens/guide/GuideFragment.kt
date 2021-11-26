@@ -21,15 +21,17 @@ import android.view.*
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.android.navigation.MainActivity
 import com.example.android.navigation.R
+import com.example.android.navigation.databinding.FragmentGuideBinding
+
 import com.example.android.navigation.databinding.FragmentPrintingBinding
 
-
 class GuideFragment : Fragment() {
-    private lateinit var binding: FragmentPrintingBinding
+    private lateinit var binding: ViewDataBinding
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
@@ -44,6 +46,7 @@ class GuideFragment : Fragment() {
         // Inflate the layout for this fragment
 
 
+        // ADDS SIDE MENU
 
         return binding.root
     }

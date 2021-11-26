@@ -76,6 +76,10 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
     val stepInTheWorks: LiveData<String>
         get() = _stepInTheWorks
 
+    private val _getData = MutableLiveData<Boolean>()
+    val getData: LiveData<Boolean>
+        get() = _getData
+
     init {
         Timber.i("PrintingViewModel created.")
 
@@ -84,6 +88,7 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
         _isPrinting.value = false
         _stepInTheWorks.value = ""
         _progress.value = 0
+        _getData.value = false
 
 
     }
@@ -96,9 +101,9 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
         //_progress.value = temp[0]
         //_stepInProgress.value = temp[1]+"moved: (x, y) "+temp[3]
         //_progress.value = temp.toInt()
-        _progress.value = 50
+        _progress.value = temp.toInt()
         _progressProsent.value = temp+"%"
-
+        _stepInTheWorks.value = temp
 
     }
 
@@ -114,10 +119,11 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
             _signSource.value = _sign.value?.sourcePicture
 
             val imgFile = File(_signSource.value!!)
-            if (imgFile.exists()) {
-                _bitmap = MutableLiveData(BitmapFactory.decodeFile(imgFile.absolutePath))
-            }
 
+            if (imgFile.exists()) {
+                _bitmap.value = BitmapFactory.decodeFile(imgFile.absolutePath)
+            }
+            _getData.value = true
         }
     }
 
@@ -147,14 +153,11 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
 
 
     fun startPrinting(){
-    //TODO send info and steps from the list
         _isPrinting.value = true
-
     }
 
     fun energencyStop(){
 
-        //TODO send stop command
         _isPrinting.value = false
 
     }

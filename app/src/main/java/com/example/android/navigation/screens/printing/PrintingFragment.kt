@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -69,11 +70,7 @@ class PrintingFragment : Fragment() {
         })
 
 
-        viewModel.sign.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                adapter.addHeaderAndSubmitList(it)
-            }
-        })*/
+  */
 
         viewModel.isPrinting.observe(viewLifecycleOwner, Observer {
             binding.printingButton.isVisible = !it
@@ -82,8 +79,9 @@ class PrintingFragment : Fragment() {
 
         //TODO laita kuva
         //ViewModel adding image to imageview
-        viewModel.bitmap.observe(viewLifecycleOwner, Observer {
-            binding.printingImageView.setImageBitmap(it)
+        viewModel.getData.observe(viewLifecycleOwner, Observer {
+            //binding.printingImageView.setImageBitmap(viewModel.bitmap.value)
+            binding.printingImageView.setImageURI(viewModel.signSource.value?.toUri())
 
         })
 
