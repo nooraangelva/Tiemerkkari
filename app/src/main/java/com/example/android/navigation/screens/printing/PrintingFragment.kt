@@ -104,20 +104,20 @@ class PrintingFragment : Fragment() {
 
         binding.printingStopButton.setOnClickListener {
             Log.v("ThreadHandler", "check prime number pressed")
-
+            viewModel.energencyStop()
             //(activity as MainActivity).write(JSONArray("stop"))
         }
 
         binding.printingButton.setOnClickListener {
             Log.v("ThreadHandler", "check prime number pressed")
-/*
+            viewModel.startPrinting()
             viewModel.steps.value?.forEachIndexed { index, step ->
 
-                var array = JSONArray(step)
-                Timber.i("Import O: " + step.order)
+                var array = """{"${step.order}","${step.parY}","${step.paint}","${step.parX}","${step.step}""""
+                Timber.i("Import O: " + array)
                 (activity as MainActivity).write(array)
-            }*/
-            (activity as MainActivity).write("Testi lahetys")
+            }
+            //(activity as MainActivity).write("Testi lahetys")
             binding.progressBarPrinting.isVisible = true
             binding.printingprogress.isVisible = true
 
