@@ -38,17 +38,7 @@ class ImportFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
-        when ((activity as MainActivity).sharedPreferences.getString("SELECTED_LANGUAGE", "en")) {
-            "fi" -> {
-                (activity as AppCompatActivity).supportActionBar?.title = "Luo merkki"
-            }
-            "en" -> {
-                (activity as AppCompatActivity).supportActionBar?.title = "Import"
-            }
-            else -> {
-                (activity as AppCompatActivity).supportActionBar?.title = "Import"
-            }
-        }
+        (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.titleImport)
 
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(

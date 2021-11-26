@@ -22,8 +22,10 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.example.android.navigation.MainActivity
 import com.example.android.navigation.R
+
 import com.example.android.navigation.databinding.FragmentPrintingBinding
 
 class GuideFragment : Fragment() {
@@ -37,26 +39,20 @@ class GuideFragment : Fragment() {
 
         setHasOptionsMenu(true)
 
-
-        when ((activity as MainActivity).sharedPreferences.getString("SELECTED_LANGUAGE", "en")) {
-            "fi" -> {
-                (activity as AppCompatActivity).supportActionBar?.title = "Ohjeet"
-            }
-            "en" -> {
-                (activity as AppCompatActivity).supportActionBar?.title = "Guide"
-            }
-            else -> {
-                (activity as AppCompatActivity).supportActionBar?.title = "Guide"
-            }
-        }
+        (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.titleGuide)
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_guide, container, false)
+
 
         // ADDS SIDE MENU
+        binding.startButton.setOnClickListener { view: View ->
+            binding.
 
-
+        }
+        return binding.root
     }
+
+
 
     // MENU FUNCTIONS
 

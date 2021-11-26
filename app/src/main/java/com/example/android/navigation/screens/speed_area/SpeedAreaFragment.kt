@@ -28,17 +28,8 @@ class SpeedAreaFragment : Fragment() {
             inflater, R.layout.fragment_speed_area, container, false
         )
 
-        when ((activity as MainActivity).sharedPreferences.getString("SELECTED_LANGUAGE", "en")) {
-            "fi" -> {
-                (activity as AppCompatActivity).supportActionBar?.title = "Nopeusalue"
-            }
-            "en" -> {
-                (activity as AppCompatActivity).supportActionBar?.title = "Speed area"
-            }
-            else -> {
-                (activity as AppCompatActivity).supportActionBar?.title = "Speed area"
-            }
-        }
+        (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.titleSpeedArea)
+
         // Sets the onClickListener for buttons
 
         binding.cityButton.setOnClickListener { view: View ->

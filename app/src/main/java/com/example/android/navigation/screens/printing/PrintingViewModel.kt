@@ -99,6 +99,7 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
         _progress.value = 50
         _progressProsent.value = temp+"%"
 
+
     }
 
 

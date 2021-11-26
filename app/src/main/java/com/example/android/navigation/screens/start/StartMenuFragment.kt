@@ -22,17 +22,7 @@ class StartMenuFragment : Fragment() {
 
         // Sets the onClickListener for buttons
 
-        when ((activity as MainActivity).sharedPreferences.getString("SELECTED_LANGUAGE", "en")) {
-            "fi" -> {
-                (activity as AppCompatActivity).supportActionBar?.title = "Aloita"
-            }
-            "en" -> {
-                (activity as AppCompatActivity).supportActionBar?.title = "Start"
-            }
-            else -> {
-                (activity as AppCompatActivity).supportActionBar?.title = "Start"
-            }
-        }
+        (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.titleStart)
 
         binding.startButton.setOnClickListener { view: View ->
 

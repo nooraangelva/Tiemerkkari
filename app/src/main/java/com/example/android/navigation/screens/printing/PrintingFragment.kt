@@ -38,18 +38,8 @@ class PrintingFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
+        (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.titlePrinting)
 
-        when ((activity as MainActivity).sharedPreferences.getString("SELECTED_LANGUAGE", "en")) {
-            "fi" -> {
-                (activity as AppCompatActivity).supportActionBar?.title = "Tulostus"
-            }
-            "en" -> {
-                (activity as AppCompatActivity).supportActionBar?.title = "Printing"
-            }
-            else -> {
-                (activity as AppCompatActivity).supportActionBar?.title = "Printing"
-            }
-        }
 
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(
