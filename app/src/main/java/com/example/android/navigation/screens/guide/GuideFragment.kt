@@ -27,6 +27,9 @@ import androidx.navigation.findNavController
 import com.example.android.navigation.MainActivity
 import com.example.android.navigation.R
 import com.example.android.navigation.databinding.FragmentGuideBinding
+import com.example.android.navigation.databinding.FragmentPrintingBinding
+import com.example.android.navigation.screens.start.StartMenuFragmentDirections
+import timber.log.Timber
 
 import com.example.android.navigation.databinding.FragmentPrintingBinding
 
@@ -35,9 +38,6 @@ class GuideFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_guide, container, false)
 
         setHasOptionsMenu(true)
 
@@ -47,6 +47,8 @@ class GuideFragment : Fragment() {
 
 
         // ADDS SIDE MENU
+
+
 
         return binding.root
     }
