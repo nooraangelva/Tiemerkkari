@@ -26,12 +26,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.android.navigation.MainActivity
 import com.example.android.navigation.R
-import com.example.android.navigation.databinding.FragmentGuideBinding
-import com.example.android.navigation.databinding.FragmentPrintingBinding
-import com.example.android.navigation.screens.start.StartMenuFragmentDirections
-import timber.log.Timber
 
-import com.example.android.navigation.databinding.FragmentPrintingBinding
 
 class GuideFragment : Fragment() {
     private lateinit var binding: ViewDataBinding
