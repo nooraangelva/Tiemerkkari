@@ -20,8 +20,6 @@
         <item name="toolbarStyle">@style/CustomToolBarStyleDark</item>
 
 
-
-
         <!--<item name="materialButtonStyle">@style/Buttons</item>-->
 
         <!--<item name="materialButtonOutlinedStyle">@drawable/round_button</item>
@@ -48,12 +46,14 @@
 
 
 
+
+
         <item name="checkboxStyle">@style/checkBoxDark</item>
 
         <item name="materialButtonStyle">@style/ButtonsLight</item>
         <item name="colorButtonNormal">#EC1A1A</item>
         <item name="toolbarStyle">@style/CustomToolBarStyleLight</item>
-        <item name="android:windowLightStatusBar">false</item>
+        <!--<item name="android:windowLightStatusBar">false</item>-->
 
 
         <item name="text_color">@color/textColorLight</item>
@@ -73,7 +73,7 @@
         <item name="android:textAlignment">center</item>
         <item name="android:textSize">@dimen/button_text_size</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:fontFamily">@font/montserrat</item>
         <item name="android:layout_width">@dimen/button_layout_width</item>
         <item name="android:layout_height">@dimen/button_layout_height</item>
         <item name="android:paddingStart">@dimen/button_padding</item>
@@ -96,7 +96,7 @@
         <item name="android:textAlignment">center</item>
         <item name="android:textSize">@dimen/button_text_size</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:fontFamily">@font/montserrat</item>
         <item name="android:layout_width">@dimen/button_layout_width</item>
         <item name="android:layout_height">@dimen/button_layout_height</item>
         <item name="android:paddingStart">@dimen/button_padding</item>
@@ -115,7 +115,7 @@
         <item name="titleTextColor">#F8E326</item>
         <item name="android:textSize">@dimen/button_text_size</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:fontFamily">@font/montserrat</item>
     </style>
 
     <style name="CustomToolBarStyleLight" parent="@style/Widget.AppCompat.Toolbar">
@@ -128,7 +128,7 @@
         <item name="android:textSize">30sp</item>
         <item name="android:textColor">#7A7A7A</item>
         <item name="android:textAlignment">center</item>
-        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:fontFamily">@font/montserrat</item>
         <item name="android:textStyle">bold</item>
 
     </style>
@@ -137,7 +137,7 @@
     <!-- INPUT TEXT BOX-->
     <style name="inputBoxDark" parent="@style/Widget.Design.TextInputLayout">
         <item name="android:background">@drawable/boarder_dark</item>
-        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:fontFamily">@font/montserrat</item>
         <item name="android:textColor">#070707</item>
         <item name="android:textSize">25sp</item>
         <item name="android:paddingLeft">20dp</item>
@@ -147,7 +147,7 @@
     </style>
     <style name="inputBoxLight" parent="@style/Widget.Design.TextInputLayout">
         <item name="android:background">@drawable/boarder_light</item>
-        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:fontFamily">@font/montserrat</item>
         <item name="android:textColor">#717171</item>
         <item name="android:textSize">25sp</item>
         <item name="android:paddingLeft">20dp</item>
@@ -164,7 +164,7 @@
 
     <!--LISTNUMBER-->
     <style name="listNumberDark" parent="@style/Widget.AppCompat.TextView">
-        <item name="android:textColor">#AEADAD</item>
+        <item name="android:textColor">#7A7A7A</item>
         <item name="android:textSize">30dp</item>
         <item name="android:textStyle">bold</item>
     </style>
@@ -178,13 +178,13 @@
     <style name="radioButtonDark" parent="@style/Widget.AppCompat.CompoundButton.RadioButton">
         <item name="android:textColor">#AEADAD</item>
         <item name="android:textSize">25dp</item>
-        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:fontFamily">@font/montserrat</item>
         <item name="android:paddingLeft">10dp</item>
     </style>
     <style name="radioButtonLight" parent="@style/Widget.AppCompat.CompoundButton.RadioButton">
         <item name="android:textColor">#302F2F</item>
         <item name="android:textSize">25dp</item>
-        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:fontFamily">@font/montserrat</item>
         <item name="android:paddingLeft">10dp</item>
     </style>
 

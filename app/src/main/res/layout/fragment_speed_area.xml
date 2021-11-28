@@ -28,7 +28,7 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/logo_dark" />
+                app:srcCompat="@drawable/bg_logo" />
 
             <TextView
                 android:id="@+id/questionText"
@@ -38,7 +38,7 @@
                 android:layout_marginStart="@dimen/question_horizontal_margin"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="@dimen/question_horizontal_margin"
-                android:fontFamily="sans-serif"
+                android:fontFamily="@font/montserrat"
                 android:text="@string/speed_area"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

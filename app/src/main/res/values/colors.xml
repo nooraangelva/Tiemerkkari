@@ -21,8 +21,8 @@
 
                 <!-- LIGHT MODE-->
     <!--navigations-->
-    <color name="colorPrimaryLight">#6F040303</color>
-    <color name="colorPrimaryL">#1D040404</color>
+    <color name="colorPrimaryLight">#6F403030</color>
+    <color name="colorPrimaryL">#1DFFFFFF</color>
     <color name="navigationColorPrimaryL">#6F040303</color>
     <!--texts-->
     <color name="buttonTextColorLight">#393A3A</color>
