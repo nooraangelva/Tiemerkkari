@@ -22,7 +22,7 @@
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="40dp"
             android:layout_marginBottom="560dp"
             android:ems="10"
             android:focusable="true"
