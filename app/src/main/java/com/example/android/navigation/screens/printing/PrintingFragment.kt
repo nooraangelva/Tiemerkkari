@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
@@ -105,7 +106,9 @@ class PrintingFragment : Fragment() {
         binding.printingStopButton.setOnClickListener {
             Log.v("ThreadHandler", "check prime number pressed")
             viewModel.energencyStop()
-            //(activity as MainActivity).write(JSONArray("stop"))
+            var array = """{"Commands":"STOP"}"""
+
+            (activity as MainActivity).write(array)
         }
 
         binding.printingButton.setOnClickListener {
@@ -113,13 +116,14 @@ class PrintingFragment : Fragment() {
             viewModel.startPrinting()
             viewModel.steps.value?.forEachIndexed { index, step ->
 
-                var array = """{"${step.order}","${step.parY}","${step.paint}","${step.parX}","${step.step}""""
+                var array = """{"Commands":"${step.order}","Y":"${step.parY}","X":"${step.parX}","Paint":"${step.paint}","Step":"${step.step}""""
                 Timber.i("Import O: " + array)
                 (activity as MainActivity).write(array)
             }
             //(activity as MainActivity).write("Testi lahetys")
             binding.progressBarPrinting.isVisible = true
             binding.printingprogress.isVisible = true
+
 
         }
 

@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="vertical"
-            android:checkedButton="@={step.order}"
+
             android:paddingLeft="120dp">
 
             <RadioButton
@@ -88,42 +88,14 @@
             app:layout_constraintStart_toStartOf="@+id/radioGroupOrder"
             app:layout_constraintTop_toBottomOf="@+id/xMovementInput" />
 
-        <!--android:text="@={steps.parX}"
 
-        <CheckedTextView
-            android:id="@+id/xDirectionChecked"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="@={step.directionX}"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
-            android:text="suunta on eteenpäin"
-            app:layout_constraintStart_toEndOf="@+id/xMovementInput"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        android:checked="@={steps.directionX}"
-        android:text="@={steps.parY}"
-        android:checked="@={steps.directionY}"
-        android:checked="@={steps.directionX}"
-        android:text="@={steps.step}"
-
-        <CheckedTextView
-            android:id="@+id/yDirectionChecked"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:checked="@={step.directionY}"
-            android:layout_marginTop="65dp"
-            android:text="suunta on eteenpäin"
-            app:layout_constraintStart_toEndOf="@+id/yMovementInput"
-            app:layout_constraintTop_toBottomOf="@+id/xDirectionChecked" />-->
 
         <RadioGroup
             android:id="@+id/radioGroupPaint"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="vertical"
-            android:checkedButton="@={step.paint}"
+
             android:paddingLeft="900dp">
 
             <RadioButton

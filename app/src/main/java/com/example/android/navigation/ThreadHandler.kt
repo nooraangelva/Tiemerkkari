@@ -151,11 +151,11 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
 
                 if (characteristic != null) {
 
-                    //msgReply.obj = Json.decodeFromString<Receive>(characteristic.getStringValue(0))
-                        msgReply.obj = characteristic.getStringValue(0)
+
+                    msgReply.obj = characteristic.getStringValue(0)
                     mainThreadHandler!!.sendMessage(msgReply)
 
-                    //Json.parseToJsonElement (characteristic.getStringValue(0))
+
                 }
             }
 

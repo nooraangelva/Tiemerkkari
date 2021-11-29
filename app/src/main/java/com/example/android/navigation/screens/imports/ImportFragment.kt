@@ -24,14 +24,14 @@ import com.example.android.navigation.databinding.FragmentImportBinding
 import com.example.android.navigation.screens.speed_area.SpeedAreaFragmentDirections
 import timber.log.Timber
 
-class ImportFragment : Fragment() {
+class ImportFragment : Fragment(), StepAdapter.Interaction, StepAdapter.InteractionPaint{
 
     private lateinit var viewModel: ImportViewModel
     private lateinit var viewModelFactory: ImportViewModelFactory
     private lateinit var navController: NavController
     private lateinit var binding: FragmentImportBinding
 
-    private val stepList : ArrayList<Step> = ArrayList()
+    val stepList : ArrayList<Step> = ArrayList()
     private lateinit var stepAdapter : StepAdapter
 
 
@@ -118,6 +118,7 @@ class ImportFragment : Fragment() {
                 viewModel.createSign()
                 stepList.add(Step())
                 stepAdapter.notifyItemInserted(stepList.size)
+                Toast.makeText(context,"Sign saved.",Toast.LENGTH_SHORT)
             }
             else{
                 Toast.makeText(context, "Get Picture first", Toast.LENGTH_LONG).show()
@@ -126,6 +127,7 @@ class ImportFragment : Fragment() {
 
         binding.cancelButtonImport.setOnClickListener{
             viewModel.delete()
+            Toast.makeText(context,"Created sign and steps deleted",Toast.LENGTH_SHORT)
         }
 
         binding.newStepButton.setOnClickListener{
@@ -138,6 +140,7 @@ class ImportFragment : Fragment() {
                 Timber.i("Import O: " + step.order)
                 viewModel.saveSteps(step, index)
             }
+            Toast.makeText(context,"Steps saved",Toast.LENGTH_SHORT)
         }
 
         viewModel.error.observe(viewLifecycleOwner, Observer { error ->
@@ -164,6 +167,21 @@ class ImportFragment : Fragment() {
             layoutManager = LinearLayoutManager(activity)
             adapter = stepAdapter
         }
+    }
+
+    //RecyclerView onclick action
+    override fun onItemSelected(position: Int, selection: Int) {
+        //update answer in list
+        if(selection <5){
+            stepList[position].order= selection
+        }
+        else{
+            stepList[position].paint = selection
+        }
+
+
+        //update list in the adapter
+        stepAdapter.notifyItemChanged(position)
     }
 
     // MENU FUNCTIONS

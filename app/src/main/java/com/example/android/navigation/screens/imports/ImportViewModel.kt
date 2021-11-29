@@ -109,7 +109,7 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
         else{
 
             uiScope.launch {
-                createSignToDatabase(temp)
+                //createSignToDatabase(temp)
                 _signId.value = getSignIdFromDatabase(temp.signName)
                 Timber.i("Import signId: " + _signId.value)
                 _signCreated.value = true
@@ -190,7 +190,7 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
                 _error.value = "Set value to Y"
             }
             else{
-                createStepToDatabase(temp)
+                //createStepToDatabase(temp)
             }
 
         }
@@ -199,10 +199,10 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
 
     private fun whichOrder(tmp : Int): String{
         when (tmp) {
-            2131362179 -> return "Vertical"
-            2131362177 -> return "Horizontal"
-            2131362175 -> return "Arc"
-            2131362176 -> return "Diagonal"
+            1 -> return "Vertical"
+            2 -> return "Horizontal"
+            3 -> return "Arc"
+            4 -> return "Diagonal"
             else -> {
                 return ""
             }
@@ -211,10 +211,10 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
 
     private fun whichPaint(tmp : Int): Int{
         when (tmp) {
-            2131362178 -> return 0
-            2131362174 -> return 1
-            2131362172 -> return 2
-            2131362173 -> return 3
+            5 -> return 0
+            6 -> return 1
+            7 -> return 2
+            8 -> return 3
             else -> {
                 return 0
             }
