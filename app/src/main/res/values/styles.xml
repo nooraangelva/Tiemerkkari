@@ -46,7 +46,7 @@
         <item name="colorControlNormal">#2E2E2E</item>
         <item name="editTextStyle">@style/inputBoxLight</item>
         <item name="cardViewStyle">@style/CardViewLight</item>
-
+       <!-- <item name="">@style/textStyleDark</item>-->
 
 
 
@@ -56,8 +56,7 @@
         <item name="materialButtonStyle">@style/ButtonsLight</item>
         <item name="colorButtonNormal">#EC1A1A</item>
         <item name="toolbarStyle">@style/CustomToolBarStyleLight</item>
-        <!--<item name="android:windowLightStatusBar">false</item>-->
-
+        <item name="android:windowLightStatusBar">false</item>
 
         <item name="text_color">@color/textColorLight</item>
 
@@ -137,13 +136,19 @@
 
 
     <!--OTSIKOT-->
-    <style name="textStyle" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="textStyleDark" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">30sp</item>
-        <item name="android:textColor">#7A7A7A</item>
+        <item name="android:textColor">#F30F0F</item>
         <item name="android:textAlignment">center</item>
         <item name="android:fontFamily">@font/montserrat</item>
         <item name="android:textStyle">bold</item>
-
+    </style>
+    <style name="textStyleLight" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">30sp</item>
+        <item name="android:textColor">#EFCD10</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
 
@@ -151,7 +156,7 @@
     <style name="inputBoxDark" parent="@style/Widget.Design.TextInputLayout">
         <item name="android:background">@drawable/boarder_dark</item>
         <item name="android:fontFamily">@font/montserrat</item>
-        <item name="android:textColor">#070707</item>
+        <item name="android:textColor">#717171</item>
         <item name="android:textSize">25sp</item>
         <item name="android:paddingLeft">20dp</item>
         <item name="android:paddingTop">10dp</item>
@@ -161,7 +166,7 @@
     <style name="inputBoxLight" parent="@style/Widget.Design.TextInputLayout">
         <item name="android:background">@drawable/boarder_light</item>
         <item name="android:fontFamily">@font/montserrat</item>
-        <item name="android:textColor">#717171</item>
+        <item name="android:textColor">#2E2E2E</item>
         <item name="android:textSize">25sp</item>
         <item name="android:paddingLeft">20dp</item>
         <item name="android:paddingTop">10dp</item>
