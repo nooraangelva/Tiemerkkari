@@ -15,7 +15,7 @@
 
         <TextView
             android:id="@+id/rulesText"
-            style="@style/textStyle"
+
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/question_horizontal_margin"
@@ -29,7 +29,7 @@
 
         <TextView
             android:id="@+id/guideText2"
-            style="@style/textStyle"
+
             android:layout_width="900dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="168dp"
@@ -41,7 +41,7 @@
 
         <TextView
             android:id="@+id/guideText1"
-            style="@style/textStyle"
+
             android:layout_width="900dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="88dp"

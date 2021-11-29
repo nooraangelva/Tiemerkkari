@@ -24,7 +24,7 @@ import com.example.android.navigation.databinding.FragmentImportBinding
 import com.example.android.navigation.screens.speed_area.SpeedAreaFragmentDirections
 import timber.log.Timber
 
-class ImportFragment : Fragment(), StepAdapter.Interaction, StepAdapter.InteractionPaint{
+class ImportFragment : Fragment(){
 
     private lateinit var viewModel: ImportViewModel
     private lateinit var viewModelFactory: ImportViewModelFactory
@@ -162,26 +162,20 @@ class ImportFragment : Fragment(), StepAdapter.Interaction, StepAdapter.Interact
 
 
     private fun setAdapter(){
-        stepAdapter = StepAdapter(stepList)
+        stepAdapter = StepAdapter(stepList, RadioButtonListener { choice,order ->
+            //Toast.makeText(context,choice.toString(),Toast.LENGTH_SHORT)
+            if(choice >4){
+                stepList[order-1].paint = choice
+            }
+            else{
+                stepList[order-1].order = choice
+            }
+
+        })
         binding.importRecycleView.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = stepAdapter
         }
-    }
-
-    //RecyclerView onclick action
-    override fun onItemSelected(position: Int, selection: Int) {
-        //update answer in list
-        if(selection <5){
-            stepList[position].order= selection
-        }
-        else{
-            stepList[position].paint = selection
-        }
-
-
-        //update list in the adapter
-        stepAdapter.notifyItemChanged(position)
     }
 
     // MENU FUNCTIONS
