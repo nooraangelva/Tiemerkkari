@@ -98,7 +98,7 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
                 //Timber.tag("Buttons").v("laite: %s", bluetoothDevice.name)
 
                 if(!bluetoothDevice.name.isNullOrEmpty()) {
-                    if (bluetoothDevice.name.contains("TONIESP", true)) {
+                    if (bluetoothDevice.name.contains("Tiemerkkari", true)) {
                         connectToDevice(bluetoothDevice)
                     }
                 }

@@ -79,8 +79,8 @@ class SignOptionsViewModel(area : Boolean, type : Int, val database: SignDatabas
     private suspend fun getSignsFromDatabase():  List<Signs> {
         return withContext(Dispatchers.IO) {
             //TODO vaihda takas ja tarkista toiminta
-            //val temp: List<Signs> = database.filterGetSigns(_type.value!!,_area.value!!)
-            val temp: List<Signs> = database.getSign()
+            val temp: List<Signs> = database.filterGetSigns(_type.value!!,_area.value!!)
+            //val temp: List<Signs> = database.getSign()
             temp
         }
 

@@ -98,21 +98,15 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
     }
 
     //FUNCTIONS
-    //fun update(temp: JsonArray){
     fun update(str : String){
 
         val temp = str.split(",")
-        //_status.value = Receive(temp[0],temp[1],temp[2],temp[3])
+
+        Timber.v(""+temp)
         _progress.value = temp[3].toInt()
         _locationOnAxel.value = temp[0]+temp[2]+"moved: (x, y) "+temp[1]
         _progressProsent.value = temp[3]+"%"
-/*
-        _progress.value = temp.toInt()
-        _progressProsent.value = temp+"%"
-        _stepInTheWorks.value = temp
-        _locationOnAxel.value = temp
-
- */
+        _stepInTheWorks.value = temp[2]+". "+temp[0]
 
     }
 

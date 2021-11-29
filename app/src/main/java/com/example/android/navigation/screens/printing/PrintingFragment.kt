@@ -106,7 +106,7 @@ class PrintingFragment : Fragment() {
         binding.printingStopButton.setOnClickListener {
             Log.v("ThreadHandler", "check prime number pressed")
             viewModel.energencyStop()
-            var array = """{"Commands":"STOP"}"""
+            var array = """{"Commands":["STOP"]}"""
 
             (activity as MainActivity).write(array)
         }
@@ -116,8 +116,8 @@ class PrintingFragment : Fragment() {
             viewModel.startPrinting()
             viewModel.steps.value?.forEachIndexed { index, step ->
 
-                var array = """{"Commands":"${step.order}","Y":"${step.parY}","X":"${step.parX}","Paint":"${step.paint}","Step":"${step.step}""""
-                Timber.i("Import O: " + array)
+                var array = """{"Commands":["${step.parX}","${step.parY}","${step.parX}","${step.paint}","${step.step}" ]}""" 
+
                 (activity as MainActivity).write(array)
             }
             //(activity as MainActivity).write("Testi lahetys")
