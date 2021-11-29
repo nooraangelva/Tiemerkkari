@@ -68,6 +68,9 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
     val speedArea = MutableLiveData<Boolean>()
 
 
+
+
+
     init {
         Timber.i("PrintingViewModel created.")
 
@@ -79,6 +82,8 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
 
         signSource.value = temp
     }
+
+
 
     fun createSign() {
 

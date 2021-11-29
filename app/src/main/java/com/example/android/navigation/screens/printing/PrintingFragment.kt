@@ -61,17 +61,9 @@ class PrintingFragment : Fragment() {
 
         binding.viewModel = viewModel
 
-        /*
-        val adapter = SignOptionsAdapter(SignListener { signId ->
-            Toast.makeText(context, "$signId", Toast.LENGTH_LONG).show()
-
-            Log.v("Buttons", "SignId - $signId chosen")
-            navController.navigate(SignOptionsFragmentDirections.actionSignOptionsFragmentToPrintingFragmnet(signId))
-
-        })
 
 
-  */
+
 
         viewModel.isPrinting.observe(viewLifecycleOwner, Observer {
             binding.printingButton.isVisible = !it
@@ -104,7 +96,7 @@ class PrintingFragment : Fragment() {
         //(activity as MainActivity).connectBle()
 
         binding.printingStopButton.setOnClickListener {
-            Log.v("ThreadHandler", "check prime number pressed")
+
             viewModel.energencyStop()
             var array = """{"Commands":["STOP"]}"""
 
@@ -112,15 +104,15 @@ class PrintingFragment : Fragment() {
         }
 
         binding.printingButton.setOnClickListener {
-            Log.v("ThreadHandler", "check prime number pressed")
+
             viewModel.startPrinting()
             viewModel.steps.value?.forEachIndexed { index, step ->
 
-                var array = """{"Commands":["${step.parX}","${step.parY}","${step.parX}","${step.paint}","${step.step}" ]}""" 
+                var array = """{"Commands":["${step.parX}","${step.parY}","${step.parX}","${step.paint}","${step.step}" ]}"""
 
                 (activity as MainActivity).write(array)
             }
-            //(activity as MainActivity).write("Testi lahetys")
+
             binding.progressBarPrinting.isVisible = true
             binding.printingprogress.isVisible = true
 
@@ -133,7 +125,6 @@ class PrintingFragment : Fragment() {
             Timber.v(it)
         })
 
-        //(activity as MainActivity).connect()
         setHasOptionsMenu(true)
         return binding.root
     }

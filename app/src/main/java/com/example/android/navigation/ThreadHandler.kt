@@ -51,7 +51,12 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
 
                         val msgReply = Message()
                         msgReply.what = SEND
-                        msgReply.obj = "Printing started"
+                        if(data.toString().contains("STOP",true)){
+                            msgReply.obj = "Printing stopped."
+                        }
+                        else {
+                            msgReply.obj = "Printing started."
+                        }
                         mainThreadHandler!!.sendMessage(msgReply)
 
                     }
