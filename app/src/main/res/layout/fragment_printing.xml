@@ -18,7 +18,6 @@
             android:layout_width="462dp"
             android:layout_height="464dp"
             android:layout_marginStart="128dp"
-
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -57,14 +56,14 @@
             android:id="@+id/progressBarPrinting"
             android:layout_width="239dp"
             android:layout_height="268dp"
-            android:layout_marginEnd="264dp"
+            android:layout_marginEnd="236dp"
             android:indeterminateOnly="false"
             android:progressDrawable="@drawable/pg_circular"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.04"
+            app:layout_constraintVertical_bias="0.767"
             tools:progress="@{viewModel.progress}" />
 
         <TextView
@@ -72,7 +71,6 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:textAlignment="center"
-            android:textColor="#CC1C1C"
             android:textSize="25dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/progressBarPrinting"
@@ -83,40 +81,35 @@
             tools:visibility="visible" />
 
         <androidx.cardview.widget.CardView
-            android:layout_width="400dp"
-            android:layout_height="250dp"
-            android:layout_marginEnd="180dp"
-            android:layout_marginBottom="120dp"
-            app:cardBackgroundColor="#34ACABAB"
+            android:layout_width="450dp"
+            android:layout_height="260dp"
+            android:layout_marginEnd="124dp"
+            android:layout_marginBottom="384dp"
             app:cardCornerRadius="20dp"
+            app:cardElevation="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:cardElevation="10dp"
-
-            >
+            app:layout_constraintEnd_toEndOf="parent">
 
             <TextView
                 android:id="@+id/madeOfStepTextView"
-                android:layout_width="150dp"
+                android:layout_width="200dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="50dp"
-                android:textAlignment="center"
-                android:textColor="#1334EC"
-                android:textSize="25dp"
+                android:textColor="#2A2A2B"
+                android:textSize="20dp"
                 android:textStyle="bold"
                 tools:text="@{viewModel.stepInTheWorks}" />
 
             <TextView
                 android:id="@+id/printingPaintPlaceTextView"
-                android:layout_width="150dp"
+                android:layout_width="200dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="100dp"
                 android:layout_marginBottom="300dp"
-                android:textAlignment="center"
-                android:textColor="#1334EC"
-                android:textSize="25dp"
+                android:textColor="#2A2A2B"
+                android:textSize="20dp"
                 android:textStyle="bold"
                 tools:text="@{viewModel.status.locationOnAxel}" />
 
@@ -126,10 +119,10 @@
                 android:layout_height="40dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="150dp"
-                android:text="@{viewModel.signInfo}"
-                android:textColor="#E11313"
+                android:textColor="#2A2A2B"
                 android:textSize="20dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:text="@{viewModel.signInfo}"/>
 
             <TextView
                 android:id="@+id/printingSignNameView"
@@ -137,9 +130,11 @@
                 android:layout_height="40dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="200dp"
+                android:textColor="#2A2A2B"
+                android:textSize="20dp"
+                android:textStyle="bold"
                 android:text="@{viewModel.signName}" />
+
         </androidx.cardview.widget.CardView>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>

@@ -103,5 +103,5 @@ class StepAdapter(private val stepList : ArrayList<Step>, private val interactio
     interface InteractionPaint {
         fun onItemSelected(position: Int, selection: Int)
     }
-    override public void onClick
+
 }

@@ -12,6 +12,8 @@
         <item name="colorControlActivated">@color/buttonTextColorDark</item>
         <item name="colorControlNormal">@color/textColorDark</item>
         <item name="editTextStyle">@style/inputBoxDark</item>
+        <item name="cardViewStyle">@style/CardViewDark</item>
+
 
 
         <item name="subtitleTextColor">#000000</item>
@@ -43,6 +45,7 @@
         <item name="colorControlActivated">#5B71C1</item>
         <item name="colorControlNormal">#2E2E2E</item>
         <item name="editTextStyle">@style/inputBoxLight</item>
+        <item name="cardViewStyle">@style/CardViewLight</item>
 
 
 
@@ -107,7 +110,17 @@
     </style>
 
 
+<!--CARDVIEW-->
 
+    <style name="CardViewDark" parent="CardView">
+        <item name="cardBackgroundColor">#17F6F602</item>
+    </style>
+
+    <style name="CardViewLight" parent="CardView">
+        <item name="cardBackgroundColor">#5B5B71C1</item>
+
+
+    </style>
 
     <!-- TOOLBAR-->
 
