@@ -121,6 +121,9 @@
     </style>
     <style name="CustomToolBarStyleLight" parent="@style/Widget.AppCompat.Toolbar">
         <item name="titleTextColor">#2E2E2E</item>
+        <item name="android:textSize">@dimen/button_text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/montserrat</item>
     </style>
 
 
