@@ -24,15 +24,15 @@
 
         <Button
             android:id="@+id/importLayoutButton"
-            android:layout_marginTop="32dp"
-            android:layout_marginBottom="32dp"
             android:layout_width="@dimen/button_layout_width"
             android:layout_height="@dimen/button_layout_height"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
             android:text="@string/ImportButtonText"
             app:layout_constraintBottom_toTopOf="@+id/guideButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Ohje1" />
+            app:layout_constraintTop_toBottomOf="@+id/startButton" />
 
         <Button
             android:id="@+id/guideButton"
@@ -53,12 +53,11 @@
             android:layout_marginEnd="@dimen/horizontal_margin"
             android:contentDescription="@string/FirmLogo"
             android:scaleType="fitCenter"
-            app:layout_constraintBottom_toTopOf="@+id/Ohje1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/logo_dark" />
+            app:srcCompat="@drawable/bg_logo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
