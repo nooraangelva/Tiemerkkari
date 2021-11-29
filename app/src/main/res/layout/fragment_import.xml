@@ -22,14 +22,14 @@
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="39dp"
+            android:layout_marginTop="30dp"
             android:layout_marginBottom="560dp"
             android:ems="10"
-            android:inputType="text"
-            android:hint="@string/sign_name"
-            android:text="@={viewModel.signName}"
             android:focusable="true"
             android:focusableInTouchMode="true"
+            android:hint="@string/sign_name"
+            android:inputType="text"
+            android:text="@={viewModel.signName}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/newSignImageImportButton"
             app:layout_constraintTop_toTopOf="parent" />
@@ -141,10 +141,10 @@
 
         <Spinner
             android:id="@+id/typeInput"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="130dp"
+            android:layout_height="50dp"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="42dp"
             android:ems="10"
             android:inputType="textPersonName"
             app:layout_constraintStart_toEndOf="@+id/newSignNameInput"
@@ -152,9 +152,6 @@
             tools:setOnItemSelectedListener="@{viewModel.clicksListener}" />
 
         <!--android:text="@={viewModel.type}"-->
-
-
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
