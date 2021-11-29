@@ -130,13 +130,13 @@
             android:layout_width="0dp"
             android:layout_height="70dp"
             android:layout_marginTop="40dp"
-            android:layout_marginEnd="40dp"
+            android:layout_marginEnd="340dp"
             android:checked="@={viewModel.speedArea}"
             android:scaleX="1.50"
             android:scaleY="1.50"
             android:text="@string/over_50km_hCheckBoxString"
             android:textSize="15dp"
-            app:layout_constraintEnd_toStartOf="@+id/createSignButtonImport"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Spinner
