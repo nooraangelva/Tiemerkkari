@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var bitmap : Bitmap
     private lateinit var imageName: String
     lateinit var  pathInString : String
+    private val menu: Menu? = null
 
     var thread : Thread?=null
 
@@ -160,7 +161,16 @@ class MainActivity : AppCompatActivity() {
             thread!!.start()
             connect()
         }
+        when(sharedPreferences.getString("SELECTED_LANGUAGE", Locale.getDefault().displayLanguage)){
+            "en" -> menu?.getItem(1)?.setIcon(R.drawable.round_button)
+            "fi" -> menu?.getItem(1)?.setIcon(R.drawable.round_button)
+        }
+        when(sharedPreferences.getBoolean("SELECTED_THEME", (resources.configuration.uiMode and
+                Configuration.UI_MODE_NIGHT_MASK == UI_MODE_NIGHT_YES))){
+            true -> menu?.getItem(0)?.setIcon(R.drawable.round_button)
+            false -> menu?.getItem(0)?.setIcon(R.drawable.round_button)
 
+        }
         pathInString = ""
         _receivedMessage.value = ""
 
@@ -185,7 +195,6 @@ fun connect() {
     }
 
 
-    //fun write(data : JSONArray){
     fun write(data : String){
 
         val msg = Message()
@@ -329,6 +338,8 @@ fun connect() {
             when (sharedPreferences.getString("SELECTED_LANGUAGE", Locale.getDefault().displayLanguage)) {
                 "fi" -> {
 
+
+
                     Timber.i("languageOptionMenu pressed to en")
                     // set preference
                     with(sharedPreferences.edit()) {
@@ -350,6 +361,7 @@ fun connect() {
 
                 }
                 "en" -> {
+
 
                     Timber.i("languageOptionMenu pressed to fi")
                     // set preference
@@ -398,6 +410,7 @@ fun connect() {
                     Configuration.UI_MODE_NIGHT_MASK == UI_MODE_NIGHT_YES))) {
                 true -> {
 
+
                     // set preference
                     with(sharedPreferences.edit()) {
                         putBoolean("SELECTED_THEME", false)
@@ -408,6 +421,7 @@ fun connect() {
 
                 }
                 false -> {
+
 
                     // set preference
                     with(sharedPreferences.edit()) {
