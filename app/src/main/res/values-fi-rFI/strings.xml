@@ -22,10 +22,13 @@
     <string name="titleSignType">Merkin valinta</string>
     <string name="titleSpeedArea">Nopeusalue</string>
     <string name="titleStart">Aloitus</string>
-    <string name="stop_printing_text">Keskey</string>
+    <string name="stop_printing_text">Keskeytä</string>
     <string name="start_printing">Aloita tulostus</string>
     <string name="sign_name">Merkin nimi</string>
     <string name="info_measurements">info, mitat...</string>
-    <string name="over_50km_hCheckBoxString">Yli 50km/h</string>
+    <string name="over_50km_hCheckBoxString">Alle 50km/h</string>
     <string name="save_steps">Tallenna käskyt</string>
+    <string name="cancel">Peruuta</string>
+    <string name="get_image">Hae kuva</string>
+    <string name="create">Luo</string>
 </resources>

@@ -40,7 +40,10 @@
     <string name="sign_name">Sign name</string>
     <string name="info_measurements">Info, measurements...</string>
     <string name="newStepButtonString">+</string>
-    <string name="over_50km_hCheckBoxString">Over 50km/h</string>
+    <string name="over_50km_hCheckBoxString">Under 50km/h</string>
     <string name="save_steps">Save steps</string>
+    <string name="cancel">Cancel</string>
+    <string name="get_image">Get image</string>
+    <string name="create">Create</string>
 
 </resources>
