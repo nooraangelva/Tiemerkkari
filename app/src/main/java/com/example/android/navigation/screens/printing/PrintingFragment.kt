@@ -108,7 +108,7 @@ class PrintingFragment : Fragment() {
             viewModel.startPrinting()
             viewModel.steps.value?.forEachIndexed { index, step ->
 
-                var array = """{"Commands":["${step.parX}","${step.parY}","${step.parX}","${step.paint}","${step.step}" ]}"""
+                var array = """{"Commands":["${step.order}","${step.parY}","${step.parX}","${step.paint}","${step.step}" ]}"""
 
                 (activity as MainActivity).write(array)
             }
