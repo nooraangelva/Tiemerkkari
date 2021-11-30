@@ -5,7 +5,7 @@
     <!-- language mode -->
     <item
         android:id="@+id/languageOptionMenu"
-        android:icon="@drawable/settings"
+        android:icon="@drawable/fi"
         android:orderInCategory="200"
         android:title="@string/languageOptionText"
         app:showAsAction="ifRoom" />
