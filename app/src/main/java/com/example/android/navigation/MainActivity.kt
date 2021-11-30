@@ -162,13 +162,13 @@ class MainActivity : AppCompatActivity() {
             connect()
         }
         when(sharedPreferences.getString("SELECTED_LANGUAGE", Locale.getDefault().displayLanguage)){
-            "en" -> menu?.getItem(1)?.setIcon(R.drawable.round_button)
-            "fi" -> menu?.getItem(1)?.setIcon(R.drawable.round_button)
+            "en" -> menu?.getItem(1)?.setIcon(R.drawable.en)
+            "fi" -> menu?.getItem(1)?.setIcon(R.drawable.fi)
         }
         when(sharedPreferences.getBoolean("SELECTED_THEME", (resources.configuration.uiMode and
                 Configuration.UI_MODE_NIGHT_MASK == UI_MODE_NIGHT_YES))){
-            true -> menu?.getItem(0)?.setIcon(R.drawable.round_button)
-            false -> menu?.getItem(0)?.setIcon(R.drawable.round_button)
+            true -> menu?.getItem(0)?.setIcon(R.drawable.icon_day_night)
+            false -> menu?.getItem(0)?.setIcon(R.drawable.icon_night)
 
         }
         pathInString = ""
