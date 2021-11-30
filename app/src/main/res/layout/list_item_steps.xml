@@ -38,28 +38,28 @@
                 android:id="@+id/radio_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:onClick="@{() -> clickListener.onClick(1,step.order)}"
+                android:onClick="@{() -> clickListener.onClick(1,step.step)}"
                 android:text="Vertical" />
 
             <RadioButton
                 android:id="@+id/radio_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:onClick="@{() -> clickListener.onClick(2,step.order)}"
+                android:onClick="@{() -> clickListener.onClick(2,step.step)}"
                 android:text="Horizontal" />
 
             <RadioButton
                 android:id="@+id/radio_arc"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:onClick="@{() -> clickListener.onClick(3,step.order)}"
+                android:onClick="@{() -> clickListener.onClick(3,step.step)}"
                 android:text="Arc" />
 
             <RadioButton
                 android:id="@+id/radio_diagonal"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:onClick="@{() -> clickListener.onClick(4,step.order)}"
+                android:onClick="@{() -> clickListener.onClick(4,step.step)}"
                 android:text="Diagonal" />
 
         </RadioGroup>
@@ -108,28 +108,28 @@
                 android:id="@+id/radio_noPaint"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:onClick="@{() -> clickListener.onClick(5,step.order)}"
+                android:onClick="@{() -> clickListener.onClick(5,step.step)}"
                 android:text="No painting" />
 
             <RadioButton
                 android:id="@+id/radio_5WidePaint"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:onClick="@{() -> clickListener.onClick(6,step.order)}"
+                android:onClick="@{() -> clickListener.onClick(6,step.step)}"
                 android:text="5 cm wide painting" />
 
             <RadioButton
                 android:id="@+id/radio_10WidePaint"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:onClick="@{() -> clickListener.onClick(7,step.order)}"
+                android:onClick="@{() -> clickListener.onClick(7,step.step)}"
                 android:text="10 cm wide painting" />
 
             <RadioButton
                 android:id="@+id/radio_50WidePaint"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:onClick="@{() -> clickListener.onClick(8,step.order)}"
+                android:onClick="@{() -> clickListener.onClick(8,step.step)}"
                 android:text="50 cm wide painting" />
 
         </RadioGroup>

@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Step(
 
-                var step: String = "",
+                var step: Int = 0,
 
                 var order: Int = -1,
 

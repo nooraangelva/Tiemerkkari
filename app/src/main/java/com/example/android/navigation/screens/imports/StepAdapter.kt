@@ -14,7 +14,7 @@ class StepAdapter(private val stepList : ArrayList<Step>, val clickListener: Rad
     inner class StepViewHolder(private val binding : ListItemStepsBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(step : Step, position: Int,clickListener: RadioButtonListener){
 
-            step.order = position
+            step.step = position
             binding.step = step
             binding.stepNumberTextView.text = position.toString()
             binding.clickListener = clickListener

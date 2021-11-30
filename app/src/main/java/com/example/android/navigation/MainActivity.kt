@@ -100,6 +100,17 @@ class MainActivity : AppCompatActivity() {
         setTheme()
         Timber.i("Language pref: " + sharedPreferences.getBoolean("SELECTED_THEME", false))
 
+        when(sharedPreferences.getString("SELECTED_LANGUAGE", Locale.getDefault().displayLanguage)){
+            "en" -> menu?.getItem(1)?.setIcon(R.drawable.en)
+            "fi" -> menu?.getItem(1)?.setIcon(R.drawable.fi)
+        }
+        when(sharedPreferences.getBoolean("SELECTED_THEME", (resources.configuration.uiMode and
+                Configuration.UI_MODE_NIGHT_MASK == UI_MODE_NIGHT_YES))){
+            true -> menu?.getItem(0)?.setIcon(R.drawable.icon_day_night)
+            false -> menu?.getItem(0)?.setIcon(R.drawable.icon_night)
+
+        }
+
         setContentView(R.layout.activity_main)
 
         val navHostFragment =
@@ -128,7 +139,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        if(thread  == null) {
+        if(thread?.isAlive == false) {
 
             mainThreadHandler = object : Handler(Looper.getMainLooper()){
                 override fun handleMessage(msg: Message){
@@ -158,16 +169,8 @@ class MainActivity : AppCompatActivity() {
             thread!!.start()
             connect()
         }
-        when(sharedPreferences.getString("SELECTED_LANGUAGE", Locale.getDefault().displayLanguage)){
-            "en" -> menu?.getItem(1)?.setIcon(R.drawable.en)
-            "fi" -> menu?.getItem(1)?.setIcon(R.drawable.fi)
-        }
-        when(sharedPreferences.getBoolean("SELECTED_THEME", (resources.configuration.uiMode and
-                Configuration.UI_MODE_NIGHT_MASK == UI_MODE_NIGHT_YES))){
-            true -> menu?.getItem(0)?.setIcon(R.drawable.icon_day_night)
-            false -> menu?.getItem(0)?.setIcon(R.drawable.icon_night)
 
-        }
+
         pathInString = ""
         _receivedMessage.value = ""
 

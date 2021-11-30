@@ -164,8 +164,8 @@ class ImportFragment : Fragment(){
     private fun setAdapter(){
         stepAdapter = StepAdapter(stepList, RadioButtonListener { choice,order ->
             //Toast.makeText(context,choice.toString(),Toast.LENGTH_SHORT)
-            if(choice >4){
-                stepList[order-1].paint = choice
+            if(choice > 4){
+                stepList[order].paint = choice
             }
             else{
                 Timber.v(""+stepList.size)
