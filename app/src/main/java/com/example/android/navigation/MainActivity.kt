@@ -66,10 +66,7 @@ class MainActivity : AppCompatActivity() {
 
     var thread : Thread?=null
 
-/*
-    private val _receivedMessage = MutableLiveData<JsonArray>()
-    val receivedMessage: LiveData<JsonArray>
-        get() = _receivedMessage*/
+
     private val _receivedMessage = MutableLiveData<String>()
     val receivedMessage: LiveData<String>
         get() = _receivedMessage
@@ -189,8 +186,6 @@ fun connect() {
 
         val intent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
         btRequestActivity.launch(intent)
-
-
 
     }
 
@@ -337,8 +332,6 @@ fun connect() {
 
             when (sharedPreferences.getString("SELECTED_LANGUAGE", Locale.getDefault().displayLanguage)) {
                 "fi" -> {
-
-
 
                     Timber.i("languageOptionMenu pressed to en")
                     // set preference

@@ -168,7 +168,8 @@ class ImportFragment : Fragment(){
                 stepList[order-1].paint = choice
             }
             else{
-                stepList[order-1].order = choice
+                Timber.v(""+stepList.size)
+                stepList[order].order = choice
             }
 
         })
