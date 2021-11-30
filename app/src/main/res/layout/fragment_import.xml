@@ -23,14 +23,12 @@
             android:layout_height="50dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="40dp"
-            android:layout_marginBottom="560dp"
             android:ems="10"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:hint="@string/sign_name"
             android:inputType="text"
             android:text="@={viewModel.signName}"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/newSignImageImportButton"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -141,11 +139,12 @@
 
         <Spinner
             android:id="@+id/typeInput"
-            android:layout_width="140dp"
+            android:layout_width="150dp"
             android:layout_height="50dp"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="42dp"
+            android:layout_marginTop="40dp"
             android:ems="10"
+            android:spinnerMode="dropdown"
             android:inputType="textPersonName"
             app:layout_constraintStart_toEndOf="@+id/newSignNameInput"
             app:layout_constraintTop_toTopOf="parent"
