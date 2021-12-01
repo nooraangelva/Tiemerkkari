@@ -20,6 +20,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
@@ -42,6 +43,7 @@ class GuideFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.titleGuide)
 
         // Inflate the layout for this fragment
+
 
 
         // ADDS SIDE MENU
