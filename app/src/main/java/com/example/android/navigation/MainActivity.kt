@@ -31,13 +31,14 @@ import java.io.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import android.content.Intent
-
-
+import android.util.Log
+import androidx.annotation.UiThread
 
 
 const val CONNECT = 1
 const val SEND = 2
 const val RECEIVE = 3
+const val QUIT_MSG = 4
 
 val SERVICE_UUID = UUID.fromString("4fa4c201-1fb5-459e-8fcc-c5c9c331914b")!!
 val CHARACTERISTIC_UUID_SEND = UUID.fromString("4ec4893c-6c9e-478e-9ad2-7a964946bc86")!!
@@ -62,7 +63,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var bitmap : Bitmap
     private lateinit var imageName: String
     lateinit var  pathInString : String
-    private val menu: Menu? = null
+    private lateinit var menu: Menu
 
     lateinit var thread : Thread
 
@@ -86,11 +87,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
+        Log.v("TONIW", "onCreate")
         if(BuildConfig.DEBUG){
             Timber.plant(Timber.DebugTree())
         }
-        Timber.i("OnCreate")
+
 
         super.onCreate(savedInstanceState)
         sharedPreferences = getPreferences(MODE_PRIVATE)
@@ -100,6 +101,7 @@ class MainActivity : AppCompatActivity() {
         setTheme()
         Timber.i("Language pref: " + sharedPreferences.getBoolean("SELECTED_THEME", false))
 
+        /*
         when(sharedPreferences.getString("SELECTED_LANGUAGE", Locale.getDefault().displayLanguage)){
             "en" -> menu?.getItem(1)?.setIcon(R.drawable.en)
             "fi" -> menu?.getItem(1)?.setIcon(R.drawable.fi)
@@ -109,7 +111,7 @@ class MainActivity : AppCompatActivity() {
             true -> menu?.getItem(0)?.setIcon(R.drawable.icon_day_night)
             false -> menu?.getItem(0)?.setIcon(R.drawable.icon_night)
 
-        }
+        }*/
 
         setContentView(R.layout.activity_main)
 
@@ -132,7 +134,7 @@ class MainActivity : AppCompatActivity() {
             ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSION)
             Timber.tag("CameraApp").v("Ask permissions")
         }
-
+/*
         if(!bluetoothAdapter.isEnabled){
             openBtActivity()
         }
@@ -164,20 +166,19 @@ class MainActivity : AppCompatActivity() {
 
         Timber.v(""+Thread.activeCount())
 
-        if(thread.isAlive) {
 
-            thread.start()
-            connect()
-        }
-        else{
-            thread.interrupt()
-            thread.start()
-            connect()
-        }
+        thread.start()
+        //connect()
+
+ */
+        Log.v("TONIW", "${Thread.activeCount()}")
 
 
         pathInString = ""
         _receivedMessage.value = ""
+
+        //lifecycleOwner = this
+
 
 
     }
@@ -187,7 +188,60 @@ fun connect() {
 
     Timber.v("NULL  " + msg.what)
     runnable.workerThreadHandler!!.sendMessage(msg)
+
+    //Thread.State.TERMINATED
 }
+
+   override fun recreate() {
+        Log.v("TONIW", "recreate")
+       super.recreate()
+         /*val msg = Message()
+         msg.what = QUIT_MSG
+
+         Timber.v("NULL  " + msg.what)
+         runnable.workerThreadHandler!!.sendMessage(msg)
+        super.recreate()*/
+    }
+
+    override fun onPause() {
+
+        Log.v("TONIW", "onPause")
+        super.onPause()
+        /*val msg = Message()
+
+        msg.what = QUIT_MSG
+
+        Timber.v("NULL  " + msg.what)
+        runnable.workerThreadHandler!!.sendMessage(msg)*/
+
+    }
+
+    override fun onPostResume() {
+        super.onPostResume()
+
+        Log.v("TONIW", "onPostResume")
+    }
+
+    override fun onDestroy() {
+        Log.v("TONIW", "onDestroy")
+
+        super.onDestroy()
+
+/*
+        val msg = Message()
+
+        msg.what = QUIT_MSG
+
+        Timber.v("NULL  " + msg.what)
+        runnable.workerThreadHandler!!.sendMessage(msg)
+*/
+
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        Log.v("TONIW", "onNewIntent")
+    }
 
 
     private fun openBtActivity(){
@@ -216,31 +270,36 @@ fun connect() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         //Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu, menu)
-
+        this.menu = menu
         return true
     }
 
     private fun changeLanguage() {
-        val currentLanguage = sharedPreferences.getString("SELECTED_LANGUAGE", Locale.getDefault().displayLanguage)
+        val newLanguage = sharedPreferences.getString("SELECTED_LANGUAGE", Locale.getDefault().language)
+        val currentLanguage = Locale.getDefault().language
+        Timber.i("setApplocale()" + sharedPreferences.getString("SELECTED_LANGUAGE", Locale.getDefault().language))
 
-        Timber.i("setApplocale()" + sharedPreferences.getString("SELECTED_LANGUAGE", Locale.getDefault().displayLanguage))
+        Log.v("TONIW", "language new ${newLanguage}")
+        Log.v("TONIW", "language current ${currentLanguage}")
 
-        val locale = Locale(currentLanguage!!)
+        if(currentLanguage !== newLanguage) {
+            val locale = Locale(newLanguage!!)
 
-        Locale.setDefault(locale)
+            Locale.setDefault(locale)
 
-        val config = Configuration()
+            val config = Configuration()
 
-        config.setLocale(locale)
+            config.setLocale(locale)
 
-        try {
-            config.locale = locale
-        } catch (e: Exception) {
+            try {
+                config.locale = locale
+            } catch (e: Exception) {
+            }
+
+            val resources = resources
+
+            resources.updateConfiguration(config, resources.displayMetrics)
         }
-
-        val resources = resources
-
-        resources.updateConfiguration(config, resources.displayMetrics)
 
 
     }
@@ -336,9 +395,9 @@ fun connect() {
 
 
         R.id.languageOptionMenu -> {
+            Log.v("TONIW", "languageOptionMenu")
 
-
-            when (sharedPreferences.getString("SELECTED_LANGUAGE", Locale.getDefault().displayLanguage)) {
+            when (sharedPreferences.getString("SELECTED_LANGUAGE", Locale.getDefault().language)) {
                 "fi" -> {
 
                     Timber.i("languageOptionMenu pressed to en")
@@ -347,18 +406,11 @@ fun connect() {
                         putString("SELECTED_LANGUAGE", "en")
                         apply()
                     }
-                    Timber.i(
-                        "setApplocale() now" + sharedPreferences.getString(
-                            "SELECTED_LANGUAGE",
-                            "fi"
-                        )
-                    )
-                    //this.recreate()
-                    val i = Intent(this@MainActivity, MainActivity::class.java)
-                    finish()
-                    overridePendingTransition(0, 0)
-                    startActivity(i)
-                    overridePendingTransition(0, 0)
+
+                    // FIXME JOS ON JO OIKEA KIELI NIIN ALA VAIHTA
+                    this.recreate()
+
+
 
                 }
                 "en" -> {
@@ -370,22 +422,12 @@ fun connect() {
                         putString("SELECTED_LANGUAGE", "fi")
                         apply()
                     }
-                    Timber.i(
-                        "setApplocale() now" + sharedPreferences.getString(
-                            "SELECTED_LANGUAGE",
-                            "fi"
-                        )
-                    )
-                    //this.recreate()
-                    val i = Intent(this@MainActivity, MainActivity::class.java)
-                    finish()
-                    overridePendingTransition(0, 0)
-                    startActivity(i)
-                    overridePendingTransition(0, 0)
+
+                    this.recreate()
 
                 }
                 else -> {
-
+                    Log.v("TONIW", "languageOptionMenu else ")
                     Timber.i("languageOptionMenu pressed to en")
                     // set preference
                     with(sharedPreferences.edit()) {
@@ -406,7 +448,7 @@ fun connect() {
         }
 
         R.id.dayNightOptionMenu -> {
-
+            Log.v("TONIW", "dayNightOptionMen ")
             when (sharedPreferences.getBoolean("SELECTED_THEME", (resources.configuration.uiMode and
                     Configuration.UI_MODE_NIGHT_MASK == UI_MODE_NIGHT_YES))) {
                 true -> {
@@ -422,7 +464,7 @@ fun connect() {
 
                 }
                 false -> {
-
+                    Log.v("TONIW", "dayNightOptionMen else ")
 
                     // set preference
                     with(sharedPreferences.edit()) {
@@ -443,6 +485,7 @@ fun connect() {
         }
 
         else -> {
+            Log.v("TONIW", "onOptionsItemSelected")
             // If we got here, the user's action was not recognized.
             // Invoke the superclass to handle it.
             super.onOptionsItemSelected(item)

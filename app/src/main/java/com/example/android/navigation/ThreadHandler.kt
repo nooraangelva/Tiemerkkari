@@ -71,6 +71,13 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
                         bluetoothAdapter.bluetoothLeScanner?.startScan( bleScanCallback)
 
                     }
+                    else if(QUIT_MSG == msg.what){
+                        Log.v("ToniWesterlund", "QUIT_MSG")
+                        bluetoothGatt?.close()
+
+                        Looper.myLooper()?.quit()
+
+                    }
 
 
 

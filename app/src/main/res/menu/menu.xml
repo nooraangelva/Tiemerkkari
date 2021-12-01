@@ -5,7 +5,7 @@
     <!-- language mode -->
     <item
         android:id="@+id/languageOptionMenu"
-        android:icon="@drawable/fi"
+
         android:orderInCategory="200"
         android:title="@string/languageOptionText"
         app:showAsAction="ifRoom" />
@@ -13,7 +13,7 @@
     <!--night/day mode -->
     <item
         android:id="@+id/dayNightOptionMenu"
-        android:icon="@drawable/icon_day_night"
+
         android:orderInCategory="100"
         android:title="@string/nightDayOptionText"
         app:showAsAction="always" />
