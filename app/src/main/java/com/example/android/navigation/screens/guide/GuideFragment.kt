@@ -26,14 +26,17 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.android.navigation.MainActivity
 import com.example.android.navigation.R
+import com.example.android.navigation.databinding.FragmentGuideBinding
 
 
 class GuideFragment : Fragment() {
-    private lateinit var binding: ViewDataBinding
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+
+   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-
+        val binding: FragmentGuideBinding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_guide, container, false
+        )
         setHasOptionsMenu(true)
 
         (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.titleGuide)

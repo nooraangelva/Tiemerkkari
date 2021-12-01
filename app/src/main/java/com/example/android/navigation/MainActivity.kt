@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var  pathInString : String
     private val menu: Menu? = null
 
-    var thread : Thread?=null
+    lateinit var thread : Thread
 
 
     private val _receivedMessage = MutableLiveData<String>()
@@ -137,36 +137,41 @@ class MainActivity : AppCompatActivity() {
             openBtActivity()
         }
 
+        mainThreadHandler = object : Handler(Looper.getMainLooper()){
+            override fun handleMessage(msg: Message){
+                when (msg.what) {
+                    SEND -> {
+                        //super.handleMessage(msg)
+                        Timber.v(""+msg.obj)
+                        Toast.makeText(applicationContext, ""+msg.obj, Toast.LENGTH_SHORT).show()
+                    }
+                    RECEIVE -> {
+                        Timber.v(""+msg.obj)
+                        _receivedMessage.value = msg.obj.toString() //as LiveData<JsonArray>
+                    }
+                    CONNECT -> {
+                        Timber.v(""+msg.obj)
+                        val text = "Connected to device: "+msg.obj
+                        Toast.makeText(applicationContext, text, Toast.LENGTH_SHORT).show()
 
-
-        if(thread?.isAlive == false) {
-
-            mainThreadHandler = object : Handler(Looper.getMainLooper()){
-                override fun handleMessage(msg: Message){
-                    when (msg.what) {
-                        SEND -> {
-                            //super.handleMessage(msg)
-                            Timber.v(""+msg.obj)
-                            Toast.makeText(applicationContext, ""+msg.obj, Toast.LENGTH_SHORT).show()
-                        }
-                        RECEIVE -> {
-                            Timber.v(""+msg.obj)
-                            _receivedMessage.value = msg.obj.toString() //as LiveData<JsonArray>
-                        }
-                        CONNECT -> {
-                            Timber.v(""+msg.obj)
-                            val text = "Connected to device: "+msg.obj
-                            Toast.makeText(applicationContext, text, Toast.LENGTH_SHORT).show()
-
-                        }
                     }
                 }
             }
+        }
+        runnable = ThreadHandler(mainThreadHandler, this, bluetoothAdapter)
+        thread = Thread(runnable)
 
 
-            runnable = ThreadHandler(mainThreadHandler, this, bluetoothAdapter)
-            thread = Thread(runnable)
-            thread!!.start()
+        Timber.v(""+Thread.activeCount())
+
+        if(thread.isAlive) {
+
+            thread.start()
+            connect()
+        }
+        else{
+            thread.interrupt()
+            thread.start()
             connect()
         }
 
