@@ -44,6 +44,7 @@ val SERVICE_UUID = UUID.fromString("4fa4c201-1fb5-459e-8fcc-c5c9c331914b")!!
 val CHARACTERISTIC_UUID_SEND = UUID.fromString("4ec4893c-6c9e-478e-9ad2-7a964946bc86")!!
 val CHARACTERISTIC_UUID_RECEIVE = UUID.fromString("beb5483e-36e1-4688-b7f5-ea07361b26a8")!!
 
+
 const val REQUEST_CODE_PERMISSION = 100
 const val RESULT_LOAD_IMAGE = 200
 val REQUIRED_PERMISSIONS = arrayOf("android.permission.READ_EXTERNAL_STORAGE",
@@ -88,30 +89,21 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.v("TONIW", "onCreate")
+        Log.v("TONIW", "${Thread.activeCount()}")
         if(BuildConfig.DEBUG){
             Timber.plant(Timber.DebugTree())
         }
 
-
         super.onCreate(savedInstanceState)
+        Thread.MAX_PRIORITY
+
         sharedPreferences = getPreferences(MODE_PRIVATE)
 
-        changeLanguage()
+        //changeLanguage()
         Timber.i("Language pref: " + sharedPreferences.getString("language", "en")!!)
         setTheme()
         Timber.i("Language pref: " + sharedPreferences.getBoolean("SELECTED_THEME", false))
 
-        /*
-        when(sharedPreferences.getString("SELECTED_LANGUAGE", Locale.getDefault().displayLanguage)){
-            "en" -> menu?.getItem(1)?.setIcon(R.drawable.en)
-            "fi" -> menu?.getItem(1)?.setIcon(R.drawable.fi)
-        }
-        when(sharedPreferences.getBoolean("SELECTED_THEME", (resources.configuration.uiMode and
-                Configuration.UI_MODE_NIGHT_MASK == UI_MODE_NIGHT_YES))){
-            true -> menu?.getItem(0)?.setIcon(R.drawable.icon_day_night)
-            false -> menu?.getItem(0)?.setIcon(R.drawable.icon_night)
-
-        }*/
 
         setContentView(R.layout.activity_main)
 
@@ -134,7 +126,7 @@ class MainActivity : AppCompatActivity() {
             ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSION)
             Timber.tag("CameraApp").v("Ask permissions")
         }
-/*
+
         if(!bluetoothAdapter.isEnabled){
             openBtActivity()
         }
@@ -168,20 +160,19 @@ class MainActivity : AppCompatActivity() {
 
 
         thread.start()
-        //connect()
+        connect()
 
- */
+
         Log.v("TONIW", "${Thread.activeCount()}")
+        Log.v("TONIW", "${Thread.getAllStackTraces()}")
 
 
         pathInString = ""
         _receivedMessage.value = ""
 
-        //lifecycleOwner = this
-
-
 
     }
+
 fun connect() {
     val msg = Message()
     msg.what = CONNECT
@@ -189,30 +180,25 @@ fun connect() {
     Timber.v("NULL  " + msg.what)
     runnable.workerThreadHandler!!.sendMessage(msg)
 
-    //Thread.State.TERMINATED
+
 }
 
    override fun recreate() {
         Log.v("TONIW", "recreate")
        super.recreate()
-         /*val msg = Message()
+         val msg = Message()
          msg.what = QUIT_MSG
 
          Timber.v("NULL  " + msg.what)
          runnable.workerThreadHandler!!.sendMessage(msg)
-        super.recreate()*/
+        super.recreate()
     }
 
     override fun onPause() {
 
         Log.v("TONIW", "onPause")
         super.onPause()
-        /*val msg = Message()
 
-        msg.what = QUIT_MSG
-
-        Timber.v("NULL  " + msg.what)
-        runnable.workerThreadHandler!!.sendMessage(msg)*/
 
     }
 
@@ -226,15 +212,6 @@ fun connect() {
         Log.v("TONIW", "onDestroy")
 
         super.onDestroy()
-
-/*
-        val msg = Message()
-
-        msg.what = QUIT_MSG
-
-        Timber.v("NULL  " + msg.what)
-        runnable.workerThreadHandler!!.sendMessage(msg)
-*/
 
     }
 
@@ -302,6 +279,17 @@ fun connect() {
         }
 
 
+    }
+
+    private fun setTheme() {
+
+        val darkMode = sharedPreferences.getBoolean("SELECTED_THEME", (resources.configuration.uiMode and
+                Configuration.UI_MODE_NIGHT_MASK == UI_MODE_NIGHT_YES))
+        if (darkMode) {
+            setTheme(R.style.DarkTheme)
+        } else {
+            setTheme(R.style.LightTheme)
+        }
     }
 
     private fun allPermissionsGranted() : Boolean{
@@ -378,16 +366,7 @@ fun connect() {
         }
     }
 
-    private fun setTheme() {
 
-        val darkMode = sharedPreferences.getBoolean("SELECTED_THEME", (resources.configuration.uiMode and
-                Configuration.UI_MODE_NIGHT_MASK == UI_MODE_NIGHT_YES))
-        if (darkMode) {
-            setTheme(R.style.DarkTheme)
-        } else {
-            setTheme(R.style.LightTheme)
-        }
-    }
 
 
 
@@ -407,8 +386,12 @@ fun connect() {
                         apply()
                     }
 
-                    // FIXME JOS ON JO OIKEA KIELI NIIN ALA VAIHTA
-                    this.recreate()
+                    val i = Intent(this@MainActivity, MainActivity::class.java)
+                    i.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    finish()
+                    overridePendingTransition(0, 0)
+                    startActivity(i)
+                    overridePendingTransition(0, 0)
 
 
 
@@ -423,7 +406,12 @@ fun connect() {
                         apply()
                     }
 
-                    this.recreate()
+                    val i = Intent(this@MainActivity, MainActivity::class.java)
+                    i.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    finish()
+                    overridePendingTransition(0, 0)
+                    startActivity(i)
+                    overridePendingTransition(0, 0)
 
                 }
                 else -> {
@@ -434,13 +422,12 @@ fun connect() {
                         putString("SELECTED_LANGUAGE", "en")
                         apply()
                     }
-                    Timber.i(
-                        "setApplocale() now" + sharedPreferences.getString(
-                            "SELECTED_LANGUAGE",
-                            "fi"
-                        )
-                    )
-                    this.recreate()
+                    val i = Intent(this@MainActivity, MainActivity::class.java)
+                    i.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    finish()
+                    overridePendingTransition(0, 0)
+                    startActivity(i)
+                    overridePendingTransition(0, 0)
                 }
             }
 
@@ -460,7 +447,12 @@ fun connect() {
                         apply()
                     }
 
-                    this.recreate()
+                    val i = Intent(this@MainActivity, MainActivity::class.java)
+                    i.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    finish()
+                    overridePendingTransition(0, 0)
+                    startActivity(i)
+                    overridePendingTransition(0, 0)
 
                 }
                 false -> {
@@ -471,13 +463,13 @@ fun connect() {
                         putBoolean("SELECTED_THEME", true)
                         apply()
                     }
-                    Timber.i(
-                        "checkTheme() now" + sharedPreferences.getBoolean(
-                            "SELECTED_THEME",
-                            false
-                        )
-                    )
-                    this.recreate()
+
+                    val i = Intent(this@MainActivity, MainActivity::class.java)
+                    i.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    finish()
+                    overridePendingTransition(0, 0)
+                    startActivity(i)
+                    overridePendingTransition(0, 0)
 
                 }
             }

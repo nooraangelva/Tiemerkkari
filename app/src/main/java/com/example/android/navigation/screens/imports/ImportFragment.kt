@@ -141,6 +141,7 @@ class ImportFragment : Fragment(){
                 viewModel.saveSteps(step, index)
             }
             Toast.makeText(context,"Steps saved",Toast.LENGTH_SHORT)
+            binding.importButton.isVisible = false
         }
 
         viewModel.error.observe(viewLifecycleOwner, Observer { error ->
@@ -148,6 +149,7 @@ class ImportFragment : Fragment(){
         })
 
         viewModel.signCreated.observe(viewLifecycleOwner, Observer { created ->
+            Toast.makeText(context, "Sign Created",Toast.LENGTH_SHORT)
             binding.createSignButtonImport.isVisible = !viewModel.signCreated.value!!
             binding.importButton.isVisible = viewModel.signCreated.value!!
             binding.newStepButton.isVisible = viewModel.signCreated.value!!
