@@ -51,10 +51,10 @@ class PrintingFragment : Fragment() {
         val application = requireNotNull(this.activity).application
 
         val dataSource = SignDatabase.getInstance(application).signDatabaseDao
-
+        (activity as MainActivity).applicationContext
         // Get arguments
         val printingFragmentArgs by navArgs<PrintingFragmentArgs>()
-        viewModelFactory = PrintingViewModelFactory(printingFragmentArgs.signId, dataSource, application)
+        viewModelFactory = PrintingViewModelFactory(printingFragmentArgs.signId, dataSource, application,(activity as MainActivity).bluetoothAdapter, (activity as MainActivity).applicationContext  )
 
         viewModel = ViewModelProvider(this, viewModelFactory)
                 .get(PrintingViewModel::class.java)
@@ -64,13 +64,12 @@ class PrintingFragment : Fragment() {
 
 
 
-
         viewModel.isPrinting.observe(viewLifecycleOwner, Observer {
             binding.printingButton.isVisible = !it
             binding.printingStopButton.isVisible = it
         })
 
-        //TODO laita kuva
+
         //ViewModel adding image to imageview
         viewModel.getData.observe(viewLifecycleOwner, Observer {
 
@@ -100,7 +99,7 @@ class PrintingFragment : Fragment() {
             viewModel.energencyStop()
             var array = """{"Commands":["STOP"]}"""
 
-            (activity as MainActivity).write(array)
+            viewModel.write(array)
         }
 
         binding.printingButton.setOnClickListener {
@@ -110,7 +109,7 @@ class PrintingFragment : Fragment() {
 
                 var array = """{"Commands":["${step.order}","${step.parY}","${step.parX}","${step.paint}","${step.step}" ]}"""
 
-                (activity as MainActivity).write(array)
+                viewModel.write(array)
             }
 
             binding.progressBarPrinting.isVisible = true
@@ -118,12 +117,23 @@ class PrintingFragment : Fragment() {
 
 
         }
-
-
-        (activity as MainActivity).receivedMessage.observe(viewLifecycleOwner, Observer {
-            viewModel.update(it)
-            Timber.v(it)
+        viewModel.connected.observe(viewLifecycleOwner, Observer {
+            if(it == true) {
+                Toast.makeText(
+                    context,
+                    "Connected to device: ${viewModel.device.value}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            else{
+                Toast.makeText(
+                    context,
+                    "Disconnected from device: ${viewModel.device.value}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         })
+
 
         setHasOptionsMenu(true)
         return binding.root

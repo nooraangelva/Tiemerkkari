@@ -39,6 +39,7 @@ const val CONNECT = 1
 const val SEND = 2
 const val RECEIVE = 3
 const val QUIT_MSG = 4
+const val DISCONNECT = 5
 
 val SERVICE_UUID = UUID.fromString("4fa4c201-1fb5-459e-8fcc-c5c9c331914b")!!
 val CHARACTERISTIC_UUID_SEND = UUID.fromString("4ec4893c-6c9e-478e-9ad2-7a964946bc86")!!
@@ -57,27 +58,14 @@ class MainActivity : AppCompatActivity() {
     lateinit var sharedPreferences: SharedPreferences
     private lateinit var appBarConfiguration : AppBarConfiguration
     private lateinit var navController: NavController
-    var mainThreadHandler : Handler? = null
-    lateinit var runnable: ThreadHandler
-
 
     lateinit var bitmap : Bitmap
     private lateinit var imageName: String
     lateinit var  pathInString : String
     private lateinit var menu: Menu
 
-    lateinit var thread : Thread
 
-
-    private val _receivedMessage = MutableLiveData<String>()
-    val receivedMessage: LiveData<String>
-        get() = _receivedMessage
-
-    lateinit var sendMessage : String
-
-    private lateinit var binding : ActivityMainBinding
-
-    private val bluetoothAdapter : BluetoothAdapter by lazy{
+    val bluetoothAdapter : BluetoothAdapter by lazy{
         (getSystemService(BLUETOOTH_SERVICE) as BluetoothManager).adapter
     }
     private val btRequestActivity = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
@@ -93,16 +81,15 @@ class MainActivity : AppCompatActivity() {
         if(BuildConfig.DEBUG){
             Timber.plant(Timber.DebugTree())
         }
-
-        super.onCreate(savedInstanceState)
-        Thread.MAX_PRIORITY
-
         sharedPreferences = getPreferences(MODE_PRIVATE)
 
-        //changeLanguage()
+        changeLanguage()
         Timber.i("Language pref: " + sharedPreferences.getString("language", "en")!!)
         setTheme()
         Timber.i("Language pref: " + sharedPreferences.getBoolean("SELECTED_THEME", false))
+
+        super.onCreate(savedInstanceState)
+
 
 
         setContentView(R.layout.activity_main)
@@ -131,36 +118,7 @@ class MainActivity : AppCompatActivity() {
             openBtActivity()
         }
 
-        mainThreadHandler = object : Handler(Looper.getMainLooper()){
-            override fun handleMessage(msg: Message){
-                when (msg.what) {
-                    SEND -> {
-                        //super.handleMessage(msg)
-                        Timber.v(""+msg.obj)
-                        Toast.makeText(applicationContext, ""+msg.obj, Toast.LENGTH_SHORT).show()
-                    }
-                    RECEIVE -> {
-                        Timber.v(""+msg.obj)
-                        _receivedMessage.value = msg.obj.toString() //as LiveData<JsonArray>
-                    }
-                    CONNECT -> {
-                        Timber.v(""+msg.obj)
-                        val text = "Connected to device: "+msg.obj
-                        Toast.makeText(applicationContext, text, Toast.LENGTH_SHORT).show()
 
-                    }
-                }
-            }
-        }
-        runnable = ThreadHandler(mainThreadHandler, this, bluetoothAdapter)
-        thread = Thread(runnable)
-
-
-        Timber.v(""+Thread.activeCount())
-
-
-        thread.start()
-        connect()
 
 
         Log.v("TONIW", "${Thread.activeCount()}")
@@ -168,30 +126,17 @@ class MainActivity : AppCompatActivity() {
 
 
         pathInString = ""
-        _receivedMessage.value = ""
+
 
 
     }
 
-fun connect() {
-    val msg = Message()
-    msg.what = CONNECT
 
-    Timber.v("NULL  " + msg.what)
-    runnable.workerThreadHandler!!.sendMessage(msg)
-
-
-}
 
    override fun recreate() {
         Log.v("TONIW", "recreate")
        super.recreate()
-         val msg = Message()
-         msg.what = QUIT_MSG
 
-         Timber.v("NULL  " + msg.what)
-         runnable.workerThreadHandler!!.sendMessage(msg)
-        super.recreate()
     }
 
     override fun onPause() {
@@ -229,15 +174,7 @@ fun connect() {
     }
 
 
-    fun write(data : String){
-
-        val msg = Message()
-        msg.what = SEND
-        msg.obj = data
-        runnable.workerThreadHandler!!.sendMessage(msg)
-
-
-    }
+   // Menu
 
 
     override fun onSupportNavigateUp(): Boolean {

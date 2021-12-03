@@ -1,6 +1,8 @@
 package com.example.android.navigation.screens.printing
 
 import android.app.Application
+import android.bluetooth.BluetoothAdapter
+import android.content.Context
 import androidx.lifecycle.*
 import com.example.android.navigation.database.Instructions
 import com.example.android.navigation.database.SignDatabaseDao
@@ -9,8 +11,11 @@ import com.example.android.navigation.database.Signs
 import android.graphics.BitmapFactory
 
 import android.graphics.Bitmap
-import com.example.android.navigation.MainActivity
-import com.example.android.navigation.Receive
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
+import android.widget.Toast
+import com.example.android.navigation.*
 import kotlinx.coroutines.*
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
@@ -21,7 +26,7 @@ import java.io.File
 
 
 
-class PrintingViewModel (signId: Long, val database: SignDatabaseDao, application: Application) : AndroidViewModel(application) {
+class PrintingViewModel (signId: Long, val database: SignDatabaseDao, application: Application, private val bluetoothAdapter : BluetoothAdapter, private val context : Context) : AndroidViewModel(application) {
 
     private var viewModelJob = Job()
 
@@ -68,10 +73,6 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
     val progressProsent: LiveData<String>
         get() = _progressProsent
 
-    private val _status = MutableLiveData<Receive>()
-    val status: LiveData<Receive>
-        get() = _status
-
     private val _stepInTheWorks = MutableLiveData<String>()
     val stepInTheWorks: LiveData<String>
         get() = _stepInTheWorks
@@ -84,6 +85,27 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
     val locationOnAxel: LiveData<String>
         get() = _locationOnAxel
 
+    // Thread Variables
+
+    private val _connected = MutableLiveData<Boolean>()
+    val connected: LiveData<Boolean>
+        get() = _connected
+
+    private val _device = MutableLiveData<String>()
+    val device: LiveData<String>
+        get() = _device
+
+    lateinit var mainThreadHandler : Handler
+    lateinit var runnable: ThreadHandler
+    lateinit var thread : Thread
+
+
+    private val _receivedMessage = MutableLiveData<String>()
+    val receivedMessage: LiveData<String>
+        get() = _receivedMessage
+
+    lateinit var sendMessage : String
+
     init {
         Timber.i("PrintingViewModel created.")
 
@@ -95,16 +117,85 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
         _getData.value = false
 
 
+        // Thread
+        mainThreadHandler = object : Handler(Looper.getMainLooper()) {
+            override fun handleMessage(msg: Message) {
+                when (msg.what) {
+                    SEND -> {
+                        //super.handleMessage(msg)
+                        Timber.v("" + msg.obj)
+
+                    }
+                    RECEIVE -> {
+                        Timber.v("" + msg.obj)
+                        _receivedMessage.value = msg.obj.toString() //as LiveData<JsonArray>
+                        update()
+                    }
+                    CONNECT -> {
+                        Timber.v("" + msg.obj)
+
+                        _connected.value = true
+                        _device.value = msg.obj.toString()
+
+                    }
+                    DISCONNECT -> {
+                        Timber.v("" + msg.obj)
+
+                        _connected.value = false
+                        _device.value = msg.obj.toString()
+
+                    }
+                }
+            }
+        }
+        runnable = ThreadHandler(mainThreadHandler, context, bluetoothAdapter)
+        thread = Thread(runnable)
+        thread.start()
+        Handler().postDelayed({
+            connect()
+        }, 1000)
+        //connect()
+
+
     }
 
-    //FUNCTIONS
-    fun update(str : String){
+    fun connect() {
+        val msg = Message()
+        msg.what = CONNECT
 
-        val temp = str.split(",")
+        Timber.v("NULL  " + msg.what)
+        runnable.workerThreadHandler!!.sendMessage(msg)
+
+
+    }
+
+    fun write(data : String){
+
+        val msg = Message()
+        msg.what = SEND
+        msg.obj = data
+        runnable.workerThreadHandler!!.sendMessage(msg)
+
+
+    }
+
+    fun shutDownTread() {
+        val msg = Message()
+        msg.what = QUIT_MSG
+
+        Timber.v("NULL  " + msg.what)
+        runnable.workerThreadHandler!!.sendMessage(msg)
+    }
+
+
+    //FUNCTIONS
+    fun update(){
+
+        val temp = _receivedMessage.value!!.split(",")
 
         Timber.v(""+temp)
         _progress.value = temp[3].toInt()
-        _locationOnAxel.value = temp[0]+temp[2]+"moved: (x, y) "+temp[1]
+        _locationOnAxel.value = temp[2]+temp[0]+"moved: (x, y) "+temp[1]
         _progressProsent.value = temp[3]+"%"
         _stepInTheWorks.value = temp[2]+". "+temp[0]
 

@@ -68,7 +68,7 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
                         //var filters: MutableList<ScanFilter> = mutableListOf(filter)
                         //var setting = ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).build()
                         //bluetoothAdapter?.bluetoothLeScanner?.startScan(filters, setting, bleScanCallback)
-                        bluetoothAdapter.bluetoothLeScanner?.startScan( bleScanCallback)
+                        bluetoothAdapter.bluetoothLeScanner?.startScan(bleScanCallback)
 
                     }
                     else if(QUIT_MSG == msg.what){
@@ -89,7 +89,7 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
 
     fun connectToDevice(bluetoothDevice: BluetoothDevice) {
 
-        bluetoothGatt = bluetoothDevice.connectGatt( thisContext, false, bleGattCallback)
+        bluetoothGatt = bluetoothDevice.connectGatt( thisContext, true, bleGattCallback)
 
         val msgReply = Message()
         msgReply.what = CONNECT
@@ -131,6 +131,10 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
                     bluetoothGatt?.discoverServices()
                 }
                 else{
+                    val msgReply = Message()
+                    msgReply.what = DISCONNECT
+                    msgReply.obj = bluetoothDevice.name
+                    mainThreadHandler!!.sendMessage(msgReply)
                     //var filter = ScanFilter.Builder().setDeviceName("TONIBLE").build()
                     //var filters: MutableList<ScanFilter> = mutableListOf(filter)
                     //var setting = ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).build()

@@ -67,17 +67,6 @@ class ImportFragment : Fragment(){
         binding.importButton.isVisible = false
         binding.cancelButtonImport.isVisible = false
 
-        /*
-        val adapter = ImportAdapter(SignListener { signId ->
-            Toast.makeText(context, "$signId", Toast.LENGTH_LONG).show()
-            Log.v("Buttons","SignId - $signId chosen")
-            //TODO call initialize sign
-            viewModel.initializeStep()
-
-        })
-
-        binding.importListRecycleView.adapter = adapter*/
-
 
         binding.lifecycleOwner = this
         navController = findNavController()
@@ -118,7 +107,7 @@ class ImportFragment : Fragment(){
                 viewModel.createSign()
                 stepList.add(Step())
                 stepAdapter.notifyItemInserted(stepList.size)
-                Toast.makeText(context,"Sign saved.",Toast.LENGTH_SHORT)
+                Toast.makeText(context,"Sign saved.",Toast.LENGTH_SHORT).show()
             }
             else{
                 Toast.makeText(context, "Get Picture first", Toast.LENGTH_LONG).show()
@@ -127,7 +116,7 @@ class ImportFragment : Fragment(){
 
         binding.cancelButtonImport.setOnClickListener{
             viewModel.delete()
-            Toast.makeText(context,"Created sign and steps deleted",Toast.LENGTH_SHORT)
+            Toast.makeText(context,"Created sign and steps deleted",Toast.LENGTH_SHORT).show()
         }
 
         binding.newStepButton.setOnClickListener{
@@ -140,8 +129,9 @@ class ImportFragment : Fragment(){
                 Timber.i("Import O: " + step.order)
                 viewModel.saveSteps(step, index)
             }
-            Toast.makeText(context,"Steps saved",Toast.LENGTH_SHORT)
+            Toast.makeText(context,"Steps saved",Toast.LENGTH_SHORT).show()
             binding.importButton.isVisible = false
+            binding.newStepButton.isVisible = false
         }
 
         viewModel.error.observe(viewLifecycleOwner, Observer { error ->
@@ -149,7 +139,7 @@ class ImportFragment : Fragment(){
         })
 
         viewModel.signCreated.observe(viewLifecycleOwner, Observer { created ->
-            Toast.makeText(context, "Sign Created",Toast.LENGTH_SHORT)
+            Toast.makeText(context, "Sign Created",Toast.LENGTH_SHORT).show()
             binding.createSignButtonImport.isVisible = !viewModel.signCreated.value!!
             binding.importButton.isVisible = viewModel.signCreated.value!!
             binding.newStepButton.isVisible = viewModel.signCreated.value!!
