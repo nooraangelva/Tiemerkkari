@@ -1,8 +1,6 @@
 package com.example.android.navigation.screens.printing
 
 import android.os.Bundle
-import android.os.Message
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
@@ -20,14 +18,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.android.navigation.MainActivity
 import com.example.android.navigation.R
-import com.example.android.navigation.SEND
-import com.example.android.navigation.Step
-import com.example.android.navigation.database.Instructions
 import com.example.android.navigation.database.SignDatabase
 import com.example.android.navigation.databinding.FragmentPrintingBinding
-import kotlinx.serialization.json.*
-import org.json.JSONArray
-import timber.log.Timber
 
 
 class PrintingFragment : Fragment() {
@@ -47,26 +39,37 @@ class PrintingFragment : Fragment() {
         binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_printing, container, false)
 
-
+        // Instance of the database
         val application = requireNotNull(this.activity).application
-
         val dataSource = SignDatabase.getInstance(application).signDatabaseDao
         (activity as MainActivity).applicationContext
-        // Get arguments
+
+        // Get arguments and create viewModel with wanted values
         val printingFragmentArgs by navArgs<PrintingFragmentArgs>()
-        viewModelFactory = PrintingViewModelFactory(printingFragmentArgs.signId, dataSource, application,(activity as MainActivity).bluetoothAdapter, (activity as MainActivity).applicationContext  )
+
+        viewModelFactory = PrintingViewModelFactory(printingFragmentArgs.signId, dataSource,
+            application,(activity as MainActivity).bluetoothAdapter,
+            (activity as MainActivity).applicationContext)
 
         viewModel = ViewModelProvider(this, viewModelFactory)
                 .get(PrintingViewModel::class.java)
 
         binding.viewModel = viewModel
 
+        // set lifecycle owner and ties navController to a variable
+        binding.lifecycleOwner = this
+        navController = findNavController()
 
+        // Sets initial visibility to buttons
+        binding.printingButton.isVisible = false
+        binding.printingStopButton.isVisible = !viewModel.isPrinting.value!!
 
-
+        // Observes printing status and controls button visibility based on it
         viewModel.isPrinting.observe(viewLifecycleOwner, Observer {
             binding.printingButton.isVisible = !it
             binding.printingStopButton.isVisible = it
+            binding.progressBarPrinting.isVisible = it
+            binding.printingprogress.isVisible = it
         })
 
 
@@ -77,46 +80,19 @@ class PrintingFragment : Fragment() {
 
         })
 
-        binding.setLifecycleOwner(this)
 
-        navController = findNavController()
 
         //TODO Sets the onClickListener for finished
 
-        /*
-        binding.startMenuButton.setOnClickListener { view: View ->
-
-            view.findNavController().navigate(SpeedAreaFragmentDirections.actionSpeedAreaFragmentToSignTypeFragment("city"))
-        }*/
-
-        binding.printingButton.isVisible = viewModel.isPrinting.value!!
-        binding.printingStopButton.isVisible = !viewModel.isPrinting.value!!
-
-        //(activity as MainActivity).connectBle()
-
-        binding.printingStopButton.setOnClickListener {
-
-            viewModel.energencyStop()
-            var array = """{"Commands":["STOP"]}"""
-
-            viewModel.write(array)
-        }
-
-        binding.printingButton.setOnClickListener {
-
-            viewModel.startPrinting()
-            viewModel.steps.value?.forEachIndexed { index, step ->
-
-                var array = """{"Commands":["${step.order}","${step.parY}","${step.parX}","${step.paint}","${step.step}" ]}"""
-
-                viewModel.write(array)
+        viewModel.finished.observe(viewLifecycleOwner, Observer {
+            if(it) {
+                navController.navigate(PrintingFragmentDirections.actionPrintingFragmentToStartMenuFragment())
             }
-
-            binding.progressBarPrinting.isVisible = true
-            binding.printingprogress.isVisible = true
+        })
 
 
-        }
+
+        // Observes connection status and controls printing button visibility based on it
         viewModel.connected.observe(viewLifecycleOwner, Observer {
             if(it == true) {
                 Toast.makeText(
@@ -124,6 +100,7 @@ class PrintingFragment : Fragment() {
                     "Connected to device: ${viewModel.device.value}",
                     Toast.LENGTH_SHORT
                 ).show()
+                binding.printingButton.isVisible =true
             }
             else{
                 Toast.makeText(
@@ -131,10 +108,12 @@ class PrintingFragment : Fragment() {
                     "Disconnected from device: ${viewModel.device.value}",
                     Toast.LENGTH_SHORT
                 ).show()
+                binding.printingButton.isVisible = false
             }
         })
 
 
+        // Shows back button
         setHasOptionsMenu(true)
         return binding.root
     }
