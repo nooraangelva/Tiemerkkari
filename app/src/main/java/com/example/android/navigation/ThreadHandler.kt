@@ -2,21 +2,12 @@ package com.example.android.navigation
 
 import android.bluetooth.*
 import android.bluetooth.le.ScanCallback
-import android.bluetooth.le.ScanFilter
 import android.bluetooth.le.ScanResult
-import android.bluetooth.le.ScanSettings
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
-import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.getSystemService
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
-import org.json.JSONArray
 import timber.log.Timber
-import java.lang.Math.sqrt
 
 class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, val bluetoothAdapter: BluetoothAdapter) : Runnable{
 
@@ -32,6 +23,7 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
 
         Looper.prepare()
         Timber.tag("ThreadHandler").v("start()")
+
         workerThreadHandler = object : Handler(Looper.myLooper()!!) {
 
             // Handles and receives messages
@@ -40,6 +32,7 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
                 // Checks what kind of message has been received
                 // acts accordingly to that
                 when (msg.what) {
+
                     // Sends steps or stop message to Arduino in a string format
                     SEND -> {
                         Timber.tag("ThreadHandler").v("SEND")
@@ -47,9 +40,11 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
                         // Gets the address and channel where to send
                         val service : BluetoothGattService? = bluetoothGatt?.getService(SERVICE_UUID)
                         val characteristic = service?.getCharacteristic(CHARACTERISTIC_UUID_SEND)
+
                         // Data to be send in a string format
                         val data = msg.obj
                         characteristic!!.setValue(data.toString())
+
                         // Sends the data and also sets a notification
                         // so Arduino knows there is new data
                         bluetoothGatt?.writeCharacteristic(characteristic)
@@ -60,10 +55,15 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
                         val msgReply = Message()
                         msgReply.what = SEND
                         if(data.toString().contains("STOP",true)){
+
                             msgReply.obj = "Printing stopped."
+
                         } else {
+
                             msgReply.obj = "Printing started."
+
                         }
+
                         mainThreadHandler!!.sendMessage(msgReply)
 
                     }
@@ -82,6 +82,7 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
                     }
                     // Closes BLE Gatt and the thread
                     QUIT_MSG -> {
+
                         Timber.tag("ThreadHandler").v("QUIT_MSG")
 
                         bluetoothGatt?.close()
@@ -94,6 +95,7 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
             }
 
         }
+
         Looper.loop()
 
     }
@@ -118,25 +120,35 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
     // Callback that scans to find the device with a specific name,
     // when or if it finds it, it call the connectToDevice() function
     private val bleScanCallback: ScanCallback by lazy {
+
         object : ScanCallback() {
 
             override fun onScanResult(callbackType: Int, result: ScanResult) {
+
                 super.onScanResult(callbackType, result)
                 bluetoothDevice = result.device
 
                 if(!bluetoothDevice.name.isNullOrEmpty()) {
+
                     if (bluetoothDevice.name.contains("Tiemerkkari", true)) {
+
                         Timber.tag("ThreadHandler").v("Device found: ${bluetoothDevice.name}")
                         connectToDevice(bluetoothDevice)
+
                     }
+
                 }
+
             }
+
         }
+
     }
 
     // Handles BLE Gatt connection changes:
     // Connection state and if this device receives messages from Arduino
     private val bleGattCallback: BluetoothGattCallback by lazy {
+
         object : BluetoothGattCallback() {
 
             // If Connection state changes
@@ -145,13 +157,16 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
                 status: Int,
                 newState: Int
             ) {
+
                 super.onConnectionStateChange(gatt, status, newState)
 
                 // when they are connected,
                 // message will be sen to MainThread about the status change
                 if (newState == BluetoothProfile.STATE_CONNECTED) {
+
                     Timber.tag("ThreadHandler").v("STATE_CONNECTED")
                     bluetoothGatt?.discoverServices()
+
                 }
                 // When the devices disconnect,
                 // message will be sen to MainThread about the status change
@@ -166,18 +181,21 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
                     mainThreadHandler!!.sendMessage(msgReply)
 
                     // Filters don't work
-                    //var filter = ScanFilter.Builder().setDeviceName("TONIBLE").build()
+                    //var filter = ScanFilter.Builder().setDeviceName("Tiemerkkari").build()
                     //var filters: MutableList<ScanFilter> = mutableListOf(filter)
                     //var setting = ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).build()
                     //bluetoothAdapter?.bluetoothLeScanner?.startScan(filters, setting, bleScanCallback)
 
                     bluetoothAdapter.bluetoothLeScanner?.startScan( bleScanCallback)
+
                 }
 
             }
+
             // When they are connected, sets itself
             // to listen for notifications of incoming messages
             override fun onServicesDiscovered(gatt: BluetoothGatt?, status: Int) {
+
                 super.onServicesDiscovered(gatt, status)
 
                 Timber.tag("ThreadHandler").v("Notification listener set.")
@@ -185,6 +203,7 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
                 val characteristic = service?.getCharacteristic(CHARACTERISTIC_UUID_RECEIVE)
 
                 gatt?.setCharacteristicNotification(characteristic, true)
+
             }
 
             // When messages are received,
@@ -193,6 +212,7 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
                 gatt: BluetoothGatt?,
                 characteristic: BluetoothGattCharacteristic?
             ) {
+
                 super.onCharacteristicChanged(gatt, characteristic)
 
                 val msgReply = Message()
@@ -207,10 +227,13 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
 
 
                 }
+
             }
 
         }
+
     }
+
 }
 
 

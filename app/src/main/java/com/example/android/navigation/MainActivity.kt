@@ -28,7 +28,7 @@ import java.io.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import android.content.Intent
-import android.util.Log
+
 
 // Thread constants to differentiate messages from each other
 const val CONNECT = 1
@@ -110,11 +110,12 @@ class MainActivity : AppCompatActivity() {
 
         Timber.tag("MainActivity").v("nav graph%s", navController.graph.toString())
 
-        // checks if all permissions required have been granted
+        // Checks if all permissions required have been granted
         if (allPermissionsGranted()) {
 
-            //permission ok
+            // Permission ok
             Timber.tag("MainActivity").v("Permissions ok")
+
 
         } else {
 
@@ -202,6 +203,7 @@ class MainActivity : AppCompatActivity() {
     private fun allPermissionsGranted() : Boolean{
 
         Timber.tag("MainActivity").v("allPermissionsGranted()")
+
         for (permission in REQUIRED_PERMISSIONS){
 
             if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED){
@@ -211,6 +213,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         return true
+
     }
 
     // IMAGE RETRIEVE FUNCTIONS --------------------------------------------------------------------
@@ -267,11 +270,14 @@ class MainActivity : AppCompatActivity() {
                 bitmap.compress(Bitmap.CompressFormat.PNG, 90, fos)
                 fos.close()
 
-
             } catch (e: FileNotFoundException) {
+
                 e.printStackTrace()
+
             } catch (e: IOException) {
+
                 e.printStackTrace()
+
             }
 
         }
@@ -290,7 +296,8 @@ class MainActivity : AppCompatActivity() {
             parcelFileDescriptor.close()
             return image
 
-        } catch (e: IOException) {
+        }
+        catch (e: IOException) {
 
             e.printStackTrace()
 
@@ -304,14 +311,19 @@ class MainActivity : AppCompatActivity() {
 
     // Menu construction
     override fun onSupportNavigateUp(): Boolean {
+
         return navController.navigateUp() || super.onSupportNavigateUp()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
+
         //Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu, menu)
         this.menu = menu
+
         return true
+
     }
 
     // When language or theme button in menu is pressed,
@@ -319,6 +331,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
 
         R.id.languageOptionMenu -> {
+
             Timber.tag("MainActivity").v("onOptionsItemSelected() - languageOptionMenu")
 
             when (sharedPreferences.getString("SELECTED_LANGUAGE", Locale.getDefault().language)) {
@@ -349,8 +362,10 @@ class MainActivity : AppCompatActivity() {
 
                     // Sets preference
                     with(sharedPreferences.edit()) {
+
                         putString("SELECTED_LANGUAGE", "fi")
                         apply()
+
                     }
 
                     // Reloads the Activity
@@ -368,8 +383,10 @@ class MainActivity : AppCompatActivity() {
 
                     // set preference
                     with(sharedPreferences.edit()) {
+
                         putString("SELECTED_LANGUAGE", "en")
                         apply()
+
                     }
 
                     // Reloads the Activity
@@ -401,8 +418,10 @@ class MainActivity : AppCompatActivity() {
 
                     //  Sets preference
                     with(sharedPreferences.edit()) {
+
                         putBoolean("SELECTED_THEME", false)
                         apply()
+
                     }
 
                     // Reloads the Activity
@@ -420,8 +439,10 @@ class MainActivity : AppCompatActivity() {
 
                     // Sets preference
                     with(sharedPreferences.edit()) {
+
                         putBoolean("SELECTED_THEME", true)
                         apply()
+
                     }
 
                     // Reloads the Activity
@@ -433,8 +454,11 @@ class MainActivity : AppCompatActivity() {
                     overridePendingTransition(0, 0)
 
                 }
+
             }
+
             true
+            
         }
 
         else -> {
