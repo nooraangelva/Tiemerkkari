@@ -6,7 +6,7 @@
     <data>
         <variable
             name="step"
-            type="com.example.android.navigation.Step" />
+            type="com.example.android.navigation.dataForm.Step" />
         <variable
             name="clickListener" type="com.example.android.navigation.screens.imports.RadioButtonListener"/>
     </data>

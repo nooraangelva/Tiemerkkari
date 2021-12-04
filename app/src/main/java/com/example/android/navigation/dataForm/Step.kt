@@ -1,4 +1,4 @@
-package com.example.android.navigation
+package com.example.android.navigation.dataForm
 
 import androidx.room.ColumnInfo
 import androidx.room.PrimaryKey

@@ -3,13 +3,10 @@ package com.example.android.navigation.screens.imports
 import android.app.Application
 import android.view.View
 import android.widget.AdapterView
-import android.widget.EditText
-import androidx.core.app.ActivityCompat.*
-import androidx.databinding.InverseBindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.android.navigation.Step
+import com.example.android.navigation.dataForm.Step
 import com.example.android.navigation.database.Instructions
 import com.example.android.navigation.database.SignDatabaseDao
 import com.example.android.navigation.database.Signs

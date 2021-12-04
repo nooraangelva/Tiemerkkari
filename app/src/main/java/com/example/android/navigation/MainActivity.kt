@@ -34,18 +34,19 @@ import android.content.Intent
 import android.util.Log
 import androidx.annotation.UiThread
 
-
+// Thread constants to differentiate messages from each other
 const val CONNECT = 1
 const val SEND = 2
 const val RECEIVE = 3
 const val QUIT_MSG = 4
 const val DISCONNECT = 5
 
+// UUID's for BLE Gatt connection
 val SERVICE_UUID = UUID.fromString("4fa4c201-1fb5-459e-8fcc-c5c9c331914b")!!
 val CHARACTERISTIC_UUID_SEND = UUID.fromString("4ec4893c-6c9e-478e-9ad2-7a964946bc86")!!
 val CHARACTERISTIC_UUID_RECEIVE = UUID.fromString("beb5483e-36e1-4688-b7f5-ea07361b26a8")!!
 
-
+// Permission request values for the app to work
 const val REQUEST_CODE_PERMISSION = 100
 const val RESULT_LOAD_IMAGE = 200
 val REQUIRED_PERMISSIONS = arrayOf("android.permission.READ_EXTERNAL_STORAGE",
@@ -55,19 +56,25 @@ val REQUIRED_PERMISSIONS = arrayOf("android.permission.READ_EXTERNAL_STORAGE",
 
 class MainActivity : AppCompatActivity() {
 
+    // To access user preferences
     lateinit var sharedPreferences: SharedPreferences
+
+    // To create menu and access navigation between fragments
     private lateinit var appBarConfiguration : AppBarConfiguration
     private lateinit var navController: NavController
+    private lateinit var menu: Menu
 
+    // To save and retrieve an image for creating a sign in import fragment
     lateinit var bitmap : Bitmap
     private lateinit var imageName: String
     lateinit var  pathInString : String
-    private lateinit var menu: Menu
 
-
+    // For using the devices bluetooth
     val bluetoothAdapter : BluetoothAdapter by lazy{
         (getSystemService(BLUETOOTH_SERVICE) as BluetoothManager).adapter
     }
+
+    // For activating user bluetooth if it's not activated
     private val btRequestActivity = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
             result ->
         if (result.resultCode == Activity.RESULT_OK){
@@ -76,96 +83,48 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Log.v("TONIW", "onCreate")
-        Log.v("TONIW", "${Thread.activeCount()}")
         if(BuildConfig.DEBUG){
             Timber.plant(Timber.DebugTree())
         }
-        sharedPreferences = getPreferences(MODE_PRIVATE)
 
+        // Sets user preferences on theme and language
+        sharedPreferences = getPreferences(MODE_PRIVATE)
         changeLanguage()
-        Timber.i("Language pref: " + sharedPreferences.getString("language", "en")!!)
+        Timber.tag("MainActivity").v("Language pref: %s", sharedPreferences.getString("language", "en")!!)
         setTheme()
-        Timber.i("Language pref: " + sharedPreferences.getBoolean("SELECTED_THEME", false))
+        Timber.tag("MainActivity").v("Language pref: %s", sharedPreferences.getBoolean("SELECTED_THEME", false))
 
         super.onCreate(savedInstanceState)
 
-
-
         setContentView(R.layout.activity_main)
 
+        // Sets up navigation, for fragments
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         navController = navHostFragment.navController
-
         setupActionBarWithNavController(this, navController)
 
+        Timber.tag("MainActivity").v("nav graph%s", navController.graph.toString())
 
-        //appBarConfiguration = AppBarConfiguration(navController.graph)
-
-
-        Timber.i("nav graph" + navController.graph.toString())
-
+        // checks if all permissions required have been granted
         if (allPermissionsGranted()) {
             //permission ok
-            Timber.tag("CameraApp").v("Permission ok")
+            Timber.tag("MainActivity").v("Permissions ok")
         } else {
             ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSION)
-            Timber.tag("CameraApp").v("Ask permissions")
+            Timber.tag("MainActivity").v("Ask permissions")
         }
 
+        // Enables bluetooth if it is not On
         if(!bluetoothAdapter.isEnabled){
             openBtActivity()
         }
 
-
-
-
-        Log.v("TONIW", "${Thread.activeCount()}")
-        Log.v("TONIW", "${Thread.getAllStackTraces()}")
-
-
+        // Initializes images path variable
         pathInString = ""
 
-
-
     }
-
-
-
-   override fun recreate() {
-        Log.v("TONIW", "recreate")
-       super.recreate()
-
-    }
-
-    override fun onPause() {
-
-        Log.v("TONIW", "onPause")
-        super.onPause()
-
-
-    }
-
-    override fun onPostResume() {
-        super.onPostResume()
-
-        Log.v("TONIW", "onPostResume")
-    }
-
-    override fun onDestroy() {
-        Log.v("TONIW", "onDestroy")
-
-        super.onDestroy()
-
-    }
-
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-        Log.v("TONIW", "onNewIntent")
-    }
-
-
+    
     private fun openBtActivity(){
 
         val intent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)

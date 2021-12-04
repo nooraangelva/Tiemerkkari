@@ -1,13 +1,11 @@
 package com.example.android.navigation.screens.imports
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -17,11 +15,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.android.navigation.MainActivity
 import com.example.android.navigation.R
-import com.example.android.navigation.Step
-import com.example.android.navigation.database.Instructions
+import com.example.android.navigation.dataForm.Step
 import com.example.android.navigation.database.SignDatabase
 import com.example.android.navigation.databinding.FragmentImportBinding
-import com.example.android.navigation.screens.speed_area.SpeedAreaFragmentDirections
 import timber.log.Timber
 
 class ImportFragment : Fragment(){

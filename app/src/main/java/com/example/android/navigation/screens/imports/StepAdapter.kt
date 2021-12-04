@@ -5,14 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.navigation.databinding.ListItemStepsBinding
 
-import com.example.android.navigation.Step
+import com.example.android.navigation.dataForm.Step
 import timber.log.Timber
 
 
 class StepAdapter(private val stepList : ArrayList<Step>, val clickListener: RadioButtonListener) : RecyclerView.Adapter<StepAdapter.StepViewHolder>() {
 
     inner class StepViewHolder(private val binding : ListItemStepsBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(step : Step, position: Int,clickListener: RadioButtonListener){
+        fun bind(step : Step, position: Int, clickListener: RadioButtonListener){
 
             step.step = position
             binding.step = step

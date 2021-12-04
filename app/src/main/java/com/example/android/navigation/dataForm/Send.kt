@@ -1,4 +1,4 @@
-package com.example.android.navigation
+package com.example.android.navigation.dataForm
 
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
