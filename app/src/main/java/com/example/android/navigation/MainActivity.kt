@@ -22,17 +22,13 @@ import android.graphics.BitmapFactory
 import android.os.*
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
-import com.example.android.navigation.databinding.ActivityMainBinding
 import timber.log.Timber
 import java.io.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import android.content.Intent
 import android.util.Log
-import androidx.annotation.UiThread
 
 // Thread constants to differentiate messages from each other
 const val CONNECT = 1
@@ -71,20 +67,28 @@ class MainActivity : AppCompatActivity() {
 
     // For using the devices bluetooth
     val bluetoothAdapter : BluetoothAdapter by lazy{
+
         (getSystemService(BLUETOOTH_SERVICE) as BluetoothManager).adapter
+
     }
 
     // For activating user bluetooth if it's not activated
     private val btRequestActivity = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
             result ->
+
         if (result.resultCode == Activity.RESULT_OK){
+
             Toast.makeText(this, "Bluetooth is now enabled.", Toast.LENGTH_SHORT).show()
+
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         if(BuildConfig.DEBUG){
+
             Timber.plant(Timber.DebugTree())
+
         }
 
         // Sets user preferences on theme and language
@@ -108,97 +112,114 @@ class MainActivity : AppCompatActivity() {
 
         // checks if all permissions required have been granted
         if (allPermissionsGranted()) {
+
             //permission ok
             Timber.tag("MainActivity").v("Permissions ok")
+
         } else {
+
             ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSION)
             Timber.tag("MainActivity").v("Ask permissions")
+
         }
 
         // Enables bluetooth if it is not On
         if(!bluetoothAdapter.isEnabled){
+
             openBtActivity()
+
         }
 
         // Initializes images path variable
         pathInString = ""
 
     }
-    
+
+    // Opens bluetooth if no active
     private fun openBtActivity(){
 
+        Timber.tag("MainActivity").v("openBtActivity()")
         val intent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
         btRequestActivity.launch(intent)
 
     }
 
-
-   // Menu
-
-
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp() || super.onSupportNavigateUp()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        //Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu, menu)
-        this.menu = menu
-        return true
-    }
-
+    // Changes language through locale when called
     private fun changeLanguage() {
+
+        // Gets selected user preference and the current language
         val newLanguage = sharedPreferences.getString("SELECTED_LANGUAGE", Locale.getDefault().language)
         val currentLanguage = Locale.getDefault().language
-        Timber.i("setApplocale()" + sharedPreferences.getString("SELECTED_LANGUAGE", Locale.getDefault().language))
 
-        Log.v("TONIW", "language new ${newLanguage}")
-        Log.v("TONIW", "language current ${currentLanguage}")
+        Timber.tag("MainActivity").v("changeLanguage() - language new %s", newLanguage)
+        Timber.tag("MainActivity").v("changeLanguage() - language current %s", currentLanguage)
 
-        if(currentLanguage !== newLanguage) {
+        // If new language is different than the current, language will be changed
+        if (currentLanguage !== newLanguage) {
+
             val locale = Locale(newLanguage!!)
-
             Locale.setDefault(locale)
-
             val config = Configuration()
 
             config.setLocale(locale)
 
             try {
                 config.locale = locale
-            } catch (e: Exception) {
+            }
+            catch (e: Exception) {
             }
 
             val resources = resources
 
             resources.updateConfiguration(config, resources.displayMetrics)
-        }
 
+        }
 
     }
 
+    // Sets theme (dark or light) from user preference, when called
     private fun setTheme() {
 
         val darkMode = sharedPreferences.getBoolean("SELECTED_THEME", (resources.configuration.uiMode and
                 Configuration.UI_MODE_NIGHT_MASK == UI_MODE_NIGHT_YES))
+
+        Timber.tag("MainActivity").v("setTheme() - darMode: $darkMode")
+
         if (darkMode) {
+
             setTheme(R.style.DarkTheme)
-        } else {
-            setTheme(R.style.LightTheme)
+
         }
+        else {
+
+            setTheme(R.style.LightTheme)
+
+        }
+
     }
 
+    // Checks if all the permission are granted, when called
     private fun allPermissionsGranted() : Boolean{
-        //Tsekkaa onko kaikki permissionit annettu
+
+        Timber.tag("MainActivity").v("allPermissionsGranted()")
         for (permission in REQUIRED_PERMISSIONS){
+
             if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED){
                 return false
             }
+
         }
+
         return true
     }
 
+    // IMAGE RETRIEVE FUNCTIONS --------------------------------------------------------------------
+
+    // Opens gallery to retrieve an image and names it
     fun openGalleryForImage() {
+
+        Timber.tag("MainActivity").v("openGalleryForImage()")
+
         val current = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("yyyy_MM_dd_HH_mm_ss")
         imageName = current.format(formatter)
@@ -207,47 +228,41 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun uriToBitmap(selectedFileUri: Uri): Bitmap? {
-
-        try {
-            val parcelFileDescriptor = contentResolver.openFileDescriptor(selectedFileUri, "r")
-            val fileDescriptor: FileDescriptor = parcelFileDescriptor!!.fileDescriptor
-            val image = BitmapFactory.decodeFileDescriptor(fileDescriptor)
-            parcelFileDescriptor.close()
-            return image
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-        return null
-
-    }
-
+    // Gets the image that was retrieved, saves it as a file to a folder
+    // and gives the path to Import fragment
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
         super.onActivityResult(requestCode, resultCode, data)
+
+        Timber.tag("MainActivity").v("onActivityResult()")
+
+        // Checks if the retrieval was successful and creates a bitmap
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == Activity.RESULT_OK && data != null) {
+
             val image_uri = data.data
-            //frame!!.setImageURI(image_uri)
             bitmap = uriToBitmap(image_uri!!)!!
-            Timber.i("Langugae pref:"+image_uri)
+
         }
+
+        // Checks that data is not null
         if(data != null){
 
-            // Get the context wrapper instance
+            // Gets the context wrapper instance
             val wrapper = ContextWrapper(applicationContext)
 
-            // Initializing a new file
-            // The bellow line return a directory in internal storage
+            // Initializes a new file
+            // The bellow line returns a directory in internal storage
             val file = wrapper.getDir("sign_images", MODE_PRIVATE)
 
-            Timber.i("Langugae pref:"+file)
-
+            // puts the bitmap in to a file in the designated path
             try {
 
-                val mypath = File(file, "${imageName}.jpg")
-                pathInString = mypath.path
-                val fos = FileOutputStream(mypath)
-                //val fos = openFileOutput(mypath, MODE_PRIVATE)
-                Timber.i("Langugae pref:"+fos)
+                val path = File(file, "${imageName}.jpg")
+                pathInString = path.path
+
+                Timber.tag("MainActivity").v("Image path: $pathInString")
+
+                val fos = FileOutputStream(path)
 
                 bitmap.compress(Bitmap.CompressFormat.PNG, 90, fos)
                 fos.close()
@@ -262,26 +277,64 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Creates a bitmap from the image
+    private fun uriToBitmap(selectedFileUri: Uri): Bitmap? {
 
+        Timber.tag("MainActivity").v("uriToBitmap()")
 
+        try {
 
+            val parcelFileDescriptor = contentResolver.openFileDescriptor(selectedFileUri, "r")
+            val fileDescriptor: FileDescriptor = parcelFileDescriptor!!.fileDescriptor
+            val image = BitmapFactory.decodeFileDescriptor(fileDescriptor)
+            parcelFileDescriptor.close()
+            return image
 
+        } catch (e: IOException) {
+
+            e.printStackTrace()
+
+        }
+
+        return null
+
+    }
+
+    // MENU FUNCTIONS AND CONSTRUCTORS -------------------------------------------------------------
+
+    // Menu construction
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        //Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.menu, menu)
+        this.menu = menu
+        return true
+    }
+
+    // When language or theme button in menu is pressed,
+    // changes user preference and reload the activity
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
 
-
         R.id.languageOptionMenu -> {
-            Log.v("TONIW", "languageOptionMenu")
+            Timber.tag("MainActivity").v("onOptionsItemSelected() - languageOptionMenu")
 
             when (sharedPreferences.getString("SELECTED_LANGUAGE", Locale.getDefault().language)) {
                 "fi" -> {
 
-                    Timber.i("languageOptionMenu pressed to en")
-                    // set preference
+                    Timber.tag("MainActivity").v("onOptionsItemSelected() - languageOptionMenu - fi")
+
+                    // Sets preference
                     with(sharedPreferences.edit()) {
+
                         putString("SELECTED_LANGUAGE", "en")
                         apply()
+
                     }
 
+                    // Reloads the Activity
                     val i = Intent(this@MainActivity, MainActivity::class.java)
                     i.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                     finish()
@@ -289,19 +342,18 @@ class MainActivity : AppCompatActivity() {
                     startActivity(i)
                     overridePendingTransition(0, 0)
 
-
-
                 }
                 "en" -> {
 
+                    Timber.tag("MainActivity").v("onOptionsItemSelected() - languageOptionMenu - en")
 
-                    Timber.i("languageOptionMenu pressed to fi")
-                    // set preference
+                    // Sets preference
                     with(sharedPreferences.edit()) {
                         putString("SELECTED_LANGUAGE", "fi")
                         apply()
                     }
 
+                    // Reloads the Activity
                     val i = Intent(this@MainActivity, MainActivity::class.java)
                     i.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                     finish()
@@ -311,38 +363,49 @@ class MainActivity : AppCompatActivity() {
 
                 }
                 else -> {
-                    Log.v("TONIW", "languageOptionMenu else ")
-                    Timber.i("languageOptionMenu pressed to en")
+
+                    Timber.tag("MainActivity").v("onOptionsItemSelected() - languageOptionMenu - en")
+
                     // set preference
                     with(sharedPreferences.edit()) {
                         putString("SELECTED_LANGUAGE", "en")
                         apply()
                     }
+
+                    // Reloads the Activity
                     val i = Intent(this@MainActivity, MainActivity::class.java)
                     i.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                     finish()
                     overridePendingTransition(0, 0)
                     startActivity(i)
                     overridePendingTransition(0, 0)
+
                 }
+
             }
 
             true
+
         }
 
         R.id.dayNightOptionMenu -> {
-            Log.v("TONIW", "dayNightOptionMen ")
+
+            Timber.tag("MainActivity").v("onOptionsItemSelected() - dayNightOptionMenu")
+
             when (sharedPreferences.getBoolean("SELECTED_THEME", (resources.configuration.uiMode and
                     Configuration.UI_MODE_NIGHT_MASK == UI_MODE_NIGHT_YES))) {
+
                 true -> {
 
+                    Timber.tag("MainActivity").v("onOptionsItemSelected() - languageOptionMenu - light")
 
-                    // set preference
+                    //  Sets preference
                     with(sharedPreferences.edit()) {
                         putBoolean("SELECTED_THEME", false)
                         apply()
                     }
 
+                    // Reloads the Activity
                     val i = Intent(this@MainActivity, MainActivity::class.java)
                     i.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                     finish()
@@ -352,14 +415,16 @@ class MainActivity : AppCompatActivity() {
 
                 }
                 false -> {
-                    Log.v("TONIW", "dayNightOptionMen else ")
 
-                    // set preference
+                    Timber.tag("MainActivity").v("onOptionsItemSelected() - languageOptionMenu - dark")
+
+                    // Sets preference
                     with(sharedPreferences.edit()) {
                         putBoolean("SELECTED_THEME", true)
                         apply()
                     }
 
+                    // Reloads the Activity
                     val i = Intent(this@MainActivity, MainActivity::class.java)
                     i.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                     finish()
@@ -373,11 +438,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         else -> {
-            Log.v("TONIW", "onOptionsItemSelected")
-            // If we got here, the user's action was not recognized.
-            // Invoke the superclass to handle it.
+
+            // The user's action was not recognized.
+            // Invokes the superclass to handle it.
             super.onOptionsItemSelected(item)
+
         }
+
     }
 
 }
