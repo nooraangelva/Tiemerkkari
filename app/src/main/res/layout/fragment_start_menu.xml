@@ -9,49 +9,56 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/startMenuConstraint"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        style="@style/DarkTheme">
+        android:layout_height="match_parent">
+
+        <!-- ***********        Start button         *********** -->
 
         <Button
-            android:id="@+id/startButton"
-            android:layout_marginTop="80dp"
+            android:id="@+id/startButtonStartMenu"
             android:text="@string/StartButtonText"
             android:layout_width="@dimen/button_layout_width"
             android:layout_height="@dimen/button_layout_height"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/titleImage" />
+            android:layout_marginTop="80dp"
+            app:layout_constraintTop_toBottomOf="@+id/titleImageStartMenu" />
+
+        <!-- ***********        Import button         *********** -->
 
         <Button
-            android:id="@+id/importLayoutButton"
+            android:id="@+id/importButtonStartMenu"
+            android:text="@string/ImportButtonText"
             android:layout_width="@dimen/button_layout_width"
             android:layout_height="@dimen/button_layout_height"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="32dp"
-            android:text="@string/ImportButtonText"
-            app:layout_constraintBottom_toTopOf="@+id/guideButton"
+            app:layout_constraintBottom_toTopOf="@+id/guideButtonStartMenu"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/startButton" />
+            app:layout_constraintTop_toBottomOf="@+id/startButtonStartMenu" />
+
+        <!-- ***********        Guide button         *********** -->
 
         <Button
-            android:id="@+id/guideButton"
+            android:id="@+id/guideButtonStartMenu"
+            android:text="@string/GuideButtonText"
             android:layout_marginBottom="80dp"
             android:layout_width="@dimen/button_layout_width"
             android:layout_height="@dimen/button_layout_height"
-            android:text="@string/GuideButtonText"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <!-- ***********        Image         *********** -->
+
         <ImageView
-            android:id="@+id/titleImage"
+            android:id="@+id/titleImageStartMenu"
+            android:contentDescription="@string/FirmLogo"
             android:layout_width="0dp"
             android:layout_height="172dp"
             android:layout_marginStart="@dimen/horizontal_margin"
             android:layout_marginTop="100dp"
             android:layout_marginEnd="@dimen/horizontal_margin"
-            android:contentDescription="@string/FirmLogo"
             android:scaleType="fitCenter"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -62,12 +69,3 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
-
-    <!-- Hajottaa sovelluksen toinen tapa laittaa nuo?
-    android:background="?attr/background_color"
-    android:background="?attr/round_button"
-    android:background="?attr/round_button"
-    android:background="?attr/round_button"
-
-    esim. app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-    -->

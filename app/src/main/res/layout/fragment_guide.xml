@@ -9,69 +9,56 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/rulesText"
-                    android:layout_width="900dp"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="@dimen/question_horizontal_margin"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginEnd="@dimen/question_horizontal_margin"
-                    android:paddingTop="100dp"
-                    android:text="@string/GuideText"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.949"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                <!-- ***********        Buttons         *********** -->
 
                 <Button
-                    android:id="@+id/Ohje1"
+                    android:id="@+id/printingButtonGuide"
+                    android:text="@string/printingGuide"
+                    app:elevation="8dp"
                     android:layout_width="300dp"
                     android:layout_height="@dimen/button_layout_height"
                     android:layout_marginTop="32dp"
-                    android:text="Start"
-                    app:elevation="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/guideButton" />
+                    app:layout_constraintTop_toBottomOf="@+id/userPreferenceButtonGuide" />
 
                 <Button
-                    android:id="@+id/importLayoutButton"
+                    android:id="@+id/importButtonGuide"
+                    android:text="@string/importGuide"
                     android:layout_width="300dp"
                     android:layout_height="@dimen/button_layout_height"
                     android:layout_marginTop="32dp"
                     android:layout_marginBottom="32dp"
-                    android:text="Import"
-                    app:layout_constraintBottom_toTopOf="@+id/guideButton"
+                    app:layout_constraintBottom_toTopOf="@+id/userPreferenceButtonGuide"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
-                    android:id="@+id/guideButton"
+                    android:id="@+id/userPreferenceButtonGuide"
+                    android:text="@string/userPreferencesGuide"
                     android:layout_width="300dp"
                     android:layout_height="@dimen/button_layout_height"
                     android:layout_marginTop="32dp"
-                    android:text="Day/night and En/fi"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/importLayoutButton" />
+                    app:layout_constraintTop_toBottomOf="@+id/importButtonGuide" />
 
-                <!--IMPORT OHJE IKKUNA-->
+                <!-- ***********        Import CardView         *********** -->
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/importInstructions"
+                    app:cardElevation="0dp"
                     android:layout_width="900dp"
                     android:layout_height="700dp"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="100dp"
                     android:layout_marginEnd="32dp"
-                    android:visibility="visible"
-                    app:cardElevation="0dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/importLayoutButton"
+                    app:layout_constraintStart_toEndOf="@+id/importButtonGuide"
                     app:layout_constraintTop_toTopOf="parent">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
@@ -79,80 +66,82 @@
                             android:layout_height="match_parent">
 
                                 <TextView
-                                    android:id="@+id/textView2"
+                                    android:id="@+id/importTextGuide"
+                                    android:text="TextView"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="50dp"
                                     android:layout_marginEnd="477dp"
-                                    android:text="TextView"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
+
                 </androidx.cardview.widget.CardView>
 
-                <!--START OHJE IKKUNA-->
+                <!-- ***********        Printing CardView         *********** -->
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/startInstructions"
+                    android:id="@+id/printingInstructions"
+                    app:cardElevation="0dp"
                     android:layout_width="900dp"
                     android:layout_height="700dp"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="100dp"
                     android:layout_marginEnd="32dp"
-                    android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/importLayoutButton"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:cardElevation="0dp">
-                        <!--android:visibility="invisible"-->
+                    app:layout_constraintStart_toEndOf="@+id/importButtonGuide"
+                    app:layout_constraintTop_toTopOf="parent">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
 
                                 <TextView
-                                    android:id="@+id/textView4"
+                                    android:id="@+id/printingTextGuide"
+                                    android:text="TextView"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="32dp"
                                     android:layout_marginEnd="500dp"
-                                    android:text="TextView"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />
+
                         </androidx.constraintlayout.widget.ConstraintLayout>
+
                 </androidx.cardview.widget.CardView>
 
-                <!--DAY/NIGHT OHJE IKKUNA-->
+                <!-- ***********        User preferences CardView         *********** -->
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/dayNightInstructions"
+                    android:id="@+id/userPreferenceInstructions"
+                    app:cardElevation="0dp"
                     android:layout_width="900dp"
                     android:layout_height="700dp"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="100dp"
                     android:layout_marginEnd="32dp"
-                    android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/importLayoutButton"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:cardElevation="0dp">
+                    app:layout_constraintStart_toEndOf="@+id/importButtonGuide"
+                    app:layout_constraintTop_toTopOf="parent">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
 
                                 <TextView
-                                    android:id="@+id/textView3"
+                                    android:id="@+id/userPreferenceTextGuide"
+                                    android:text="TextView"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="50dp"
                                     android:layout_marginEnd="477dp"
-                                    android:text="TextView"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />
+
                         </androidx.constraintlayout.widget.ConstraintLayout>
+
                 </androidx.cardview.widget.CardView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -3,6 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- ***********        viewModel data         *********** -->
+
     <data>
         <variable
             name="viewModel"
@@ -13,46 +15,52 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!-- ***********        Image         *********** -->
+
         <ImageView
-            android:id="@+id/printingImageView"
+            android:id="@+id/signImagePrinting"
             android:layout_width="462dp"
             android:layout_height="464dp"
             android:layout_marginStart="128dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.311" />
+            app:layout_constraintVertical_bias="0.311"
+            android:contentDescription="@string/signImagePrinting" />
+
+        <!-- ***********        Printing button         *********** -->
 
         <Button
-            android:id="@+id/printingButton"
+            android:id="@+id/printingButtonPrinting"
+            android:text="@string/start_printing"
+            android:onClick="@{() -> viewModel.startPrinting()}"
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:layout_marginStart="32dp"
             android:layout_marginBottom="32dp"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:text="@string/start_printing"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:onClick="@{() -> viewModel.startPrinting()}"
             app:layout_constraintHorizontal_bias="0.009"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <!-- ***********        Stop printing button         *********** -->
+
         <Button
-            android:id="@+id/printingStopButton"
+            android:id="@+id/stopPrintingButtonPrinting"
+            android:text="@string/stop_printing_text"
+            android:onClick="@{() -> viewModel.emergencyStop()}"
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="32dp"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:onClick="@{() -> viewModel.emergencyStop()}"
-            android:text="@string/stop_printing_text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-
-        <!--android:progress="65"-->
+        <!-- ***********        Progress bar         *********** -->
 
         <ProgressBar
             android:id="@+id/progressBarPrinting"
@@ -68,19 +76,21 @@
             app:layout_constraintVertical_bias="0.767"
             tools:progress="@{viewModel.progress}" />
 
+        <!-- ***********        Printing progress text         *********** -->
+
         <TextView
-            android:id="@+id/printingprogress"
+            android:id="@+id/progressPrinting"
+            tools:text="@{viewModel.progressPercentage}"
+            tools:visibility="visible"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:textAlignment="center"
-            android:textSize="25dp"
+            android:textSize="25sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/progressBarPrinting"
             app:layout_constraintEnd_toEndOf="@+id/progressBarPrinting"
             app:layout_constraintStart_toStartOf="@+id/progressBarPrinting"
-            app:layout_constraintTop_toTopOf="@+id/progressBarPrinting"
-            tools:text="@{viewModel.progressPercentage}"
-            tools:visibility="visible" />
+            app:layout_constraintTop_toTopOf="@+id/progressBarPrinting"/>
 
         <androidx.cardview.widget.CardView
             android:layout_width="450dp"
@@ -92,51 +102,50 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
-            <TextView
-                android:id="@+id/madeOfStepTextView"
-                android:layout_width="200dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="50dp"
-                android:textColor="#2A2A2B"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                tools:text="@{viewModel.stepInTheWorks}" />
+            <!-- ***********        Step in the works         *********** -->
 
             <TextView
-                android:id="@+id/printingPaintPlaceTextView"
+                android:id="@+id/madeOfStepTextPrinting"
+                tools:text="@{viewModel.stepInTheWorks}"
+                android:textColor="#2A2A2B"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 android:layout_width="200dp"
                 android:layout_height="40dp"
-                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="50dp" />
+
+            <!-- ***********        Printing machine place        *********** -->
+
+            <TextView
+                android:id="@+id/paintPlaceTextPrinting"
+                tools:text="@{viewModel.locationOnAxel}"
+                android:textColor="#2A2A2B"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="30dp"
                 android:layout_marginTop="100dp"
-                android:layout_marginBottom="300dp"
-                android:textColor="#2A2A2B"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                tools:text="@{viewModel.locationOnAxel}" />
+                android:layout_marginBottom="300dp" />
+
+            <!-- ***********        Printing machine place        *********** -->
+
+            <!-- ***********        Sign name        *********** -->
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/signNameTextPrinitng"
+                android:text="@{viewModel.signName}"
+                android:textColor="#2A2A2B"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 android:layout_width="200dp"
                 android:layout_height="40dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="150dp"
-                android:textColor="#2A2A2B"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:text="@{viewModel.signInfo}"/>
-
-            <TextView
-                android:id="@+id/printingSignNameView"
-                android:layout_width="200dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="200dp"
-                android:textColor="#2A2A2B"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:text="@{viewModel.signName}" />
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="200dp" />
 
         </androidx.cardview.widget.CardView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

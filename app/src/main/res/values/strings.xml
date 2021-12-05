@@ -45,5 +45,17 @@
     <string name="cancel">Cancel</string>
     <string name="get_image">Get image</string>
     <string name="create">Create</string>
+    <string name="importGuide">Import</string>
+    <string name="userPreferencesGuide">User preferences</string>
+    <string name="printingGuide">Printing</string>
+    <string name="signImagePrinting">Signs image</string>
+    <string name="listItemsStepsVertical">Vertical</string>
+    <string name="listItemsStepsHorizontal">Horizontal</string>
+    <string name="listItemsStepsArc">Arc</string>
+    <string name="listItemsStepsDiagonal">Diagonal</string>
+    <string name="radio_noPaintRadioButton">No painting</string>
+    <string name="radio_5WidePaintRadioButton">5 cm wide painting</string>
+    <string name="_10_cm_wide_paintingRadioButton">10 cm wide painting</string>
+    <string name="_50_cm_wide_paintingRadioButton">50 cm wide painting</string>
 
 </resources>

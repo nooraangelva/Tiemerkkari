@@ -59,7 +59,7 @@ class SignOptionsFragment : Fragment() {
 
         // Creates recycler with GridLayout, every line has three signs
         val manager = GridLayoutManager(activity, 3)
-        binding.signListRecycleView.layoutManager = manager
+        binding.signListRecycleViewSignOptions.layoutManager = manager
 
         // Sets an adapter for the views to be recycled (sets new values) when scrolled
         val adapter = SignOptionsAdapter(SignListener { signId ->
@@ -71,7 +71,7 @@ class SignOptionsFragment : Fragment() {
         })
 
         // Ties the adapter to Layouts recyclerview
-        binding.signListRecycleView.adapter = adapter
+        binding.signListRecycleViewSignOptions.adapter = adapter
 
         // Submits the list of signs when it has been retrieved
         viewModel.sign.observe(viewLifecycleOwner, Observer {

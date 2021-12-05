@@ -25,7 +25,7 @@ class StartMenuFragment : Fragment() {
         // BUTTONS ---------------------------------------------------------------------------------
 
         // Sets the onClickListener for button start, navigates to selecting a sign to print
-        binding.startButton.setOnClickListener { view: View ->
+        binding.startButtonStartMenu.setOnClickListener { view: View ->
 
             Timber.tag("StartMenuFragment").v("Start pressed")
 
@@ -36,7 +36,7 @@ class StartMenuFragment : Fragment() {
         }
 
         // Sets the onClickListener for button start, navigates to guide
-        binding.guideButton.setOnClickListener { view: View ->
+        binding.guideButtonStartMenu.setOnClickListener { view: View ->
 
             Timber.tag("StartMenuFragment").v("Star menu - guide pressed")
 
@@ -46,7 +46,7 @@ class StartMenuFragment : Fragment() {
         }
 
         // Sets the onClickListener for button start, navigates to importing a new sign
-        binding.importLayoutButton.setOnClickListener { view: View ->
+        binding.importButtonStartMenu.setOnClickListener { view: View ->
 
             Timber.tag("StartMenuFragment").v("Star menu - import pressed")
 

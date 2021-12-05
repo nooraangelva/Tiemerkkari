@@ -58,7 +58,7 @@ class ImportFragment : Fragment(){
         navController = findNavController()
 
         // Set import and cancel button invisible before
-        binding.importButton.isVisible = false
+        binding.saveStepsButtonImport.isVisible = false
         binding.cancelButtonImport.isVisible = false
 
         // Showcasing errors
@@ -78,7 +78,7 @@ class ImportFragment : Fragment(){
 
         // TYPE SPINNER ----------------------------------------------------------------------------
 
-        val spinner: Spinner = binding.typeInput
+        val spinner: Spinner = binding.typeInputImport
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter.createFromResource(
             requireActivity().applicationContext,
@@ -92,14 +92,14 @@ class ImportFragment : Fragment(){
         }
 
         // Adds a new step
-        binding.newStepButton.setOnClickListener{
+        binding.newStepButtonImport.setOnClickListener{
 
             stepList.add(Step())
             stepAdapter.notifyItemInserted(stepList.size)
 
         }
 
-        binding.newStepButton.setOnClickListener{
+        binding.newStepButtonImport.setOnClickListener{
             stepList.add(Step())
             stepAdapter.notifyItemInserted(stepList.size)
         }
@@ -107,7 +107,7 @@ class ImportFragment : Fragment(){
         // SIGN CREATING ---------------------------------------------------------------------------
 
         // Sets onclick listener for getting image
-        binding.newSignImageImportButton.setOnClickListener {
+        binding.newSignImageButtonImport.setOnClickListener {
 
             (activity as MainActivity).openGalleryForImage()
 
@@ -139,29 +139,29 @@ class ImportFragment : Fragment(){
             Toast.makeText(context, "Sign Created",Toast.LENGTH_SHORT).show()
 
             binding.createSignButtonImport.isVisible = !viewModel.signCreated.value!!
-            binding.importButton.isVisible = viewModel.signCreated.value!!
-            binding.newStepButton.isVisible = viewModel.signCreated.value!!
+            binding.saveStepsButtonImport.isVisible = viewModel.signCreated.value!!
+            binding.newStepButtonImport.isVisible = viewModel.signCreated.value!!
             binding.cancelButtonImport.isVisible = viewModel.signCreated.value!!
 
         })
 
         // CREATING STEPS --------------------------------------------------------------------------
 
-        binding.importButton.setOnClickListener{
+        binding.saveStepsButtonImport.setOnClickListener{
             stepList.forEachIndexed { index, step ->
                 Timber.i("Import O: " + step.order)
                 viewModel.saveSteps(step, index)
             }
             Toast.makeText(context,"Steps saved",Toast.LENGTH_SHORT).show()
-            binding.importButton.isVisible = false
-            binding.newStepButton.isVisible = false
+            binding.saveStepsButtonImport.isVisible = false
+            binding.newStepButtonImport.isVisible = false
         }
 
         // RECYCLERVIEW FOR STEPS ------------------------------------------------------------------
 
         // Sets linearLayout
         val manager = LinearLayoutManager(activity)
-        binding.importRecycleView.layoutManager = manager
+        binding.recycleViewImport.layoutManager = manager
         setAdapter()
 
         // Shows back button
@@ -185,7 +185,7 @@ class ImportFragment : Fragment(){
             }
 
         })
-        binding.importRecycleView.apply {
+        binding.recycleViewImport.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = stepAdapter
         }

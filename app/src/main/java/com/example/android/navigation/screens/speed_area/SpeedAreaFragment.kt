@@ -28,7 +28,7 @@ class SpeedAreaFragment : Fragment() {
         // BUTTONS ---------------------------------------------------------------------------------
 
         // Sets the onClickListener for button city, navigates to speed area with a parameter
-        binding.cityButton.setOnClickListener { view: View ->
+        binding.cityButtonSpeedArea.setOnClickListener { view: View ->
 
             Timber.tag("SpeedAreaFragment").v("City pressed")
 
@@ -39,7 +39,7 @@ class SpeedAreaFragment : Fragment() {
         }
 
         // Sets the onClickListener for button city, navigates to speed area with a parameter
-        binding.outsideCityButton.setOnClickListener { view: View ->
+        binding.outsideCityButtonSpeedArea.setOnClickListener { view: View ->
 
             Timber.tag("SpeedAreaFragment").v("Outside city pressed")
 

@@ -5,6 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.android.navigation.ImportFragment">
 
+    <!-- ***********        viewModel data         *********** -->
+
     <data>
         <variable
             name="viewModel"
@@ -16,9 +18,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!-- ***********        Sign name         *********** -->
 
         <EditText
-            android:id="@+id/newSignNameInput"
+            android:id="@+id/newSignNameInputImport"
+            android:text="@={viewModel.signName}"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_marginStart="32dp"
@@ -28,65 +32,74 @@
             android:focusableInTouchMode="true"
             android:hint="@string/sign_name"
             android:inputType="text"
-            android:text="@={viewModel.signName}"
-            app:layout_constraintStart_toEndOf="@+id/newSignImageImportButton"
+            app:layout_constraintStart_toEndOf="@+id/newSignImageButtonImport"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- ***********        Sign info         *********** -->
+
         <EditText
-            android:id="@+id/newSignInfoInput"
+            android:id="@+id/newSignInfoInputImport"
+            android:text="@={viewModel.signInfo}"
+            android:hint="@string/info_measurements"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:hint="@string/info_measurements"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            app:layout_constraintStart_toEndOf="@+id/newSignImageImportButton"
-            android:text="@={viewModel.signInfo}"
-            app:layout_constraintTop_toBottomOf="@+id/newSignNameInput" />
+            app:layout_constraintStart_toEndOf="@+id/newSignImageButtonImport"
+            app:layout_constraintTop_toBottomOf="@+id/newSignNameInputImport" />
+
+        <!-- ***********        Import image button         *********** -->
 
         <Button
-            android:id="@+id/newSignImageImportButton"
+            android:id="@+id/newSignImageButtonImport"
+            android:text="@string/get_image"
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="40dp"
-            android:text="@string/get_image"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- ***********        Create sign         *********** -->
+
         <Button
             android:id="@+id/createSignButtonImport"
+            android:text="@string/create"
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:layout_marginTop="40dp"
             android:layout_marginEnd="32dp"
-            android:text="@string/create"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- ***********        Add new step button         *********** -->
+
         <Button
-            android:id="@+id/newStepButton"
+            android:id="@+id/newStepButtonImport"
+            android:text="@string/newStepButtonString"
+            android:textSize="30sp"
+            android:textStyle="bold"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginEnd="125dp"
             android:layout_marginBottom="24dp"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
-            android:text="@string/newStepButtonString"
-            android:textSize="30dp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/importButton"
+            app:layout_constraintBottom_toTopOf="@+id/saveStepsButtonImport"
             app:layout_constraintEnd_toEndOf="parent" />
 
+        <!-- ***********        Steps in recyclerview         *********** -->
+
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/import_recycle_view"
+            android:id="@+id/recycleViewImport"
             android:layout_width="match_parent"
             android:layout_height="220dp"
             android:layout_gravity="start"
@@ -96,60 +109,64 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- ***********        Save Steps button         *********** -->
+
         <Button
-            android:id="@+id/importButton"
+            android:id="@+id/saveStepsButtonImport"
+            android:text="@string/save_steps"
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="24dp"
-
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:text="@string/save_steps"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
+        <!-- ***********        Delete created sign and steps         *********** -->
+
         <Button
             android:id="@+id/cancelButtonImport"
+            android:text="@string/cancel"
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:layout_marginStart="32dp"
             android:layout_marginBottom="24dp"
-            android:text="@string/cancel"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <!--android:checked="@={viewModel.speedArea}"-->
+        <!-- ***********        Speed area checkbox         *********** -->
 
         <CheckBox
-            android:id="@+id/speedAreaImport"
+            android:id="@+id/speedAreaCheckboxImport"
+            android:text="@string/over_50km_hCheckBoxString"
+            android:checked="@={viewModel.speedArea}"
+            android:textSize="15sp"
             android:layout_width="0dp"
             android:layout_height="70dp"
             android:layout_marginTop="40dp"
             android:layout_marginEnd="340dp"
-            android:checked="@={viewModel.speedArea}"
             android:scaleX="1.50"
             android:scaleY="1.50"
-            android:text="@string/over_50km_hCheckBoxString"
-            android:textSize="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- ***********        Type spinner         *********** -->
+
         <Spinner
-            android:id="@+id/typeInput"
+            android:id="@+id/typeInputImport"
+            tools:setOnItemSelectedListener="@{viewModel.clicksListener}"
+            android:inputType="textPersonName"
             android:layout_width="150dp"
             android:layout_height="50dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="40dp"
             android:ems="10"
-            android:inputType="textPersonName"
-            app:layout_constraintStart_toEndOf="@+id/newSignNameInput"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:setOnItemSelectedListener="@{viewModel.clicksListener}" />
-
-        <!--android:text="@={viewModel.type}"-->
+            app:layout_constraintStart_toEndOf="@+id/newSignNameInputImport"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

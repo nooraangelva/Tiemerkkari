@@ -1,7 +1,5 @@
 package com.example.android.navigation.dataForm
 
-import androidx.room.ColumnInfo
-import androidx.room.PrimaryKey
 import kotlinx.serialization.Serializable
 
 @Serializable

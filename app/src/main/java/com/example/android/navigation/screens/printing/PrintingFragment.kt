@@ -58,16 +58,16 @@ class PrintingFragment : Fragment() {
         navController = findNavController()
 
         // Sets initial visibility to buttons
-        binding.printingButton.isVisible = false
-        binding.printingStopButton.isVisible = !viewModel.isPrinting.value!!
+        binding.printingButtonPrinting.isVisible = false
+        binding.stopPrintingButtonPrinting.isVisible = !viewModel.isPrinting.value!!
 
         // Observes printing status and controls button visibility based on it
         viewModel.isPrinting.observe(viewLifecycleOwner, Observer {
 
-            binding.printingButton.isVisible = !it
-            binding.printingStopButton.isVisible = it
+            binding.printingButtonPrinting.isVisible = !it
+            binding.stopPrintingButtonPrinting.isVisible = it
             binding.progressBarPrinting.isVisible = it
-            binding.printingprogress.isVisible = it
+            binding.progressPrinting.isVisible = it
 
         })
 
@@ -75,7 +75,7 @@ class PrintingFragment : Fragment() {
         //ViewModel adding image to imageview
         viewModel.getData.observe(viewLifecycleOwner, Observer {
 
-            binding.printingImageView.setImageURI(viewModel.signSource.value?.toUri())
+            binding.signImagePrinting.setImageURI(viewModel.signSource.value?.toUri())
 
         })
 
@@ -104,7 +104,7 @@ class PrintingFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
 
-                binding.printingButton.isVisible =true
+                binding.printingButtonPrinting.isVisible =true
 
             }
             else{
@@ -115,7 +115,7 @@ class PrintingFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
 
-                binding.printingButton.isVisible = false
+                binding.printingButtonPrinting.isVisible = false
 
             }
 

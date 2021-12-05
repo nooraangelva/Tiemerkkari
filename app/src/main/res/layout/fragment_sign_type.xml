@@ -5,6 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.android.navigation.SignTypeFragment">
 
+    <!-- ***********        viewModel data         *********** -->
+
     <data>
         <variable
             name="viewModel"
@@ -16,8 +18,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
+        <!-- ***********        Image         *********** -->
+
         <ImageView
-            android:id="@+id/titleImage"
+            android:id="@+id/titleImageSpeedArea"
+            app:srcCompat="@drawable/bg_logo"
             android:layout_width="0dp"
             android:layout_height="172dp"
             android:layout_marginStart="@dimen/horizontal_margin"
@@ -25,49 +30,54 @@
             android:layout_marginEnd="@dimen/horizontal_margin"
             android:contentDescription="@string/FirmLogo"
             android:scaleType="fitCenter"
-            app:layout_constraintBottom_toTopOf="@+id/arrowsButton"
+            app:layout_constraintBottom_toTopOf="@+id/arrowsButtonSignType"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/bg_logo" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- ***********        Arrows button         *********** -->
 
         <Button
-            android:id="@+id/arrowsButton"
+            android:id="@+id/arrowsButtonSignType"
+            android:text="@string/ArrowsButtonText"
+            android:onClick="@{() -> viewModel.optionArrowsChosen()}"
             android:layout_width="@dimen/button_layout_width"
             android:layout_height="@dimen/button_layout_height"
             android:layout_marginTop="80dp"
-            android:onClick="@{() -> viewModel.optionArrowsChosen()}"
-            android:text="@string/ArrowsButtonText"
-            app:layout_constraintBottom_toTopOf="@+id/speedLimitButton"
+            app:layout_constraintBottom_toTopOf="@+id/speedLimitButtonSignType"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/titleImage" />
+            app:layout_constraintTop_toBottomOf="@+id/titleImageSpeedArea" />
+
+        <!-- ***********        Speed limit button         *********** -->
 
         <Button
-            android:id="@+id/speedLimitButton"
+            android:id="@+id/speedLimitButtonSignType"
+            android:text="@string/SpeedLimitButtonText"
+            android:onClick="@{() -> viewModel.optionSpeedLimitsChosen()}"
             android:layout_width="@dimen/button_layout_width"
             android:layout_height="@dimen/button_layout_height"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="32dp"
-            android:onClick="@{() -> viewModel.optionSpeedLimitsChosen()}"
-            android:text="@string/SpeedLimitButtonText"
-            app:layout_constraintBottom_toTopOf="@+id/othersButton"
+            app:layout_constraintBottom_toTopOf="@+id/othersButtonSignType"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/arrowsButton" />
+            app:layout_constraintTop_toBottomOf="@+id/arrowsButtonSignType" />
+
+        <!-- ***********        Others button         *********** -->
 
         <Button
-            android:id="@+id/othersButton"
+            android:id="@+id/othersButtonSignType"
+            android:text="@string/othersButtonText"
+            android:onClick="@{() -> viewModel.optionOthersChosen()}"
             android:layout_width="@dimen/button_layout_width"
             android:layout_height="@dimen/button_layout_height"
             android:layout_marginBottom="80dp"
-            android:onClick="@{() -> viewModel.optionOthersChosen()}"
-            android:text="@string/othersButtonText"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/speedLimitButton" />
+            app:layout_constraintTop_toBottomOf="@+id/speedLimitButtonSignType" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

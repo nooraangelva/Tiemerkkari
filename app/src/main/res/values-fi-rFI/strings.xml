@@ -31,4 +31,6 @@
     <string name="cancel">Peruuta</string>
     <string name="get_image">Hae kuva</string>
     <string name="create">Luo</string>
+    <string name="xMovementInputListItemSteps">x numerot</string>
+    <string name="yMovementInputListItemsSteps">y numerot</string>
 </resources>

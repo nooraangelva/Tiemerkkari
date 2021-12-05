@@ -18,5 +18,4 @@
         android:title="@string/nightDayOptionText"
         app:showAsAction="always" />
 
-
 </menu>

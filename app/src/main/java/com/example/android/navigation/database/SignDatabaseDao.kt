@@ -1,16 +1,16 @@
 package com.example.android.navigation.database
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import kotlinx.coroutines.flow.Flow
+
+// Database queries
 
 @Dao
 interface SignDatabaseDao {
 
-    // TABLE SIGNS QUERYES
+    // TABLE SIGNS QUERIES
 
     @Insert
     suspend fun insertSign(sign: Signs)
@@ -39,7 +39,7 @@ interface SignDatabaseDao {
     @Query("SELECT sign_id FROM signs_info_table ORDER BY sign_id DESC LIMIT 1")
     suspend fun getBiggestSignId(): Long
 
-    //TABLE INSTRUCTIONS QUERYES
+    //TABLE INSTRUCTIONS QUERIES
 
     @Insert
     suspend fun insertIns(step: Instructions)

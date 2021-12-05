@@ -5,6 +5,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.serialization.Serializable
 
+// Step data class
+
 @Serializable
 @Entity(tableName = "printing_instructions_table")
 data class Instructions  (

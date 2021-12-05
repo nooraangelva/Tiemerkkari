@@ -23,26 +23,37 @@ class GuideFragment : Fragment() {
        // Sets title for fragment
         (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.titleGuide)
 
+       // Sets starting view
+       binding.importInstructions.isVisible = false
+       binding.printingInstructions .isVisible = false
+       binding.userPreferenceInstructions.isVisible = false
 
        // BUTTONS ----------------------------------------------------------------------------------
 
-       binding.importLayoutButton.setOnClickListener{
+       // Sets visibility of import guide
+       binding.importButtonGuide.setOnClickListener{
 
-           binding.importInstructions.isVisible = true
-           binding.importInstructions.isVisible = true
-           // TODO kumpi?
-
-       }
-
-       binding.Ohje1.setOnClickListener{
-
-           binding.importInstructions.isVisible = false
+           binding.importInstructions.isVisible = !binding.importInstructions.isVisible
+           binding.printingInstructions.isVisible = false
+           binding.userPreferenceInstructions.isVisible = false
 
        }
 
-       binding.guideButton.setOnClickListener{
+       // Sets visibility of import guide
+       binding.printingButtonGuide.setOnClickListener{
 
            binding.importInstructions.isVisible = false
+           binding.printingInstructions.isVisible = !binding.printingInstructions.isVisible
+           binding.userPreferenceInstructions.isVisible = false
+
+       }
+
+       // Sets visibility of import guide
+       binding.userPreferenceButtonGuide.setOnClickListener{
+
+           binding.importInstructions.isVisible = false
+           binding.printingInstructions.isVisible = false
+           binding.userPreferenceInstructions.isVisible = !binding.userPreferenceInstructions.isVisible
 
        }
 
