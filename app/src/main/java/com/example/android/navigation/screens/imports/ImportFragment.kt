@@ -136,25 +136,33 @@ class ImportFragment : Fragment(){
 
         viewModel.signCreated.observe(viewLifecycleOwner, Observer { created ->
 
-            Toast.makeText(context, "Sign Created",Toast.LENGTH_SHORT).show()
+            if(created) {
 
-            binding.createSignButtonImport.isVisible = !viewModel.signCreated.value!!
-            binding.saveStepsButtonImport.isVisible = viewModel.signCreated.value!!
-            binding.newStepButtonImport.isVisible = viewModel.signCreated.value!!
-            binding.cancelButtonImport.isVisible = viewModel.signCreated.value!!
+                Toast.makeText(context, "Sign Created", Toast.LENGTH_SHORT).show()
+
+                binding.createSignButtonImport.isVisible = !viewModel.signCreated.value!!
+                binding.saveStepsButtonImport.isVisible = viewModel.signCreated.value!!
+                binding.newStepButtonImport.isVisible = viewModel.signCreated.value!!
+                binding.cancelButtonImport.isVisible = viewModel.signCreated.value!!
+
+            }
 
         })
 
         // CREATING STEPS --------------------------------------------------------------------------
 
         binding.saveStepsButtonImport.setOnClickListener{
+
             stepList.forEachIndexed { index, step ->
-                Timber.i("Import O: " + step.order)
+
                 viewModel.saveSteps(step, index)
+
             }
+
             Toast.makeText(context,"Steps saved",Toast.LENGTH_SHORT).show()
             binding.saveStepsButtonImport.isVisible = false
             binding.newStepButtonImport.isVisible = false
+
         }
 
         // RECYCLERVIEW FOR STEPS ------------------------------------------------------------------

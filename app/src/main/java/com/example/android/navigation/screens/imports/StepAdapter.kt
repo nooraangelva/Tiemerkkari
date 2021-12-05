@@ -9,7 +9,7 @@ import com.example.android.navigation.dataForm.Step
 import timber.log.Timber
 
 // Adapter to control recyclerview
-class StepAdapter(private val stepList : ArrayList<Step>, val clickListener: RadioButtonListener) : RecyclerView.Adapter<StepAdapter.StepViewHolder>() {
+class StepAdapter(private val stepList : ArrayList<Step>, private val clickListener: RadioButtonListener) : RecyclerView.Adapter<StepAdapter.StepViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StepViewHolder =
         StepViewHolder(ListItemStepsBinding.inflate(LayoutInflater.from(parent.context), parent, false))

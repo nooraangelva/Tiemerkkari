@@ -91,14 +91,16 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+
+        super.onCreate(savedInstanceState)
+
         // Sets user preferences on theme and language
         sharedPreferences = getPreferences(MODE_PRIVATE)
         changeLanguage()
         Timber.tag("MainActivity").v("Language pref: %s", sharedPreferences.getString("language", "en")!!)
         setTheme()
-        Timber.tag("MainActivity").v("Language pref: %s", sharedPreferences.getBoolean("SELECTED_THEME", false))
+        Timber.tag("MainActivity").v("Theme pref: %s", sharedPreferences.getBoolean("SELECTED_THEME", false))
 
-        super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
 
@@ -145,36 +147,32 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    // USER PREFERENCES ----------------------------------------------------------------------------
+
     // Changes language through locale when called
     private fun changeLanguage() {
 
         // Gets selected user preference and the current language
-        val newLanguage = sharedPreferences.getString("SELECTED_LANGUAGE", Locale.getDefault().language)
-        val currentLanguage = Locale.getDefault().language
+        val newLanguage = sharedPreferences.getString("SELECTED_LANGUAGE", Locale.getDefault().displayLanguage)
 
         Timber.tag("MainActivity").v("changeLanguage() - language new %s", newLanguage)
-        Timber.tag("MainActivity").v("changeLanguage() - language current %s", currentLanguage)
 
-        // If new language is different than the current, language will be changed
-        if (currentLanguage !== newLanguage) {
+        // Setting up new language
+        val locale = Locale(newLanguage!!)
+        Locale.setDefault(locale)
+        val config = Configuration()
 
-            val locale = Locale(newLanguage!!)
-            Locale.setDefault(locale)
-            val config = Configuration()
+        config.setLocale(locale)
 
-            config.setLocale(locale)
-
-            try {
-                config.locale = locale
-            }
-            catch (e: Exception) {
-            }
-
-            val resources = resources
-
-            resources.updateConfiguration(config, resources.displayMetrics)
-
+        try {
+            config.locale = locale
         }
+        catch (e: Exception) {
+        }
+
+        val resources = resources
+
+        resources.updateConfiguration(config, resources.displayMetrics)
 
     }
 
@@ -198,6 +196,8 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+    // PERMISSIONS ---------------------------------------------------------------------------------
 
     // Checks if all the permission are granted, when called
     private fun allPermissionsGranted() : Boolean{
@@ -242,8 +242,8 @@ class MainActivity : AppCompatActivity() {
         // Checks if the retrieval was successful and creates a bitmap
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == Activity.RESULT_OK && data != null) {
 
-            val image_uri = data.data
-            bitmap = uriToBitmap(image_uri!!)!!
+            val imageUri = data.data
+            bitmap = uriToBitmap(imageUri!!)!!
 
         }
 
@@ -337,7 +337,7 @@ class MainActivity : AppCompatActivity() {
             when (sharedPreferences.getString("SELECTED_LANGUAGE", Locale.getDefault().language)) {
                 "fi" -> {
 
-                    Timber.tag("MainActivity").v("onOptionsItemSelected() - languageOptionMenu - fi")
+                    Timber.tag("MainActivity").v("onOptionsItemSelected() - languageOptionMenu - fi - new - en")
 
                     // Sets preference
                     with(sharedPreferences.edit()) {
@@ -358,7 +358,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 "en" -> {
 
-                    Timber.tag("MainActivity").v("onOptionsItemSelected() - languageOptionMenu - en")
+                    Timber.tag("MainActivity").v("onOptionsItemSelected() - languageOptionMenu - en - new - fi")
 
                     // Sets preference
                     with(sharedPreferences.edit()) {
@@ -414,7 +414,7 @@ class MainActivity : AppCompatActivity() {
 
                 true -> {
 
-                    Timber.tag("MainActivity").v("onOptionsItemSelected() - languageOptionMenu - light")
+                    Timber.tag("MainActivity").v("onOptionsItemSelected() - dayNightOptionMenu - light")
 
                     //  Sets preference
                     with(sharedPreferences.edit()) {
@@ -435,7 +435,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 false -> {
 
-                    Timber.tag("MainActivity").v("onOptionsItemSelected() - languageOptionMenu - dark")
+                    Timber.tag("MainActivity").v("onOptionsItemSelected() - dayNightOptionMenu - dark")
 
                     // Sets preference
                     with(sharedPreferences.edit()) {

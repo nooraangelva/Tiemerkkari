@@ -14,7 +14,7 @@
     <string name="GuideText">Instructions</string>
     <string name="chooseSpeedRangeText">Choose speed range</string>
 
-    <!-- Sivun nimiä, titlet-->
+    <!-- Titles of fragments -->
     <string name="titleSignOptions">Signs</string>
     <string name="titleGuide">Guide</string>
     <string name="titleImport">Import</string>
@@ -25,7 +25,8 @@
 
 
 
-
+    <string name="yMovementInputListItemsSteps">Y movement</string>
+    <string name="xMovementInputListItemSteps">X movement</string>
 
     <string-array name="type_options_array">
         <item>Arrows</item>

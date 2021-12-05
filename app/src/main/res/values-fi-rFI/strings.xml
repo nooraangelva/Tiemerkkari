@@ -33,4 +33,17 @@
     <string name="create">Luo</string>
     <string name="xMovementInputListItemSteps">x numerot</string>
     <string name="yMovementInputListItemsSteps">y numerot</string>
+    <string name="newStepButtonString">+</string>
+    <string name="importGuide">Merkin luonti</string>
+    <string name="userPreferencesGuide">Mukautuminen</string>
+    <string name="printingGuide">Tulostus</string>
+    <string name="signImagePrinting">Merkin kuva</string>
+    <string name="listItemsStepsVertical">Vaakataso</string>
+    <string name="listItemsStepsHorizontal">Horisontaali</string>
+    <string name="listItemsStepsArc">Kaari</string>
+    <string name="listItemsStepsDiagonal">Viisto</string>
+    <string name="radio_noPaintRadioButton">Ei maalia</string>
+    <string name="radio_5WidePaintRadioButton">5cm leveä maalaus</string>
+    <string name="_10_cm_wide_paintingRadioButton">10cm leveä maalaus</string>
+    <string name="_50_cm_wide_paintingRadioButton">50cm leveä maalaus</string>
 </resources>
