@@ -34,19 +34,23 @@ class SignTypeFragment : Fragment() {
         // Sets title to activity bar
         (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.titleSignType)
 
+        binding.lifecycleOwner = this
+
+        // VIEWMODEL -------------------------------------------------------------------------------
+
         // Gets argument from navigation and gives it to viewModel when creating it
         val signTypeFragmentArgs by navArgs<SignTypeFragmentArgs>()
         viewModelFactory = SignTypeViewModelFactory(signTypeFragmentArgs.area)
         viewModel = ViewModelProvider(this, viewModelFactory)[SignTypeViewModel::class.java]
 
-
         // Binds viewModel to fragment, sets lifecycleOwner
         // and gets navController for navigation
         binding.viewModel = viewModel
-        binding.lifecycleOwner = this
-        val navController = findNavController();
 
         // BUTTON OBSERVERS ------------------------------------------------------------------------
+
+        // Gets navigation
+        val navController = findNavController();
 
         // Observers if arrows is chosen
         viewModel.arrowsChosen.observe(viewLifecycleOwner, Observer { arrowsChosen ->
@@ -99,7 +103,9 @@ class SignTypeFragment : Fragment() {
 
         })
 
+        // Shows back button
         setHasOptionsMenu(true)
+
         return binding.root
 
     }

@@ -32,6 +32,7 @@ class PrintingFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
+        // Sets title for fragment
         (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.titlePrinting)
 
 
@@ -44,16 +45,12 @@ class PrintingFragment : Fragment() {
         val dataSource = SignDatabase.getInstance(application).signDatabaseDao
         (activity as MainActivity).applicationContext
 
-        // Get arguments and create viewModel with wanted values
+        // Get arguments and creates viewModel with wanted values
         val printingFragmentArgs by navArgs<PrintingFragmentArgs>()
-
         viewModelFactory = PrintingViewModelFactory(printingFragmentArgs.signId, dataSource,
             application,(activity as MainActivity).bluetoothAdapter,
             (activity as MainActivity).applicationContext)
-
-        viewModel = ViewModelProvider(this, viewModelFactory)
-                .get(PrintingViewModel::class.java)
-
+        viewModel = ViewModelProvider(this, viewModelFactory)[PrintingViewModel::class.java]
         binding.viewModel = viewModel
 
         // set lifecycle owner and ties navController to a variable
@@ -66,10 +63,12 @@ class PrintingFragment : Fragment() {
 
         // Observes printing status and controls button visibility based on it
         viewModel.isPrinting.observe(viewLifecycleOwner, Observer {
+
             binding.printingButton.isVisible = !it
             binding.printingStopButton.isVisible = it
             binding.progressBarPrinting.isVisible = it
             binding.printingprogress.isVisible = it
+
         })
 
 
@@ -81,50 +80,65 @@ class PrintingFragment : Fragment() {
         })
 
 
-
-        //TODO Sets the onClickListener for finished
-
+        // Observer when printing is finished and then moves to startFragment
         viewModel.finished.observe(viewLifecycleOwner, Observer {
+
             if(it) {
+
                 navController.navigate(PrintingFragmentDirections.actionPrintingFragmentToStartMenuFragment())
+
             }
+
         })
 
 
 
         // Observes connection status and controls printing button visibility based on it
         viewModel.connected.observe(viewLifecycleOwner, Observer {
+
             if(it == true) {
+
                 Toast.makeText(
                     context,
                     "Connected to device: ${viewModel.device.value}",
                     Toast.LENGTH_SHORT
                 ).show()
+
                 binding.printingButton.isVisible =true
+
             }
             else{
+
                 Toast.makeText(
                     context,
                     "Disconnected from device: ${viewModel.device.value}",
                     Toast.LENGTH_SHORT
                 ).show()
+
                 binding.printingButton.isVisible = false
+
             }
+
         })
 
 
         // Shows back button
         setHasOptionsMenu(true)
+
         return binding.root
+
     }
 
-    // MENU FUNCTIONS
+    // MENU ----------------------------------------------------------------------------------------
 
     override fun onPrepareOptionsMenu(menu: Menu){
+
         super.onPrepareOptionsMenu(menu)
         val item = menu.findItem(R.id.languageOptionMenu)
         item.isVisible = false
         val item2 = menu.findItem(R.id.dayNightOptionMenu)
         item2.isVisible = false
+
     }
+
 }

@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.android.navigation.database.SignDatabaseDao
 
-
+// Gets parameters to ViewModel
 class PrintingViewModelFactory(private val signId: Long, private val dataSource: SignDatabaseDao, private val application: Application, private val bluetoothAdapter : BluetoothAdapter, private val context: Context) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

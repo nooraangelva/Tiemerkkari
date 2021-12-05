@@ -6,6 +6,7 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -20,6 +21,7 @@ import com.example.android.navigation.database.SignDatabase
 import com.example.android.navigation.databinding.FragmentImportBinding
 import timber.log.Timber
 
+
 class ImportFragment : Fragment(){
 
     private lateinit var viewModel: ImportViewModel
@@ -27,50 +29,55 @@ class ImportFragment : Fragment(){
     private lateinit var navController: NavController
     private lateinit var binding: FragmentImportBinding
 
-    val stepList : ArrayList<Step> = ArrayList()
+    // RecycleView variables
+    private val stepList : ArrayList<Step> = ArrayList()
     private lateinit var stepAdapter : StepAdapter
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
+        // Sets title for fragment
         (activity as AppCompatActivity).supportActionBar?.setTitle(R.string.titleImport)
 
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_import, container, false)
 
+        // Instance of the database
         val application = requireNotNull(this.activity).application
-
         val dataSource = SignDatabase.getInstance(application).signDatabaseDao
 
+        // Get arguments and creates viewModel with wanted values
         viewModelFactory = ImportViewModelFactory(dataSource, application)
+        viewModel = ViewModelProvider(this, viewModelFactory)[ImportViewModel::class.java]
+        binding.viewModel = viewModel
 
-        viewModel = ViewModelProvider(this, viewModelFactory)
-                .get(ImportViewModel::class.java)
-
+        // Set lifecycle owner and ties navController to a variable
         binding.lifecycleOwner = this
         navController = findNavController()
 
-        binding.viewModel = viewModel
-
-        //Recycleview stuff
-
-        val manager = LinearLayoutManager(activity)
-
-        binding.importRecycleView.layoutManager = manager
-
+        // Set import and cancel button invisible before
         binding.importButton.isVisible = false
         binding.cancelButtonImport.isVisible = false
 
+        // Showcasing errors
+        viewModel.error.observe(viewLifecycleOwner, Observer { error ->
 
-        binding.lifecycleOwner = this
-        navController = findNavController()
-        setHasOptionsMenu(true)
+            Toast.makeText(context, error, Toast.LENGTH_LONG).show()
 
-        setAdapter()
+        })
 
-        //TYPE SPINNER
+        // Deletes steps and sign
+        binding.cancelButtonImport.setOnClickListener{
+
+            viewModel.delete()
+            Toast.makeText(context,"Created sign and steps deleted",Toast.LENGTH_SHORT).show()
+
+        }
+
+        // TYPE SPINNER ----------------------------------------------------------------------------
+
         val spinner: Spinner = binding.typeInput
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter.createFromResource(
@@ -84,41 +91,61 @@ class ImportFragment : Fragment(){
             spinner.adapter = adapter
         }
 
-        // set on-click listener
-        binding.newSignImageImportButton.setOnClickListener {
+        // Adds a new step
+        binding.newStepButton.setOnClickListener{
 
-            (activity as MainActivity).openGalleryForImage()
+            stepList.add(Step())
+            stepAdapter.notifyItemInserted(stepList.size)
+
         }
 
         binding.newStepButton.setOnClickListener{
             stepList.add(Step())
             stepAdapter.notifyItemInserted(stepList.size)
+        }
+
+        // SIGN CREATING ---------------------------------------------------------------------------
+
+        // Sets onclick listener for getting image
+        binding.newSignImageImportButton.setOnClickListener {
+
+            (activity as MainActivity).openGalleryForImage()
+
         }
 
         binding.createSignButtonImport.setOnClickListener{
 
             if((activity as MainActivity).pathInString != "") {
+
                 val imagePath = (activity as MainActivity).pathInString
-                viewModel.savedImagepath(imagePath)
+                viewModel.savedImagePath(imagePath)
                 viewModel.createSign()
                 stepList.add(Step())
                 stepAdapter.notifyItemInserted(stepList.size)
+
                 Toast.makeText(context,"Sign saved.",Toast.LENGTH_SHORT).show()
+
             }
             else{
+
                 Toast.makeText(context, "Get Picture first", Toast.LENGTH_LONG).show()
+
             }
+
         }
 
-        binding.cancelButtonImport.setOnClickListener{
-            viewModel.delete()
-            Toast.makeText(context,"Created sign and steps deleted",Toast.LENGTH_SHORT).show()
-        }
+        viewModel.signCreated.observe(viewLifecycleOwner, Observer { created ->
 
-        binding.newStepButton.setOnClickListener{
-            stepList.add(Step())
-            stepAdapter.notifyItemInserted(stepList.size)
-        }
+            Toast.makeText(context, "Sign Created",Toast.LENGTH_SHORT).show()
+
+            binding.createSignButtonImport.isVisible = !viewModel.signCreated.value!!
+            binding.importButton.isVisible = viewModel.signCreated.value!!
+            binding.newStepButton.isVisible = viewModel.signCreated.value!!
+            binding.cancelButtonImport.isVisible = viewModel.signCreated.value!!
+
+        })
+
+        // CREATING STEPS --------------------------------------------------------------------------
 
         binding.importButton.setOnClickListener{
             stepList.forEachIndexed { index, step ->
@@ -130,21 +157,18 @@ class ImportFragment : Fragment(){
             binding.newStepButton.isVisible = false
         }
 
-        viewModel.error.observe(viewLifecycleOwner, Observer { error ->
-            Toast.makeText(context, error, Toast.LENGTH_LONG).show()
-        })
+        // RECYCLERVIEW FOR STEPS ------------------------------------------------------------------
 
-        viewModel.signCreated.observe(viewLifecycleOwner, Observer { created ->
-            Toast.makeText(context, "Sign Created",Toast.LENGTH_SHORT).show()
-            binding.createSignButtonImport.isVisible = !viewModel.signCreated.value!!
-            binding.importButton.isVisible = viewModel.signCreated.value!!
-            binding.newStepButton.isVisible = viewModel.signCreated.value!!
-            binding.cancelButtonImport.isVisible = viewModel.signCreated.value!!
+        // Sets linearLayout
+        val manager = LinearLayoutManager(activity)
+        binding.importRecycleView.layoutManager = manager
+        setAdapter()
 
-        })
-
+        // Shows back button
+        setHasOptionsMenu(true)
 
         return binding.root
+
     }
 
 
@@ -167,16 +191,17 @@ class ImportFragment : Fragment(){
         }
     }
 
-    // MENU FUNCTIONS
+    // MENU ----------------------------------------------------------------------------------------
 
     override fun onPrepareOptionsMenu(menu: Menu){
+
         super.onPrepareOptionsMenu(menu)
         val item = menu.findItem(R.id.languageOptionMenu)
         item.isVisible = false
         val item2 = menu.findItem(R.id.dayNightOptionMenu)
         item2.isVisible = false
-    }
 
+    }
 
 }
 

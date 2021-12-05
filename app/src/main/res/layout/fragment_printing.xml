@@ -79,7 +79,7 @@
             app:layout_constraintEnd_toEndOf="@+id/progressBarPrinting"
             app:layout_constraintStart_toStartOf="@+id/progressBarPrinting"
             app:layout_constraintTop_toTopOf="@+id/progressBarPrinting"
-            tools:text="@{viewModel.progressProsent}"
+            tools:text="@{viewModel.progressPercentage}"
             tools:visibility="visible" />
 
         <androidx.cardview.widget.CardView

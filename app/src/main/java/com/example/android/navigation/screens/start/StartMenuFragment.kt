@@ -15,6 +15,7 @@ class StartMenuFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
+        // Inflates the layout for this fragment
         val binding: FragmentStartMenuBinding = inflate(
                 inflater, R.layout.fragment_start_menu, container, false)
 
@@ -54,7 +55,9 @@ class StartMenuFragment : Fragment() {
 
         }
 
+        // Shows back button
         setHasOptionsMenu(true)
+
         return binding.root
     }
 

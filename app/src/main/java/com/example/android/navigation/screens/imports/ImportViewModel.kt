@@ -11,77 +11,77 @@ import com.example.android.navigation.database.Instructions
 import com.example.android.navigation.database.SignDatabaseDao
 import com.example.android.navigation.database.Signs
 import kotlinx.coroutines.*
-
 import timber.log.Timber
 
-
+// ViewModel containing all the logic needed to run the ImportFragment
 class ImportViewModel (val database: SignDatabaseDao, application: Application) : ViewModel() {
 
+// DATABASE VARIABLES --------------------------------------------------------------------------
+
+    // ViewModelJob allows us to cancel all coroutines started by this ViewModel.
     private var viewModelJob = Job()
 
-    override fun onCleared() {
-
-        super.onCleared()
-        viewModelJob.cancel()
-
-    }
-
+    // Keeps track of all coroutines started by this ViewModel
+    // All coroutines started in uiScope will launch in [Dispatchers.Main] which is
+    // the main thread - because it updates the UI usually after
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    private val _stepList = MutableLiveData<ArrayList<Instructions>>()
-    val stepList: LiveData<ArrayList<Instructions>>
-        get() = _stepList
-
+    // Stores a step in proper form for step creation
     private val _step = MutableLiveData<Instructions>()
     val step: LiveData<Instructions>
         get() = _step
 
+    // Stores sign data from input for sign creation
     private val _sign = MutableLiveData<Signs>()
     val sign: LiveData<Signs>
         get() = _sign
 
+    // Stores the created signs signId for steps to use
     private val _signId = MutableLiveData<Long>()
     val signId: LiveData<Long>
         get() = _signId
 
+    // Tells the error to user if one occurs when creating sign or the steps
     private var _error = MutableLiveData<String>()
     val error: LiveData<String>
         get() = _error
 
+    // Tells if the sign has been created
     private var _signCreated = MutableLiveData<Boolean>()
     val signCreated: LiveData<Boolean>
         get() = _signCreated
 
-    // Inputs
+    // INPUTS FROM FRAGMENT ------------------------------------------------------------------------
 
     val signName = MutableLiveData<String>()
 
     val signInfo = MutableLiveData<String>()
 
-    val signSource = MutableLiveData<String>()
+    private val signSource = MutableLiveData<String>()
 
     val type = MutableLiveData<String>()
 
     val speedArea = MutableLiveData<Boolean>()
 
-
-
-
-
+    // Initialized values, functions and events when viewModel is created
     init {
-        Timber.i("PrintingViewModel created.")
 
+        // Initialized values
         _signCreated.value = false
         speedArea.value = false
+
     }
 
-    fun savedImagepath(temp: String){
+    // DATABASE ------------------------------------------------------------------------------------
+
+    // Gets the saved images path for viewModel
+    fun savedImagePath(temp: String){
 
         signSource.value = temp
+
     }
 
-
-
+    // Creates signs from input data
     fun createSign() {
 
         val temp = Signs()
@@ -91,166 +91,219 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
         temp.speedArea = speedArea.value!!
         temp.type = getType()
 
-        Timber.i("Import: " + temp.signName)
-        Timber.i("Import: " + temp.info)
-        Timber.i("Import: " + temp.speedArea)
-        Timber.i("Import: " + temp.type)
+        // Checks that the input values are not empty
+        when {
+            temp.sourcePicture.isEmpty() -> {
+                _error.value = "Get Picture"
+            }
+            temp.signName.isEmpty() -> {
+                _error.value = "Set Name"
+            }
+            temp.info.isEmpty() -> {
+                _error.value = "set Info"
+            }
+            temp.type == -1 -> {
+                _error.value = "set Type"
+            }
+            else -> {
 
-        if(temp.sourcePicture.isEmpty()){
-            _error.value = "Get Picture"
-        }
-        else if(temp.signName.isEmpty()){
-            _error.value = "Set Name"
-        }
-        else if(temp.info.isEmpty()){
-            _error.value = "set Info"
-        }
-        else if(temp.type == -1){
-            _error.value = "set Type"
-        }
-        else{
+                // Sends sign input to be put to the database and gets the created signs singId,
+                // tells the user has been created
+                uiScope.launch {
 
-            uiScope.launch {
-                createSignToDatabase(temp)
-                _signId.value = getSignIdFromDatabase(temp.signName)
-                Timber.i("Import signId: " + _signId.value)
-                _signCreated.value = true
+                    createSignToDatabase(temp)
+                    _signId.value = getSignIdFromDatabase(temp.signName)
+                    _signCreated.value = true
+
+                }
+
             }
 
         }
 
     }
 
-    val clicksListener = object : AdapterView.OnItemSelectedListener {
-        override fun onNothingSelected(parent: AdapterView<*>?) {
-
-        }
-
-        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-            type.value = parent?.getItemAtPosition(position) as String
-        }
-    }
-
+    // Request to database: gets signs ID,
+    // uses Coroutine so the user doesn't feel the delay
     private suspend fun getSignIdFromDatabase(temp: String): Long {
+
         return withContext(Dispatchers.IO) {
+
             val id = database.getSignId(temp)
-            id ?: run {
-                Timber.i("PrintingViewModel created.")
-            }
+
             id
+
         }
 
     }
 
+    // Request to database: creates sign,
+    // uses Coroutine so the user doesn't feel the delay
     private suspend fun createSignToDatabase(temp: Signs) {
 
         withContext(Dispatchers.IO) {
 
             database.insertSign(temp)
-            //TODO oikein?
 
         }
 
     }
 
-    //FUNCTIONS
-
-    fun getType(): Int {
-
-        when (type.value!!) {
-            "Arrows" -> return 0
-            "Others" -> return 2
-            "SpeedLimits" -> return 1
-            "Nuolet" -> return 0
-            "Nopeusrajoitukset" -> return 1
-            "Muut" -> return 2
-            else -> {
-                return 0
-            }
-        }
-
-    }
-
+    // Creates steps from input data
     fun saveSteps(step: Step, index: Int) {
 
         uiScope.launch {
 
-            val temp : Instructions = Instructions(0,_signId.value!!,
+            val temp = Instructions(0,_signId.value!!,
                 index,whichOrder(step.order),step.parX.toInt(),
                 step.parY.toInt(),whichPaint(step.paint))
 
+            when {
 
-            Timber.i("Import O: " + whichOrder(step.order))
-            Timber.i("Import P: " + whichPaint(temp.paint).toString())
-            Timber.i("Import: X" + temp.parY.toString())
-            Timber.i("Import: Y" + temp.parX.toString())
+                step.parX.isEmpty() -> {
+                    _error.value = "Set value to X"
+                }
+                step.parY.isEmpty() -> {
+                    _error.value = "Set value to Y"
+                }
+                else -> {
+                    createStepToDatabase(temp)
+                }
 
-            if(step.parX.isEmpty()){
-                _error.value = "Set value to X"
-            }
-            else if(step.parY.isEmpty()){
-                _error.value = "Set value to Y"
-            }
-            else{
-                createStepToDatabase(temp)
             }
 
         }
 
     }
 
-    private fun whichOrder(tmp : Int): String{
-        when (tmp) {
-            1 -> return "Vertical"
-            2 -> return "Horizontal"
-            3 -> return "Arc"
-            4 -> return "Diagonal"
-            else -> {
-                return ""
-            }
-        }
-    }
-
-    private fun whichPaint(tmp : Int): Int{
-        when (tmp) {
-            5 -> return 0
-            6 -> return 1
-            7 -> return 2
-            8 -> return 3
-            else -> {
-                return 0
-            }
-        }
-    }
-
+    // Request to database: creates step,
+    // uses Coroutine so the user doesn't feel the delay
     private suspend fun createStepToDatabase(tmp : Instructions){
+
         CoroutineScope(Dispatchers.IO).launch {
+
             database.insertIns(tmp)
+
         }
+
     }
 
+    // Deletes created data
     fun delete(){
+
         uiScope.launch {
+
             deleteSignFromDatabase()
             deleteStepsFromDatabase()
             _signCreated.value = false
+
         }
 
     }
 
+    // Request to database: deletes steps,
+    // uses Coroutine so the user doesn't feel the delay
     private suspend fun deleteStepsFromDatabase():Boolean {
+
         CoroutineScope(Dispatchers.IO).launch {
+
             database.clearIns(signId.value!!)
+
         }
+
         return true
 
     }
 
+    // Request to database: deletes signs,
+    // uses Coroutine so the user doesn't feel the delay
     private suspend fun deleteSignFromDatabase():Boolean {
+
         CoroutineScope(Dispatchers.IO).launch {
+
             database.clearSign(signId.value!!)
+
         }
+
         return true
+
+    }
+
+    // Clears Coroutines
+    override fun onCleared() {
+
+        super.onCleared()
+        viewModelJob.cancel()
+
+    }
+
+    // GETS SELECTED CHOICE ------------------------------------------------------------------------
+
+    // Checks what type was chosen
+    private fun getType(): Int {
+
+        return when (type.value!!) {
+
+            "Arrows" -> 0
+            "Others" -> 2
+            "SpeedLimits" -> 1
+            "Nuolet" -> 0
+            "Nopeusrajoitukset" -> 1
+            "Muut" -> 2
+            else -> {
+                0
+            }
+
+        }
+
+    }
+
+    // Click listener for type selection from spinner
+    val clicksListener = object : AdapterView.OnItemSelectedListener {
+
+        override fun onNothingSelected(parent: AdapterView<*>?) {
+
+        }
+
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+
+            type.value = parent?.getItemAtPosition(position) as String
+
+        }
+
+    }
+
+    // Checks what order was chosen
+    private fun whichOrder(tmp : Int): String{
+
+        return when (tmp) {
+
+            1 -> "Vertical"
+            2 -> "Horizontal"
+            3 -> "Arc"
+            4 -> "Diagonal"
+            else -> {
+                ""
+            }
+
+        }
+
+    }
+
+    // Checks what paint was chosen
+    private fun whichPaint(tmp : Int): Int{
+
+        return when (tmp) {
+
+            5 -> 0
+            6 -> 1
+            7 -> 2
+            8 -> 3
+            else -> {
+                0
+            }
+
+        }
 
     }
 

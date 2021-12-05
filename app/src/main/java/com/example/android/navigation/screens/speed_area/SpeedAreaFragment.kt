@@ -48,7 +48,9 @@ class SpeedAreaFragment : Fragment() {
 
         }
 
+        // Shows back button
         setHasOptionsMenu(true)
+
         return binding.root
 
     }

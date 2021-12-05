@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import timber.log.Timber
 
+// ViewModel containing all the logic needed to run the signType
 class SignTypeViewModel (area: Boolean) : ViewModel() {
 
     // Status variables for buttons
