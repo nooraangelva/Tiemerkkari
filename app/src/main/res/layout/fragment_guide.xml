@@ -31,11 +31,12 @@
 
                 <Button
                     android:id="@+id/printingButtonGuide"
-                    android:text="@string/printingGuide"
-                    app:elevation="8dp"
                     android:layout_width="250dp"
                     android:layout_height="50dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="32dp"
+                    android:text="@string/printingGuide"
+                    app:elevation="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -43,11 +44,12 @@
 
                 <Button
                     android:id="@+id/importButtonGuide"
-                    android:text="@string/importGuide"
                     android:layout_width="250dp"
                     android:layout_height="50dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="32dp"
                     android:layout_marginBottom="32dp"
+                    android:text="@string/importGuide"
                     app:layout_constraintBottom_toTopOf="@+id/userPreferenceButtonGuide"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -56,10 +58,11 @@
 
                 <Button
                     android:id="@+id/userPreferenceButtonGuide"
-                    android:text="@string/userPreferencesGuide"
                     android:layout_width="250dp"
                     android:layout_height="50dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="32dp"
+                    android:text="@string/userPreferencesGuide"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -69,12 +72,13 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/importInstructions"
-                    app:cardElevation="0dp"
                     android:layout_width="900dp"
                     android:layout_height="700dp"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="100dp"
                     android:layout_marginEnd="32dp"
+                    android:visibility="invisible"
+                    app:cardElevation="0dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/importButtonGuide"
                     app:layout_constraintTop_toTopOf="parent">
@@ -85,28 +89,28 @@
 
                                 <TextView
                                     android:id="@+id/importTextGuide"
-                                    android:text="TextView"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="50dp"
                                     android:layout_marginEnd="477dp"
+                                    android:text="TextView"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
-
                 </androidx.cardview.widget.CardView>
 
                 <!-- ***********        Printing CardView         *********** -->
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/printingInstructions"
-                    app:cardElevation="0dp"
                     android:layout_width="900dp"
                     android:layout_height="700dp"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="100dp"
                     android:layout_marginEnd="32dp"
+                    android:visibility="invisible"
+                    app:cardElevation="0dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/importButtonGuide"
                     app:layout_constraintTop_toTopOf="parent">
@@ -117,11 +121,11 @@
 
                                 <TextView
                                     android:id="@+id/printingTextGuide"
-                                    android:text="TextView"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="32dp"
                                     android:layout_marginEnd="500dp"
+                                    android:text="TextView"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -133,12 +137,13 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/userPreferenceInstructions"
-                    app:cardElevation="0dp"
                     android:layout_width="900dp"
-                    android:layout_height="700dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="100dp"
                     android:layout_marginEnd="32dp"
+                    android:visibility="visible"
+                    app:cardElevation="0dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/importButtonGuide"
                     app:layout_constraintTop_toTopOf="parent">
@@ -149,13 +154,47 @@
 
                                 <TextView
                                     android:id="@+id/userPreferenceTextGuide"
-                                    android:text="TextView"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="400dp"
+                                    android:layout_height="200dp"
+                                    android:layout_marginStart="100dp"
                                     android:layout_marginTop="50dp"
-                                    android:layout_marginEnd="477dp"
-                                    app:layout_constraintEnd_toEndOf="parent"
+                                    android:text="Voit vaihtaa yö tai päivä modeen oheisen kuvakkeen kautta"
+                                    android:textColor="#000000"
+                                    android:textStyle="normal"
+                                    app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />
+
+                                <ImageView
+                                    android:id="@+id/daynight"
+                                    android:layout_width="150dp"
+                                    android:layout_height="200dp"
+                                    android:layout_marginTop="32dp"
+                                    android:src="@drawable/instructiondaynight"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@+id/userPreferenceTextGuide"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/userPreferenceTextGuide2"
+                                    android:layout_width="400dp"
+                                    android:layout_height="200dp"
+                                    android:layout_marginStart="100dp"
+                                    android:layout_marginTop="32dp"
+                                    android:text="Voit vaihtaa sovelluksen kieltä oheisen kuvakkeen kautta"
+                                    android:textColor="#000000"
+                                    android:textStyle="normal"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/userPreferenceTextGuide" />
+
+                                <ImageView
+                                    android:id="@+id/globe"
+                                    android:layout_width="150dp"
+                                    android:layout_height="200dp"
+                                    android:src="@drawable/globe"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@+id/userPreferenceTextGuide2"
+                                    app:layout_constraintTop_toBottomOf="@+id/daynight" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
