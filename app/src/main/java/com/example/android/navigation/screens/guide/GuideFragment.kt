@@ -25,7 +25,7 @@ class GuideFragment : Fragment() {
 
        // Sets starting view
        binding.importInstructions.isVisible = false
-       binding.printingInstructions .isVisible = false
+       binding.printingInstructions.isVisible = false
        binding.userPreferenceInstructions.isVisible = false
 
        // BUTTONS ----------------------------------------------------------------------------------
