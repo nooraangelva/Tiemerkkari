@@ -59,8 +59,6 @@
             android:text="@string/get_image"
             android:layout_width="250dp"
             android:layout_height="50dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="40dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -73,8 +71,6 @@
             android:text="@string/create"
             android:layout_width="250dp"
             android:layout_height="50dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
             android:layout_marginTop="40dp"
             android:layout_marginEnd="32dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -91,8 +87,6 @@
             android:layout_height="60dp"
             android:layout_marginEnd="125dp"
             android:layout_marginBottom="24dp"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp"
             app:layout_constraintBottom_toTopOf="@+id/saveStepsButtonImport"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -118,8 +112,6 @@
             android:layout_height="50dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="24dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -130,8 +122,6 @@
             android:text="@string/cancel"
             android:layout_width="250dp"
             android:layout_height="50dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
             android:layout_marginStart="32dp"
             android:layout_marginBottom="24dp"
             app:layout_constraintBottom_toBottomOf="parent"

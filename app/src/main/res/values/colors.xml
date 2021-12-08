@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <!--<color name="colorPrimary">#486581</color>-->
 
-    <!--<color name="colorAccent">#7e53c5</color>
-    <color name="gameOverBackground">#f8bbd0</color>
-    <color name="toolbarDark">#344955</color>
-    <color name="colorAccent">#344955</color>
-    <color name="toolbarLight">#4F798F</color>-->
+    <!-- ***********        Dark mode         *********** -->
 
-                <!-- DARK MODE-->
     <!--navigations-->
     <color name="colorPrimaryDark">#56030303</color>
     <color name="colorPrimary">#34030303</color>
@@ -17,12 +11,11 @@
     <!--texts-->
     <color name="buttonTextColorDark">#F8E326</color>
     <color name="textColorDark">#7A7A7A</color>
-    <color name="spinnerTextColorDark">#AEADAD</color>
-    <color name="radioButtonTextColorDark">#AEADAD</color>
-    <color name="listNumberTextColorDark">#AEADAD</color>
+    <color name="othersTextColorDark">#AEADAD</color>
 
 
-                <!-- LIGHT MODE-->
+    <!-- ***********        Light mode         *********** -->
+
     <!--navigations-->
     <color name="colorPrimaryLight">#6F454545</color>
     <color name="colorPrimaryL">#28DCD9D9</color>
@@ -30,14 +23,10 @@
     <!--texts-->
     <color name="buttonTextColorLight">#5B71C1</color>
     <color name="textColorLight">#393A3A</color>
-    <color name="spinnerTextColorLight">#302F2F</color>
-    <color name="radioButtonTextColorLight">#302F2F</color>
-    <color name="listNumberTextColorLight">#302F2F</color>
+    <color name="othersTextColorLight">#302F2F</color>
 
 
-    <!--<color name="textColor">#96B9CA</color>-->
-
-    <!--OTHERS-->
+    <!-- ***********        Others         *********** -->
 
     <color name="hintTextColor">#7A7A7A</color>
 

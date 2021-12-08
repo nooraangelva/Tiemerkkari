@@ -15,7 +15,9 @@
 
     <dimen name="horizontal_margin">8dp</dimen>
 
-    <!--otsikkojen tyylit-->
+    <!-- ***********        Others        *********** -->
 
     <dimen name="question_horizontal_margin">32dp</dimen>
+
+
 </resources>
