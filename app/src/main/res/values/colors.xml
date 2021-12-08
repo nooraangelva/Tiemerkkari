@@ -17,6 +17,9 @@
     <!--texts-->
     <color name="buttonTextColorDark">#F8E326</color>
     <color name="textColorDark">#7A7A7A</color>
+    <color name="spinnerTextColorDark">#AEADAD</color>
+    <color name="radioButtonTextColorDark">#AEADAD</color>
+    <color name="listNumberTextColorDark">#AEADAD</color>
 
 
                 <!-- LIGHT MODE-->
@@ -27,9 +30,16 @@
     <!--texts-->
     <color name="buttonTextColorLight">#5B71C1</color>
     <color name="textColorLight">#393A3A</color>
+    <color name="spinnerTextColorLight">#302F2F</color>
+    <color name="radioButtonTextColorLight">#302F2F</color>
+    <color name="listNumberTextColorLight">#302F2F</color>
 
 
     <!--<color name="textColor">#96B9CA</color>-->
+
+    <!--OTHERS-->
+
+    <color name="hintTextColor">#7A7A7A</color>
 
 </resources>
 

@@ -2,17 +2,20 @@
 
 <resources>
 
-    <dimen name="horizontal_margin">8dp</dimen>
-    <dimen name="button_padding">100dp</dimen>
 
+
+    <!-- ***********        Buttons         *********** -->
+
+    <dimen name="button_padding">10dp</dimen>
     <dimen name="button_layout_width">500dp</dimen>
     <dimen name="button_layout_height">60dp</dimen>
-
-
-    <dimen name="question_horizontal_margin">32dp</dimen>
-
-
-    <!--otsikkojen tyylit-->
     <dimen name="button_text_size">20sp</dimen>
 
+    <!-- ***********        Logo         *********** -->
+
+    <dimen name="horizontal_margin">8dp</dimen>
+
+    <!--otsikkojen tyylit-->
+
+    <dimen name="question_horizontal_margin">32dp</dimen>
 </resources>

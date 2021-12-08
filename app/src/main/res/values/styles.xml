@@ -16,19 +16,14 @@
         <item name="materialButtonStyle">@style/ButtonsDark</item>
         <item name="toolbarStyle">@style/CustomToolBarStyleDark</item>
         <item name="spinnerStyle">@style/spinnerDark</item>
+        <item name="android:textColorHint">@color/hintTextColor</item>
 
-        <!--<item name="materialButtonStyle">@style/Buttons</item>-->
+        <!--<item name="materialButtonStyle">@style/Buttons</item>
 
-        <!--<item name="materialButtonOutlinedStyle">@drawable/round_button</item>
-        <item name="subtitleTextColor">#000000</item>
-
-        <item name="colorButtonNormal">#393A3A</item>
-        <item name="android:background">none</item>
-        <item name="strokeColor">@color/toolbarLight</item>
         <item name="textAppearanceHeadline1">@style/textStyle</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:buttonStyle">@style/ButtonsDark</item>
-        <item name="strokeWidth">5dp</item>-->
+
+  -->
 
     </style>
 
@@ -47,16 +42,12 @@
         <item name="materialButtonStyle">@style/ButtonsLight</item>
         <item name="toolbarStyle">@style/CustomToolBarStyleLight</item>
         <item name="spinnerStyle">@style/spinnerLight</item>
+        <item name="android:textColorHint">@color/hintTextColor</item>
 
-       <!-- <item name="">@style/textStyleDark</item>-->
 
-        <!--<item name="round_button">@drawable/round_button_light</item>
+
+        <!--
          <item name="checkboxStyle">@style/checkBoxDark</item>
-        <item name="colorButtonNormal">#EC1A1A</item>
-        <item name="android:windowLightStatusBar">false</item>
-        <item name="text_color">@color/textColorLight</item>
-        <item name="android:textColor">@color/buttonTextColorLight</item>
-        <item name="colorButtonNormal">#CD0E0E</item>
         <item name="textAppearanceHeadline1">@style/textStyle</item>
             <item name="toolbar">@color/toolbarLight</item>-->
     </style>
@@ -76,9 +67,7 @@
         <item name="android:layout_marginStart">@dimen/horizontal_margin</item>
         <item name="android:layout_marginEnd">@dimen/horizontal_margin</item>
         <item name="android:background">@drawable/round_button</item>
-        <!--<item name="android:textColor">@color/buttonTextColorDark</item>
-         <item name="android:strokeColor">@color/colorSecondary</item>
-                 <item name="android:elevation">10dp</item>-->
+
     </style>
     <style name="ButtonsLight" parent="android:Widget.Material.Button">
         <item name="android:textColor">@color/buttonTextColorLight</item>
@@ -119,7 +108,7 @@
         <item name="android:fontFamily">@font/montserrat</item>
     </style>
 
-    <!--OTSIKOT-->
+    <!--OTSIKOT
 
     <style name="textViewDark" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">30sp</item>
@@ -134,7 +123,7 @@
         <item name="android:textAlignment">center</item>
         <item name="android:fontFamily">@font/montserrat</item>
         <item name="android:textStyle">bold</item>
-    </style>
+    </style>-->
 
     <!-- INPUT TEXT BOX-->
     <style name="inputBoxDark" parent="@style/Widget.Design.TextInputLayout">
@@ -158,11 +147,11 @@
         <item name="android:layout_height">60dp</item>
     </style>
 
-    <!--CHECKBOX-->
+    <!--CHECKBOX
     <style name="checkBoxDark" parent="@style/Widget.AppCompat.CompoundButton.CheckBox">
         <item name="android:textColor">#302F2F</item>
         <item name="android:textSize">15dp</item>
-    </style>
+    </style>-->
 
     <!--LISTNUMBER-->
     <style name="listNumberDark" parent="@style/Widget.AppCompat.TextView">
@@ -178,13 +167,13 @@
 
     <!--RADIOBUTTON-->
     <style name="radioButtonDark" parent="@style/Widget.AppCompat.CompoundButton.RadioButton">
-        <item name="android:textColor">#AEADAD</item>
+        <item name="android:textColor">@color/radioButtonTextColorDark</item>
         <item name="android:textSize">25dp</item>
         <item name="android:fontFamily">@font/montserrat</item>
         <item name="android:paddingLeft">10dp</item>
     </style>
     <style name="radioButtonLight" parent="@style/Widget.AppCompat.CompoundButton.RadioButton">
-        <item name="android:textColor">#302F2F</item>
+        <item name="android:textColor">@color/radioButtonTextColorLight</item>
         <item name="android:textSize">25dp</item>
         <item name="android:fontFamily">@font/montserrat</item>
         <item name="android:paddingLeft">10dp</item>
@@ -193,18 +182,21 @@
     <!--SPINNER-->
 
     <style name="spinnerDark" parent="@style/Widget.AppCompat.Spinner.DropDown">
-        <item name="android:textColor">#AEADAD</item>
+        <item name="android:textColor">@color/spinnerTextColorDark</item>
         <item name="android:textSize">25dp</item>
         <item name="android:fontFamily">@font/montserrat</item>
         <item name="android:background">@drawable/ic_spinner_down_dark</item>
         <item name="android:popupBackground">@drawable/spinner_dropdown_dark</item>
     </style>
     <style name="spinnerLight" parent="@style/Widget.AppCompat.Spinner.DropDown">
-        <item name="android:textColor">#302F2F</item>
-        <item name="android:textSize">20dp</item>
+        <item name="android:textColor">@color/spinnerTextColorLight</item>
+        <item name="android:textSize">25dp</item>
         <item name="android:fontFamily">@font/montserrat</item>
         <item name="android:background">@drawable/ic_spinner_down_light</item>
         <item name="android:popupBackground">@drawable/spinner_dropdown_light</item>
     </style>
+
+
+
 
 </resources>
