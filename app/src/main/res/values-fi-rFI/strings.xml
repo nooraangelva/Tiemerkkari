@@ -46,4 +46,6 @@
     <string name="radio_5WidePaintRadioButton">5cm leveä maalaus</string>
     <string name="_10_cm_wide_paintingRadioButton">10cm leveä maalaus</string>
     <string name="_50_cm_wide_paintingRadioButton">50cm leveä maalaus</string>
+    <string name="userPreferenceTextGuide">Voit vaihtaa yö tai päivä modeen oheisen kuvakkeen kautta</string>
+    <string name="userPreferenceTextGuide2">Voit vaihtaa sovelluksen kieltä oheisen kuvakkeen kautta</string>
 </resources>

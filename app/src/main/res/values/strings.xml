@@ -59,4 +59,8 @@
     <string name="_10_cm_wide_paintingRadioButton">10 cm wide painting</string>
     <string name="_50_cm_wide_paintingRadioButton">50 cm wide painting</string>
 
+    <!-- ohjeet -->
+    <string name="userPreferenceTextGuide">Voit vaihtaa yö tai päivä modeen oheisen kuvakkeen kautta</string>
+    <string name="userPreferenceTextGuide2">Voit vaihtaa sovelluksen kieltä oheisen kuvakkeen kautta</string>
+
 </resources>

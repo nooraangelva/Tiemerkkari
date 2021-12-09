@@ -109,7 +109,7 @@
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="100dp"
                     android:layout_marginEnd="32dp"
-                    android:visibility="invisible"
+                    android:visibility="visible"
                     app:cardElevation="0dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/importButtonGuide"
@@ -123,11 +123,17 @@
                                     android:id="@+id/printingTextGuide"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="32dp"
-                                    android:layout_marginEnd="500dp"
-                                    android:text="TextView"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent" />
+                                    android:text="Tulostamisen aloittaminen "
+                                    tools:layout_editor_absoluteX="87dp"
+                                    tools:layout_editor_absoluteY="33dp" />
+
+                                <TextView
+                                    android:id="@+id/printInstructions"
+                                    android:layout_width="400dp"
+                                    android:layout_height="400dp"
+                                    android:text="1. Valitse start"
+                                    tools:layout_editor_absoluteX="85dp"
+                                    tools:layout_editor_absoluteY="104dp" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -142,7 +148,7 @@
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="100dp"
                     android:layout_marginEnd="32dp"
-                    android:visibility="visible"
+                    android:visibility="invisible"
                     app:cardElevation="0dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/importButtonGuide"
@@ -158,8 +164,7 @@
                                     android:layout_height="200dp"
                                     android:layout_marginStart="100dp"
                                     android:layout_marginTop="50dp"
-                                    android:text="Voit vaihtaa yö tai päivä modeen oheisen kuvakkeen kautta"
-                                    android:textColor="#000000"
+                                    android:text="@string/userPreferenceTextGuide"
                                     android:textStyle="normal"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />
@@ -180,8 +185,7 @@
                                     android:layout_height="200dp"
                                     android:layout_marginStart="100dp"
                                     android:layout_marginTop="32dp"
-                                    android:text="Voit vaihtaa sovelluksen kieltä oheisen kuvakkeen kautta"
-                                    android:textColor="#000000"
+                                    android:text="@string/userPreferenceTextGuide2"
                                     android:textStyle="normal"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toBottomOf="@+id/userPreferenceTextGuide" />
