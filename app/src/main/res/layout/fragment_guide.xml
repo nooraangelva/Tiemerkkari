@@ -190,7 +190,7 @@
                                     android:id="@+id/globe"
                                     android:layout_width="150dp"
                                     android:layout_height="200dp"
-                                    android:src="@drawable/globe"
+                                    android:src="@drawable/globe1"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toEndOf="@+id/userPreferenceTextGuide2"

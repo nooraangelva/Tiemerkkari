@@ -232,14 +232,17 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
     // Sets the printing status, so that the user can see that it is happening
     fun startPrinting(){
 
-        _isPrinting.value = true
+
         _steps.value?.forEachIndexed { index, step ->
 
             val array = "${getOrder(step.order)},${step.parY},${step.parX},${step.paint},${step.step}"
-
             write(array)
 
         }
+
+        write("DONE")
+
+        _isPrinting.value = true
 
     }
 

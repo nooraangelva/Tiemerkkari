@@ -43,13 +43,19 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
 
                         // Data to be send in a string format
                         val data = msg.obj
-                        characteristic!!.setValue(data.toString())
 
+                        workerThreadHandler?.postDelayed({
+                            // do something after 1000ms
+                            characteristic!!.setValue(data.toString())
 
                             // Sends the data and also sets a notification
                             // so Arduino knows there is new data
                             bluetoothGatt?.writeCharacteristic(characteristic)
                             bluetoothGatt?.setCharacteristicNotification(characteristic,true)
+                        }, 100)
+
+
+
 
 
                         // Sends a response to MainThread that
@@ -230,6 +236,26 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
 
                 }
 
+            }
+
+            override fun onCharacteristicRead(
+                gatt: BluetoothGatt?,
+                characteristic: BluetoothGattCharacteristic?,
+                status: Int
+            ) {
+                super.onCharacteristicRead(gatt, characteristic, status)
+
+                val msgReply = Message()
+                msgReply.what = RECEIVE
+                if (characteristic != null) {
+
+                    Timber.tag("ThreadHandler").v("Message received: ${characteristic.getStringValue(0)}")
+
+                    msgReply.obj = characteristic.getStringValue(0)
+                    mainThreadHandler!!.sendMessage(msgReply)
+
+
+                }
             }
 
         }
