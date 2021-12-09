@@ -123,17 +123,59 @@
                                     android:id="@+id/printingTextGuide"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Tulostamisen aloittaminen "
-                                    tools:layout_editor_absoluteX="87dp"
-                                    tools:layout_editor_absoluteY="33dp" />
+                                    android:text="@string/PrintingTextGuide"
+                                    tools:layout_editor_absoluteX="59dp"
+                                    tools:layout_editor_absoluteY="39dp" />
 
                                 <TextView
                                     android:id="@+id/printInstructions"
                                     android:layout_width="400dp"
                                     android:layout_height="400dp"
-                                    android:text="1. Valitse start"
-                                    tools:layout_editor_absoluteX="85dp"
-                                    tools:layout_editor_absoluteY="104dp" />
+                                    android:lines="8"
+                                    android:text="@string/PrintingInstructions"
+                                    android:textStyle="normal"
+                                    tools:layout_editor_absoluteX="58dp"
+                                    tools:layout_editor_absoluteY="106dp" />
+
+                                <ImageView
+                                    android:id="@+id/printStart"
+                                    android:layout_width="300dp"
+                                    android:layout_height="200dp"
+                                    android:src="@drawable/printstart"
+                                    tools:layout_editor_absoluteX="545dp"
+                                    tools:layout_editor_absoluteY="23dp" />
+
+                                <ImageView
+                                    android:id="@+id/printSpeedArea"
+                                    android:layout_width="300dp"
+                                    android:layout_height="200dp"
+                                    android:src="@drawable/printspeedarea"
+                                    tools:layout_editor_absoluteX="541dp"
+                                    tools:layout_editor_absoluteY="193dp" />
+
+                                <ImageView
+                                    android:id="@+id/printSigntype"
+                                    android:layout_width="300dp"
+                                    android:layout_height="200dp"
+                                    android:src="@drawable/printsigntype"
+                                    tools:layout_editor_absoluteX="549dp"
+                                    tools:layout_editor_absoluteY="352dp" />
+
+                                <ImageView
+                                    android:id="@+id/printStartPrinting"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/printstartprinting"
+                                    tools:layout_editor_absoluteX="107dp"
+                                    tools:layout_editor_absoluteY="364dp" />
+
+                                <ImageView
+                                    android:id="@+id/printStop"
+                                    android:layout_width="300dp"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/printstop"
+                                    tools:layout_editor_absoluteX="69dp"
+                                    tools:layout_editor_absoluteY="464dp" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
