@@ -61,7 +61,7 @@ class SignTypeFragment : Fragment() {
 
                 navController.navigate(SignTypeFragmentDirections.
                 actionSignTypeFragmentToSignOptionsFragment
-                    (viewModel.type.value!!,viewModel.area.value!!))
+                    (0,viewModel.area.value!!))
 
                 viewModel.optionArrowsChosenComplete()
 
@@ -78,7 +78,7 @@ class SignTypeFragment : Fragment() {
 
                 navController.navigate(SignTypeFragmentDirections.
                 actionSignTypeFragmentToSignOptionsFragment
-                    (viewModel.type.value!!,viewModel.area.value!!))
+                    (1,viewModel.area.value!!))
 
                 viewModel.optionSpeedLimitsChosenComplete()
 
@@ -95,7 +95,7 @@ class SignTypeFragment : Fragment() {
 
                 navController.navigate(SignTypeFragmentDirections.
                 actionSignTypeFragmentToSignOptionsFragment
-                    (viewModel.type.value!!,viewModel.area.value!!))
+                    (2,viewModel.area.value!!))
 
                 viewModel.optionOthersChosenComplete()
 

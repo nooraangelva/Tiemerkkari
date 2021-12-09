@@ -104,7 +104,7 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
 
     // stores both threads (main and "connection")
     private var mainThreadHandler : Handler
-    var runnable: ThreadHandler
+    private var runnable: ThreadHandler
     var thread : Thread
 
     // Stores the received message that was gotten from Arduino
@@ -116,12 +116,12 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
         // Initialized values
         _signId.value = signId
         getDataFromDatabase()
-        _isPrinting.value = false
         _stepInTheWorks.value = ""
         _progress.value = 0
         _getData.value = false
         _finished.value = false
-
+        _connected.value = false
+        _isPrinting.value = false
 
         // Creating mainThread
         // handles incoming messages from the other thread
@@ -149,7 +149,6 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
                     DISCONNECT -> {
 
                         _connected.value = false
-                        _device.value = msg.obj.toString()
 
                     }
 
@@ -162,7 +161,12 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
         runnable = ThreadHandler(mainThreadHandler, context, bluetoothAdapter)
         thread = Thread(runnable)
         thread.start()
-        connect()
+        val handler = Handler()
+        handler.postDelayed({
+            // do something after 1000ms
+            connect()
+        }, 1000)
+
 
     }
 
@@ -200,22 +204,28 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
     // updates Arduino's printing status to the user when new status is received
     fun update(){
 
-        //Temp = Command, x.y progress, step, %,
-        val temp = _receivedMessage.value!!.split(",")
-        val mes = temp[1].split(".")
+        if(_receivedMessage.value!!.contains("Done")){
 
-        // Sets the values for the user
-        _progress.value = temp[3].toInt()
-        _locationOnAxel.value = temp[2]+". "+temp[0]+" Moved: (x, y): "+mes[0]+"cm "+mes[1]+" cm"
-        _progressPercentage.value = temp[3]+"%"
-        _stepInTheWorks.value = _steps.value?.get(temp[2].toInt())?.step.toString()+
-                ". "+temp[0]+"to move: (x,y): "+_steps.value?.get(temp[2].toInt())?.parX+" cm"+
-                _steps.value?.get(temp[2].toInt())?.parY+" cm"
-
-        // TODO CHECK IF FINISHED printing
-        /*if(){
             _finished.value = true
-        }*/
+            shutDownTread()
+
+        }
+        else {
+
+            //Temp = Command, x.y progress, step, %,
+            val temp = _receivedMessage.value!!.split(",")
+            val mes = temp[1].split(".")
+
+            // Sets the values for the user
+            _progress.value = temp[3].toInt()
+            _locationOnAxel.value =
+                temp[2] + ". " + temp[0] + " Moved: (x, y): " + mes[0] + "cm " + mes[1] + " cm"
+            _progressPercentage.value = temp[3] + "%"
+            _stepInTheWorks.value = _steps.value?.get(temp[2].toInt())?.step.toString() +
+                    ". " + temp[0] + "to move: (x,y): " + _steps.value?.get(temp[2].toInt())?.parX + " cm" +
+                    _steps.value?.get(temp[2].toInt())?.parY + " cm"
+
+        }
 
     }
 
@@ -225,9 +235,25 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
         _isPrinting.value = true
         _steps.value?.forEachIndexed { index, step ->
 
-            val array = """{"Commands":["${step.order}","${step.parY}","${step.parX}","${step.paint}","${step.step}" ]}"""
+            val array = "${getOrder(step.order)},${step.parY},${step.parX},${step.paint},${step.step}"
 
             write(array)
+
+        }
+
+    }
+
+    private fun getOrder(temp: String):String{
+
+        return when (temp) {
+
+            "Vertical" -> "V"
+            "Horizontal" -> "H"
+            "Arc" -> "A"
+            "Diagonal" -> "D"
+            else -> {
+                ""
+            }
 
         }
 
@@ -237,9 +263,13 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
     fun emergencyStop(){
 
         _isPrinting.value = false
-        val array = """{"Commands":["STOP"]}"""
+        val array = "STOP"
         write(array)
 
+    }
+
+    fun connected(){
+        _isPrinting.value = _connected.value!!
     }
 
     // DATABASE ------------------------------------------------------------------------------------

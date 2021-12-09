@@ -50,7 +50,7 @@ class SignTypeViewModel (area: Boolean) : ViewModel() {
     fun optionArrowsChosen(){
 
         _arrowsChosen.value = true
-        _type.value = -1
+        _type.value = 0
 
     }
 
@@ -63,7 +63,7 @@ class SignTypeViewModel (area: Boolean) : ViewModel() {
     fun optionSpeedLimitsChosen(){
 
         _speedLimitsChosen.value = true
-        _type.value = 0
+        _type.value = 1
 
     }
 
@@ -75,8 +75,8 @@ class SignTypeViewModel (area: Boolean) : ViewModel() {
 
     fun optionOthersChosen(){
 
-        _arrowsChosen.value = true
-        _type.value = 1
+        _othersChosen.value = true
+        _type.value = 2
 
     }
 

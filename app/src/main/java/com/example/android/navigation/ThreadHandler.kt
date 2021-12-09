@@ -45,10 +45,12 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
                         val data = msg.obj
                         characteristic!!.setValue(data.toString())
 
-                        // Sends the data and also sets a notification
-                        // so Arduino knows there is new data
-                        bluetoothGatt?.writeCharacteristic(characteristic)
-                        bluetoothGatt?.setCharacteristicNotification(characteristic,true)
+
+                            // Sends the data and also sets a notification
+                            // so Arduino knows there is new data
+                            bluetoothGatt?.writeCharacteristic(characteristic)
+                            bluetoothGatt?.setCharacteristicNotification(characteristic,true)
+
 
                         // Sends a response to MainThread that
                         // the data has been send and printing will start or stop
@@ -102,13 +104,13 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
 
     // Connects to the found device and stops scanning for it as it is now unnecessary,
     // sends also a reply to mainThread that the connection has been formed with the device
-    fun connectToDevice(bluetoothDevice: BluetoothDevice) {
+    fun connectToDevice(bluetoothDevice: BluetoothDevice, name : String) {
 
         bluetoothGatt = bluetoothDevice.connectGatt( thisContext, true, bleGattCallback)
 
         val msgReply = Message()
         msgReply.what = CONNECT
-        msgReply.obj = bluetoothDevice.name
+        msgReply.obj = name
         mainThreadHandler!!.sendMessage(msgReply)
 
         bluetoothAdapter.bluetoothLeScanner?.stopScan(bleScanCallback)
@@ -130,10 +132,10 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
 
                 if(!bluetoothDevice.name.isNullOrEmpty()) {
 
-                    if (bluetoothDevice.name.contains("Tiemerkkari", true)) {
+                    if (bluetoothDevice.name.contains("Tiemerkkari3", true)) {
 
                         Timber.tag("ThreadHandler").v("Device found: ${bluetoothDevice.name}")
-                        connectToDevice(bluetoothDevice)
+                        connectToDevice(bluetoothDevice, bluetoothDevice.name)
 
                     }
 

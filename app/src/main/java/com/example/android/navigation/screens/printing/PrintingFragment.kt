@@ -20,6 +20,7 @@ import com.example.android.navigation.MainActivity
 import com.example.android.navigation.R
 import com.example.android.navigation.database.SignDatabase
 import com.example.android.navigation.databinding.FragmentPrintingBinding
+import kotlinx.coroutines.delay
 
 
 class PrintingFragment : Fragment() {
@@ -59,17 +60,36 @@ class PrintingFragment : Fragment() {
 
         // Sets initial visibility to buttons
         binding.printingButtonPrinting.isVisible = false
-        binding.stopPrintingButtonPrinting.isVisible = !viewModel.isPrinting.value!!
+        binding.stopPrintingButtonPrinting.isVisible = false
 
         // Observes printing status and controls button visibility based on it
         viewModel.isPrinting.observe(viewLifecycleOwner, Observer {
 
-            binding.printingButtonPrinting.isVisible = !it
-            binding.stopPrintingButtonPrinting.isVisible = it
-            binding.progressBarPrinting.isVisible = it
-            binding.progressPrinting.isVisible = it
+            if(viewModel.connected.value!!) {
+
+                binding.printingButtonPrinting.isVisible = !it
+                binding.stopPrintingButtonPrinting.isVisible = it
+                binding.progressBarPrinting.isVisible = it
+                binding.progressPrinting.isVisible = it
+
+            }
+            else{
+
+                binding.printingButtonPrinting.isVisible = false
+                binding.stopPrintingButtonPrinting.isVisible = false
+            }
+
+
 
         })
+
+        viewModel.connected.observe(viewLifecycleOwner, Observer {
+
+            viewModel.connected()
+
+        })
+
+
 
 
         //ViewModel adding image to imageview
@@ -100,7 +120,7 @@ class PrintingFragment : Fragment() {
 
                 Toast.makeText(
                     context,
-                    "Connected to device: ${viewModel.device.value}",
+                    "Connected to device.",
                     Toast.LENGTH_SHORT
                 ).show()
 

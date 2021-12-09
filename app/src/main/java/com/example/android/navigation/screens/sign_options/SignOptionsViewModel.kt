@@ -9,7 +9,7 @@ import timber.log.Timber
 
 
 // ViewModel containing all the logic needed to run the sign_options
-class SignOptionsViewModel(area : Boolean, type : Int, val database: SignDatabaseDao, application: Application) : AndroidViewModel(application) {
+class SignOptionsViewModel(private val area : Boolean, private val type : Int, val database: SignDatabaseDao, application: Application) : AndroidViewModel(application) {
 
     // Database variables
 
@@ -65,7 +65,7 @@ class SignOptionsViewModel(area : Boolean, type : Int, val database: SignDatabas
 
         return withContext(Dispatchers.IO) {
 
-            val temp: List<Signs> = database.filterGetSigns(_type.value!!,_area.value!!)
+            val temp: List<Signs> = database.filterGetSigns(type,area)
 
             temp
 
