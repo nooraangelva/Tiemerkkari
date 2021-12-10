@@ -48,6 +48,6 @@
     <string name="_50_cm_wide_paintingRadioButton">50cm leveä maalaus</string>
     <string name="userPreferenceTextGuide">Voit vaihtaa yö tai päivä modeen oheisen kuvakkeen kautta</string>
     <string name="userPreferenceTextGuide2">Voit vaihtaa sovelluksen kieltä oheisen kuvakkeen kautta</string>
-    <string name="PrintingTextGuide">"Tulostamisen aloittaminen "</string>
-    <string name="PrintingInstructions">1. Valitse start 2. Valitse nopeusalue 3. valitse haluttu merkki 4. valitse galleriasta haluamasi merkki 5. Aloita tulostus 6. voit halutessasi keskeyttää tulostuksen</string>
+    <string name="PrintingTextGuide">Tulostamisen aloittaminen</string>
+    <string name="PrintingInstructions">\n1. Valitse start \n\n\n\n2. Valitse nopeusalue \n\n3. valitse haluttu merkki \n4. valitse galleriasta haluamasi merkki \n5. Aloita tulostus \n6. voit halutessasi keskeyttää tulostuksen</string>
 </resources>

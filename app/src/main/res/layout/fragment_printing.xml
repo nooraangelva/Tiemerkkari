@@ -107,9 +107,9 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:layout_width="200dp"
-                android:layout_height="40dp"
+                android:layout_height="60dp"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="50dp" />
+                android:layout_marginTop="20dp" />
 
             <!-- ***********        Printing machine place        *********** -->
 
@@ -120,7 +120,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:layout_width="200dp"
-                android:layout_height="40dp"
+                android:layout_height="60dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="100dp"
                 android:layout_marginBottom="300dp" />
@@ -136,9 +136,9 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:layout_width="200dp"
-                android:layout_height="40dp"
+                android:layout_height="60dp"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="200dp" />
+                android:layout_marginTop="180dp" />
 
         </androidx.cardview.widget.CardView>
 

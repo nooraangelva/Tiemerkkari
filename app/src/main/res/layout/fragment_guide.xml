@@ -73,7 +73,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/importInstructions"
                     android:layout_width="900dp"
-                    android:layout_height="700dp"
+                    android:layout_height="500dp"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="100dp"
                     android:layout_marginEnd="32dp"
@@ -105,7 +105,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/printingInstructions"
                     android:layout_width="900dp"
-                    android:layout_height="700dp"
+                    android:layout_height="500dp"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="100dp"
                     android:layout_marginEnd="32dp"
@@ -119,63 +119,88 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
 
+                                <ScrollView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                        <LinearLayout
+                                            android:layout_width="900dp"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal">
+
+                                                <LinearLayout
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="match_parent"
+                                                    android:layout_weight="1"
+                                                    android:orientation="vertical"
+                                                    android:layout_gravity="left">
+
+                                                        <TextView
+                                                            android:id="@+id/printInstructions"
+                                                            android:layout_width="400dp"
+                                                            android:layout_height="wrap_content"
+                                                            android:layout_marginStart="50dp"
+                                                            android:layout_marginTop="33dp"
+                                                            android:layout_weight="1"
+                                                            android:text="@string/PrintingInstructions"
+                                                            android:textStyle="normal" />
+
+                                                        <ImageView
+                                                            android:id="@+id/printStart"
+                                                            android:layout_width="300dp"
+                                                            android:layout_height="250dp"
+                                                            android:layout_marginTop="100dp"
+                                                            android:layout_marginEnd="50dp"
+                                                            android:layout_weight="1"
+                                                            android:src="@drawable/printstart" />
+
+                                                        <ImageView
+                                                            android:id="@+id/printSpeedArea"
+                                                            android:layout_width="300dp"
+                                                            android:layout_height="400dp"
+                                                            android:layout_marginTop="16dp"
+                                                            android:layout_marginEnd="50dp"
+                                                            android:layout_weight="2"
+                                                            android:src="@drawable/printspeedarea" />
+
+                                                        <ImageView
+                                                            android:id="@+id/printSigntype"
+                                                            android:layout_width="300dp"
+                                                            android:layout_height="400dp"
+                                                            android:layout_marginTop="16dp"
+                                                            android:layout_marginEnd="50dp"
+                                                            android:layout_weight="3"
+                                                            android:src="@drawable/printsigntype" />
+
+                                                        <ImageView
+                                                            android:id="@+id/printStop"
+                                                            android:layout_width="200dp"
+                                                            android:layout_height="wrap_content"
+                                                            android:layout_marginTop="16dp"
+                                                            android:layout_marginEnd="100dp"
+                                                            android:layout_weight="4"
+                                                            android:src="@drawable/printstop" />
+
+                                                        <ImageView
+                                                            android:id="@+id/printStartPrinting"
+                                                            android:layout_width="200dp"
+                                                            android:layout_height="wrap_content"
+                                                            android:layout_marginTop="16dp"
+                                                            android:layout_marginEnd="100dp"
+                                                            android:layout_weight="5"
+                                                            android:src="@drawable/printstartprinting" />
+
+                                                </LinearLayout>
+
+                                        </LinearLayout>
+                                </ScrollView>
+
                                 <TextView
                                     android:id="@+id/printingTextGuide"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="400dp"
                                     android:layout_height="wrap_content"
                                     android:text="@string/PrintingTextGuide"
-                                    tools:layout_editor_absoluteX="59dp"
-                                    tools:layout_editor_absoluteY="39dp" />
-
-                                <TextView
-                                    android:id="@+id/printInstructions"
-                                    android:layout_width="400dp"
-                                    android:layout_height="400dp"
-                                    android:lines="8"
-                                    android:text="@string/PrintingInstructions"
-                                    android:textStyle="normal"
-                                    tools:layout_editor_absoluteX="58dp"
-                                    tools:layout_editor_absoluteY="106dp" />
-
-                                <ImageView
-                                    android:id="@+id/printStart"
-                                    android:layout_width="300dp"
-                                    android:layout_height="200dp"
-                                    android:src="@drawable/printstart"
-                                    tools:layout_editor_absoluteX="545dp"
-                                    tools:layout_editor_absoluteY="23dp" />
-
-                                <ImageView
-                                    android:id="@+id/printSpeedArea"
-                                    android:layout_width="300dp"
-                                    android:layout_height="200dp"
-                                    android:src="@drawable/printspeedarea"
-                                    tools:layout_editor_absoluteX="541dp"
-                                    tools:layout_editor_absoluteY="193dp" />
-
-                                <ImageView
-                                    android:id="@+id/printSigntype"
-                                    android:layout_width="300dp"
-                                    android:layout_height="200dp"
-                                    android:src="@drawable/printsigntype"
-                                    tools:layout_editor_absoluteX="549dp"
-                                    tools:layout_editor_absoluteY="352dp" />
-
-                                <ImageView
-                                    android:id="@+id/printStartPrinting"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@drawable/printstartprinting"
-                                    tools:layout_editor_absoluteX="107dp"
-                                    tools:layout_editor_absoluteY="364dp" />
-
-                                <ImageView
-                                    android:id="@+id/printStop"
-                                    android:layout_width="300dp"
-                                    android:layout_height="wrap_content"
-                                    android:src="@drawable/printstop"
-                                    tools:layout_editor_absoluteX="69dp"
-                                    tools:layout_editor_absoluteY="464dp" />
+                                    tools:layout_editor_absoluteY="1342dp" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -186,7 +211,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/userPreferenceInstructions"
                     android:layout_width="900dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="500dp"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="100dp"
                     android:layout_marginEnd="32dp"
@@ -195,54 +220,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/importButtonGuide"
                     app:layout_constraintTop_toTopOf="parent">
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                                <TextView
-                                    android:id="@+id/userPreferenceTextGuide"
-                                    android:layout_width="400dp"
-                                    android:layout_height="200dp"
-                                    android:layout_marginStart="100dp"
-                                    android:layout_marginTop="50dp"
-                                    android:text="@string/userPreferenceTextGuide"
-                                    android:textStyle="normal"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent" />
-
-                                <ImageView
-                                    android:id="@+id/daynight"
-                                    android:layout_width="150dp"
-                                    android:layout_height="200dp"
-                                    android:layout_marginTop="32dp"
-                                    android:src="@drawable/instructiondaynight"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintStart_toEndOf="@+id/userPreferenceTextGuide"
-                                    app:layout_constraintTop_toTopOf="parent" />
-
-                                <TextView
-                                    android:id="@+id/userPreferenceTextGuide2"
-                                    android:layout_width="400dp"
-                                    android:layout_height="200dp"
-                                    android:layout_marginStart="100dp"
-                                    android:layout_marginTop="32dp"
-                                    android:text="@string/userPreferenceTextGuide2"
-                                    android:textStyle="normal"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@+id/userPreferenceTextGuide" />
-
-                                <ImageView
-                                    android:id="@+id/globe"
-                                    android:layout_width="150dp"
-                                    android:layout_height="200dp"
-                                    android:src="@drawable/globe1"
-                                    app:layout_constraintBottom_toBottomOf="parent"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintStart_toEndOf="@+id/userPreferenceTextGuide2"
-                                    app:layout_constraintTop_toBottomOf="@+id/daynight" />
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.cardview.widget.CardView>
 
