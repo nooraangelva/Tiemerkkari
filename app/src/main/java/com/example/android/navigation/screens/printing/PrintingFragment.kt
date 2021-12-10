@@ -124,18 +124,16 @@ class PrintingFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
 
-                binding.printingButtonPrinting.isVisible =true
-
             }
             else{
 
-                Toast.makeText(
-                    context,
-                    "Disconnected from device: ${viewModel.device.value}",
-                    Toast.LENGTH_SHORT
-                ).show()
-
-                binding.printingButtonPrinting.isVisible = false
+                if(viewModel.connectedCount.value!! > 0){
+                    Toast.makeText(
+                        context,
+                        "Disconnected from device: ${viewModel.device.value}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
 
             }
 
