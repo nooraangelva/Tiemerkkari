@@ -248,7 +248,7 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
 
         }
 
-        //write(""""{"Commands":["DONE"]}"""")
+        write(""""{"Commands":["DONE"]}"""")
 
         _isPrinting.value = true
 
