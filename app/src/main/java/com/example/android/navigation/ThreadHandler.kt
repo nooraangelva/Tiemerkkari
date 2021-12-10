@@ -1,6 +1,7 @@
 package com.example.android.navigation
 
 import android.bluetooth.*
+import android.bluetooth.BluetoothDevice.TRANSPORT_LE
 import android.bluetooth.le.ScanCallback
 import android.bluetooth.le.ScanResult
 import android.content.Context
@@ -55,6 +56,9 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
                         }, 100)
 
 
+                        val characteristic1 = service?.getCharacteristic(CHARACTERISTIC_UUID_RECEIVE)
+                        bluetoothGatt?.setCharacteristicNotification(characteristic1, true)
+                        Timber.tag("ThreadHandler").v(""+characteristic?.value)
 
 
 
@@ -113,7 +117,6 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
     fun connectToDevice(bluetoothDevice: BluetoothDevice, name : String) {
 
         bluetoothGatt = bluetoothDevice.connectGatt( thisContext, true, bleGattCallback)
-
         val msgReply = Message()
         msgReply.what = CONNECT
         msgReply.obj = name
@@ -138,7 +141,7 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
 
                 if(!bluetoothDevice.name.isNullOrEmpty()) {
 
-                    if (bluetoothDevice.name.contains("Tiemerkkari3", true)) {
+                    if (bluetoothDevice.name.contains("Testi", true)) {
 
                         Timber.tag("ThreadHandler").v("Device found: ${bluetoothDevice.name}")
                         connectToDevice(bluetoothDevice, bluetoothDevice.name)
@@ -211,7 +214,7 @@ class ThreadHandler(val mainThreadHandler: Handler?, val thisContext : Context, 
                 val characteristic = service?.getCharacteristic(CHARACTERISTIC_UUID_RECEIVE)
 
                 gatt?.setCharacteristicNotification(characteristic, true)
-
+                characteristic?.value
             }
 
             // When messages are received,

@@ -97,6 +97,10 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
     val connected: LiveData<Boolean>
         get() = _connected
 
+    private val _connectCount = MutableLiveData<Int>()
+    val connectedCount: LiveData<Int>
+        get() = _connectCount
+
     // Stores devices name
     private val _device = MutableLiveData<String>()
     val device: LiveData<String>
@@ -122,6 +126,7 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
         _finished.value = false
         _connected.value = false
         _isPrinting.value = false
+        _connectCount.value = 0
 
         // Creating mainThread
         // handles incoming messages from the other thread
@@ -142,13 +147,16 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
                     CONNECT -> {
 
                         _connected.value = true
+                        _isPrinting.value = false
                         _device.value = msg.obj.toString()
+                        _connectCount.value = _connectCount.value!! +1
 
                     }
                     // Disconnects from Arduino and quits thread
                     DISCONNECT -> {
 
                         _connected.value = false
+                        _isPrinting.value = false
 
                     }
 
@@ -235,12 +243,12 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
 
         _steps.value?.forEachIndexed { index, step ->
 
-            val array = "${getOrder(step.order)},${step.parY},${step.parX},${step.paint},${step.step}"
+            val array = """{"Commands":["${step.order}","${step.parY}","${step.parX}","${step.paint}","${step.step}" ]}"""
             write(array)
 
         }
 
-        write("DONE")
+        write(""""{"Commands":["DONE"]}"""")
 
         _isPrinting.value = true
 
@@ -266,7 +274,7 @@ class PrintingViewModel (signId: Long, val database: SignDatabaseDao, applicatio
     fun emergencyStop(){
 
         _isPrinting.value = false
-        val array = "STOP"
+        val array = """{"Commands":["STOP"]}"""
         write(array)
 
     }

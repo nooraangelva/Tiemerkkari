@@ -84,28 +84,28 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
     // Creates signs from input data
     fun createSign() {
 
-        val temp = Signs()
-        temp.sourcePicture = signSource.value!!
-        temp.signName = signName.value!!
-        temp.info = signInfo.value!!
-        temp.speedArea = speedArea.value!!
-        temp.type = getType()
-
         // Checks that the input values are not empty
         when {
-            temp.sourcePicture.isEmpty() -> {
+            signSource.value.isNullOrEmpty() -> {
                 _error.value = "Get Picture"
             }
-            temp.signName.isEmpty() -> {
+            signName.value.isNullOrEmpty() -> {
                 _error.value = "Set Name"
             }
-            temp.info.isEmpty() -> {
+            signInfo.value.isNullOrEmpty() -> {
                 _error.value = "set Info"
             }
-            temp.type == -1 -> {
+            getType() == -1 -> {
                 _error.value = "set Type"
             }
             else -> {
+
+                val temp = Signs()
+                temp.sourcePicture = signSource.value!!
+                temp.signName = signName.value!!
+                temp.info = signInfo.value!!
+                temp.speedArea = speedArea.value!!
+                temp.type = getType()
 
                 // Sends sign input to be put to the database and gets the created signs singId,
                 // tells the user has been created
@@ -154,19 +154,21 @@ class ImportViewModel (val database: SignDatabaseDao, application: Application) 
 
         uiScope.launch {
 
-            val temp = Instructions(0,_signId.value!!,
-                index,whichOrder(step.order),step.parX.toInt(),
-                step.parY.toInt(),whichPaint(step.paint))
 
             when {
 
-                step.parX.isEmpty() -> {
+                step.parX.isNullOrEmpty() -> {
                     _error.value = "Set value to X"
                 }
-                step.parY.isEmpty() -> {
+                step.parY.isNullOrEmpty() -> {
                     _error.value = "Set value to Y"
                 }
                 else -> {
+
+                    val temp = Instructions(0,_signId.value!!,
+                        index,whichOrder(step.order),step.parX.toInt(),
+                        step.parY.toInt(),whichPaint(step.paint))
+
                     createStepToDatabase(temp)
                 }
 
