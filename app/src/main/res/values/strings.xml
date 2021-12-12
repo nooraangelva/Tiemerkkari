@@ -63,6 +63,6 @@
     <string name="userPreferenceTextGuide">Voit vaihtaa yö tai päivä modeen oheisen kuvakkeen kautta</string>
     <string name="userPreferenceTextGuide2">Voit vaihtaa sovelluksen kieltä oheisen kuvakkeen kautta</string>
     <string name="PrintingTextGuide">Tulostamisen aloittaminen</string>
-    <string name="PrintingInstructions">1. Valitse start 2. Valitse nopeusalue 3. valitse haluttu merkki 4. valitse galleriasta haluamasi merkki 5. Aloita tulostus 7.voit halutessasi keskeyttää tulostuksen</string>
+    <string name="PrintingInstructions">\n1. Valitse start \n\n\n\n2. Valitse nopeusalue \n\n\n\n\n3. valitse haluttu merkki \n\n\n4. Voit valita galleriasta haluamasi merkin \n\n\n\n\n5. Tämän jälkeen voit aloittaa tulostuksen ja halutessasi keskkettää</string>
 
 </resources>
