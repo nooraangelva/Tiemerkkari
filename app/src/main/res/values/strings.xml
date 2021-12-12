@@ -25,8 +25,8 @@
 
 
 
-    <string name="yMovementInputListItemsSteps">Y movement</string>
-    <string name="xMovementInputListItemSteps">X movement</string>
+    <string name="yMovementInputListItemsSteps">Y movement, use cm</string>
+    <string name="xMovementInputListItemSteps">X movement, use cm</string>
 
     <string-array name="type_options_array">
         <item>Arrows</item>
