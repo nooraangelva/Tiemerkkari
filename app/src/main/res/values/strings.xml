@@ -63,6 +63,9 @@
     <string name="userPreferenceTextGuide">Voit vaihtaa yö tai päivä modeen oheisen kuvakkeen kautta</string>
     <string name="userPreferenceTextGuide2">Voit vaihtaa sovelluksen kieltä oheisen kuvakkeen kautta</string>
     <string name="PrintingTextGuide">Tulostamisen aloittaminen</string>
-    <string name="PrintingInstructions">\n1. Valitse start \n\n\n\n2. Valitse nopeusalue \n\n\n\n\n3. valitse haluttu merkki \n\n\n4. Voit valita galleriasta haluamasi merkin \n\n\n\n\n5. Tämän jälkeen voit aloittaa tulostuksen ja halutessasi keskkettää</string>
+    <string name="PrintingInstructions">\n1. Valitse start \n\n\n\n\n2. Valitse nopeusalue \n\n\n\n\n3. valitse haluttu merkki \n\n\n4. Voit valita galleriasta haluamasi merkin \n\n\n\n\n5. Tämän jälkeen voit aloittaa tulostuksen ja halutessasi keskkettää</string>
+    <string name="importTextInstructions">2. Ladataksesi kuvan näpäytä Get image painiketta. Tämän jälkeen pääset valitsemaan tabletin galleriasta kuva, jonka jälkeen voit syötää haluamasi arvot ja muut ominaisuudet. Lopuksi paina Create.</string>
+    <string name="importTextGuide">Kuvan lisääminen \n\n\n1. Valitse import \n\n\n\n\n</string>
+    <string name="importTextInstructions2">"Seuraavaksi syötä haluamasi stepit eli liikeradat X ja Y sarakkeisiin. Tämän jälkeen valitse vielä maalin leveys. Plussasta saat lisää steppejä ohjelmoitua. Tämän jälkeen voit tallentaa muutokset SAVE STEP painikkeen kautta. Nyt luomasi merkki löytyy tulostusvalikosta. "</string>
 
 </resources>
