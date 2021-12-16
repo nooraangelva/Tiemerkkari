@@ -71,33 +71,35 @@
 
         <EditText
             android:id="@+id/xMovementInputListItemSteps"
-            android:text="@={step.parX}"
-            android:hint="@string/xMovementInputListItemSteps"
-            android:inputType="number"
             android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="314dp"
+            android:layout_height="60dp"
             android:layout_marginTop="32dp"
+            android:layout_marginEnd="100dp"
             android:ems="10"
-            app:layout_constraintStart_toStartOf="parent"
             android:focusable="true"
             android:focusableInTouchMode="true"
+            android:hint="@string/xMovementInputListItemSteps"
+            android:inputType="number"
+            android:text="@={step.parX}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <!-- ***********        Y input movement         *********** -->
 
         <EditText
             android:id="@+id/yMovementInputListItemSteps"
-            android:text="@={step.parY}"
-            android:hint="@string/yMovementInputListItemsSteps"
-            android:inputType="number"
             android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="314dp"
+            android:layout_height="60dp"
             android:layout_marginTop="32dp"
+            android:layout_marginEnd="100dp"
             android:ems="10"
             android:focusable="true"
             android:focusableInTouchMode="true"
+            android:hint="@string/yMovementInputListItemsSteps"
+            android:inputType="number"
+            android:text="@={step.parY}"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/radioGroupOrderListItemSteps"
             app:layout_constraintTop_toBottomOf="@+id/xMovementInputListItemSteps" />
 

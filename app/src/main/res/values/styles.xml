@@ -18,14 +18,7 @@
         <item name="toolbarStyle">@style/CustomToolBarStyleDark</item>
         <item name="spinnerStyle">@style/spinnerDark</item>
         <item name="android:textColorHint">@color/hintTextColor</item>
-
-        <!--<item name="materialButtonStyle">@style/Buttons</item>
-
-        <item name="textAppearanceHeadline1">@style/textStyle</item>
-        <item name="colorAccent">@color/colorAccent</item>
-
-  -->
-
+        <item name="checkboxStyle">@style/checkBoxDark</item>
     </style>
 
     <style name="LightTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
@@ -44,12 +37,6 @@
         <item name="toolbarStyle">@style/CustomToolBarStyleLight</item>
         <item name="spinnerStyle">@style/spinnerLight</item>
         <item name="android:textColorHint">@color/hintTextColor</item>
-
-
-        <!--
-         <item name="checkboxStyle">@style/checkBoxDark</item>
-        <item name="textAppearanceHeadline1">@style/textStyle</item>
-            <item name="toolbar">@color/toolbarLight</item>-->
     </style>
 
     <!-- ***********        Buttons         *********** -->
@@ -146,11 +133,11 @@
 
     </style>
 
-    <!--CHECKBOX
+    <!--CHECKBOX-->
     <style name="checkBoxDark" parent="@style/Widget.AppCompat.CompoundButton.CheckBox">
-        <item name="android:textColor">#302F2F</item>
-        <item name="android:textSize">15dp</item>
-    </style>-->
+        <item name="android:textColor">@color/othersTextColorDark</item>
+        <item name="android:textSize">40dp</item>
+    </style>
 
     <!-- ***********        Listnumber         *********** -->
 
@@ -184,7 +171,7 @@
 
     <style name="spinnerDark" parent="@style/Widget.AppCompat.Spinner.DropDown">
         <item name="android:textColor">@color/othersTextColorDark</item>
-        <item name="android:textSize">25dp</item>
+        <item name="android:textSize">40dp</item>
         <item name="android:fontFamily">@font/montserrat</item>
         <item name="android:background">@drawable/ic_spinner_down_dark</item>
         <item name="android:popupBackground">@drawable/spinner_dropdown_dark</item>
@@ -192,7 +179,7 @@
     </style>
     <style name="spinnerLight" parent="@style/Widget.AppCompat.Spinner.DropDown">
         <item name="android:textColor">@color/othersTextColorLight</item>
-        <item name="android:textSize">25dp</item>
+        <item name="android:textSize">40dp</item>
         <item name="android:fontFamily">@font/montserrat</item>
         <item name="android:background">@drawable/ic_spinner_down_light</item>
         <item name="android:popupBackground">@drawable/spinner_dropdown_light</item>
