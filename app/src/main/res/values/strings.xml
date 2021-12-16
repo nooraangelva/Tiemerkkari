@@ -60,12 +60,12 @@
     <string name="_50_cm_wide_paintingRadioButton">50 cm wide painting</string>
 
     <!-- ohjeet -->
-    <string name="userPreferenceTextGuide">Voit vaihtaa yö tai päivä modeen oheisen kuvakkeen kautta</string>
-    <string name="userPreferenceTextGuide2">Voit vaihtaa sovelluksen kieltä oheisen kuvakkeen kautta</string>
-    <string name="PrintingTextGuide">Tulostamisen aloittaminen</string>
-    <string name="PrintingInstructions">\n1. Valitse start \n\n\n\n\n2. Valitse nopeusalue \n\n\n\n\n3. valitse haluttu merkki \n\n\n4. Voit valita galleriasta haluamasi merkin \n\n\n\n\n5. Tämän jälkeen voit aloittaa tulostuksen ja halutessasi keskkettää</string>
-    <string name="importTextInstructions">2. Ladataksesi kuvan näpäytä Get image painiketta. Tämän jälkeen pääset valitsemaan tabletin galleriasta kuva, jonka jälkeen voit syötää haluamasi arvot ja muut ominaisuudet. Lopuksi paina Create.</string>
-    <string name="importTextGuide">Kuvan lisääminen \n\n\n1. Valitse import \n\n\n\n\n</string>
-    <string name="importTextInstructions2">"Seuraavaksi syötä haluamasi stepit eli liikeradat X ja Y sarakkeisiin. Tämän jälkeen valitse vielä maalin leveys. Plussasta saat lisää steppejä ohjelmoitua. Tämän jälkeen voit tallentaa muutokset SAVE STEP painikkeen kautta. Nyt luomasi merkki löytyy tulostusvalikosta. "</string>
+    <string name="userPreferenceTextGuide">You can change the night or day mode via the icon below.</string>
+    <string name="userPreferenceTextGuide2">You can change the language of the application via the icon below.</string>
+    <string name="PrintingTextGuide">Starting printing</string>
+    <string name="PrintingInstructions">\ n 1. Click start \ n \ n \ n \ n \ n2. Select a speed range \ n \ n \ n \ n \ n3. select the desired character \ n \ n \ n4. You can select the desired character from the gallery \ n \ n \ n \ n \ n5. You can then start printing and, if desired, pause.</string>
+    <string name="importTextInstructions">2. Click the Get image button to download the image. You can then select an image from your tablet\'s gallery, then enter the values and other properties you want. Finally, press Create.</string>
+    <string name="importTextGuide">Adding an image \ n \ n \ n1. Select import \ n \ n \ n \ n \ n</string>
+    <string name="importTextInstructions2">Next, enter the desired steps, ie trajectories, in the X and Y columns. Then select the width of the paint. Plus you can program more steps. You can then save the changes via the SAVE STEP button. The character you created now can be found in the print menu.</string>
 
 </resources>
